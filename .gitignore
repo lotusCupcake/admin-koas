@@ -89,6 +89,11 @@ vendor/
 # IDE / Development Files
 #-------------------------
 
+#-------------------------
+# Sesion
+#-------------------------
+public/null/
+
 # Modules Testing
 _modules/*
 
@@ -125,3 +130,8 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+node_modules
+
+public/null/
+
+public/menu/menu.json
