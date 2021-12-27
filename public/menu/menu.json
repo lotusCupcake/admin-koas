@@ -1,0 +1,38 @@
+[{
+        "id": "1",
+        "nama": "Home",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": "#"
+    },
+    {
+        "id": "2",
+        "nama": "Menu",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": "#"
+    },
+    {
+        "id": "3",
+        "nama": "Dashboard",
+        "parent": "1",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": "/home"
+    },
+    {
+        "id": "4",
+        "nama": "Utama",
+        "parent": "2",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": "/home"
+    }
+
+]

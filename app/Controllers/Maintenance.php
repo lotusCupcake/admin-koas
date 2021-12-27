@@ -10,6 +10,7 @@ class Maintenance extends BaseController
             'title' => "Maintenance",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Mainteance'],
+            'menu' => $this->fetchMenu()
         ];
         return view('pages/maintenance', $data);
     }

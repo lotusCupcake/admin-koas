@@ -10,6 +10,7 @@ class Home extends BaseController
             'title' => "Home",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Dashboard'],
+            'menu' => $this->fetchMenu()
         ];
         return view('pages/home', $data);
     }

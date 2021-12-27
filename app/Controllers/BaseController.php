@@ -49,4 +49,67 @@ class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+
+    public function fetchMenu()
+    {
+        $file = "public/menu/menu.json";
+        $data = file_get_contents(ROOTPATH . $file);
+
+        $data = json_decode($data, false);
+
+        $titles = [];
+        $parents = [];
+        $childs = [];
+
+        foreach ($data as $resource) {
+            if ($resource->parent == 0 && $resource->level == 'title') {
+                $titles[] = $resource;
+            }
+
+            if ($resource->parent != 0 && $resource->level == 'parent') {
+                $parents[] = $resource;
+            }
+
+            if ($resource->parent != 0 && $resource->level == 'child') {
+                $childs[] = $resource;
+            }
+        }
+
+        $menu = "";
+        foreach ($titles as $title) {
+            $menu .= '<li class="menu-header">' . $title->nama . '</li>';
+
+            foreach ($parents as $parent) {
+                if ($title->id == $parent->parent) {
+                    if ($parent->status) {
+                        $menu .= '<li class="nav-item dropdown"><a href="' . $parent->pages . '" class="nav-link has-dropdown" data-toggle="dropdown"><i class="' . $parent->icon . '"></i> <span>' . $parent->nama . '</span></a><ul class="dropdown-menu">';
+                    } else {
+                        $menu .= '<li class="nav-item dropdown"><a href="/maintenance" class="nav-link has-dropdown"><i class="' . $parent->icon . '"></i><span>' . $parent->nama . '</span></a><ul class="dropdown-menu">';
+                    }
+
+                    foreach ($childs as $child) {
+                        if ($parent->id == $child->parent) {
+                            if ($child->status) {
+                                $menu .= '<li><a class="nav-link" href="' . $child->pages . '">' . $child->nama . '</a></li>';
+                            } else {
+                                $menu .= '<li><a class="nav-link" href="/maintenance">' . $child->nama . '</a></li>';
+                            }
+                        }
+                    }
+                    $menu .= '</ul></li>';
+                }
+            }
+            foreach ($childs as $child) {
+                if ($title->id == $child->parent) {
+                    if ($child->status) {
+                        $menu .= '<li><a class="nav-link" href="' . $child->pages . '"><i class="' . $child->icon . '"></i> <span>' . $child->nama . '</span></a></li>';
+                    } else {
+                        $menu .= '<li><a href="/maintenance"><i class="' . $child->icon . '"></i>   ' . $child->nama . '</a><ul>';
+                    }
+                }
+            }
+        }
+
+        return $menu;
+    }
 }

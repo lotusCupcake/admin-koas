@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 
-<?= view('layout/templateSidebar'); ?>
+<?= view('layout/templateSidebar', ['menus' => $menu]); ?>
 
 <!-- Main Content -->
 <div class="main-content">
