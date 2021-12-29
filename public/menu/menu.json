@@ -18,21 +18,147 @@
     },
     {
         "id": "3",
+        "nama": "Laporan",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": "#"
+    },
+    {
+        "id": "4",
         "nama": "Dashboard",
         "parent": "1",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-home",
         "pages": "/home"
     },
     {
-        "id": "4",
+        "id": "5",
         "nama": "Utama",
+        "parent": "2",
+        "level": "parent",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": "#"
+    },
+    {
+        "id": "6",
+        "nama": "Jadwal Kegiatan",
         "parent": "2",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/home"
+        "icon": "fas fa-calendar-week",
+        "pages": "/jadwalKegiatan"
+    },
+    {
+        "id": "7",
+        "nama": "Logbook",
+        "parent": "2",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-book-medical",
+        "pages": "/logbook"
+    },
+    {
+        "id": "8",
+        "nama": "Rekam Medis",
+        "parent": "2",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-medical",
+        "pages": "/rekamMedis"
+    },
+    {
+        "id": "9",
+        "nama": "Nilai",
+        "parent": "2",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/nilai"
+    },
+    {
+        "id": "10",
+        "nama": "Cetak",
+        "parent": "3",
+        "level": "parent",
+        "status": true,
+        "icon": "fas fa-print",
+        "pages": "#"
+    },
+    {
+        "id": "11",
+        "nama": "Data Rumah Sakit",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataRumahSakit"
+    },
+    {
+        "id": "12",
+        "nama": "Data Bagian",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataBagian"
+    },
+    {
+        "id": "13",
+        "nama": "Kegiatan",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/kegiatan"
+    },
+    {
+        "id": "14",
+        "nama": "Dosen Pembimbing",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dosenPembimbing"
+    },
+    {
+        "id": "15",
+        "nama": "Mahasiswa Profesi",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/mahasiswaProfesi"
+    },
+    {
+        "id": "16",
+        "nama": "Berita Acara Kegiatan",
+        "parent": "10",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/cetakBerita"
+    },
+    {
+        "id": "17",
+        "nama": "Surat Masuk Rumah Sakit",
+        "parent": "10",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/cetakSurat"
+    },
+    {
+        "id": "18",
+        "nama": "Nilai Mahasiswa Profesi",
+        "parent": "10",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/cetakNilai"
     }
 
 ]
