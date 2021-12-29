@@ -83,7 +83,7 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">Administrator KOAS</a>
+      <a href="/home">Administrator KOAS</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
     </div>
