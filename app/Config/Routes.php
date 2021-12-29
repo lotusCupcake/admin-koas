@@ -38,6 +38,9 @@ $routes->get('/home/(:any)', 'Home::index');
 // route maintenance
 $routes->get('/maintenance/(:any)', 'Maintenance::index');
 
+// route data rumah sakit
+$routes->get('/dataRumahSakit/(:any)', 'Home::index');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
