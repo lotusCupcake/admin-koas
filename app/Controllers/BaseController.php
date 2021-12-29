@@ -82,7 +82,7 @@ class BaseController extends Controller
             foreach ($parents as $parent) {
                 if ($title->id == $parent->parent) {
                     if ($parent->status) {
-                        $menu .= '<li class="nav-item dropdown"><a href="' . $parent->pages . '" class="nav-link has-dropdown" data-toggle="dropdown"><i class="' . $parent->icon . '"></i> <span>' . $parent->nama . '</span></a><ul class="dropdown-menu">';
+                        $menu .= '<li class="nav-item dropdown"><a href="' . $parent->pages . '" class="nav-link has-dropdown"><i class="' . $parent->icon . '"></i> <span>' . $parent->nama . '</span></a><ul class="dropdown-menu">';
                     } else {
                         $menu .= '<li class="nav-item dropdown"><a href="/maintenance" class="nav-link has-dropdown"><i class="' . $parent->icon . '"></i><span>' . $parent->nama . '</span></a><ul class="dropdown-menu">';
                     }
@@ -104,7 +104,7 @@ class BaseController extends Controller
                     if ($child->status) {
                         $menu .= '<li><a class="nav-link" href="' . $child->pages . '"><i class="' . $child->icon . '"></i> <span>' . $child->nama . '</span></a></li>';
                     } else {
-                        $menu .= '<li><a href="/maintenance"><i class="' . $child->icon . '"></i>   ' . $child->nama . '</a><ul>';
+                        $menu .= '<li><a class="nav-link" href="/maintenance"><i class="' . $child->icon . '"></i><span>   ' . $child->nama . '</span></a><ul>';
                     }
                 }
             }
