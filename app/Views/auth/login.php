@@ -75,7 +75,7 @@
 				<div class="absolute-bottom-left index-2">
 					<div class="text-light p-5 pb-2">
 						<div class="mb-5 pb-3">
-							<h1 style="color:white;" class="mb-2 display-4 font-weight-bold">Administrator KOAS</h1>
+							<h1 style="color:white;" class="mb-2 display-4 font-weight-bold">Administrator Koas</h1>
 							<h5 class="font-weight-normal text-muted-transparent">Fakultas Kedokteran UMSU</h5>
 						</div>
 					</div>

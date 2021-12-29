@@ -2,16 +2,16 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class Maintenance extends BaseController
 {
     public function index()
     {
         $data = [
-            'title' => "Home",
+            'title' => "Maintenance",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Dashboard'],
+            'breadcrumb' => ['Home', 'Maintenance'],
             'menu' => $this->fetchMenu()
         ];
-        return view('pages/home', $data);
+        return view('pages/maintenance', $data);
     }
 }

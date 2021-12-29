@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Selamat Datang di Aplikasi Koas UMSU</h1>
+      <h1>Maintenance</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="#"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
@@ -16,9 +16,16 @@
     </div>
     <div class="section-body">
       <div class="card">
-        <center>
-          <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_jcsfwbvi.json" background="transparent" speed="1" style="width: 650px; height: 500px;" loop autoplay></lottie-player>
-        </center>
+        <div class="container mt-5 mb-5">
+          <div class="page-error">
+            <div class="page-inner">
+              <h1>503</h1>
+              <div class="page-description">
+                Server Maintenance, please contact administrator
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

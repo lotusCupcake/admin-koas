@@ -30,7 +30,8 @@
     <div class="sidebar-brand sidebar-brand-sm">
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Dashboard</li>
+      <?= $menus ?>
+      <!-- <li class="menu-header">Dashboard</li>
       <li class="nav-item dropdown">
         <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
         <ul class="dropdown-menu">
@@ -72,6 +73,6 @@
           <li><a class="nav-link" href="bootstrap-tooltip.html">Tooltip</a></li>
           <li><a class="nav-link" href="bootstrap-typography.html">Typography</a></li>
         </ul>
-      </li>
+      </li> -->
   </aside>
 </div>

@@ -36,6 +36,7 @@
   <!-- Template JS File -->
   <script src="<?= base_url() ?>/template/assets/js/scripts.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/custom.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
   <!-- Page Specific JS File -->
 </body>
