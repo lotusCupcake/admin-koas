@@ -8,10 +8,10 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Bagian</h1>
+      <h1>Data Stase</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-        <div class="breadcrumb-item"><a href="/dataRumahSakit"><?= $breadcrumb[1]; ?></a></div>
+        <div class="breadcrumb-item"><a href="/dataBagian"><?= $breadcrumb[1]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
       </div>
     </div>
@@ -46,7 +46,7 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Bagian</th>
+                  <th scope="col">Nama Stase</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -78,14 +78,14 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Bagian</strong></h5>
+          <h5 class="modal-title">Tambah<strong> Data Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Bagian</label>
+            <label>Nama Stase</label>
             <input name="bagianNama" type="text" class="form-control">
           </div>
         </div>
@@ -105,15 +105,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit<strong> Data Bagian</strong></h5>
+          <h5 class="modal-title">Edit<strong> Data Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form action="/dataBagian/<?= $edit->bagianId; ?>/edit" method="post">
+          <?= csrf_field() ?>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Bagian</label>
+              <label>Nama Stase</label>
               <input name="bagianNama" type="text" class="form-control" value="<?= $edit->bagianNama; ?>">
             </div>
           </div>
@@ -134,13 +135,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Bagian</strong></h5>
+          <h5 class="modal-title">Hapus<strong> Data Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus Data Bagian <strong><?= $delete->bagianNama; ?></strong></p>
+          <p>Apakah kamu benar ingin menghapus Data Stase <strong><?= $delete->bagianNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/dataBagian/<?= $delete->bagianId; ?>" method="post">

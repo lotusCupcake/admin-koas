@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataRumahSakitModel extends Model
 {
     protected $table = 'rumkit';
-    protected $primaryKey = 'jadwalId';
-    protected $allowedFields = ['jadwalRumahSakitId', 'jadwalBagianId', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalDurasi'];
+    protected $primaryKey = 'rumahSakitId';
+    protected $allowedFields = ['rumahSakitNama', 'rumahSakitAlamat', 'rumahSakitTelp', 'rumahSakitLatLong'];
     protected $returnType = 'object';
 }

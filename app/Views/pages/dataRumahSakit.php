@@ -21,6 +21,46 @@
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahRumkit"><i class="fas fa-plus"></i> Tambah Data</button>
         </div>
         <div class="card-body">
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <div class="alert alert-success alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <?php echo session()->getFlashdata('success'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitNama')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitNama'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitLatLong')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitLatLong'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitTelp')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitTelp'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -33,36 +73,20 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td style="text-align:center" scope="row">1</td>
-                  <td>Rumah Sakit Islam Malahayati</td>
-                  <td>Jl. Pangeran Diponegoro No.2 - 4, Petisah Tengah, Kec. Medan Petisah, Kota Medan, Sumatera Utara 20112</td>
-                  <td>(061) 4518766</td>
-                  <td style="text-align:center">
-                    <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit"><i class="fas fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align:center" scope="row">2</td>
-                  <td>RS Columbia Asia Medan</td>
-                  <td>Jl. Listrik No.2A, Petisah Tengah, Kec. Medan Petisah, Kota Medan, Sumatera Utara 20112</td>
-                  <td>(061) 4566368</td>
-                  <td style="text-align:center">
-                    <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit"><i class="fas fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align:center" scope="row">3</td>
-                  <td>Rumah Sakit Umum Pusat H. Adam Malik</td>
-                  <td>Jl. Bunga Lau No.17, Kemenangan Tani, Kec. Medan Tuntungan, Kota Medan, Sumatera Utara 20136</td>
-                  <td>(061) 8360143</td>
-                  <td style="text-align:center">
-                    <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit"><i class="fas fa-trash"></i></button>
-                  </td>
-                </tr>
+                <?php
+                $no = 1;
+                foreach ($dataRumahSakit as $row) : ?>
+                  <tr>
+                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                    <td><?= $row->rumahSakitNama; ?></td>
+                    <td><?= $row->rumahSakitAlamat; ?></td>
+                    <td><?= $row->rumahSakitTelp; ?></td>
+                    <td style="text-align:center">
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
               </tbody>
             </table>
           </div>
@@ -74,105 +98,118 @@
 <!-- start modal tambah  -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahRumkit">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah<strong> Data Rumah Sakit</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Nama Rumah Sakit</label>
-          <input type="text" class="form-control">
+    <form action="/dataRumahSakit" method="POST">
+      <?= csrf_field() ?>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah<strong> Data Rumah Sakit</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label>Koordinat Rumah Sakit di Google Maps</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>No. Telp</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-phone"></i>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nama Rumah Sakit</label>
+            <input name="rumahSakitNama" type=" text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Koordinat Rumah Sakit di Google Maps</label>
+            <input name="rumahSakitLatLong" type=" text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>No. Telp</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-phone"></i>
+                </div>
               </div>
+              <input name="rumahSakitTelp" type="text" class="form-control phone-number">
             </div>
-            <input type="text" class="form-control phone-number">
           </div>
         </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="editRumkit">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit<strong> Data Rumah Sakit</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Nama Rumah Sakit</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Koordinat Rumah Sakit di Google Maps</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>No. Telp</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-phone"></i>
+<?php foreach ($dataRumahSakit as $edit) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="editRumkit">
+    <div class="modal-dialog" role="document">
+      <form action="/dataRumahSakit/<?= $edit->rumahSakitId; ?>/edit" method="POST">
+        <?= csrf_field() ?>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit<strong> Data Rumah Sakit</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Nama Rumah Sakit</label>
+              <input name="rumahSakitNama" type="text" class="form-control" value="<?= $edit->rumahSakitNama; ?>">
+            </div>
+            <div class="form-group">
+              <label>Koordinat Rumah Sakit di Google Maps</label>
+              <input name="rumahSakitLatLong" type=" text" class="form-control" value="<?= $edit->rumahSakitLatLong; ?>">
+            </div>
+            <div class="form-group">
+              <label>No. Telp</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-phone"></i>
+                  </div>
+                </div>
+                <input name="rumahSakitTelp" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitTelp; ?>">
               </div>
             </div>
-            <input type="text" class="form-control phone-number">
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </div>
-      </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      </form>
     </div>
   </div>
-</div>
+<?php endforeach ?>
 <!-- end modal edit -->
 
 <!-- start modal hapus  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="hapusRumkit">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Hapus<strong> Data Rumah Sakit</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Apakah kamu benar ingin menghapus data Rumah Sakit?</p>
-        <p class="text-warning"><small>This action cannot be undone</small></p>
-      </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<?php foreach ($dataRumahSakit as $delete) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusRumkit">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Hapus<strong> Data Rumah Sakit</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah kamu benar ingin menghapus data <strong><?= $delete->rumahSakitNama; ?></strong>?</p>
+          <p class="text-warning"><small>This action cannot be undone</small></p>
+        </div>
+        <form action="/dataRumahSakit/<?= $delete->rumahSakitId; ?>" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
-</div>
+<?php endforeach ?>
 <!-- end modal hapus -->
 
 <?= view('layout/templateFooter'); ?>

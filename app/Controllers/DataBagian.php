@@ -14,9 +14,9 @@ class DataBagian extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Bagian",
+            'title' => "Data Stase",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Data Bagian'],
+            'breadcrumb' => ['Home', 'Utama', 'Data Stase'],
             'dataBagian' => $this->dataBagianModel->whereNotIn('bagianId', [99])->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -30,8 +30,8 @@ class DataBagian extends BaseController
             'bagianNama' => [
                 'rules' => 'required|is_unique[bagian.bagianNama]',
                 'errors' => [
-                    'required' => 'Nama Bagian Harus Diisi',
-                    'is_unique' => 'Nama Bagian Sudah terdaftar',
+                    'required' => 'Nama Stase Harus Diisi',
+                    'is_unique' => 'Nama Stase Sudah terdaftar',
                 ]
             ],
         ])) {
@@ -55,7 +55,7 @@ class DataBagian extends BaseController
             'bagianNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Bagian Harus Diisi',
+                    'required' => 'Nama Stase Harus Diisi',
                 ]
             ],
         ])) {
@@ -68,7 +68,7 @@ class DataBagian extends BaseController
         );
 
         if ($this->dataBagianModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Bagian Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Ditambah !');
             return redirect()->to('dataBagian');
         }
     }
@@ -76,7 +76,7 @@ class DataBagian extends BaseController
     public function delete($id)
     {
         if ($this->dataBagianModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Bagian Berhasil Dihapus !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Dihapus !');
         };
         return redirect()->to('dataBagian');
     }
