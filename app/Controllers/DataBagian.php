@@ -17,7 +17,7 @@ class DataBagian extends BaseController
             'title' => "Data Bagian",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Data Bagian'],
-            'dataBagian' => $this->dataBagianModel->findAll(),
+            'dataBagian' => $this->dataBagianModel->whereNotIn('bagianId', [99])->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
