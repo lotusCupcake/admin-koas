@@ -86,20 +86,10 @@
           <label>Nama Rumah Sakit</label>
           <input type="text" class="form-control">
         </div>
-        <!-- <div class="form-group"> -->
-        <!-- <label>Koordinat Rumah Sakit di Google Maps</label>
-          <input type="text" class="form-control"> -->
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="latitude">Koordinat Latitude</label>
-            <input type="text" class="form-control" id="latitude" placeholder="3.5864943722830582">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="longitude">Koordinat Longitude</label>
-            <input type="text" class="form-control" id="longitude" placeholder="98.67253290816205">
-          </div>
+        <div class="form-group">
+          <label>Koordinat Rumah Sakit di Google Maps</label>
+          <input type="text" class="form-control">
         </div>
-        <!-- </div> -->
         <div class="form-group">
           <label>No. Telp</label>
           <div class="input-group">
@@ -136,19 +126,9 @@
           <label>Nama Rumah Sakit</label>
           <input type="text" class="form-control">
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label>Koordinat Rumah Sakit di Google Maps</label>
           <input type="text" class="form-control">
-        </div> -->
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="latitude">Koordinat Latitude</label>
-            <input type="text" class="form-control" id="latitude" placeholder="3.5864943722830582">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="longitude">Koordinat Longitude</label>
-            <input type="text" class="form-control" id="longitude" placeholder="98.67253290816205">
-          </div>
         </div>
         <div class="form-group">
           <label>No. Telp</label>

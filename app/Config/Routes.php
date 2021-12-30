@@ -43,9 +43,15 @@ $routes->get('/dataRumahSakit/(:any)', 'DataRumahSakit::index');
 
 // route data bagian
 $routes->get('/dataBagian/(:any)', 'DataBagian::index');
+$routes->post('/dataBagian', 'DataBagian::add');
+$routes->delete('/dataBagian/(:num)', 'DataBagian::delete/$1');
+$routes->add('/dataBagian/(:num)/edit', 'DataBagian::edit/$1');
 
 // route data bagian
 $routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
+
+// route jadwal kegiatan
+$routes->get('/jadwal/(:any)', 'Jadwal::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
