@@ -38,6 +38,14 @@ $routes->get('/home/(:any)', 'Home::index');
 // route maintenance
 $routes->get('/maintenance/(:any)', 'Maintenance::index');
 
+// route data rumah sakit
+$routes->get('/dataRumahSakit/(:any)', 'DataRumahSakit::index');
+
+// route data bagian
+$routes->get('/dataBagian/(:any)', 'DataBagian::index');
+
+// route data bagian
+$routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
