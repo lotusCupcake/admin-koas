@@ -38,7 +38,7 @@ class DataBagian extends BaseController
             return redirect()->to('dataBagian')->withInput();
         }
 
-
+        dd($_POST);
         $data = array(
             'bagianNama' => $this->request->getPost('bagianNama'),
         );
@@ -68,7 +68,7 @@ class DataBagian extends BaseController
         );
 
         if ($this->dataBagianModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Stase Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Diupdate !');
             return redirect()->to('dataBagian');
         }
     }
