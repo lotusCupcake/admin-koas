@@ -63,12 +63,21 @@
     },
     {
         "id": "8",
-        "nama": "Logbook",
+        "nama": "Logbook Dosen",
+        "parent": "2",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-book",
+        "pages": "/logbookDosen"
+    },
+    {
+        "id": "20",
+        "nama": "Logbook Mahasiswa",
         "parent": "2",
         "level": "child",
         "status": true,
         "icon": "fas fa-book-medical",
-        "pages": "/logbook"
+        "pages": "/logbookMahasiswa"
     },
     {
         "id": "9",
@@ -117,7 +126,7 @@
     },
     {
         "id": "14",
-        "nama": "Data Bagian",
+        "nama": "Data Stase",
         "parent": "6",
         "level": "child",
         "status": true,
@@ -134,7 +143,16 @@
         "pages": "/dosenPembimbing"
     },
     {
-        "id": "116",
+        "id": "21",
+        "nama": "Data Kegiatan",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKegiatan"
+    },
+    {
+        "id": "16",
         "nama": "Mahasiswa Profesi",
         "parent": "6",
         "level": "child",

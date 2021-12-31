@@ -40,12 +40,21 @@ $routes->get('/maintenance/(:any)', 'Maintenance::index');
 
 // route data rumah sakit
 $routes->get('/dataRumahSakit/(:any)', 'DataRumahSakit::index');
+$routes->post('/dataRumahSakit', 'DataRumahSakit::add');
+$routes->delete('/dataRumahSakit/(:num)', 'DataRumahSakit::delete/$1');
+$routes->add('/dataRumahSakit/(:num)/edit', 'DataRumahSakit::edit/$1');
 
 // route data bagian
 $routes->get('/dataBagian/(:any)', 'DataBagian::index');
+$routes->post('/dataBagian', 'DataBagian::add');
+$routes->delete('/dataBagian/(:num)', 'DataBagian::delete/$1');
+$routes->add('/dataBagian/(:num)/edit', 'DataBagian::edit/$1');
 
-// route data bagian
+// route dosen pembimbing
 $routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
+
+// route jadwal kegiatan
+$routes->get('/jadwal/(:any)', 'Jadwal::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
