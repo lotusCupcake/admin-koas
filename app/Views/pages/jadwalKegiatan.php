@@ -27,8 +27,8 @@
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tanggal</th>
                   <th scope="col">Durasi</th>
-                  <th width="30%" scope="col">Partisipan</th>
-                  <th scope="col">Bagian</th>
+                  <th width="30%" scope="col">Kelompok</th>
+                  <th scope="col">Stase</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -38,7 +38,7 @@
                   <td>31-10-2012-31-10-2021</td>
                   <td>3 Minggu 2 Hari</td>
                   <td>Muhamad Riyandi,Nadeo Arga Winata,Ernando Ari Sutaryadi,Ryuji Utomo Prabowo,</td>
-                  <td>Bagian Spesialis THT</td>
+                  <td>Stase Spesialis THT</td>
                   <td style="text-align:center">
                     <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan"><i class="fas fa-trash"></i></button>
@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Bagian</label>
+          <label>Stase</label>
           <select class="form-control select2">
             <option>Option 1</option>
             <option>Option 2</option>
@@ -102,7 +102,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Partisipan</label>
+          <label>Kelompok</label>
           <select class="form-control select2" multiple="">
             <option>Option 1</option>
             <option>Option 2</option>
@@ -156,7 +156,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Bagian</label>
+          <label>Stase</label>
           <select class="form-control select2">
             <option>Option 1</option>
             <option>Option 2</option>
@@ -172,7 +172,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Partisipan</label>
+          <label>Kelompok</label>
           <select class="form-control select2" multiple="">
             <option>Option 1</option>
             <option>Option 2</option>

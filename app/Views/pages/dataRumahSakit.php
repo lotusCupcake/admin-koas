@@ -147,6 +147,17 @@
               <input name="rumahSakitTelp" type="text" class="form-control phone-number">
             </div>
           </div>
+          <div class="form-group">
+            <label>Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-envelope"></i>
+                </div>
+              </div>
+              <input name="rumahSakitEmail" type="text" class="form-control phone-number">
+            </div>
+          </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -199,6 +210,17 @@
                   </div>
                 </div>
                 <input name="rumahSakitTelp" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitTelp; ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                </div>
+                <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="">
               </div>
             </div>
           </div>

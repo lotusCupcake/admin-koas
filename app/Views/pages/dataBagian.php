@@ -31,13 +31,13 @@
               </div>
             </div>
           <?php endif; ?>
-          <?php if ($validation->hasError('bagianNama')) : ?>
+          <?php if ($validation->hasError('staseNama')) : ?>
             <div class="alert alert-danger alert-dismissible show fade">
               <div class="alert-body">
                 <button class="close" data-dismiss="alert">
                   <span>&times;</span>
                 </button>
-                <strong>Failed ! </strong><?= $validation->getError('bagianNama'); ?>
+                <strong>Failed ! </strong><?= $validation->getError('staseNama'); ?>
               </div>
             </div>
           <?php endif; ?>
@@ -56,10 +56,10 @@
                 foreach ($dataBagian as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->bagianNama; ?></td>
+                    <td><?= $row->staseNama; ?></td>
                     <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataBagian<?= $row->bagianId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataBagian<?= $row->bagianId; ?>"><i class="fas fa-trash"></i></button>
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataBagian<?= $row->staseId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataBagian<?= $row->staseId; ?>"><i class="fas fa-trash"></i></button>
                     </td>
                   </tr>
                 <?php endforeach ?>
@@ -86,7 +86,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Nama Stase</label>
-            <input name="bagianNama" type="text" class="form-control">
+            <input name="staseNama" type="text" class="form-control">
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
@@ -101,7 +101,7 @@
 
 <!-- start modal edit  -->
 <?php foreach ($dataBagian as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="editDataBagian<?= $edit->bagianId; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="editDataBagian<?= $edit->staseId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -110,12 +110,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/dataBagian/<?= $edit->bagianId; ?>/edit" method="post">
+        <form action="/dataBagian/<?= $edit->staseId; ?>/edit" method="post">
           <?= csrf_field() ?>
           <div class="modal-body">
             <div class="form-group">
               <label>Nama Stase</label>
-              <input name="bagianNama" type="text" class="form-control" value="<?= $edit->bagianNama; ?>">
+              <input name="staseNama" type="text" class="form-control" value="<?= $edit->staseNama; ?>">
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
@@ -131,7 +131,7 @@
 
 <!-- start modal hapus  -->
 <?php foreach ($dataBagian as $delete) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="hapusDataBagian<?= $delete->bagianId; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusDataBagian<?= $delete->staseId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -141,10 +141,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus Data Stase <strong><?= $delete->bagianNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus Data Stase <strong><?= $delete->staseNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/dataBagian/<?= $delete->bagianId; ?>" method="post">
+        <form action="/dataBagian/<?= $delete->staseId; ?>" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
           <div class="modal-footer bg-whitesmoke br">

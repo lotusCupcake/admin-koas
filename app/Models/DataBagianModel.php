@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class DataBagianModel extends Model
 {
-    protected $table = 'bagian';
-    protected $primaryKey = 'bagianId';
-    protected $allowedFields = ['bagianNama'];
+    protected $table = 'stase';
+    protected $primaryKey = 'staseId';
+    protected $allowedFields = ['staseNama'];
     protected $returnType = 'object';
 }

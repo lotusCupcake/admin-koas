@@ -152,6 +152,15 @@
         "pages": "/dataKegiatan"
     },
     {
+        "id": "22",
+        "nama": "Data Kelompok",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKelompok"
+    },
+    {
         "id": "16",
         "nama": "Mahasiswa Profesi",
         "parent": "6",
