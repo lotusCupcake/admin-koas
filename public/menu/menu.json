@@ -125,6 +125,15 @@
         "pages": "/dataRumahSakit"
     },
     {
+        "id": "23",
+        "nama": "Stase Rumat Sakit",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/StaseRumahSakit"
+    },
+    {
         "id": "14",
         "nama": "Data Stase",
         "parent": "6",

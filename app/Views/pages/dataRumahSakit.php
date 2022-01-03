@@ -158,6 +158,17 @@
               <input name="rumahSakitEmail" type="text" class="form-control phone-number">
             </div>
           </div>
+          <!-- <div class="form-group">
+            <label>Pick Your Color</label>
+            <div class="input-group colorpickerinput">
+              <input type="text" class="form-control" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="fas fa-fill-drip"></i>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
