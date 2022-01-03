@@ -51,6 +51,12 @@ class DataRumahSakit extends BaseController
                     'required' => 'No. Telp Rumah Sakit Harus Diisi',
                 ]
             ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataRumahSakit')->withInput();
         }
@@ -60,6 +66,7 @@ class DataRumahSakit extends BaseController
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
+            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
             // 'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
 
@@ -96,17 +103,26 @@ class DataRumahSakit extends BaseController
                     'required' => 'No. Telp Rumah Sakit Harus Diisi',
                 ]
             ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataRumahSakit')->withInput();
         }
 
-        // dd($_POST);
+
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
+            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
             // 'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
+
+        // dd($this->request->getPost('rumahSakitEmail'));
 
         if ($this->dataRumahSakitModel->update($id, $data)) {
             session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Diupdate !');

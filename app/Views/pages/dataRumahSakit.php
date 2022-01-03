@@ -71,6 +71,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitEmail')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitEmail'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -231,7 +241,7 @@
                     <i class="fas fa-envelope"></i>
                   </div>
                 </div>
-                <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="">
+                <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitEmail; ?>">
               </div>
             </div>
           </div>
