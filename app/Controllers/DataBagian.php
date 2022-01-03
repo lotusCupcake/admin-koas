@@ -17,7 +17,7 @@ class DataBagian extends BaseController
             'title' => "Data Stase",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Data Stase'],
-            'dataBagian' => $this->dataBagianModel->whereNotIn('bagianId', [99])->findAll(),
+            'dataBagian' => $this->dataBagianModel->whereNotIn('staseId', [99])->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
@@ -27,8 +27,8 @@ class DataBagian extends BaseController
     public function add()
     {
         if (!$this->validate([
-            'bagianNama' => [
-                'rules' => 'required|is_unique[bagian.bagianNama]',
+            'staseNama' => [
+                'rules' => 'required|is_unique[stase.staseNama]',
                 'errors' => [
                     'required' => 'Nama Stase Harus Diisi',
                     'is_unique' => 'Nama Stase Sudah terdaftar',
@@ -38,9 +38,9 @@ class DataBagian extends BaseController
             return redirect()->to('dataBagian')->withInput();
         }
 
-
+        // dd($_POST);
         $data = array(
-            'bagianNama' => $this->request->getPost('bagianNama'),
+            'staseNama' => trim($this->request->getPost('staseNama')),
         );
 
         if ($this->dataBagianModel->insert($data)) {
@@ -52,7 +52,7 @@ class DataBagian extends BaseController
     public function edit($id)
     {
         if (!$this->validate([
-            'bagianNama' => [
+            'staseNama' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Stase Harus Diisi',
@@ -64,11 +64,11 @@ class DataBagian extends BaseController
 
 
         $data = array(
-            'bagianNama' => $this->request->getPost('bagianNama'),
+            'staseNama' => trim($this->request->getPost('staseNama')),
         );
 
         if ($this->dataBagianModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Stase Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Diupdate !');
             return redirect()->to('dataBagian');
         }
     }

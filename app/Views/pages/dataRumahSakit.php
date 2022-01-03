@@ -51,6 +51,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitLatLong')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitLatLong'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <?php if ($validation->hasError('rumahSakitTelp')) : ?>
             <div class="alert alert-danger alert-dismissible show fade">
               <div class="alert-body">
@@ -58,6 +68,16 @@
                   <span>&times;</span>
                 </button>
                 <strong>Failed ! </strong><?= $validation->getError('rumahSakitTelp'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitEmail')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitEmail'); ?>
               </div>
             </div>
           <?php endif; ?>
@@ -69,6 +89,7 @@
                   <th scope="col">Nama Rumah Sakit</th>
                   <th scope="col">Alamat</th>
                   <th width="15%" scope="col">No. Telp</th>
+                  <th scope="col">Email</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -81,9 +102,10 @@
                     <td><?= $row->rumahSakitNama; ?></td>
                     <td><?= $row->rumahSakitAlamat; ?></td>
                     <td><?= $row->rumahSakitTelp; ?></td>
+                    <td><?= $row->rumahSakitEmail; ?></td>
                     <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit"><i class="fas fa-trash"></i></button>
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit<?= $row->rumahSakitId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit<?= $row->rumahSakitId; ?>"><i class="fas fa-trash"></i></button>
                     </td>
                   </tr>
                 <?php endforeach ?>
@@ -112,9 +134,19 @@
             <label>Nama Rumah Sakit</label>
             <input name="rumahSakitNama" type=" text" class="form-control">
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>Koordinat Rumah Sakit di Google Maps</label>
             <input name="rumahSakitLatLong" type=" text" class="form-control">
+          </div> -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Koordinat Latitude</label>
+              <input name="rumahSakitLat" type="text" class="form-control" placeholder="3.586991674711143">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Koordinat Longitude</label>
+              <input name="rumahSakitLong" type="text" class="form-control" placeholder="98.6724470774826">
+            </div>
           </div>
           <div class="form-group">
             <label>No. Telp</label>
@@ -125,6 +157,28 @@
                 </div>
               </div>
               <input name="rumahSakitTelp" type="text" class="form-control phone-number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-envelope"></i>
+                </div>
+              </div>
+              <input name="rumahSakitEmail" type="text" class="form-control phone-number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Rumah Sakit Warna</label>
+            <div class="input-group colorpickerinput">
+              <input type="text" class="form-control" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="fas fa-fill-drip"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -140,7 +194,7 @@
 
 <!-- start modal edit  -->
 <?php foreach ($dataRumahSakit as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="editRumkit">
+  <div class="modal fade" tabindex="-1" role="dialog" id="editRumkit<?= $edit->rumahSakitId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/dataRumahSakit/<?= $edit->rumahSakitId; ?>/edit" method="POST">
         <?= csrf_field() ?>
@@ -156,9 +210,19 @@
               <label>Nama Rumah Sakit</label>
               <input name="rumahSakitNama" type="text" class="form-control" value="<?= $edit->rumahSakitNama; ?>">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Koordinat Rumah Sakit di Google Maps</label>
               <input name="rumahSakitLatLong" type=" text" class="form-control" value="<?= $edit->rumahSakitLatLong; ?>">
+            </div> -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Koordinat Latitude</label>
+                <input name="rumahSakitLat" type="text" class="form-control" value="<?= explode(",", $edit->rumahSakitLatLong)[0]; ?>" placeholder=" 3.586991674711143">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Koordinat Longitude</label>
+                <input name="rumahSakitLong" type="text" class="form-control" value="<?= explode(",", $edit->rumahSakitLatLong)[1]; ?>" placeholder=" 98.6724470774826">
+              </div>
             </div>
             <div class="form-group">
               <label>No. Telp</label>
@@ -169,6 +233,28 @@
                   </div>
                 </div>
                 <input name="rumahSakitTelp" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitTelp; ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                </div>
+                <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitEmail; ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Rumah Sakit Warna</label>
+              <div class="input-group colorpickerinput">
+                <input type="text" class="form-control" name="rumahSakitWarna" value="<?= $edit->rumahSakitWarna; ?>">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-fill-drip"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +271,7 @@
 
 <!-- start modal hapus  -->
 <?php foreach ($dataRumahSakit as $delete) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="hapusRumkit">
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusRumkit<?= $delete->rumahSakitId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

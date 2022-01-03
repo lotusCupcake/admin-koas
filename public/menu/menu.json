@@ -134,6 +134,15 @@
         "pages": "/dataBagian"
     },
     {
+        "id": "23",
+        "nama": "Stase Rumah Sakit",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/StaseRumahSakit"
+    },
+    {
         "id": "15",
         "nama": "Dosen Pembimbing",
         "parent": "6",
@@ -150,6 +159,15 @@
         "status": true,
         "icon": "",
         "pages": "/dataKegiatan"
+    },
+    {
+        "id": "22",
+        "nama": "Data Kelompok",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKelompok"
     },
     {
         "id": "16",

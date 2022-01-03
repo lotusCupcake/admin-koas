@@ -44,6 +44,12 @@ $routes->post('/dataRumahSakit', 'DataRumahSakit::add');
 $routes->delete('/dataRumahSakit/(:num)', 'DataRumahSakit::delete/$1');
 $routes->add('/dataRumahSakit/(:num)/edit', 'DataRumahSakit::edit/$1');
 
+// route stase rumah sakit
+$routes->get('/staseRumahSakit/(:any)', 'StaseRumahSakit::index');
+$routes->post('/staseRumahSakit', 'StaseRumahSakit::add');
+$routes->delete('/staseRumahSakit/(:num)', 'StaseRumahSakit::delete/$1');
+$routes->add('/staseRumahSakit/(:num)/edit', 'StaseRumahSakit::edit/$1');
+
 // route data bagian
 $routes->get('/dataBagian/(:any)', 'DataBagian::index');
 $routes->post('/dataBagian', 'DataBagian::add');

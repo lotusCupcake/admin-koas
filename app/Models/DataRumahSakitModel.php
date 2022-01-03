@@ -8,6 +8,6 @@ class DataRumahSakitModel extends Model
 {
     protected $table = 'rumkit';
     protected $primaryKey = 'rumahSakitId';
-    protected $allowedFields = ['rumahSakitNama', 'rumahSakitAlamat', 'rumahSakitTelp', 'rumahSakitLatLong'];
+    protected $allowedFields = ['rumahSakitNama', 'rumahSakitAlamat', 'rumahSakitTelp', 'rumahSakitLatLong', 'rumahSakitWarna', 'rumahSakitEmail'];
     protected $returnType = 'object';
 }

@@ -33,7 +33,13 @@ class DataRumahSakit extends BaseController
                     'required' => 'Nama Rumah Sakit Harus Diisi',
                 ]
             ],
-            'rumahSakitLatLong' => [
+            'rumahSakitLat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLong' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Koordinat Rumah Sakit Harus Diisi',
@@ -45,15 +51,23 @@ class DataRumahSakit extends BaseController
                     'required' => 'No. Telp Rumah Sakit Harus Diisi',
                 ]
             ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataRumahSakit')->withInput();
         }
 
         // dd($_POST);
         $data = array(
-            'rumahSakitNama' => $this->request->getPost('rumahSakitNama'),
-            'rumahSakitLatLong' => $this->request->getPost('rumahSakitLatLong'),
-            'rumahSakitTelp' => $this->request->getPost('rumahSakitTelp'),
+            'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
+            'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
+            'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
+            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
+            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
 
         if ($this->dataRumahSakitModel->insert($data)) {
@@ -71,7 +85,13 @@ class DataRumahSakit extends BaseController
                     'required' => 'Nama Rumah Sakit Harus Diisi',
                 ]
             ],
-            'rumahSakitLatLong' => [
+            'rumahSakitLat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLong' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Koordinat Rumah Sakit Harus Diisi',
@@ -83,17 +103,29 @@ class DataRumahSakit extends BaseController
                     'required' => 'No. Telp Rumah Sakit Harus Diisi',
                 ]
             ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataRumahSakit')->withInput();
         }
 
 
         $data = array(
-            'bagianNama' => $this->request->getPost('bagianNama'),
+            'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
+            'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
+            'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
+            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
+            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
 
+        // dd($this->request->getPost('rumahSakitEmail'));
+
         if ($this->dataRumahSakitModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Diupdate !');
             return redirect()->to('dataRumahSakit');
         }
     }
