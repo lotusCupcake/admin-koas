@@ -67,7 +67,7 @@ class DataRumahSakit extends BaseController
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
             'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
-            // 'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
+            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
 
         if ($this->dataRumahSakitModel->insert($data)) {
@@ -119,7 +119,7 @@ class DataRumahSakit extends BaseController
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
             'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
-            // 'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
+            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
         );
 
         // dd($this->request->getPost('rumahSakitEmail'));

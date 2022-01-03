@@ -89,6 +89,7 @@
                   <th scope="col">Nama Rumah Sakit</th>
                   <th scope="col">Alamat</th>
                   <th width="15%" scope="col">No. Telp</th>
+                  <th scope="col">Email</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -101,6 +102,7 @@
                     <td><?= $row->rumahSakitNama; ?></td>
                     <td><?= $row->rumahSakitAlamat; ?></td>
                     <td><?= $row->rumahSakitTelp; ?></td>
+                    <td><?= $row->rumahSakitEmail; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editRumkit<?= $row->rumahSakitId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusRumkit<?= $row->rumahSakitId; ?>"><i class="fas fa-trash"></i></button>
@@ -168,8 +170,8 @@
               <input name="rumahSakitEmail" type="text" class="form-control phone-number">
             </div>
           </div>
-          <!-- <div class="form-group">
-            <label>Pick Your Color</label>
+          <div class="form-group">
+            <label>Rumah Sakit Warna</label>
             <div class="input-group colorpickerinput">
               <input type="text" class="form-control" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
               <div class="input-group-append">
@@ -178,7 +180,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -242,6 +244,17 @@
                   </div>
                 </div>
                 <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitEmail; ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Rumah Sakit Warna</label>
+              <div class="input-group colorpickerinput">
+                <input type="text" class="form-control" name="rumahSakitWarna" value="<?= $edit->rumahSakitWarna; ?>">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-fill-drip"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -213,7 +213,6 @@
     </div>
   </div>
 </div>
-</div>
 <!-- end modal hapus -->
 
 <?= view('layout/templateFooter'); ?>
