@@ -16,16 +16,9 @@
     </div>
     <div class="section-body">
       <div class="card">
-        <div class="container mt-5 mb-5">
-          <div class="page-error">
-            <div class="page-inner">
-              <h1>503</h1>
-              <div class="page-description">
-                Server Maintenance, please contact administrator
-              </div>
-            </div>
-          </div>
-        </div>
+        <center>
+          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_4s3kvfcn.json" background="transparent" speed="1" style="width: 650px; height: 600px;" loop autoplay></lottie-player>
+        </center>
       </div>
     </div>
   </section>
