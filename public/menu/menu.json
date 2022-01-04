@@ -152,15 +152,6 @@
         "pages": "/dosenPembimbing"
     },
     {
-        "id": "21",
-        "nama": "Data Kegiatan",
-        "parent": "6",
-        "level": "child",
-        "status": true,
-        "icon": "",
-        "pages": "/dataKegiatan"
-    },
-    {
         "id": "22",
         "nama": "Data Kelompok",
         "parent": "6",
@@ -168,6 +159,15 @@
         "status": true,
         "icon": "",
         "pages": "/dataKelompok"
+    },
+    {
+        "id": "21",
+        "nama": "Data Kegiatan",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKegiatan"
     },
     {
         "id": "16",
