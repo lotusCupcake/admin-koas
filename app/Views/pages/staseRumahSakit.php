@@ -52,7 +52,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-bordered">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
@@ -64,21 +64,36 @@
               </thead>
               <tbody>
                 <?php $no = 1;
-                foreach ($staseRumahSakit->findAll() as $row) : ?>
+                $namars = [];
+                foreach ($staseRumahSakit->findAll() as $k) {
+                  if (!in_array($k->rumahSakitNama, $namars)) {
+                    array_push($namars, $k->rumahSakitNama);
+                  }
+                }
+                ?>
+
+                <?php foreach ($namars as $row) : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->rumahSakitNama; ?></td>
-                    <td><?= $row->staseNama; ?></td>
-                    <td style="text-align:center">
-                      <span class="badge <?= $row->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span>
-                    </td>
-                    </td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td style="text-align:center" scope="row" rowspan="<?= array_count_values($dataNamaRs)[$row] ?>"><?= $no++; ?></td>
+                    <td rowspan="<?= array_count_values($dataNamaRs)[$row] ?>"><?= $row ?></td>
+                    <?php $u = 0;
+                    foreach ($staseRumahSakit->findAll() as $r) : $u++; ?>
+                      <?php if ($r->rumahSakitNama == $row) : ?>
+                        <?php if ($u == 1) : ?>
+                          <td>asasda</td>
+                          <td>asdas</td>
+                          <td>asdas</td>
                   </tr>
-                <?php endforeach ?>
+                <?php else : ?>
+                  <tr>
+                    <td>asasda</td>
+                    <td>asdas</td>
+                    <td>asdas</td>
+                  </tr>
+                <?php endif ?>
+              <?php endif ?>
+            <?php endforeach ?>
+          <?php endforeach ?>
               </tbody>
             </table>
           </div>

@@ -35,6 +35,11 @@ $routes->setAutoRoute(true);
 // route home
 $routes->get('/home/(:any)', 'Home::index');
 
+// route mamajemen user
+$routes->get('/manajemenAkun/(:any)', 'ManajemenAkun::index');
+$routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
+$routes->add('/manajemenAkun/(:num)/edit', 'ManajemenAkun::edit/$1');
+
 // route maintenance
 $routes->get('/maintenance/(:any)', 'Maintenance::index');
 
