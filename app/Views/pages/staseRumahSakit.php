@@ -63,37 +63,20 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $no = 1;
-                $namars = [];
-                foreach ($staseRumahSakit->findAll() as $k) {
-                  if (!in_array($k->rumahSakitNama, $namars)) {
-                    array_push($namars, $k->rumahSakitNama);
-                  }
-                }
-                ?>
-
-                <?php foreach ($namars as $row) : ?>
+                <?php
+                $no = 1;
+                foreach ($staseRumahSakit->findAll() as $row) : ?>
                   <tr>
-                    <td style="text-align:center" scope="row" rowspan="<?= array_count_values($dataNamaRs)[$row] ?>"><?= $no++; ?></td>
-                    <td rowspan="<?= array_count_values($dataNamaRs)[$row] ?>"><?= $row ?></td>
-                    <?php $u = 0;
-                    foreach ($staseRumahSakit->findAll() as $r) : $u++; ?>
-                      <?php if ($r->rumahSakitNama == $row) : ?>
-                        <?php if ($u == 1) : ?>
-                          <td>asasda</td>
-                          <td>asdas</td>
-                          <td>asdas</td>
+                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                    <td scope="row"><?= $row->rumahSakitNama; ?></td>
+                    <td scope="row"><?= $row->staseNama; ?></td>
+                    <td style="text-align:center" scope="row"><span class="badge <?= $row->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
+                    <td style="text-align:center">
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
+                    </td>
                   </tr>
-                <?php else : ?>
-                  <tr>
-                    <td>asasda</td>
-                    <td>asdas</td>
-                    <td>asdas</td>
-                  </tr>
-                <?php endif ?>
-              <?php endif ?>
-            <?php endforeach ?>
-          <?php endforeach ?>
+                <?php endforeach ?>
               </tbody>
             </table>
           </div>
@@ -169,7 +152,6 @@
             <div class="form-group">
               <label>Rumah Sakit</label>
               <select name="detRumkit" class="form-control select2">
-                <option value="">--Select--</option>
                 <?php foreach ($dataRumahSakit->findAll() as $row) : ?>
                   <option value="<?= $row->rumahSakitId; ?>" <?php if ($row->rumahSakitId == $edit->rumkitDetRumkitId) echo "selected" ?>><?= $row->rumahSakitNama; ?></option>
                 <?php endforeach; ?>
@@ -178,7 +160,7 @@
             <div class="form-group">
               <label>Stase</label>
               <select name="detStase" class="form-control select2">
-                <option value="">--Select--</option>
+
                 <?php foreach ($dataBagian->findAll() as $row) : ?>
                   <option value="<?= $row->staseId; ?>" <?php if ($row->staseId == $edit->rumkitDetStaseId) echo "selected" ?>><?= $row->staseNama; ?></option>
                 <?php endforeach; ?>

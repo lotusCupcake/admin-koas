@@ -10,7 +10,7 @@
     <div class="section-header">
       <h1>Manajemen Akun</h1>
       <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item"><a href="#"><?= $breadcrumb[0]; ?></a></div>
+        <div class="breadcrumb-item"><a href="/manajemenAkun"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
       </div>
     </div>
