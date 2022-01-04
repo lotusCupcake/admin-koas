@@ -134,10 +134,6 @@
             <label>Nama Rumah Sakit</label>
             <input name="rumahSakitNama" type=" text" class="form-control">
           </div>
-          <!-- <div class="form-group">
-            <label>Koordinat Rumah Sakit di Google Maps</label>
-            <input name="rumahSakitLatLong" type=" text" class="form-control">
-          </div> -->
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Koordinat Latitude</label>
@@ -170,17 +166,7 @@
               <input name="rumahSakitEmail" type="text" class="form-control phone-number">
             </div>
           </div>
-          <div class="form-group">
-            <label>Rumah Sakit Warna</label>
-            <div class="input-group colorpickerinput">
-              <input type="text" class="form-control" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <i class="fas fa-fill-drip"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+          <input type="hidden" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -210,10 +196,6 @@
               <label>Nama Rumah Sakit</label>
               <input name="rumahSakitNama" type="text" class="form-control" value="<?= $edit->rumahSakitNama; ?>">
             </div>
-            <!-- <div class="form-group">
-              <label>Koordinat Rumah Sakit di Google Maps</label>
-              <input name="rumahSakitLatLong" type=" text" class="form-control" value="<?= $edit->rumahSakitLatLong; ?>">
-            </div> -->
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Koordinat Latitude</label>
@@ -246,17 +228,7 @@
                 <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitEmail; ?>">
               </div>
             </div>
-            <div class="form-group">
-              <label>Rumah Sakit Warna</label>
-              <div class="input-group colorpickerinput">
-                <input type="text" class="form-control" name="rumahSakitWarna" value="<?= $edit->rumahSakitWarna; ?>">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <i class="fas fa-fill-drip"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <input type="hidden" name="rumahSakitWarna" value="<?= $edit->rumahSakitWarna; ?>">
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

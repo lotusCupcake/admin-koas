@@ -42,7 +42,7 @@ class StaseRumahSakit extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data["staseRumahSakit"]->findAll());
+        // dd($data);
         return view('pages/staseRumahSakit', $data);
     }
 
@@ -61,12 +61,6 @@ class StaseRumahSakit extends BaseController
                     'required' => 'Stase Harus Dipilih!',
                 ]
             ],
-            // 'detStatus' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'Status Stase Harus Diisi!',
-            //     ]
-            // ],
         ])) {
             return redirect()->to('staseRumahSakit')->withInput();
         }
@@ -99,12 +93,6 @@ class StaseRumahSakit extends BaseController
                     'required' => 'Stase Harus Dipilih!',
                 ]
             ],
-            // 'detStatus' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'Status Stase Harus Diisi!',
-            //     ]
-            // ],
         ])) {
             return redirect()->to('staseRumahSakit')->withInput();
         }

@@ -52,7 +52,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-bordered">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
@@ -63,16 +63,14 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $no = 1;
+                <?php
+                $no = 1;
                 foreach ($staseRumahSakit->findAll() as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->rumahSakitNama; ?></td>
-                    <td><?= $row->staseNama; ?></td>
-                    <td style="text-align:center">
-                      <span class="badge <?= $row->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span>
-                    </td>
-                    </td>
+                    <td scope="row"><?= $row->rumahSakitNama; ?></td>
+                    <td scope="row"><?= $row->staseNama; ?></td>
+                    <td style="text-align:center" scope="row"><span class="badge <?= $row->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
@@ -154,7 +152,6 @@
             <div class="form-group">
               <label>Rumah Sakit</label>
               <select name="detRumkit" class="form-control select2">
-                <option value="">--Select--</option>
                 <?php foreach ($dataRumahSakit->findAll() as $row) : ?>
                   <option value="<?= $row->rumahSakitId; ?>" <?php if ($row->rumahSakitId == $edit->rumkitDetRumkitId) echo "selected" ?>><?= $row->rumahSakitNama; ?></option>
                 <?php endforeach; ?>
@@ -163,7 +160,7 @@
             <div class="form-group">
               <label>Stase</label>
               <select name="detStase" class="form-control select2">
-                <option value="">--Select--</option>
+
                 <?php foreach ($dataBagian->findAll() as $row) : ?>
                   <option value="<?= $row->staseId; ?>" <?php if ($row->staseId == $edit->rumkitDetStaseId) echo "selected" ?>><?= $row->staseNama; ?></option>
                 <?php endforeach; ?>

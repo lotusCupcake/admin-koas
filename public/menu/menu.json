@@ -116,15 +116,6 @@
         "pages": "/manajemenAkun"
     },
     {
-        "id": "13",
-        "nama": "Data Rumah Sakit",
-        "parent": "6",
-        "level": "child",
-        "status": true,
-        "icon": "",
-        "pages": "/dataRumahSakit"
-    },
-    {
         "id": "14",
         "nama": "Data Stase",
         "parent": "6",
@@ -132,6 +123,15 @@
         "status": true,
         "icon": "",
         "pages": "/dataBagian"
+    },
+    {
+        "id": "13",
+        "nama": "Data Rumah Sakit",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataRumahSakit"
     },
     {
         "id": "23",
