@@ -14,22 +14,22 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
+CI_ENVIRONMENT = development
 # CI_ENVIRONMENT = production
-
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+app.baseURL = 'http://localhost:8080/'
 # app.forceGlobalSecureRequests = false
 
-# app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
-# app.sessionCookieName = 'ci_session'
-# app.sessionExpiration = 7200
-# app.sessionSavePath = null
-# app.sessionMatchIP = false
-# app.sessionTimeToUpdate = 300
-# app.sessionRegenerateDestroy = false
+app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
+app.sessionCookieName = 'ci_session'
+app.sessionExpiration = 7200
+app.sessionSavePath = null
+app.sessionMatchIP = false
+app.sessionTimeToUpdate = 300
+app.sessionRegenerateDestroy = false
 
 # app.CSPEnabled = false
 
@@ -37,12 +37,13 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
+database.default.hostname = koas.umsu.ac.id
+database.default.port = 8306
+database.default.database = web_koas
+database.default.username = web_koas
+database.default.password = TQP4Icxd]GBH@XhE
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4
