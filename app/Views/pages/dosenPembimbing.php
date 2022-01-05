@@ -31,16 +31,6 @@
               </div>
             </div>
           <?php endif; ?>
-          <?php if ($validation->hasError('dopingNIDN')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('dopingNIDN'); ?>
-              </div>
-            </div>
-          <?php endif; ?>
           <?php if ($validation->hasError('dopingNamaLengkap')) : ?>
             <div class="alert alert-danger alert-dismissible show fade">
               <div class="alert-body">
@@ -81,28 +71,16 @@
               </div>
             </div>
           <?php endif; ?>
-          <?php if ($validation->hasError('dopingStaseId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('dopingStaseId'); ?>
-              </div>
-            </div>
-          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">NIDN</th>
-                  <th width="20%" scope="col">Nama Dan Gelar</th>
+                  <th scope="col">Nama Dan Gelar</th>
                   <th scope="col">Email</th>
                   <th scope="col">No. Telp</th>
                   <th scope="col">Alamat</th>
-                  <th scope="col">Stase</th>
-                  <th width="20%" style="text-align:center" scope="col">Action</th>
+                  <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -111,12 +89,10 @@
                 foreach ($dosenPembimbing as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->dopingNIDN; ?></td>
                     <td><?= $row->dopingNamaLengkap; ?></td>
                     <td><?= $row->dopingEmail; ?></td>
                     <td><?= $row->dopingNoHandphone; ?></td>
                     <td><?= $row->dopingAlamat; ?></td>
-                    <td><?= $row->staseNama; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-trash"></i></button>
@@ -145,10 +121,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label>NIDN</label>
-            <input name="dopingNIDN" type="text" class="form-control">
-          </div>
           <div class="form-group">
             <label>Nama Dan Gelar</label>
             <input name="dopingNamaLengkap" type="text" class="form-control">
@@ -179,15 +151,6 @@
             <label>Alamat</label>
             <input name="dopingAlamat" type="text" class="form-control">
           </div>
-          <div class="form-group">
-            <label>Stase</label>
-            <select name="dopingStaseId" class="form-control select2">
-              <option>--Select--</option>
-              <?php foreach ($dataBagian as $stase) : ?>
-                <option value="<?= $stase->staseId; ?>"><?= $stase->staseNama; ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -213,10 +176,6 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
-              <label>NIDN</label>
-              <input name="dopingNIDN" type="text" class="form-control" value="<?= $edit->dopingNIDN; ?>">
-            </div>
             <div class="form-group">
               <label>Nama Dan Gelar</label>
               <input name="dopingNamaLengkap" type="text" class="form-control" value="<?= $edit->dopingNamaLengkap; ?>">
@@ -246,15 +205,6 @@
             <div class="form-group">
               <label>Alamat</label>
               <input name="dopingAlamat" type="text" class="form-control" value="<?= $edit->dopingAlamat; ?>">
-            </div>
-            <div class="form-group">
-              <label>Stase</label>
-              <select name="dopingStaseId" class="form-control select2">
-                <option>--Select--</option>
-                <?php foreach ($dataBagian as $stase) : ?>
-                  <option value="<?= $stase->staseId; ?>" <?php if ($stase->staseId == $edit->dopingStaseId) echo "selected" ?>><?= $stase->staseNama; ?></option>
-                <?php endforeach ?>
-              </select>
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">

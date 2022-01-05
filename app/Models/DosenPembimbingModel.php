@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DosenPembimbingModel extends Model
 {
     protected $table = 'dosen_pembimbing';
-    protected $primaryKey = 'doping_id';
-    protected $allowedFields = ['dopingNIDN', 'dopingNamaLengkap', 'dopingEmail', 'dopingNoHandphone', 'dopingAlamat', 'dopingStaseId'];
+    protected $primaryKey = 'dopingId';
+    protected $allowedFields = ['dopingNamaLengkap', 'dopingEmail', 'dopingNoHandphone', 'dopingAlamat'];
     protected $returnType = 'object';
 }
