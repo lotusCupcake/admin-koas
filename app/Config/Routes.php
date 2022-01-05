@@ -63,6 +63,9 @@ $routes->add('/dataBagian/(:num)/edit', 'DataBagian::edit/$1');
 
 // route dosen pembimbing
 $routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
+$routes->post('/dosenPembimbing', 'DosenPembimbing::add');
+$routes->delete('/dosenPembimbing/(:num)', 'DosenPembimbing::delete/$1');
+$routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
 
 // route jadwal kegiatan
 $routes->get('/jadwal/(:any)', 'Jadwal::index');

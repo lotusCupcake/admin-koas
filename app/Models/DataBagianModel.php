@@ -8,6 +8,6 @@ class DataBagianModel extends Model
 {
     protected $table = 'stase';
     protected $primaryKey = 'staseId';
-    protected $allowedFields = ['staseNama'];
+    protected $allowedFields = ['staseNama', 'staseJumlahWeek'];
     protected $returnType = 'object';
 }
