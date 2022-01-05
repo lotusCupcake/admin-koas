@@ -55,7 +55,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">No</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
                   <th style="text-align:center" scope="col">Status</th>
@@ -65,18 +65,35 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($staseRumahSakit->findAll() as $row) : ?>
+                foreach ($dataRumahSakit->findAll() as $row) : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td scope="row"><?= $row->rumahSakitNama; ?></td>
-                    <td scope="row"><?= $row->staseNama; ?></td>
-                    <td style="text-align:center" scope="row"><span class="badge <?= $row->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
+                    <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $no++ ?></strong></td>
+                    <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $row->rumahSakitNama ?></strong></td>
+                    <?php $u = 0;
+                    foreach ($staseRumahSakit->getResult() as $r) : ?>
+                      <?php if ($r->rumkitDetRumkitId == $row->rumahSakitId) : ?>
+                        <?php if ($u < 1) : ?>
+                          <td><?= $r->staseNama; ?></td>
+                          <td style="text-align:center" scope="row"><span class="badge <?= $r->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $r->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
+                          <td style="text-align:center">
+                            <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $r->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $r->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
+                          </td>
+                  </tr>
+                <?php else : ?>
+                  <tr>
+                    <td><?= $r->staseNama; ?></td>
+                    <td style="text-align:center" scope="row"><span class="badge <?= $r->rumkitDetStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $r->rumkitDetStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
                     <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $row->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editStaseRumahSakit<?= $r->rumkitDetId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusStaseRumahSakit<?= $r->rumkitDetId; ?>"><i class="fas fa-trash"></i></button>
                     </td>
                   </tr>
-                <?php endforeach ?>
+                <?php $u++;
+                        endif ?>
+              <?php endif ?>
+            <?php endforeach ?>
+          <?php endforeach ?>
               </tbody>
             </table>
           </div>
@@ -136,7 +153,7 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($staseRumahSakit->findAll() as $edit) : ?>
+<?php foreach ($staseRumahSakit->getResult() as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editStaseRumahSakit<?= $edit->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/staseRumahSakit/<?= $edit->rumkitDetId; ?>/edit" method="POST">
@@ -187,7 +204,7 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($staseRumahSakit->findAll() as $delete) : ?>
+<?php foreach ($staseRumahSakit->getResult() as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusStaseRumahSakit<?= $delete->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
