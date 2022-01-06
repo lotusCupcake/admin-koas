@@ -43,7 +43,7 @@ class KelompokDosen extends BaseController
         );
 
         if ($this->kelompokDosenModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Kelompok Dosen Ditambah!');
+            session()->setFlashdata('success', 'Data Kelompok Dosen Berhasil Ditambah!');
             return redirect()->to('kelompokDosen');
         }
     }
