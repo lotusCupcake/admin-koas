@@ -25,20 +25,26 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal</th>
-                  <th scope="col">Durasi</th>
-                  <th width="30%" scope="col">Kelompok</th>
+                  <th scope="col">Tanggal Mulai</th>
+                  <th scope="col">Tanggal Akhir</th>
+                  <th scope="col">Jam Masuk</th>
+                  <th scope="col">Jam Keluar</th>
+                  <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
+                  <th scope="col">Kelompok</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td style="text-align:center" scope="row">1</td>
-                  <td>31-10-2012-31-10-2021</td>
-                  <td>3 Minggu 2 Hari</td>
+                  <td>31-10-2012</td>
+                  <td>31-1-2013</td>
+                  <td>08.00</td>
+                  <td>12.00</td>
+                  <td>RSU Deli Serdang</td>
+                  <td>Internal Medicine</td>
                   <td>Muhamad Riyandi,Nadeo Arga Winata,Ernando Ari Sutaryadi,Ryuji Utomo Prabowo,</td>
-                  <td>Stase Spesialis THT</td>
                   <td style="text-align:center">
                     <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan"><i class="fas fa-trash"></i></button>
@@ -72,6 +78,28 @@
               </div>
             </div>
             <input type="text" class="form-control datepicker">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Jam Masuk</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-clock"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control timepicker">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Jam Keluar</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-clock"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control timepicker">
           </div>
         </div>
         <div class="form-group">
@@ -116,7 +144,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit<strong> Data Jadwal Kegiatan</strong></h5>
+        <h5 class="modal-title">Tambah<strong> Data Jadwal Kegiatan</strong></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -134,18 +162,29 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Tanggal Akhir</label>
+          <label>Jam Masuk</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
-                <i class="fas fa-calendar"></i>
+                <i class="fas fa-clock"></i>
               </div>
             </div>
-            <input type="text" class="form-control datepicker">
+            <input type="text" class="form-control timepicker">
           </div>
         </div>
         <div class="form-group">
-          <label>Stase</label>
+          <label>Jam Keluar</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fas fa-clock"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control timepicker">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Rumah Sakit</label>
           <select class="form-control select2">
             <option>Option 1</option>
             <option>Option 2</option>
@@ -153,7 +192,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Rumah Sakit</label>
+          <label>Stase</label>
           <select class="form-control select2">
             <option>Option 1</option>
             <option>Option 2</option>
@@ -186,13 +225,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Hapus<strong> Data Rumah Sakit</strong></h5>
+        <h5 class="modal-title">Hapus<strong> Data Jadwal Kegiatan</strong></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Apakah kamu benar ingin menghapus data Rumah Sakit?</p>
+        <p>Apakah kamu benar ingin menghapus data jadwal kegiatan?</p>
         <p class="text-warning"><small>This action cannot be undone</small></p>
       </div>
       <div class="modal-footer bg-whitesmoke br">

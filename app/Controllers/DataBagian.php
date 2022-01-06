@@ -34,6 +34,12 @@ class DataBagian extends BaseController
                     'is_unique' => 'Nama Stase Sudah terdaftar',
                 ]
             ],
+            'staseJumlahWeek' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Stase Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataBagian')->withInput();
         }
@@ -41,10 +47,11 @@ class DataBagian extends BaseController
         // dd($_POST);
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
+            'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
         );
 
         if ($this->dataBagianModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Bagian Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Bagian Berhasil Ditambah!');
             return redirect()->to('dataBagian');
         }
     }
@@ -58,6 +65,12 @@ class DataBagian extends BaseController
                     'required' => 'Nama Stase Harus Diisi',
                 ]
             ],
+            'staseJumlahWeek' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Stase Harus Diisi',
+                ]
+            ],
         ])) {
             return redirect()->to('dataBagian')->withInput();
         }
@@ -65,10 +78,11 @@ class DataBagian extends BaseController
 
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
+            'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
         );
 
         if ($this->dataBagianModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Stase Berhasil Diupdate !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Diupdate!');
             return redirect()->to('dataBagian');
         }
     }
@@ -76,7 +90,7 @@ class DataBagian extends BaseController
     public function delete($id)
     {
         if ($this->dataBagianModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Stase Berhasil Dihapus !');
+            session()->setFlashdata('success', 'Data Stase Berhasil Dihapus!');
         };
         return redirect()->to('dataBagian');
     }
