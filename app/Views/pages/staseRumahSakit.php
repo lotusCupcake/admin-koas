@@ -215,7 +215,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus data stase rumah sakit?</p>
+          <p>Apakah kamu benar ingin menghapus data <strong>stase <?= $delete->staseNama; ?></strong> di <strong><?= $delete->rumahSakitNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/staseRumahSakit/<?= $delete->rumkitDetId; ?>" method="post">
