@@ -37,16 +37,9 @@ class JadwalKegiatan extends BaseController
     {
         // Ambil data rumahSakitId yang dikirim via ajax post
         $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
-        // $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);   --> Ini Klo Di CI3
+        $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
         // Proses Get Data Stase Dari Tabel Rumkit_Detail
 
-        $builder = $this->db->table('rumkit_detail');
-        $builder->select('*');
-        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
-        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where('rumkit_detail.rumkitDetRumkitId', $rumahSakitId);
-        $builder->where('rumkit_detail.rumkitDetStatus', 1);
-        $staseRumkit = $builder->get();
         // Buat variabel untuk menampung tag-tag option nya
         // Set defaultnya dengan tag option Pilih
         $lists = "<option value=''>Pilih Stase</option>";
