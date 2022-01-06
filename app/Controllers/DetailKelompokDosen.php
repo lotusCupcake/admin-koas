@@ -48,13 +48,13 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Kelompok Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Dosen Harus Dipilih!',
+                    'required' => 'Dosen Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -79,13 +79,13 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Kelompok Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Dosen Harus Dipilih!',
+                    'required' => 'Dosen Harus Dipilih!',
                 ]
             ],
         ])) {
