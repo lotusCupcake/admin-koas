@@ -27,8 +27,7 @@
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tanggal Mulai</th>
                   <th scope="col">Tanggal Akhir</th>
-                  <th scope="col">Jam Masuk</th>
-                  <th scope="col">Jam Keluar</th>
+                  <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
                   <th scope="col">Kelompok</th>
@@ -40,8 +39,7 @@
                   <td style="text-align:center" scope="row">1</td>
                   <td>31-10-2012</td>
                   <td>31-1-2013</td>
-                  <td>08.00</td>
-                  <td>12.00</td>
+                  <td>08.00-12.00</td>
                   <td>RSU Deli Serdang</td>
                   <td>Internal Medicine</td>
                   <td>Muhamad Riyandi,Nadeo Arga Winata,Ernando Ari Sutaryadi,Ryuji Utomo Prabowo,</td>
@@ -61,80 +59,82 @@
 <!-- start modal tambah  -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahJadwalKegiatan">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah<strong> Data Jadwal Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Tanggal Awal</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-calendar"></i>
+    <form action="/jadwalKegiatan" method="POST">
+      <?= csrf_field() ?>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah<strong> Data Jadwal Kegiatan</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Tanggal Awal</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-calendar"></i>
+                </div>
               </div>
+              <input type="text" class="form-control datepicker">
             </div>
-            <input type="text" class="form-control datepicker">
+          </div>
+          <div class="form-group">
+            <label>Jam Masuk</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control timepicker" value="08.00">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Jam Keluar</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control timepicker" value="16.00">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Rumah Sakit</label>
+            <select class="form-control select2">
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Stase</label>
+            <select class="form-control select2">
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kelompok</label>
+            <select class="form-control select2">
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+              <option>Option 4</option>
+              <option>Option 5</option>
+              <option>Option 6</option>
+            </select>
           </div>
         </div>
-        <div class="form-group">
-          <label>Jam Masuk</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Jam Keluar</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Rumah Sakit</label>
-          <select class="form-control select2">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Stase</label>
-          <select class="form-control select2">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Kelompok</label>
-          <select class="form-control select2" multiple="">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
-            <option>Option 6</option>
-          </select>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
   </div>
 </div>
 <!-- end modal tambah -->
@@ -169,7 +169,7 @@
                 <i class="fas fa-clock"></i>
               </div>
             </div>
-            <input type="text" class="form-control timepicker">
+            <input type="text" class="form-control timepicker" value="08.00">
           </div>
         </div>
         <div class="form-group">
@@ -180,7 +180,7 @@
                 <i class="fas fa-clock"></i>
               </div>
             </div>
-            <input type="text" class="form-control timepicker">
+            <input type="text" class="form-control timepicker" value="16.00">
           </div>
         </div>
         <div class="form-group">
@@ -201,7 +201,7 @@
         </div>
         <div class="form-group">
           <label>Kelompok</label>
-          <select class="form-control select2" multiple="">
+          <select class="form-control select2">
             <option>Option 1</option>
             <option>Option 2</option>
             <option>Option 3</option>
