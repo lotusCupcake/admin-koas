@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Detail Kelompok Dosen</h1>
+      <h1>Detail Kelompok Dosen</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/kelompokDosen"><?= $breadcrumb[1]; ?></a></div>
@@ -56,8 +56,8 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Kelompok</th>
-                  <th scope="col">Nama Dosen</th>
+                  <th scope="col">Kelompok Dosen</th>
+                  <th scope="col">Dosen</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -90,14 +90,14 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Detail Kelompok Dosen</strong></h5>
+          <h5 class="modal-title">Tambah Data<strong> Detail Kelompok Dosen</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Kelompok</label>
+            <label>Kelompok Dosen</label>
             <select name="detKelompokDosenKelompokId" class="form-control select2">
               <option value="">--Select--</option>
               <?php foreach ($kelompokDosen as $row) : ?>
@@ -106,7 +106,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Nama Dosen</label>
+            <label>Dosen</label>
             <select name="detKelompokDopingId" class="form-control select2">
               <option value="">--Select--</option>
               <?php foreach ($dosenPembimbing as $row) : ?>
@@ -133,14 +133,14 @@
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit<strong> Data Detail Kelompok Dosen</strong></h5>
+            <h5 class="modal-title">Edit Data<strong> Detail Kelompok Dosen</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Kelompok</label>
+              <label>Kelompok Dosen</label>
               <select name="detKelompokDosenKelompokId" class="form-control select2">
                 <?php foreach ($kelompokDosen as $row) : ?>
                   <option value="<?= $row->dosenKelompokId; ?>" <?php if ($row->dosenKelompokId == $edit->detKelompokDosenKelompokId) echo "selected" ?>><?= $row->dosenKelompokNama; ?></option>
@@ -148,7 +148,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Nama Dosen</label>
+              <label>Dosen</label>
               <select name="detKelompokDopingId" class="form-control select2">
                 <?php foreach ($dosenPembimbing as $row) : ?>
                   <option value="<?= $row->dopingId; ?>" <?php if ($row->dopingId == $edit->detKelompokDopingId) echo "selected" ?>><?= $row->dopingNamaLengkap; ?></option>
@@ -173,13 +173,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Kelompok Dosen</strong></h5>
+          <h5 class="modal-title">Hapus Data<strong> Detail Kelompok Dosen</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus Data Kelompok <strong><?= $delete->dosenKelompokNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus data detail kelompok <strong><?= $delete->dosenKelompokNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/detailKelompokDosen/<?= $delete->detKelompokDosenId; ?>" method="post">
