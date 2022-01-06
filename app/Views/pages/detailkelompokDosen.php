@@ -11,7 +11,7 @@
       <h1>Detail Kelompok Dosen</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-        <div class="breadcrumb-item"><a href="/kelompokDosen"><?= $breadcrumb[1]; ?></a></div>
+        <div class="breadcrumb-item"><a href="/detailKelompokDosen"><?= $breadcrumb[1]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
       </div>
     </div>
