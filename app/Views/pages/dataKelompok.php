@@ -66,7 +66,7 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Kelompok</th>
+                  <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Kelompok Dosen</th>
                   <th scope="col">Tahun Akademik</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
@@ -109,7 +109,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Kelompok</label>
+            <label>Nama Kelompok Mahasiswa</label>
             <input name="kelompokNama" type=" text" class="form-control">
           </div>
           <div class="form-group">
@@ -151,11 +151,11 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Kelompok</label>
+              <label>Nama Kelompok Mahasiswa</label>
               <input name="kelompokNama" type=" text" class="form-control" value="<?= $edit->kelompokNama; ?>">
             </div>
             <div class="form-group">
-              <label>Nama Kelompok</label>
+              <label>Kelompok Dosen</label>
               <select name="kelompokDosenKelompokId" class="form-control select2">
                 <?php foreach ($kelompokDosen as $row) : ?>
                   <option value="<?= $row->dosenKelompokId; ?>" <?php if ($row->dosenKelompokId == $edit->kelompokDosenKelompokId) echo "selected" ?>><?= $row->dosenKelompokNama; ?></option>

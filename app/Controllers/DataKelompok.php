@@ -43,7 +43,7 @@ class DataKelompok extends BaseController
             'kelompokNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Harus Diisi!',
+                    'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
             'kelompokDosenKelompokId' => [
@@ -81,7 +81,7 @@ class DataKelompok extends BaseController
             'kelompokNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Harus Diisi!',
+                    'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
             'kelompokDosenKelompokId' => [
