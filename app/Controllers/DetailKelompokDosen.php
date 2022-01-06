@@ -8,13 +8,13 @@ use App\Models\DosenPembimbingModel;
 
 class DetailKelompokDosen extends BaseController
 {
-    protected $detailkelompokDosenModel;
+    protected $detailKelompokDosenModel;
     protected $kelompokDosenModel;
     protected $dosenPembimbingModel;
     protected $db;
     public function __construct()
     {
-        $this->detailkelompokDosenModel = new DetailKelompokDosenModel();
+        $this->detailKelompokDosenModel = new DetailKelompokDosenModel();
         $this->kelompokDosenModel = new KelompokDosenModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->db = \Config\Database::connect();
@@ -33,7 +33,7 @@ class DetailKelompokDosen extends BaseController
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Detail Kelompok Dosen'],
             'detailDosen' => $query->getResult(),
-            'detailkelompokDosen' => $this->detailkelompokDosenModel->findAll(),
+            'detailkelompokDosen' => $this->detailKelompokDosenModel->findAll(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
             'validation' => \Config\Services::validation(),
@@ -67,7 +67,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDopingId' => trim($this->request->getPost('detKelompokDopingId')),
         );
 
-        if ($this->detailkelompokDosenModel->insert($data)) {
+        if ($this->detailKelompokDosenModel->insert($data)) {
             session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Ditambah!');
             return redirect()->to('detailKelompokDosen');
         }
@@ -98,7 +98,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDopingId' => trim($this->request->getPost('detKelompokDopingId')),
         );
 
-        if ($this->detailkelompokDosenModel->update($id, $data)) {
+        if ($this->detailKelompokDosenModel->update($id, $data)) {
             session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Diupdate!');
             return redirect()->to('detailKelompokDosen');
         }
@@ -106,7 +106,7 @@ class DetailKelompokDosen extends BaseController
 
     public function delete($id)
     {
-        if ($this->detailkelompokDosenModel->delete($id)) {
+        if ($this->detailKelompokDosenModel->delete($id)) {
             session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Dihapus!');
         };
         return redirect()->to('detailKelompokDosen');
