@@ -53,6 +53,16 @@
   <!-- Page Specific JS File -->
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
 
+  <script type="text/javascript">
+    $('.timepicker').timepicker({
+      minuteStep: 1,
+      appendWidgetTo: 'body',
+      showSeconds: true,
+      showMeridian: false,
+      defaultTime: false
+    });
+  </script>
+
 </body>
 
 </html>
