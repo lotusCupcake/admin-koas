@@ -133,6 +133,6 @@ nb-configuration.xml
 node_modules
 
 public/null/
-# public/template/
+public/template/
 
 # public/menu/menu.json

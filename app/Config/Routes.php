@@ -67,6 +67,12 @@ $routes->post('/dosenPembimbing', 'DosenPembimbing::add');
 $routes->delete('/dosenPembimbing/(:num)', 'DosenPembimbing::delete/$1');
 $routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
 
+// route detail kelompok dosen
+$routes->get('/kelompokDosen/(:any)', 'KelompokDosen::index');
+$routes->post('/kelompokDosen', 'KelompokDosen::add');
+$routes->delete('/kelompokDosen/(:num)', 'KelompokDosen::delete/$1');
+$routes->add('/kelompokDosen/(:num)/edit', 'KelompokDosen::edit/$1');
+
 // route jadwal kegiatan
 $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');

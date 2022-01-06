@@ -153,12 +153,39 @@
     },
     {
         "id": "22",
-        "nama": "Data Kelompok",
+        "nama": "Kelompok Dosen",
         "parent": "6",
         "level": "child",
         "status": true,
         "icon": "",
-        "pages": "/dataKelompok"
+        "pages": "/kelompokDosen"
+    },
+    {
+        "id": "23",
+        "nama": "Detail Kelompok Dosen",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/detailKelompokDosen"
+    },
+    {
+        "id": "24",
+        "nama": "Kelompok Mahasiswa",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/kelompokMahasiswa"
+    },
+    {
+        "id": "25",
+        "nama": "Data Kelompok Seluruh",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKelompokSeluruh"
     },
     {
         "id": "21",
