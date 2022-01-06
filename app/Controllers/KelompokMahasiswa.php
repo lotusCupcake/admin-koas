@@ -64,7 +64,7 @@ class KelompokMahasiswa extends BaseController
             'kelompokDetNim' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Mahasiswa Harus Dipilih!',
+                    'required' => 'NPM Mahasiswa Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -95,7 +95,7 @@ class KelompokMahasiswa extends BaseController
             'kelompokDetNim' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Mahasiswa Harus Dipilih!',
+                    'required' => 'NPM Mahasiswa Harus Dipilih!',
                 ]
             ],
         ])) {

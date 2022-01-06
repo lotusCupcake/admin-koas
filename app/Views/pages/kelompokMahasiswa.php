@@ -57,7 +57,7 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Kelompok Mahasiswa</th>
-                  <th scope="col">Nama/NPM Mahasiswa</th>
+                  <th scope="col">NPM Mahasiswa</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -106,7 +106,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Nama/NPM Mahasiswa</label>
+            <label>NPM Mahasiswa</label>
             <select name="kelompokDetNim" class="form-control select2">
               <option value="">--Select--</option>
               <?php foreach ($mahasiswaProfesi as $mahasiswa) : ?>
@@ -148,7 +148,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Nama/NPM Mahasiswa</label>
+              <label>NPM Mahasiswa</label>
               <select name="kelompokDetNim" class="form-control select2">
                 <?php foreach ($mahasiswaProfesi as $mahasiswa) : ?>
                   <option value="<?= $mahasiswa->Nim; ?>" <?php if ($mahasiswa->Nim == $edit->kelompokDetNim) echo "selected" ?>><?= $mahasiswa->Nim; ?></option>
