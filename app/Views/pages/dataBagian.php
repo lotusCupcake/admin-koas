@@ -165,7 +165,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus Data Stase <strong><?= $delete->staseNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus data stase <strong><?= $delete->staseNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/dataBagian/<?= $delete->staseId; ?>" method="post">
