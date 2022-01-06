@@ -31,6 +31,7 @@ class JadwalKegiatan extends BaseController
 
     public function add()
     {
+        dd($_POST);
         if (!$this->validate([
             'rumahSakitNama' => [
                 'rules' => 'required',
@@ -63,10 +64,10 @@ class JadwalKegiatan extends BaseController
                 ]
             ],
         ])) {
-            return redirect()->to('dataRumahSakit')->withInput();
+            return redirect()->to('jadwalKegiatan')->withInput();
         }
 
-        // dd($_POST);
+
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
