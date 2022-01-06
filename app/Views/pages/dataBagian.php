@@ -41,12 +41,23 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('staseJumlahWeek')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('staseJumlahWeek'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Stase</th>
+                  <th scope="col">Durasi</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -57,6 +68,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->staseNama; ?></td>
+                    <td><?= $row->staseJumlahWeek; ?> Minggu</td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataBagian<?= $row->staseId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataBagian<?= $row->staseId; ?>"><i class="fas fa-trash"></i></button>
@@ -89,6 +101,12 @@
             <input name="staseNama" type="text" class="form-control">
           </div>
         </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Durasi (Per-Minggu)</label>
+            <input name="staseJumlahWeek" type="text" class="form-control">
+          </div>
+        </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
@@ -116,6 +134,12 @@
             <div class="form-group">
               <label>Nama Stase</label>
               <input name="staseNama" type="text" class="form-control" value="<?= $edit->staseNama; ?>">
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Durasi (Per-Minggu)</label>
+              <input name="staseJumlahWeek" type="text" class="form-control" value="<?= $edit->staseJumlahWeek; ?>">
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
