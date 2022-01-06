@@ -3,21 +3,36 @@
 namespace App\Controllers;
 
 use App\Models\KelompokMahasiswaModel;
+use App\Models\DataKelompokModel;
 
 class KelompokMahasiswa extends BaseController
 {
+    protected $dataKelompokModel;
     protected $kelompokMahasiswaModel;
+    protected $db;
+    protected $curl;
     public function __construct()
     {
+        $this->dataKelompokModel = new DataKelompokModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
+        $this->db = \Config\Database::connect();
+        $this->curl = service('curlrequest');
     }
     public function index()
     {
+
+        $builder = $this->db->table('kelompok_detail');
+        $builder->select('*');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId');
+        $query = $builder->get();
+
         $data = [
             'title' => "Kelompok Mahasiswa",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Kelompok Mahasiswa'],
             'kelompokMahasiswa' => $this->kelompokMahasiswaModel->findAll(),
+            'dataKelompok' => $this->dataKelompokModel->findAll(),
+            'kelompok' => $query->getResult(),
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -37,15 +52,19 @@ class KelompokMahasiswa extends BaseController
         return json_decode($response->getBody())->data;
     }
 
-    // batas sampai sini, belum page
-
     public function add()
     {
         if (!$this->validate([
-            'dosenKelompokNama' => [
+            'kelompokDetKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
+                    'required' => 'Kelompok Mahasiswa Harus Dipilih!',
+                ]
+            ],
+            'kelompokDetNim' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Mahasiswa Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -54,7 +73,8 @@ class KelompokMahasiswa extends BaseController
 
         // dd($_POST);
         $data = array(
-            'dosenKelompokNama' => trim($this->request->getPost('dosenKelompokNama')),
+            'kelompokDetKelompokId' => trim($this->request->getPost('kelompokDetKelompokId')),
+            'kelompokDetNim' => trim($this->request->getPost('kelompokDetNim')),
         );
 
         if ($this->kelompokMahasiswaModel->insert($data)) {
@@ -66,10 +86,16 @@ class KelompokMahasiswa extends BaseController
     public function edit($id)
     {
         if (!$this->validate([
-            'dosenKelompokNama' => [
+            'kelompokDetKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
+                    'required' => 'Kelompok Mahasiswa Harus Dipilih!',
+                ]
+            ],
+            'kelompokDetNim' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Mahasiswa Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -78,7 +104,8 @@ class KelompokMahasiswa extends BaseController
 
         // dd($_POST);
         $data = array(
-            'dosenKelompokNama' => trim($this->request->getPost('dosenKelompokNama')),
+            'kelompokDetKelompokId' => trim($this->request->getPost('kelompokDetKelompokId')),
+            'kelompokDetNim' => trim($this->request->getPost('kelompokDetNim')),
         );
 
         if ($this->kelompokMahasiswaModel->update($id, $data)) {

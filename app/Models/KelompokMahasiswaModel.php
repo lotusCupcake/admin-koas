@@ -8,6 +8,6 @@ class KelompokMahasiswaModel extends Model
 {
     protected $table = 'kelompok_detail';
     protected $primaryKey = 'kelompokDetId';
-    protected $allowedFields = ['kelompokDetKelompokId'];
+    protected $allowedFields = ['kelompokDetKelompokId', 'kelompokDetNim'];
     protected $returnType = 'object';
 }
