@@ -68,7 +68,10 @@ $routes->delete('/dosenPembimbing/(:num)', 'DosenPembimbing::delete/$1');
 $routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
 
 // route jadwal kegiatan
-$routes->get('/jadwal/(:any)', 'Jadwal::index');
+$routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
+$routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

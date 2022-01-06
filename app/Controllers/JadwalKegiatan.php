@@ -8,12 +8,12 @@ use App\Models\JadwalKegiatanModel;
 
 class JadwalKegiatan extends BaseController
 {
-    protected $JadwalKegiatanModel;
+    protected $jadwalKegiatanModel;
     // protected $DataBagianModel;
     // protected $DataRumahSakitModel;
     public function __construct()
     {
-        $this->acaraModel = new JadwalKegiatanModel();
+        $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         // $this->penyiarModel = new DataBagianModel();
         // $this->penyiarModel = new DataRumahSakitModel();
     }
@@ -23,8 +23,61 @@ class JadwalKegiatan extends BaseController
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
+            'jadwalKegiatan' => $this->jadwalKegiatanModel,
             'menu' => $this->fetchMenu()
         ];
         return view('pages/jadwalKegiatan', $data);
+    }
+
+    public function add()
+    {
+        if (!$this->validate([
+            'rumahSakitNama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLong' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitTelp' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
+        ])) {
+            return redirect()->to('dataRumahSakit')->withInput();
+        }
+
+        // dd($_POST);
+        $data = array(
+            'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
+            'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
+            'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
+            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
+            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
+        );
+
+        if ($this->dataRumahSakitModel->insert($data)) {
+            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
+            return redirect()->to('dataRumahSakit');
+        }
     }
 }
