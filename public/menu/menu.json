@@ -171,21 +171,21 @@
     },
     {
         "id": "24",
+        "nama": "Data Kelompok",
+        "parent": "6",
+        "level": "child",
+        "status": true,
+        "icon": "",
+        "pages": "/dataKelompok"
+    },
+    {
+        "id": "25",
         "nama": "Kelompok Mahasiswa",
         "parent": "6",
         "level": "child",
         "status": true,
         "icon": "",
         "pages": "/kelompokMahasiswa"
-    },
-    {
-        "id": "25",
-        "nama": "Data Kelompok Seluruh",
-        "parent": "6",
-        "level": "child",
-        "status": true,
-        "icon": "",
-        "pages": "/dataKelompokSeluruh"
     },
     {
         "id": "21",

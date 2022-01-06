@@ -79,6 +79,18 @@ $routes->post('/detailKelompokDosen', 'DetailKelompokDosen::add');
 $routes->delete('/detailKelompokDosen/(:num)', 'DetailKelompokDosen::delete/$1');
 $routes->add('/detailKelompokDosen/(:num)/edit', 'DetailKelompokDosen::edit/$1');
 
+// route data kelompok
+$routes->get('/dataKelompok/(:any)', 'DataKelompok::index');
+$routes->post('/dataKelompok', 'DataKelompok::add');
+$routes->delete('/dataKelompok/(:num)', 'DataKelompok::delete/$1');
+$routes->add('/dataKelompok/(:num)/edit', 'DataKelompok::edit/$1');
+
+// route kelompok mahasiswa
+$routes->get('/kelompokMahasiswa/(:any)', 'KelompokMahasiswa::index');
+$routes->post('/kelompokMahasiswa', 'KelompokMahasiswa::add');
+$routes->delete('/kelompokMahasiswa/(:num)', 'KelompokMahasiswa::delete/$1');
+$routes->add('/kelompokMahasiswa/(:num)/edit', 'KelompokMahasiswa::edit/$1');
+
 // route jadwal kegiatan
 $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
 $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
