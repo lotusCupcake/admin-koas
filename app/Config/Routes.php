@@ -91,6 +91,9 @@ $routes->post('/kelompokMahasiswa', 'KelompokMahasiswa::add');
 $routes->delete('/kelompokMahasiswa/(:num)', 'KelompokMahasiswa::delete/$1');
 $routes->add('/kelompokMahasiswa/(:num)/edit', 'KelompokMahasiswa::edit/$1');
 
+// route mahasiswa profesi
+$routes->get('/mahasiswaProfesi/(:any)', 'MahasiswaProfesi::index');
+
 // route jadwal kegiatan
 $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
 $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');

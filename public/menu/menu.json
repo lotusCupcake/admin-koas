@@ -198,7 +198,7 @@
     },
     {
         "id": "16",
-        "nama": "Mahasiswa Profesi",
+        "nama": "Data Mahasiswa Profesi",
         "parent": "6",
         "level": "child",
         "status": true,
