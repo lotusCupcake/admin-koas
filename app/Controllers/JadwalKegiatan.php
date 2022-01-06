@@ -3,19 +3,22 @@
 namespace App\Controllers;
 
 use App\Models\JadwalKegiatanModel;
+use App\Models\DataRumahSakitModel;
 // use App\Models\DataBagianModel;
-// use App\Models\DataRumahSakitModel;
 
 class JadwalKegiatan extends BaseController
 {
     protected $jadwalKegiatanModel;
-    // protected $DataBagianModel;
-    // protected $DataRumahSakitModel;
+    protected $DataRumahSakitModel;
+    // protected $DataBagianModel; 
+    protected $db;
+
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
-        // $this->penyiarModel = new DataBagianModel();
+        $this->dataRumahSakitModel = new DataRumahSakitModel();
         // $this->penyiarModel = new DataRumahSakitModel();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
@@ -24,13 +27,32 @@ class JadwalKegiatan extends BaseController
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $this->jadwalKegiatanModel,
+            'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'menu' => $this->fetchMenu()
         ];
         return view('pages/jadwalKegiatan', $data);
     }
 
+    public function stase()
+    {
+        // Ambil data rumahSakitId yang dikirim via ajax post
+        $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
+        $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
+        // Proses Get Data Stase Dari Tabel Rumkit_Detail
+
+        // Buat variabel untuk menampung tag-tag option nya
+        // Set defaultnya dengan tag option Pilih
+        $lists = "<option value=''>Pilih Stase</option>";
+        foreach ($staseRumkit->getResult() as $data) {
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
+        }
+        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
+        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+    }
+
     public function add()
     {
+        dd($_POST);
         if (!$this->validate([
             'rumahSakitNama' => [
                 'rules' => 'required',
@@ -63,10 +85,10 @@ class JadwalKegiatan extends BaseController
                 ]
             ],
         ])) {
-            return redirect()->to('dataRumahSakit')->withInput();
+            return redirect()->to('jadwalKegiatan')->withInput();
         }
 
-        // dd($_POST);
+
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),

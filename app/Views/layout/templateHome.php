@@ -52,6 +52,8 @@
 
   <!-- Page Specific JS File -->
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
+  <script src="<?= base_url() ?>/js/script.js"></script>
+
 
 </body>
 

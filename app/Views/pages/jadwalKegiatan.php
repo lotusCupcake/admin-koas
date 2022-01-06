@@ -77,7 +77,7 @@
                   <i class="fas fa-calendar"></i>
                 </div>
               </div>
-              <input type="text" class="form-control datepicker">
+              <input type="text" class="form-control datepicker" name="tanggalAwal">
             </div>
           </div>
           <div class="form-group">
@@ -88,10 +88,10 @@
                   <i class="fas fa-clock"></i>
                 </div>
               </div>
-              <input type="text" class="form-control timepicker" value="08.00">
+              <input type="text" class="form-control timepicker" value="08.00" name="jamMasuk">
             </div>
           </div>
-          <div class="form-group">
+          <div class=" form-group">
             <label>Jam Keluar</label>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -99,42 +99,45 @@
                   <i class="fas fa-clock"></i>
                 </div>
               </div>
-              <input type="text" class="form-control timepicker" value="16.00">
+              <input type="text" class="form-control timepicker" value="16.00" name="jamKeluar">
             </div>
           </div>
+
           <div class="form-group">
             <label>Rumah Sakit</label>
-            <select class="form-control select2">
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select class="form-control select2" name="rumahSakitId" id="rumahSakitId">
+              <option value="">Pilih Rumah Sakit</option>
+              <?php foreach ($dataRumahSakit as $row) : ?>
+                <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
+
           <div class="form-group">
             <label>Stase</label>
-            <select class="form-control select2">
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select class="form-control select2" name="staseId" id="staseId">
+              <option value="">Pilih Stase</option>
             </select>
           </div>
+
           <div class="form-group">
             <label>Kelompok</label>
-            <select class="form-control select2">
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-              <option>Option 4</option>
-              <option>Option 5</option>
-              <option>Option 6</option>
+            <select class="form-control select2" name="kelompok">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <option value="4">Option 4</option>
+              <option value="5">Option 5</option>
+              <option value="6">Option 6</option>
             </select>
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </div>
+    </form>
   </div>
 </div>
 <!-- end modal tambah -->
@@ -183,25 +186,29 @@
             <input type="text" class="form-control timepicker" value="16.00">
           </div>
         </div>
+
         <div class="form-group">
           <label>Rumah Sakit</label>
-          <select class="form-control select2">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
+          <select class="form-control select2" name="rumahSakitId" id="rumahSakitId">
+            <option value="">--Select--</option>
+            <?php foreach ($dataRumahSakit as $row) : ?>
+              <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
+
         <div class="form-group">
           <label>Stase</label>
-          <select class="form-control select2">
+          <select class="form-control select2" name="staseId" id="staseId">
             <option>Option 1</option>
             <option>Option 2</option>
             <option>Option 3</option>
           </select>
         </div>
+
         <div class="form-group">
           <label>Kelompok</label>
-          <select class="form-control select2">
+          <select class="form-control select2" name="kelompokId" id="kelompokId">
             <option>Option 1</option>
             <option>Option 2</option>
             <option>Option 3</option>
@@ -244,5 +251,7 @@
 <!-- end modal hapus -->
 
 <?= view('layout/templateFooter'); ?>
+
+
 
 <?= $this->endSection(); ?>

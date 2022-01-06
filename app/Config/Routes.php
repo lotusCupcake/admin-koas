@@ -81,6 +81,7 @@ $routes->add('/detailKelompokDosen/(:num)/edit', 'DetailKelompokDosen::edit/$1')
 
 // route jadwal kegiatan
 $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
+$routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 
 
