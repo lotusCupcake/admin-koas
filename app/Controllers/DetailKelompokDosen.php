@@ -11,17 +11,18 @@ class DetailKelompokDosen extends BaseController
     protected $detailkelompokDosenModel;
     protected $kelompokDosenModel;
     protected $dosenPembimbingModel;
+    protected $db;
     public function __construct()
     {
         $this->detailkelompokDosenModel = new DetailKelompokDosenModel();
         $this->kelompokDosenModel = new KelompokDosenModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('dosen_kelompok_detail');
+        $builder = $this->db->table('dosen_kelompok_detail');
         $builder->select('*');
         $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = dosen_kelompok_detail.detKelompokDosenKelompokId');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingId  = dosen_kelompok_detail.detKelompokDopingId');
