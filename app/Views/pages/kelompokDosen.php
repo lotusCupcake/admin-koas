@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Kelompok Dosen</h1>
+      <h1>Kelompok Dosen</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/kelompokDosen"><?= $breadcrumb[1]; ?></a></div>
@@ -46,7 +46,7 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Kelompok</th>
+                  <th scope="col">Nama Kelompok Dosen</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -78,14 +78,14 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Kelompok Dosen</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Kelompok Dosen</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Kelompok</label>
+            <label>Nama Kelompok Dosen</label>
             <input name="dosenKelompokNama" type="text" class="form-control">
           </div>
         </div>
@@ -105,7 +105,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit<strong> Data Kelompok Dosen</strong></h5>
+          <h5 class="modal-title">Edit Data <strong>Kelompok Dosen</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -114,7 +114,7 @@
           <?= csrf_field() ?>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Kelompok</label>
+              <label>Nama Kelompok Dosen</label>
               <input name="dosenKelompokNama" type="text" class="form-control" value="<?= $edit->dosenKelompokNama; ?>">
             </div>
           </div>
@@ -135,13 +135,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Kelompok Dosen</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Kelompok Dosen</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus Data Kelompok <strong><?= $delete->dosenKelompokNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus data kelompok <strong><?= $delete->dosenKelompokNama; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/kelompokDosen/<?= $delete->dosenKelompokId; ?>" method="post">
