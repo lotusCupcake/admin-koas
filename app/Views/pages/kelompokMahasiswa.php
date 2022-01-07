@@ -17,17 +17,17 @@
     </div>
     <div class="section-body">
       <div class="card">
-        <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
-          <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-          <div class="alert-body">
-            <button class="close" data-dismiss="alert">
-              <span>&times;</span>
-            </button>
-            <div class="alert-title">Tips</div>
-            Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Data Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>
-          </div>
-        </div>
         <div class="card-body">
+          <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
+            <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+            <div class="alert-body">
+              <button class="close" data-dismiss="alert">
+                <span>&times;</span>
+              </button>
+              <div class="alert-title">Tips</div>
+              Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Data Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>
+            </div>
+          </div>
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div class="alert alert-success alert-dismissible show fade">
               <div class="alert-body">
