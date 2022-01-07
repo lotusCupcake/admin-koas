@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Detail Kelompok Dosen</h1>
+      <h1>Dosen</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/detailKelompokDosen"><?= $breadcrumb[1]; ?></a></div>

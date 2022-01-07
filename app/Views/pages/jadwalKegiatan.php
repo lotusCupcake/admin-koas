@@ -25,8 +25,8 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal Mulai</th>
-                  <th scope="col">Tanggal Akhir</th>
+                  <th scope="col">Tanggal Mulai/Akhir</th>
+                  <th scope="col">Durasi (Minggu)</th>
                   <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
@@ -40,8 +40,8 @@
                 foreach ($jadwalKegiatan->getResult() as $row_jadwal) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
-                    <td><?= $row_jadwal->jadwalTanggalSelesai; ?></td>
+                    <td><?= $row_jadwal->jadwalTanggalMulai . " s/d " . $row_jadwal->jadwalTanggalSelesai; ?></td>
+                    <td><?= $row_jadwal->staseJumlahWeek; ?></td>
                     <td><?= $row_jadwal->jadwalJam; ?></td>
                     <td><?= $row_jadwal->rumahSakitNama; ?></td>
                     <td><?= $row_jadwal->staseNama; ?></td>
