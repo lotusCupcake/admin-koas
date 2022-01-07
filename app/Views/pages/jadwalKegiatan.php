@@ -189,7 +189,7 @@
 
           <div class="form-group">
             <label>Rumah Sakit</label>
-            <select class="form-control select2" name="rumahSakitId">
+            <select class="form-control select2" name="rumahSakit">
               <option value="<?php echo $edit_jadwal->rumahSakitId;  ?>" selected="selected"><?php echo $edit_jadwal->rumahSakitNama;  ?></option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
@@ -199,14 +199,14 @@
 
           <div class="form-group">
             <label>Stase</label>
-            <select class="form-control select2" name="staseId">
+            <select class="form-control select2" name="stase">
               <option value="<?php echo $edit_jadwal->rumkitDetId;  ?>" selected="selected"><?php echo $edit_jadwal->staseNama;  ?></option>
             </select>
           </div>
 
           <div class="form-group">
             <label>Kelompok</label>
-            <select class="form-control select2" name="kelompokId">
+            <select class="form-control select2" name="kelompok">
               <option value="<?php echo $edit_jadwal->kelompokId;  ?>" selected="selected"><?php echo $edit_jadwal->kelompokNama;  ?></option>
             </select>
           </div>

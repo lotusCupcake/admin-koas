@@ -92,6 +92,30 @@ class JadwalKegiatan extends BaseController
         echo json_encode($callback); // konversi variabel $callback menjadi JSON
     }
 
+    public function editKelompok()
+    {
+        $kelompokId = [];
+        $rumkitDetId = trim($this->request->getPost('stase'));
+
+        $jadwalKelompok = $this->jadwalKegiatanModel->Show_Jadwal_Kelompok($rumkitDetId);
+
+        foreach ($jadwalKelompok->getResult() as $kelompok_jadwal) {
+            array_push($kelompokId, $kelompok_jadwal->jadwalKelompokId);
+        }
+
+        if (count($kelompokId) == 0) {
+            $kelompokId = [0];
+        }
+        $kelompok = $this->jadwalKegiatanModel->Show_Kelompok($kelompokId);
+        // Proses Get Data Stase Dari Tabel Kelompok
+        $lists = "<option value=''>Pilih Kelompok</option>";
+        foreach ($kelompok->getResult() as $data) {
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
+        }
+        $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
+        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+    }
+
     public function add()
     {
         // dd($_POST);
