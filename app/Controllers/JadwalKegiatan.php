@@ -50,54 +50,88 @@ class JadwalKegiatan extends BaseController
         echo json_encode($callback); // konversi variabel $callback menjadi JSON
     }
 
-    public function add()
+    public function kelompok()
     {
-        dd($_POST);
-        if (!$this->validate([
-            'rumahSakitNama' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nama Rumah Sakit Harus Diisi',
-                ]
-            ],
-            'rumahSakitLat' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
-                ]
-            ],
-            'rumahSakitLong' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
-                ]
-            ],
-            'rumahSakitTelp' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
-                ]
-            ],
-            'rumahSakitEmail' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Email Rumah Sakit Harus Diisi',
-                ]
-            ],
-        ])) {
-            return redirect()->to('jadwalKegiatan')->withInput();
+        $kelompokId = [];
+        $rumkitDetId = trim($this->request->getPost('staseId'));
+
+        $jadwalKelompok = $this->jadwalKegiatanModel->Show_Jadwal_Kelompok($rumkitDetId);
+
+        foreach ($jadwalKelompok->getResult() as $kelompok_jadwal) {
+            array_push($kelompokId, $kelompok_jadwal->jadwalKelompokId);
         }
 
+        if (count($kelompokId) == 0) {
+            $kelompokId = [0];
+        }
+        $kelompok = $this->jadwalKegiatanModel->Show_Kelompok($kelompokId);
+        // Proses Get Data Stase Dari Tabel Kelompok
+        $lists = "<option value=''>Pilih Kelompok</option>";
+        foreach ($kelompok->getResult() as $data) {
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
+        }
+        $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
+        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+    }
 
-        $data = array(
-            'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
-            'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
-            'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
-            'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
-            'rumahSakitWarna' => trim($this->request->getPost('rumahSakitWarna')),
+    public function add()
+    {
+        // dd($_POST);
+        // if (!$this->validate([
+        //     'rumahSakitNama' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Nama Rumah Sakit Harus Diisi',
+        //         ]
+        //     ],
+        //     'rumahSakitLat' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
+        //         ]
+        //     ],
+        //     'rumahSakitLong' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
+        //         ]
+        //     ],
+        //     'rumahSakitTelp' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'No. Telp Rumah Sakit Harus Diisi',
+        //         ]
+        //     ],
+        //     'rumahSakitEmail' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Email Rumah Sakit Harus Diisi',
+        //         ]
+        //     ],
+        // ])) {
+        //     return redirect()->to('jadwalKegiatan')->withInput();
+        // }
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
+        $dt = array(
+            'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
+            'rumkitDetStaseId' => $this->request->getPost('staseId'),
         );
+        $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
+        foreach ($rumkitDetail->getResult() as $row) {
+            $rumkitDetailId = $row->rumkitDetId;
+        }
+        // dd($rumkitDetailId);
+        $data = array(
+            'jadwalRumkitDetId' => $rumkitDetailId,
+            'jadwalKelompokId' => $this->request->getPost('kelompokId'),
+            'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
+            'jadwalTanggalSelesai' => $dateSelesai,
+            'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
+            'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+        );
+        // dd($data);
 
-        if ($this->dataRumahSakitModel->insert($data)) {
+        if ($this->jadwalKegiatanModel->insert($data)) {
             session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
             return redirect()->to('dataRumahSakit');
         }

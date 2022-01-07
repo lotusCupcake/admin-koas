@@ -105,8 +105,8 @@
 
           <div class="form-group">
             <label>Rumah Sakit</label>
-            <select class="form-control select2" name="rumahSakitId" id="rumahSakitId">
-              <option value="">Pilih Rumah Sakit</option>
+            <select class="form-control select2" name="rumahSakitId">
+              <option value="" selected="selected">Pilih Rumah Sakit</option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
               <?php endforeach; ?>
@@ -115,20 +115,15 @@
 
           <div class="form-group">
             <label>Stase</label>
-            <select class="form-control select2" name="staseId" id="staseId">
-              <option value="">Pilih Stase</option>
+            <select class="form-control select2" name="staseId">
+              <option value="" selected="selected">Pilih Stase</option>
             </select>
           </div>
 
           <div class="form-group">
             <label>Kelompok</label>
-            <select class="form-control select2" name="kelompok">
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-              <option value="4">Option 4</option>
-              <option value="5">Option 5</option>
-              <option value="6">Option 6</option>
+            <select class="form-control select2" name="kelompokId">
+              <option value="" selected="selected">Pilih Kelompok</option>
             </select>
           </div>
         </div>
