@@ -10,4 +10,13 @@ class DataKelompokModel extends Model
     protected $primaryKey = 'kelompokId';
     protected $allowedFields = ['kelompokNama', 'kelompokDosenKelompokId', 'kelompokTahunAkademik'];
     protected $returnType = 'object';
+
+    public function getDataKelompok()
+    {
+        $builder = $this->db->table('kelompok');
+        $builder->select('*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId)as jumlahPartisipan');
+        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = kelompok.kelompokDosenKelompokId');
+        $kelompok = $builder->get();
+        return $kelompok;
+    }
 }

@@ -69,6 +69,7 @@
                   <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Kelompok Dosen</th>
                   <th scope="col">Tahun Akademik</th>
+                  <th scope="col">Jumlah Partisipan</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -81,6 +82,7 @@
                     <td><?= $row->kelompokNama; ?></td>
                     <td><?= $row->dosenKelompokNama; ?></td>
                     <td><?= $row->kelompokTahunAkademik; ?></td>
+                    <td><?= $row->jumlahPartisipan; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
