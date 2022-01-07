@@ -145,7 +145,7 @@
 <?php foreach ($jadwalKegiatan->getResult() as $edit_jadwal) { ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editJadwalKegiatan<?php echo $edit_jadwal->jadwalId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/jadwalKegiatan" method="POST">
+      <form action="/jadwalKegiatan/<?= $edit_jadwal->jadwalId; ?>/edit" method="POST">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit<strong> Jadwal Kegiatan</strong></h5>

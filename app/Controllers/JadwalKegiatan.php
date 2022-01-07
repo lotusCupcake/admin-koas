@@ -133,8 +133,74 @@ class JadwalKegiatan extends BaseController
         // dd($data);
 
         if ($this->jadwalKegiatanModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
-            return redirect()->to('dataRumahSakit');
+            session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
+
+    public function edit($id)
+    {
+        // if (!$this->validate([
+        //     'rumahSakitNama' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Nama Rumah Sakit Harus Diisi!',
+        //         ]
+        //     ],
+        //     'rumahSakitLat' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Koordinat Rumah Sakit Harus Diisi!',
+        //         ]
+        //     ],
+        //     'rumahSakitLong' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Koordinat Rumah Sakit Harus Diisi!',
+        //         ]
+        //     ],
+        //     'rumahSakitTelp' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'No. Telp Rumah Sakit Harus Diisi!',
+        //         ]
+        //     ],
+        //     'rumahSakitEmail' => [
+        //         'rules' => 'required',
+        //         'errors' => [
+        //             'required' => 'Email Rumah Sakit Harus Diisi!',
+        //         ]
+        //     ],
+        // ])) {
+        //     return redirect()->to('dataRumahSakit')->withInput();
+        // }
+
+
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
+        $dt = array(
+            'rumkitDetRumkitId' => $this->request->getPost('rumahSakit'),
+            'rumkitDetStaseId' => $this->request->getPost('stase'),
+        );
+        $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
+        foreach ($rumkitDetail->getResult() as $row) {
+            $rumkitDetailId = $row->rumkitDetId;
+        }
+        // dd($rumkitDetailId);
+        $data = array(
+            'jadwalRumkitDetId' => $rumkitDetailId,
+            'jadwalKelompokId' => $this->request->getPost('kelompok'),
+            'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
+            'jadwalTanggalSelesai' => $dateSelesai,
+            'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
+            'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+        );
+        // dd($data);
+
+        // dd($this->request->getPost('rumahSakitEmail'));
+
+        if ($this->jadwalKegiatanModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
+            return redirect()->to('jadwalKegiatan');
         }
     }
 }
