@@ -161,7 +161,7 @@
                   <i class="fas fa-calendar"></i>
                 </div>
               </div>
-              <input type="text" class="form-control datepicker">
+              <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?php echo $edit_jadwal->jadwalTanggalMulai;  ?>">
             </div>
           </div>
           <div class="form-group">
@@ -172,10 +172,10 @@
                   <i class="fas fa-clock"></i>
                 </div>
               </div>
-              <input type="text" class="form-control timepicker" value="08.00">
+              <input type="text" class="form-control timepicker" name="jamMasuk" value="<?php echo $edit_jadwal->jadwalJamMasuk;  ?>">
             </div>
           </div>
-          <div class="form-group">
+          <div class=" form-group">
             <label>Jam Keluar</label>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -183,14 +183,14 @@
                   <i class="fas fa-clock"></i>
                 </div>
               </div>
-              <input type="text" class="form-control timepicker" value="16.00">
+              <input type="text" class="form-control timepicker" name="jamKeluar" value="<?php echo $edit_jadwal->jadwalJamKeluar;  ?>">
             </div>
           </div>
 
           <div class="form-group">
             <label>Rumah Sakit</label>
-            <select class="form-control select2" name="rumahSakitId" id="rumahSakitId">
-              <option value="">--Select--</option>
+            <select class="form-control select2" name="rumahSakitId">
+              <option value="<?php echo $edit_jadwal->rumahSakitId;  ?>" selected="selected"><?php echo $edit_jadwal->rumahSakitNama;  ?></option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
               <?php endforeach; ?>
@@ -199,25 +199,19 @@
 
           <div class="form-group">
             <label>Stase</label>
-            <select class="form-control select2" name="staseId" id="staseId">
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select class="form-control select2" name="staseId">
+              <option value="<?php echo $edit_jadwal->rumkitDetId;  ?>" selected="selected"><?php echo $edit_jadwal->staseNama;  ?></option>
             </select>
           </div>
 
           <div class="form-group">
             <label>Kelompok</label>
-            <select class="form-control select2" name="kelompokId" id="kelompokId">
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-              <option>Option 4</option>
-              <option>Option 5</option>
-              <option>Option 6</option>
+            <select class="form-control select2" name="kelompokId">
+              <option value="<?php echo $edit_jadwal->kelompokId;  ?>" selected="selected"><?php echo $edit_jadwal->kelompokNama;  ?></option>
             </select>
           </div>
         </div>
+
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
