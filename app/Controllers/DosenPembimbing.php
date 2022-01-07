@@ -110,7 +110,7 @@ class DosenPembimbing extends BaseController
         );
 
         if ($this->dosenPembimbingModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Dosen Pembimbing Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Dosen Pembimbing Berhasil Diupdate!');
             return redirect()->to('dosenPembimbing');
         }
     }

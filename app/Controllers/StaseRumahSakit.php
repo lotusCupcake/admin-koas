@@ -80,7 +80,7 @@ class StaseRumahSakit extends BaseController
         );
 
         if ($this->staseRumahSakitModel->insert($data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Ditambah!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -114,7 +114,7 @@ class StaseRumahSakit extends BaseController
         // dd($this->request->getPost('rumahSakitEmail'));
 
         if ($this->staseRumahSakitModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Diupdate !');
+            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Diupdate!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -122,7 +122,7 @@ class StaseRumahSakit extends BaseController
     public function delete($id)
     {
         if ($this->staseRumahSakitModel->delete($id)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Dihapus !');
+            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Dihapus!');
         };
         return redirect()->to('staseRumahSakit');
     }

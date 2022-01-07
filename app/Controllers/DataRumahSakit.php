@@ -30,31 +30,31 @@ class DataRumahSakit extends BaseController
             'rumahSakitNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                    'required' => 'Nama Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLat' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLong' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitTelp' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                    'required' => 'No. Telp Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitEmail' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Email Rumah Sakit Harus Diisi',
+                    'required' => 'Email Rumah Sakit Harus Diisi!',
                 ]
             ],
         ])) {
@@ -71,7 +71,7 @@ class DataRumahSakit extends BaseController
         );
 
         if ($this->dataRumahSakitModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah!');
             return redirect()->to('dataRumahSakit');
         }
     }
@@ -82,31 +82,31 @@ class DataRumahSakit extends BaseController
             'rumahSakitNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                    'required' => 'Nama Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLat' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLong' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitTelp' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                    'required' => 'No. Telp Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitEmail' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Email Rumah Sakit Harus Diisi',
+                    'required' => 'Email Rumah Sakit Harus Diisi!',
                 ]
             ],
         ])) {
@@ -125,7 +125,7 @@ class DataRumahSakit extends BaseController
         // dd($this->request->getPost('rumahSakitEmail'));
 
         if ($this->dataRumahSakitModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Diupdate !');
+            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Diupdate!');
             return redirect()->to('dataRumahSakit');
         }
     }
@@ -133,7 +133,7 @@ class DataRumahSakit extends BaseController
     public function delete($id)
     {
         if ($this->dataRumahSakitModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Dihapus !');
+            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Dihapus!');
         };
         return redirect()->to('dataRumahSakit');
     }

@@ -17,7 +17,7 @@
     <div class="section-body">
       <div class="card">
         <center>
-          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_4s3kvfcn.json" background="transparent" speed="1" style="width: 650px; height: 600px;" loop autoplay></lottie-player>
+          <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_vlpqwkz3.json" background="transparent" speed="1" style="width: 650px; height: 600px;" loop autoplay></lottie-player>
         </center>
       </div>
     </div>

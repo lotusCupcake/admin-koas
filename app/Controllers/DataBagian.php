@@ -30,14 +30,14 @@ class DataBagian extends BaseController
             'staseNama' => [
                 'rules' => 'required|is_unique[stase.staseNama]',
                 'errors' => [
-                    'required' => 'Nama Stase Harus Diisi',
-                    'is_unique' => 'Nama Stase Sudah terdaftar',
+                    'required' => 'Nama Stase Harus Diisi!',
+                    'is_unique' => 'Nama Stase Sudah terdaftar!',
                 ]
             ],
             'staseJumlahWeek' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Stase Harus Diisi',
+                    'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
         ])) {
@@ -51,7 +51,7 @@ class DataBagian extends BaseController
         );
 
         if ($this->dataBagianModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Bagian Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Stase Berhasil Ditambah!');
             return redirect()->to('dataBagian');
         }
     }
@@ -60,15 +60,16 @@ class DataBagian extends BaseController
     {
         if (!$this->validate([
             'staseNama' => [
-                'rules' => 'required',
+                'rules' => 'required|is_unique[stase.staseNama]',
                 'errors' => [
-                    'required' => 'Nama Stase Harus Diisi',
+                    'required' => 'Nama Stase Harus Diisi!',
+                    'is_unique' => 'Nama Stase Sudah terdaftar!',
                 ]
             ],
             'staseJumlahWeek' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Stase Harus Diisi',
+                    'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
         ])) {
