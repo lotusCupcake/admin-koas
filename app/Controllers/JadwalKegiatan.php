@@ -51,6 +51,23 @@ class JadwalKegiatan extends BaseController
         echo json_encode($callback); // konversi variabel $callback menjadi JSON
     }
 
+    public function editStase()
+    {
+        // Ambil data rumahSakitId yang dikirim via ajax post
+        $rumahSakitId = trim($this->request->getPost('rumahSakit'));
+        $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
+        // Proses Get Data Stase Dari Tabel Rumkit_Detail
+
+        // Buat variabel untuk menampung tag-tag option nya
+        // Set defaultnya dengan tag option Pilih
+        $lists = "<option value=''>Pilih Stase</option>";
+        foreach ($staseRumkit->getResult() as $data) {
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
+        }
+        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
+        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+    }
+
     public function kelompok()
     {
         $kelompokId = [];
