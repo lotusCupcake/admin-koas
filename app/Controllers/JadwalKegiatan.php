@@ -26,10 +26,11 @@ class JadwalKegiatan extends BaseController
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $this->jadwalKegiatanModel,
+            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
-            'menu' => $this->fetchMenu()
+            'menu' => $this->fetchMenu(),
         ];
+        // dd($data);
         return view('pages/jadwalKegiatan', $data);
     }
 

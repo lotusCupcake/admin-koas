@@ -35,19 +35,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td style="text-align:center" scope="row">1</td>
-                  <td>31-10-2012</td>
-                  <td>31-1-2013</td>
-                  <td>08.00-12.00</td>
-                  <td>RSU Deli Serdang</td>
-                  <td>Internal Medicine</td>
-                  <td>Muhamad Riyandi,Nadeo Arga Winata,Ernando Ari Sutaryadi,Ryuji Utomo Prabowo,</td>
-                  <td style="text-align:center">
-                    <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan"><i class="fas fa-trash"></i></button>
-                  </td>
-                </tr>
+                <?php
+                $no = 1;
+                foreach ($jadwalKegiatan->getResult() as $row_jadwal) : ?>
+                  <tr>
+                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                    <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
+                    <td><?= $row_jadwal->jadwalTanggalSelesai; ?></td>
+                    <td><?= $row_jadwal->jadwalJam; ?></td>
+                    <td><?= $row_jadwal->rumahSakitNama; ?></td>
+                    <td><?= $row_jadwal->staseNama; ?></td>
+                    <td><?= $row_jadwal->Mahasiswa; ?></td>
+                    <td style="text-align:center">
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
               </tbody>
             </table>
           </div>
@@ -138,88 +142,84 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="editJadwalKegiatan">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah<strong> Data Jadwal Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Tanggal Awal</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-calendar"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control datepicker">
-          </div>
+<?php foreach ($jadwalKegiatan->getResult() as $edit_jadwal) { ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="editJadwalKegiatan<?php echo $edit_jadwal->jadwalId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit<strong> Jadwal Kegiatan</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label>Jam Masuk</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Tanggal Awal</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-calendar"></i>
+                </div>
               </div>
+              <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?php echo $edit_jadwal->jadwalTanggalMulai;  ?>">
             </div>
-            <input type="text" class="form-control timepicker" value="08.00">
           </div>
-        </div>
-        <div class="form-group">
-          <label>Jam Keluar</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
+          <div class="form-group">
+            <label>Jam Masuk</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-clock"></i>
+                </div>
               </div>
+              <input type="text" class="form-control timepicker" name="jamMasuk" value="<?php echo $edit_jadwal->jadwalJamMasuk;  ?>">
             </div>
-            <input type="text" class="form-control timepicker" value="16.00">
+          </div>
+          <div class=" form-group">
+            <label>Jam Keluar</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control timepicker" name="jamKeluar" value="<?php echo $edit_jadwal->jadwalJamKeluar;  ?>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Rumah Sakit</label>
+            <select class="form-control select2" name="rumahSakitId">
+              <option value="<?php echo $edit_jadwal->rumahSakitId;  ?>" selected="selected"><?php echo $edit_jadwal->rumahSakitNama;  ?></option>
+              <?php foreach ($dataRumahSakit as $row) : ?>
+                <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Stase</label>
+            <select class="form-control select2" name="staseId">
+              <option value="<?php echo $edit_jadwal->rumkitDetId;  ?>" selected="selected"><?php echo $edit_jadwal->staseNama;  ?></option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Kelompok</label>
+            <select class="form-control select2" name="kelompokId">
+              <option value="<?php echo $edit_jadwal->kelompokId;  ?>" selected="selected"><?php echo $edit_jadwal->kelompokNama;  ?></option>
+            </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Rumah Sakit</label>
-          <select class="form-control select2" name="rumahSakitId" id="rumahSakitId">
-            <option value="">--Select--</option>
-            <?php foreach ($dataRumahSakit as $row) : ?>
-              <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
-            <?php endforeach; ?>
-          </select>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
-
-        <div class="form-group">
-          <label>Stase</label>
-          <select class="form-control select2" name="staseId" id="staseId">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Kelompok</label>
-          <select class="form-control select2" name="kelompokId" id="kelompokId">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
-            <option>Option 6</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</div>
+<?php } ?>
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->

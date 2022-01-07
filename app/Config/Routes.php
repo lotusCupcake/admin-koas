@@ -98,6 +98,8 @@ $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
 $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
 $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
+$routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
+$routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
 
 
 /*
