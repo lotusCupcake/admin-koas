@@ -11,30 +11,23 @@ class ManajemenAkun extends BaseController
     protected $usersModel;
     protected $authGroupsUsersModel;
     protected $authGroupsModel;
+    protected $db;
     public function __construct()
     {
         $this->usersModel = new UsersModel();
         $this->authGroupsModel = new AuthGroupsModel();
         $this->authGroupsUsersModel = new AuthGroupsUsersModel();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('users');
-        $builder->select('users.id as userid, auth_groups_users.group_id as groups_id, username, email, name, active');
-        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
-        $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id');
-        $query = $builder->get();
-        // $users = new \Myth\Auth\Models\UserModel();
-        // dd($query->getResult());
         $data = [
             'title' => "Manajemen Akun",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Manajemen Akun'],
             'menu' => $this->fetchMenu(),
-            'users' => $query->getResult(),
-            'akun' =>  $this->usersModel->findAll(),
+            'akun' =>  $this->usersModel->getUser()->getResult(),
             'authGroups' =>  $this->authGroupsModel->findAll(),
             'validation' => \Config\Services::validation()
         ];

@@ -16,17 +16,11 @@ class KelompokMahasiswa extends BaseController
     }
     public function index()
     {
-
-        $builder = $this->db->table('kelompok_detail');
-        $builder->select('*');
-        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId');
-        $query = $builder->get();
-
         $data = [
             'title' => "Kelompok Mahasiswa",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Kelompok Mahasiswa'],
-            'kelompok' => $query->getResult(),
+            'kelompok' => $this->kelompokMahasiswaModel->getKelompok()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

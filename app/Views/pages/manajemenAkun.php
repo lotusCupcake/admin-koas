@@ -72,7 +72,7 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($users as $user) : ?>
+                foreach ($akun as $user) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $user->email; ?></td>
@@ -95,7 +95,7 @@
 </div>
 
 <!-- start modal edit  -->
-<?php foreach ($users as $edit) : ?>
+<?php foreach ($akun as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editAkun<?= $edit->userid; ?>">
     <div class="modal-dialog" role="document">
       <form action="/manajemenAkun/<?= $edit->userid; ?>/edit" method="POST">
@@ -145,7 +145,7 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($users as $delete) : ?>
+<?php foreach ($akun as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->userid; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

@@ -11,11 +11,13 @@ class StaseRumahSakit extends BaseController
     protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
     protected $dataBagianModel;
+    protected $db;
     public function __construct()
     {
         $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dataBagianModel = new DataBagianModel();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
@@ -26,18 +28,11 @@ class StaseRumahSakit extends BaseController
             array_push($namars, $k->rumahSakitNama);
         }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('rumkit_detail');
-        $builder->select('*');
-        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
-        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $joinStaseRS = $builder->get();
-
         $data = [
             'title' => "Stase Rumah Sakit",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Stase Rumah Sakit'],
-            'staseRumahSakit' => $joinStaseRS,
+            'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel,
             'dataBagian' => $this->dataBagianModel,
             'dataNamaRs' => $namars,

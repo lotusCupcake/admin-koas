@@ -64,7 +64,7 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($detailDosen as $row) : ?>
+                foreach ($detailkelompokDosen as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->dosenKelompokNama; ?></td>
@@ -126,7 +126,7 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($detailDosen as $edit) : ?>
+<?php foreach ($detailkelompokDosen as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editDetailKelompokDosen<?= $edit->detKelompokDosenId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/detailKelompokDosen/<?= $edit->detKelompokDosenId; ?>/edit" method="post">
@@ -168,7 +168,7 @@
 <!-- end modal edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($detailDosen as $delete) : ?>
+<?php foreach ($detailkelompokDosen as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusDetailKelompokDosen<?= $delete->detKelompokDosenId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

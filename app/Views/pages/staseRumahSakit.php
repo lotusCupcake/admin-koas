@@ -70,7 +70,7 @@
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $no++ ?></strong></td>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $row->rumahSakitNama ?></strong></td>
                     <?php $u = 0;
-                    foreach ($staseRumahSakit->getResult() as $r) : ?>
+                    foreach ($staseRumahSakit as $r) : ?>
                       <?php if ($r->rumkitDetRumkitId == $row->rumahSakitId) : ?>
                         <?php if ($u < 1) : ?>
                           <td><?= $r->staseNama; ?></td>
@@ -153,7 +153,7 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($staseRumahSakit->getResult() as $edit) : ?>
+<?php foreach ($staseRumahSakit as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editStaseRumahSakit<?= $edit->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/staseRumahSakit/<?= $edit->rumkitDetId; ?>/edit" method="POST">
@@ -204,7 +204,7 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($staseRumahSakit->getResult() as $delete) : ?>
+<?php foreach ($staseRumahSakit as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusStaseRumahSakit<?= $delete->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

@@ -21,19 +21,11 @@ class DetailKelompokDosen extends BaseController
     }
     public function index()
     {
-
-        $builder = $this->db->table('dosen_kelompok_detail');
-        $builder->select('*');
-        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = dosen_kelompok_detail.detKelompokDosenKelompokId');
-        $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingId  = dosen_kelompok_detail.detKelompokDopingId');
-        $query = $builder->get();
-
         $data = [
             'title' => "Detail Kelompok Dosen",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Detail Kelompok Dosen'],
-            'detailDosen' => $query->getResult(),
-            'detailkelompokDosen' => $this->detailKelompokDosenModel->findAll(),
+            'detailkelompokDosen' => $this->detailKelompokDosenModel->getDetailDosen()->getResult(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
             'validation' => \Config\Services::validation(),
