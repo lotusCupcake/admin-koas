@@ -21,12 +21,9 @@ class StaseRumahSakit extends BaseController
     {
         $builder = $this->staseRumahSakitModel->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        // dd($builder->findAll());
         $namars = [];
         foreach ($builder->findAll() as $k) {
-            // if (!in_array($k->rumahSakitNama, $namars)) {
             array_push($namars, $k->rumahSakitNama);
-            // }
         }
 
         $db = \Config\Database::connect();
@@ -36,8 +33,6 @@ class StaseRumahSakit extends BaseController
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $joinStaseRS = $builder->get();
 
-
-        // dd(array_count_values($namars)['Rumkit Tk II Putri Hijau Medan (RS JEJARING)']);
         $data = [
             'title' => "Stase Rumah Sakit",
             'appName' => "KOAS",

@@ -77,40 +77,40 @@ class JadwalKegiatan extends BaseController
     public function add()
     {
         // dd($_POST);
-        // if (!$this->validate([
-        //     'rumahSakitNama' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Nama Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitLat' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitLong' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitTelp' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'No. Telp Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitEmail' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Email Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        // ])) {
-        //     return redirect()->to('jadwalKegiatan')->withInput();
-        // }
+        if (!$this->validate([
+            'rumahSakitNama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitLong' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitTelp' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                ]
+            ],
+            'rumahSakitEmail' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Email Rumah Sakit Harus Diisi',
+                ]
+            ],
+        ])) {
+            return redirect()->to('jadwalKegiatan')->withInput();
+        }
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
         $dt = array(
             'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
@@ -133,7 +133,7 @@ class JadwalKegiatan extends BaseController
 
         if ($this->jadwalKegiatanModel->insert($data)) {
             session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
-            return redirect()->to('dataRumahSakit');
+            return redirect()->to('jadwalKegiatan');
         }
     }
 }

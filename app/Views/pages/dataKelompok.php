@@ -61,6 +61,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('mahasiswa')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('mahasiswa'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -70,20 +80,21 @@
                   <th scope="col">Kelompok Dosen</th>
                   <th scope="col">Tahun Akademik</th>
                   <th scope="col">Jumlah Partisipan</th>
-                  <th width="15%" style="text-align:center" scope="col">Action</th>
+                  <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($dosen as $row) : ?>
+                foreach ($dataKelompok as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->kelompokNama; ?></td>
                     <td><?= $row->dosenKelompokNama; ?></td>
                     <td><?= $row->kelompokTahunAkademik; ?></td>
-                    <td><?= $row->jumlahPartisipan; ?></td>
+                    <td><span class="badge badge-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</span></td>
                     <td style="text-align:center">
+                      <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
                     </td>
@@ -139,7 +150,7 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($dosen as $edit) : ?>
+<?php foreach ($dataKelompok as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editDataKelompok<?= $edit->kelompokId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/dataKelompok/<?= $edit->kelompokId; ?>/edit" method="post">
@@ -181,7 +192,7 @@
 <!-- end modal edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($dosen as $delete) : ?>
+<?php foreach ($dataKelompok as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusDataKelompok<?= $delete->kelompokId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -208,6 +219,51 @@
   </div>
 <?php endforeach ?>
 <!-- end modal hapus -->
+
+<!-- start modal tambah partisipan -->
+<?php foreach ($dataKelompok as $tambah) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPartisipan<?= $tambah->kelompokId ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="tambahPartisipan" method="post">
+          <input type="hidden" name="kelompokId" value="<?= $tambah->kelompokId ?>">
+          <div class="modal-header">
+            <h5 class="modal-title">Tambah<strong> Partisipan</strong></h5>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th style="text-align:center" scope="col"></th>
+                    <th scope="col">NPM</th>
+                    <th scope="col">Nama</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($mahasiswaProfesi as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><input type="checkbox" value="<?= $row->Nim . "," . $row->Nama_Lengkap; ?>" name="mahasiswa[<?= $row->Nim; ?>]" id=""></td>
+                      <td><?= $row->Nim; ?></td>
+                      <td><?= $row->Nama_Lengkap; ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+
+<!-- end modal tambah partisipan -->
 
 <?= view('layout/templateFooter'); ?>
 

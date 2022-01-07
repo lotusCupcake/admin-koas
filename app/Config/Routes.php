@@ -84,12 +84,11 @@ $routes->get('/dataKelompok/(:any)', 'DataKelompok::index');
 $routes->post('/dataKelompok', 'DataKelompok::add');
 $routes->delete('/dataKelompok/(:num)', 'DataKelompok::delete/$1');
 $routes->add('/dataKelompok/(:num)/edit', 'DataKelompok::edit/$1');
+$routes->post('/tambahPartisipan', 'DataKelompok::tambahPartisipan');
 
 // route kelompok mahasiswa
 $routes->get('/kelompokMahasiswa/(:any)', 'KelompokMahasiswa::index');
-$routes->post('/kelompokMahasiswa', 'KelompokMahasiswa::add');
 $routes->delete('/kelompokMahasiswa/(:num)', 'KelompokMahasiswa::delete/$1');
-$routes->add('/kelompokMahasiswa/(:num)/edit', 'KelompokMahasiswa::edit/$1');
 
 // route mahasiswa profesi
 $routes->get('/mahasiswaProfesi/(:any)', 'MahasiswaProfesi::index');
