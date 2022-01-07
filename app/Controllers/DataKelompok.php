@@ -18,18 +18,11 @@ class DataKelompok extends BaseController
     }
     public function index()
     {
-
-        $builder = $this->db->table('kelompok');
-        $builder->select('*');
-        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = kelompok.kelompokDosenKelompokId');
-        $query = $builder->get();
-
         $data = [
             'title' => "Data Kelompok",
             'appName' => "KOAS",
             'breadcrumb' => ['Home', 'Utama', 'Data Kelompok'],
-            'dosen' => $query->getResult(),
-            'dataKelompok' => $this->dataKelompokModel->findAll(),
+            'dosen' => $this->dataKelompokModel->getDataKelompok()->getResult(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
