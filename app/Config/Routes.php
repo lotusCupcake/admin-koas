@@ -70,6 +70,7 @@ $routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
 // route jadwal kegiatan
 $routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
 $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
+$routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 
 
