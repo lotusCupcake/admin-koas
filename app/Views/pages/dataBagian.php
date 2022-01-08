@@ -51,6 +51,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('staseType')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('staseType'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -58,6 +68,7 @@
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Stase</th>
                   <th scope="col">Durasi (Minggu)</th>
+                  <th scope="col">Type Form Nilai</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -69,6 +80,7 @@
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->staseNama; ?></td>
                     <td><?= $row->staseJumlahWeek; ?></td>
+                    <td><?= $row->staseType; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataBagian<?= $row->staseId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataBagian<?= $row->staseId; ?>"><i class="fas fa-trash"></i></button>
@@ -100,11 +112,13 @@
             <label>Nama Stase</label>
             <input name="staseNama" type="text" class="form-control">
           </div>
-        </div>
-        <div class="modal-body">
           <div class="form-group">
             <label>Durasi (Minggu)</label>
             <input name="staseJumlahWeek" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Type Form Nilai</label>
+            <input name="staseType" type="text" class="form-control">
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
@@ -135,11 +149,13 @@
               <label>Nama Stase</label>
               <input name="staseNama" type="text" class="form-control" value="<?= $edit->staseNama; ?>">
             </div>
-          </div>
-          <div class="modal-body">
             <div class="form-group">
               <label>Durasi (Minggu)</label>
               <input name="staseJumlahWeek" type="text" class="form-control" value="<?= $edit->staseJumlahWeek; ?>">
+            </div>
+            <div class="form-group">
+              <label>Type Form Nilai</label>
+              <input name="staseType" type="text" class="form-control" value="<?= $edit->staseType; ?>">
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">

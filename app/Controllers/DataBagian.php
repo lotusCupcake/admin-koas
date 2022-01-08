@@ -40,6 +40,12 @@ class DataBagian extends BaseController
                     'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
+            'staseType' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Type Form Nilai Harus Diisi!',
+                ]
+            ],
         ])) {
             return redirect()->to('dataBagian')->withInput();
         }
@@ -48,6 +54,7 @@ class DataBagian extends BaseController
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
             'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
+            'staseType' => trim($this->request->getPost('staseType')),
         );
 
         if ($this->dataBagianModel->insert($data)) {
@@ -72,14 +79,21 @@ class DataBagian extends BaseController
                     'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
+            'staseType' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Type Form Nilai Harus Diisi!',
+                ]
+            ],
         ])) {
             return redirect()->to('dataBagian')->withInput();
         }
 
-
+        // dd($_POST);
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
             'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
+            'staseType' => trim($this->request->getPost('staseType')),
         );
 
         if ($this->dataBagianModel->update($id, $data)) {
