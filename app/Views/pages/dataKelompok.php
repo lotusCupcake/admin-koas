@@ -78,7 +78,7 @@
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Kelompok Dosen</th>
-                  <th scope="col">Tahun Akademik</th>
+                  <th scope="col">Tahun</th>
                   <th scope="col">Jumlah Partisipan</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
@@ -115,7 +115,7 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Kelompok</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Kelompok</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -135,8 +135,13 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Tahun Akademik</label>
-            <input name="kelompokTahunAkademik" type=" text" class="form-control">
+            <label>Tahun</label>
+            <select name="kelompokTahunAkademik" class="form-control select2">
+              <option value="">--Select--</option>
+              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
+                <option value="<?= $i ?>"><?= $i ?></option>
+              <?php endfor ?>
+            </select>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -157,7 +162,7 @@
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit<strong> Data Kelompok</strong></h5>
+            <h5 class="modal-title">Edit Data <strong>Kelompok</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -176,8 +181,12 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Tahun Akademik</label>
-              <input name="kelompokTahunAkademik" type="text" class="form-control" value="<?= $edit->kelompokTahunAkademik; ?>">
+              <label>Tahun</label>
+              <select name="kelompokTahunAkademik" class="form-control select2">
+                <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
+                  <option value="<?= $i ?>" <?php if ($i == $edit->kelompokTahunAkademik) echo " selected" ?>><?= $i ?></option>
+                <?php endfor ?>
+              </select>
             </div>
             <div class="modal-footer bg-whitesmoke br">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -197,7 +206,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Kelompok</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Kelompok</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -255,7 +264,6 @@
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
           </div>
         </form>
       </div>

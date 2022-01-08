@@ -24,9 +24,9 @@ class DataKelompok extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Kelompok",
+            'title' => "Kelompok",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Data Kelompok'],
+            'breadcrumb' => ['Master', 'Data', 'Kelompok'],
             'dataKelompok' => $this->dataKelompokModel->getDataKelompok()->getResult(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'mahasiswaProfesi' => $this->getMahasiswa(),
@@ -66,7 +66,7 @@ class DataKelompok extends BaseController
             'kelompokTahunAkademik' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tahun Akademik Harus Diisi!',
+                    'required' => 'Tahun Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -139,7 +139,7 @@ class DataKelompok extends BaseController
             'kelompokTahunAkademik' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tahun Akademik Harus Diisi!',
+                    'required' => 'Tahun Harus Dipilih!',
                 ]
             ],
         ])) {
