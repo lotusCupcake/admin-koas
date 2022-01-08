@@ -17,6 +17,24 @@
         "pages": "#"
     },
     {
+        "id": "18",
+        "nama": "Setting",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "19",
+        "nama": "Jadwal Kegiatan",
+        "parent": "18",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": "/jadwalKegiatan"
+    },
+    {
         "id": "3",
         "nama": "User",
         "parent": "0",
