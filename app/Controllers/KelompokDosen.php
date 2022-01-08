@@ -14,9 +14,9 @@ class KelompokDosen extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Kelompok Dosen",
+            'title' => "Grup Dosen",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Kelompok Dosen'],
+            'breadcrumb' => ['Master', 'Data', 'Grup Dosen'],
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -30,7 +30,7 @@ class KelompokDosen extends BaseController
             'dosenKelompokNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Dosen Harus Diisi!',
+                    'required' => 'Nama Grup Dosen Harus Diisi!',
                 ]
             ],
         ])) {
@@ -54,7 +54,7 @@ class KelompokDosen extends BaseController
             'dosenKelompokNama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Kelompok Dosen Harus Diisi!',
+                    'required' => 'Nama Grup Dosen Harus Diisi!',
                 ]
             ],
         ])) {
