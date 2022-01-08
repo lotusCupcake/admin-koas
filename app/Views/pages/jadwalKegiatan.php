@@ -36,13 +36,13 @@
               </thead>
               <tbody>
                 <?php
-                if (empty($jadwalKegiatan->getResult()[0]->jadwalId)) { ?>
+                if (empty($jadwalKegiatan)) { ?>
                   <tr>
                     <td class="danger" colspan="8" align="center">Data Tidak Ditemukan</td>
                   </tr>
                   <?php } else {
                   $no = 1;
-                  foreach ($jadwalKegiatan->getResult() as $row_jadwal) { ?>
+                  foreach ($jadwalKegiatan as $row_jadwal) { ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
@@ -157,7 +157,7 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($jadwalKegiatan->getResult() as $edit_jadwal) { ?>
+<?php foreach ($jadwalKegiatan as $edit_jadwal) { ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editJadwalKegiatan<?php echo $edit_jadwal->jadwalId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/jadwalKegiatan/<?= $edit_jadwal->jadwalId; ?>/edit" method="POST">
@@ -248,7 +248,7 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($jadwalKegiatan->getResult() as $hapus_jadwal) { ?>
+<?php foreach ($jadwalKegiatan as $hapus_jadwal) { ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusJadwalKegiatan<?php echo $hapus_jadwal->jadwalId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

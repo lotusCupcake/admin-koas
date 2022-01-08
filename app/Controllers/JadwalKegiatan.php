@@ -26,7 +26,7 @@ class JadwalKegiatan extends BaseController
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
+            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
