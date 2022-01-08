@@ -103,7 +103,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-clinic-medical",
+        "icon": "fas fa-hospital",
         "pages": "/dataRumahSakit"
     },
     {
@@ -139,7 +139,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-user-graduate",
         "pages": "/mahasiswaProfesi"
     },
     {
@@ -148,7 +148,7 @@
         "parent": "6",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-clinic-medical",
         "pages": "/staseRumahSakit"
     },
     {
