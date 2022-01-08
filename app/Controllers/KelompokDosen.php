@@ -43,7 +43,7 @@ class KelompokDosen extends BaseController
         );
 
         if ($this->kelompokDosenModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Kelompok Dosen Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Grup Dosen Berhasil Ditambah!');
             return redirect()->to('kelompokDosen');
         }
     }
@@ -67,7 +67,7 @@ class KelompokDosen extends BaseController
         );
 
         if ($this->kelompokDosenModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Kelompok Dosen Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Data Grup Dosen Berhasil Diupdate!');
             return redirect()->to('kelompokDosen');
         }
     }
@@ -75,7 +75,7 @@ class KelompokDosen extends BaseController
     public function delete($id)
     {
         if ($this->kelompokDosenModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Kelompok Dosen Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Data Grup Dosen Berhasil Dihapus!');
         };
         return redirect()->to('kelompokDosen');
     }
