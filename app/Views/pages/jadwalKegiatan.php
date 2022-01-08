@@ -36,22 +36,29 @@
               </thead>
               <tbody>
                 <?php
-                $no = 1;
-                foreach ($jadwalKegiatan->getResult() as $row_jadwal) : ?>
+                count()
+                if ($jadwalKegiatan->getResult() = 0) { ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
-                    <td><?= $row_jadwal->jadwalTanggalSelesai; ?></td>
-                    <td><?= $row_jadwal->jadwalJam; ?></td>
-                    <td><?= $row_jadwal->rumahSakitNama; ?></td>
-                    <td><?= $row_jadwal->staseNama; ?></td>
-                    <td><?= $row_jadwal->Mahasiswa; ?></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td class="danger" colspan="8" align="center">Data Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                  <?php } else {
+                  $no = 1;
+                  foreach ($jadwalKegiatan->getResult() as $row_jadwal) { ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
+                      <td><?= $row_jadwal->jadwalTanggalSelesai; ?></td>
+                      <td><?= $row_jadwal->jadwalJam; ?></td>
+                      <td><?= $row_jadwal->rumahSakitNama; ?></td>
+                      <td><?= $row_jadwal->staseNama; ?></td>
+                      <td><?= $row_jadwal->Mahasiswa; ?></td>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                <?php }
+                } ?>
               </tbody>
             </table>
           </div>
@@ -84,6 +91,14 @@
               <input type="text" class="form-control datepicker" name="tanggalAwal">
             </div>
           </div>
+
+          <div class="form-group">
+            <label>Jumlah Minggu</label>
+            <div class="input-group">
+              <input type="number" class="form-control" value="" name="jumlahWeek">
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Jam Masuk</label>
             <div class="input-group">
@@ -95,6 +110,7 @@
               <input type="text" class="form-control timepicker" value="08.00" name="jamMasuk">
             </div>
           </div>
+
           <div class=" form-group">
             <label>Jam Keluar</label>
             <div class="input-group">
@@ -165,6 +181,14 @@
                 <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?php echo $edit_jadwal->jadwalTanggalMulai;  ?>">
               </div>
             </div>
+
+            <div class="form-group">
+              <label>Jumlah Minggu</label>
+              <div class="input-group">
+                <input type="number" class="form-control" value="<?php echo $edit_jadwal->jadwalJumlahWeek;  ?>" name="jumlahWeek">
+              </div>
+            </div>
+
             <div class="form-group">
               <label>Jam Masuk</label>
               <div class="input-group">
@@ -215,7 +239,7 @@
 
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </form>

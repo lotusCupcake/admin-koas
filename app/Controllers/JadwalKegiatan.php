@@ -112,11 +112,15 @@ class JadwalKegiatan extends BaseController
         // ])) {
         //     return redirect()->to('jadwalKegiatan')->withInput();
         // }
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
+
+        // $jlhweek = $this->jadwalKegiatanModel->getJlhWeek(['staseId' => $this->request->getPost('stase')])->getFirstRow()->staseJumlahWeek;
+        $jlhweek = $this->request->getPost('jumlahWeek');
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
         $dt = array(
             'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
             'rumkitDetStaseId' => $this->request->getPost('staseId'),
         );
+        $rumkitDetailId = '';
         $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
         foreach ($rumkitDetail->getResult() as $row) {
             $rumkitDetailId = $row->rumkitDetId;
@@ -129,6 +133,7 @@ class JadwalKegiatan extends BaseController
             'jadwalTanggalSelesai' => $dateSelesai,
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+            'jadwalJumlahWeek' => $jlhweek,
         );
         // dd($data);
 
@@ -174,9 +179,9 @@ class JadwalKegiatan extends BaseController
         // ])) {
         //     return redirect()->to('dataRumahSakit')->withInput();
         // }
-
-
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
+        // $jlhweek = $this->jadwalKegiatanModel->getJlhWeek(['staseId' => $this->request->getPost('stase')])->getFirstRow()->staseJumlahWeek;
+        $jlhweek = $this->request->getPost('jumlahWeek');
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
         $dt = array(
             'rumkitDetRumkitId' => $this->request->getPost('rumahSakit'),
             'rumkitDetStaseId' => $this->request->getPost('stase'),
@@ -193,6 +198,7 @@ class JadwalKegiatan extends BaseController
             'jadwalTanggalSelesai' => $dateSelesai,
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+            'jadwalJumlahWeek' => $jlhweek,
         );
         // dd($data);
 
