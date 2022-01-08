@@ -31,7 +31,76 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+
+// route home
+$routes->get('/home/(:any)', 'Home::index');
+
+// route mamajemen user
+$routes->get('/manajemenAkun/(:any)', 'ManajemenAkun::index');
+$routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
+$routes->add('/manajemenAkun/(:num)/edit', 'ManajemenAkun::edit/$1');
+
+// route maintenance
+$routes->get('/maintenance/(:any)', 'Maintenance::index');
+
+// route data rumah sakit
+$routes->get('/dataRumahSakit/(:any)', 'DataRumahSakit::index');
+$routes->post('/dataRumahSakit', 'DataRumahSakit::add');
+$routes->delete('/dataRumahSakit/(:num)', 'DataRumahSakit::delete/$1');
+$routes->add('/dataRumahSakit/(:num)/edit', 'DataRumahSakit::edit/$1');
+
+// route stase rumah sakit
+$routes->get('/staseRumahSakit/(:any)', 'StaseRumahSakit::index');
+$routes->post('/staseRumahSakit', 'StaseRumahSakit::add');
+$routes->delete('/staseRumahSakit/(:num)', 'StaseRumahSakit::delete/$1');
+$routes->add('/staseRumahSakit/(:num)/edit', 'StaseRumahSakit::edit/$1');
+
+// route data bagian
+$routes->get('/dataBagian/(:any)', 'DataBagian::index');
+$routes->post('/dataBagian', 'DataBagian::add');
+$routes->delete('/dataBagian/(:num)', 'DataBagian::delete/$1');
+$routes->add('/dataBagian/(:num)/edit', 'DataBagian::edit/$1');
+
+// route dosen pembimbing
+$routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
+$routes->post('/dosenPembimbing', 'DosenPembimbing::add');
+$routes->delete('/dosenPembimbing/(:num)', 'DosenPembimbing::delete/$1');
+$routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
+
+// route kelompok dosen
+$routes->get('/kelompokDosen/(:any)', 'KelompokDosen::index');
+$routes->post('/kelompokDosen', 'KelompokDosen::add');
+$routes->delete('/kelompokDosen/(:num)', 'KelompokDosen::delete/$1');
+$routes->add('/kelompokDosen/(:num)/edit', 'KelompokDosen::edit/$1');
+
+// route detail kelompok dosen
+$routes->get('/detailKelompokDosen/(:any)', 'DetailKelompokDosen::index');
+$routes->post('/detailKelompokDosen', 'DetailKelompokDosen::add');
+$routes->delete('/detailKelompokDosen/(:num)', 'DetailKelompokDosen::delete/$1');
+$routes->add('/detailKelompokDosen/(:num)/edit', 'DetailKelompokDosen::edit/$1');
+
+// route data kelompok
+$routes->get('/dataKelompok/(:any)', 'DataKelompok::index');
+$routes->post('/dataKelompok', 'DataKelompok::add');
+$routes->delete('/dataKelompok/(:num)', 'DataKelompok::delete/$1');
+$routes->add('/dataKelompok/(:num)/edit', 'DataKelompok::edit/$1');
+$routes->post('/tambahPartisipan', 'DataKelompok::tambahPartisipan');
+
+// route kelompok mahasiswa
+$routes->get('/kelompokMahasiswa/(:any)', 'KelompokMahasiswa::index');
+$routes->delete('/kelompokMahasiswa/(:num)', 'KelompokMahasiswa::delete/$1');
+
+// route mahasiswa profesi
+$routes->get('/mahasiswaProfesi/(:any)', 'MahasiswaProfesi::index');
+
+// route jadwal kegiatan
+$routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
+$routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
+$routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
+$routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
+$routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
+$routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
+
 
 /*
  * --------------------------------------------------------------------
