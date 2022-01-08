@@ -14,11 +14,7 @@ class JadwalKegiatanModel extends Model
     public function show_Jadwal_Kegiatan()
     {
         $builder = $this->db->table('jadwal');
-<<<<<<< HEAD
-        $builder->select('DISTINCT (jadwal.jadwalId) AS jadwalId, GROUP_CONCAT( DISTINCT CONCAT( " ", kelompok_detail.kelompokDetNama, " (" ), CONCAT(kelompok_detail.kelompokDetNim,")") ORDER BY kelompok_detail.kelompokDetId ASC ) AS Mahasiswa, rumkit.rumahSakitId, rumkit.rumahSakitNama, rumkit_detail.rumkitDetId, stase.staseNama, date(FROM_UNIXTIME( jadwal.jadwalTanggalMulai / 1000 )) AS jadwalTanggalMulai, date(FROM_UNIXTIME( jadwal.jadwalTanggalSelesai / 1000 )) AS jadwalTanggalSelesai, CONCAT(jadwal.jadwalJamMasuk," - ",jadwal.jadwalJamKeluar," WIB") AS jadwalJam, jadwal.jadwalJamMasuk, jadwal.jadwalJamKeluar, kelompok.kelompokId, kelompok.kelompokNama, stase.*');
-=======
         $builder->select('DISTINCT (jadwal.jadwalId) AS jadwalId, GROUP_CONCAT( DISTINCT CONCAT( " ", kelompok_detail.kelompokDetNama, " (" ), CONCAT(kelompok_detail.kelompokDetNim,")") ORDER BY kelompok_detail.kelompokDetId ASC ) AS Mahasiswa, rumkit.rumahSakitId, rumkit.rumahSakitNama, rumkit_detail.rumkitDetId, stase.staseNama, date(FROM_UNIXTIME( jadwal.jadwalTanggalMulai / 1000 )) AS jadwalTanggalMulai, date(FROM_UNIXTIME( jadwal.jadwalTanggalSelesai / 1000 )) AS jadwalTanggalSelesai, CONCAT(jadwal.jadwalJamMasuk," - ",jadwal.jadwalJamKeluar," WIB") AS jadwalJam, jadwal.jadwalJamMasuk, jadwal.jadwalJamKeluar, kelompok.kelompokId, kelompok.kelompokNama, stase.staseJumlahWeek');
->>>>>>> 69d14708d08e63f0164534ee291d24ece1303fc5
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');

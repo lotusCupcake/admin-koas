@@ -86,7 +86,7 @@
                 <button class="close" data-dismiss="alert">
                   <span>&times;</span>
                 </button>
-                <strong>Failed ! </strong><?= $validation->getError('dosenKelompokNama'); ?>
+                <strong>Failed ! </strong><?= $validation->getError('kelompokId'); ?>
               </div>
             </div>
           <?php endif; ?>
@@ -215,22 +215,6 @@
 <?php foreach ($jadwalKegiatan->getResult() as $edit_jadwal) { ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editJadwalKegiatan<?php echo $edit_jadwal->jadwalId; ?>">
     <div class="modal-dialog" role="document">
-<<<<<<< HEAD
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Data<strong> Jadwal Kegiatan</strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Tanggal Awal</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i class="fas fa-calendar"></i>
-=======
       <form action="/jadwalKegiatan/<?= $edit_jadwal->jadwalId; ?>/edit" method="POST">
         <div class="modal-content">
           <div class="modal-header">
@@ -247,7 +231,6 @@
                   <div class="input-group-text">
                     <i class="fas fa-calendar"></i>
                   </div>
->>>>>>> 69d14708d08e63f0164534ee291d24ece1303fc5
                 </div>
                 <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?php echo $edit_jadwal->jadwalTanggalMulai;  ?>">
               </div>
@@ -302,7 +285,7 @@
 
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit " class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </form>
@@ -312,24 +295,6 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<<<<<<< HEAD
-<div class="modal fade" tabindex="-1" role="dialog" id="hapusJadwalKegiatan">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Hapus Data <strong>Jadwal Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Apakah kamu benar ingin menghapus data jadwal kegiatan?</p>
-        <p class="text-warning"><small>This action cannot be undone</small></p>
-      </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-=======
 <?php foreach ($jadwalKegiatan->getResult() as $hapus_jadwal) { ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusJadwalKegiatan<?php echo $hapus_jadwal->jadwalId; ?>">
     <div class="modal-dialog" role="document">
@@ -348,7 +313,6 @@
           <button type="button" class="btn btn-danger">Delete</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
->>>>>>> 69d14708d08e63f0164534ee291d24ece1303fc5
       </div>
     </div>
   </div>

@@ -137,12 +137,9 @@ class JadwalKegiatan extends BaseController
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
         );
-        dd($data);
+        // dd($data);
 
         if ($this->jadwalKegiatanModel->insert($data)) {
-<<<<<<< HEAD
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
-=======
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');
             return redirect()->to('jadwalKegiatan');
         }
@@ -210,7 +207,6 @@ class JadwalKegiatan extends BaseController
 
         if ($this->jadwalKegiatanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
->>>>>>> 69d14708d08e63f0164534ee291d24ece1303fc5
             return redirect()->to('jadwalKegiatan');
         }
     }
