@@ -79,46 +79,6 @@ class JadwalKegiatan extends BaseController
     public function add()
     {
         // dd($_POST);
-<<<<<<< HEAD
-        // if (!$this->validate([
-        //     'rumahSakitNama' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Nama Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitLat' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitLong' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Koordinat Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitTelp' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'No. Telp Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        //     'rumahSakitEmail' => [
-        //         'rules' => 'required',
-        //         'errors' => [
-        //             'required' => 'Email Rumah Sakit Harus Diisi',
-        //         ]
-        //     ],
-        // ])) {
-        //     return redirect()->to('jadwalKegiatan')->withInput();
-        // }
-
-        // $jlhweek = $this->jadwalKegiatanModel->getJlhWeek(['staseId' => $this->request->getPost('stase')])->getFirstRow()->staseJumlahWeek;
-        $jlhweek = $this->request->getPost('jumlahWeek');
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
-=======
         if (!$this->validate([
             'tanggalAwal' => [
                 'rules' => 'required',
@@ -159,8 +119,8 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
+        $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
->>>>>>> 4fa0c5689eac02b7ebd8fdd49fcbd2bd51b81d95
         $dt = array(
             'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
             'rumkitDetStaseId' => $this->request->getPost('staseId'),
