@@ -112,7 +112,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-user-md",
         "pages": "/dosenPembimbing"
     },
     {
@@ -121,7 +121,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-users",
         "pages": "/dataKelompok"
     },
     {
