@@ -116,15 +116,6 @@
         "pages": "/dosenPembimbing"
     },
     {
-        "id": "12",
-        "nama": "Kelompok",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-users",
-        "pages": "/dataKelompok"
-    },
-    {
         "id": "13",
         "nama": "Grup Dosen",
         "parent": "5",
@@ -132,6 +123,15 @@
         "status": true,
         "icon": "fas fa-user-friends",
         "pages": "/kelompokDosen"
+    },
+    {
+        "id": "17",
+        "nama": "Kel. Mahasiswa",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-tie",
+        "pages": "/kelompokMahasiswa"
     },
     {
         "id": "14",
@@ -161,12 +161,12 @@
         "pages": "/detailKelompokDosen"
     },
     {
-        "id": "17",
-        "nama": "Kel. Mahasiswa",
+        "id": "12",
+        "nama": "Kelompok",
         "parent": "6",
         "level": "child",
         "status": true,
-        "icon": "fas fa-user-tie",
-        "pages": "/kelompokMahasiswa"
+        "icon": "fas fa-users",
+        "pages": "/dataKelompok"
     }
 ]

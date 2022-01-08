@@ -109,21 +109,7 @@
                 count()
                 if ($jadwalKegiatan->getResult() = 0) { ?>
                   <tr>
-<<<<<<< HEAD
                     <td class="danger" colspan="8" align="center">Data Tidak Ditemukan</td>
-=======
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row_jadwal->jadwalTanggalMulai . " s/d " . $row_jadwal->jadwalTanggalSelesai; ?></td>
-                    <td><?= $row_jadwal->staseJumlahWeek; ?></td>
-                    <td><?= $row_jadwal->jadwalJam; ?></td>
-                    <td><?= $row_jadwal->rumahSakitNama; ?></td>
-                    <td><?= $row_jadwal->staseNama; ?></td>
-                    <td><?= $row_jadwal->Mahasiswa; ?></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
->>>>>>> 4fa0c5689eac02b7ebd8fdd49fcbd2bd51b81d95
                   </tr>
                   <?php } else {
                   $no = 1;

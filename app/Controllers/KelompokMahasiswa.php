@@ -19,7 +19,7 @@ class KelompokMahasiswa extends BaseController
         $data = [
             'title' => "Kel. Mahasiswa",
             'appName' => "KOAS",
-            'breadcrumb' => ['Master', 'Penugasan', 'Kel. Mahasiswa'],
+            'breadcrumb' => ['Master', 'Data', 'Kel. Mahasiswa'],
             'kelompok' => $this->kelompokMahasiswaModel->getKelompok()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
