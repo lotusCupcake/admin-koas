@@ -85,7 +85,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-file-medical-alt",
         "pages": "/dataBagian"
     },
     {
