@@ -93,8 +93,8 @@
         "nama": "Kegiatan",
         "parent": "5",
         "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
+        "status": false,
+        "icon": "fas fa-running",
         "pages": "/dataKegiatan"
     },
     {
@@ -103,7 +103,7 @@
         "parent": "5",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-clinic-medical",
         "pages": "/dataRumahSakit"
     },
     {
