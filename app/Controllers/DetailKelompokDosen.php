@@ -22,9 +22,9 @@ class DetailKelompokDosen extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Detail Kelompok Dosen",
+            'title' => "Dosen",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Detail Kelompok Dosen'],
+            'breadcrumb' => ['Master', 'Penugasan', 'Dosen'],
             'detailkelompokDosen' => $this->detailKelompokDosenModel->getDetailDosen()->getResult(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
@@ -40,7 +40,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Grup Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
@@ -60,7 +60,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Ditambah!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -91,7 +91,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Diupdate!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -99,7 +99,7 @@ class DetailKelompokDosen extends BaseController
     public function delete($id)
     {
         if ($this->detailKelompokDosenModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Dihapus!');
         };
         return redirect()->to('detailKelompokDosen');
     }

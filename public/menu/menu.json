@@ -157,7 +157,7 @@
         "parent": "6",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-stethoscope",
         "pages": "/detailKelompokDosen"
     },
     {
@@ -166,7 +166,7 @@
         "parent": "6",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-user-tie",
         "pages": "/kelompokMahasiswa"
     }
 ]
