@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Stase</h1>
+      <h1>Stase</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/dataBagian"><?= $breadcrumb[1]; ?></a></div>
@@ -57,7 +57,7 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Stase</th>
-                  <th scope="col">Durasi</th>
+                  <th scope="col">Durasi (Minggu)</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -68,7 +68,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->staseNama; ?></td>
-                    <td><?= $row->staseJumlahWeek; ?> Minggu</td>
+                    <td><?= $row->staseJumlahWeek; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataBagian<?= $row->staseId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataBagian<?= $row->staseId; ?>"><i class="fas fa-trash"></i></button>
@@ -90,7 +90,7 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Stase</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -103,7 +103,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Durasi (Per-Minggu)</label>
+            <label>Durasi (Minggu)</label>
             <input name="staseJumlahWeek" type="text" class="form-control">
           </div>
         </div>
@@ -123,7 +123,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit<strong> Data Stase</strong></h5>
+          <h5 class="modal-title">Edit Data <strong>Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -138,7 +138,7 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Durasi (Per-Minggu)</label>
+              <label>Durasi (Minggu)</label>
               <input name="staseJumlahWeek" type="text" class="form-control" value="<?= $edit->staseJumlahWeek; ?>">
             </div>
           </div>
@@ -159,7 +159,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Stase</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Stase</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

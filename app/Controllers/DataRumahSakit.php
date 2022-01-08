@@ -16,7 +16,7 @@ class DataRumahSakit extends BaseController
         $data = [
             'title' => "Data Rumah Sakit",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Data Rumah Sakit'],
+            'breadcrumb' => ['Master', 'Data', 'Rumah Sakit'],
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()

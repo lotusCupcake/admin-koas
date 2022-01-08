@@ -12,9 +12,9 @@ class MahasiswaProfesi extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Mahasiswa Profesi",
+            'title' => "Mahasiswa Profesi",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Data Mahasiswa Profesi'],
+            'breadcrumb' => ['Master', 'Data', 'Mahasiswa Profesi'],
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'menu' => $this->fetchMenu()
         ];

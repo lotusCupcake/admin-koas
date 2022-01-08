@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Dosen Pembimbing</h1>
+      <h1>Dosen Pembimbing</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/dosenPembimbing"><?= $breadcrumb[1]; ?></a></div>
@@ -77,8 +77,8 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Dan Gelar</th>
-                  <th scope="col">Email</th>
                   <th scope="col">No. Telp</th>
+                  <th scope="col">Email</th>
                   <th scope="col">Alamat</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
@@ -90,8 +90,8 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->dopingNamaLengkap; ?></td>
-                    <td><?= $row->dopingEmail; ?></td>
                     <td><?= $row->dopingNoHandphone; ?></td>
+                    <td><?= $row->dopingEmail; ?></td>
                     <td><?= $row->dopingAlamat; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
@@ -115,7 +115,7 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Dosen Pembimbing</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Dosen Pembimbing</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -170,7 +170,7 @@
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit<strong> Data Dosen Pembimbing</strong></h5>
+            <h5 class="modal-title">Edit Data <strong>Dosen Pembimbing</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -224,7 +224,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Dosen Pembimbing</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Dosen Pembimbing</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

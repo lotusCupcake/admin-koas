@@ -11,38 +11,28 @@ class StaseRumahSakit extends BaseController
     protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
     protected $dataBagianModel;
+    protected $db;
     public function __construct()
     {
         $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dataBagianModel = new DataBagianModel();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
         $builder = $this->staseRumahSakitModel->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        // dd($builder->findAll());
         $namars = [];
         foreach ($builder->findAll() as $k) {
-            // if (!in_array($k->rumahSakitNama, $namars)) {
             array_push($namars, $k->rumahSakitNama);
-            // }
         }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('rumkit_detail');
-        $builder->select('*');
-        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
-        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $joinStaseRS = $builder->get();
-
-
-        // dd(array_count_values($namars)['Rumkit Tk II Putri Hijau Medan (RS JEJARING)']);
         $data = [
-            'title' => "Stase Rumah Sakit",
+            'title' => "Stase Di RS",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Stase Rumah Sakit'],
-            'staseRumahSakit' => $joinStaseRS,
+            'breadcrumb' => ['Master', 'Penugasan', 'Stase Di RS'],
+            'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel,
             'dataBagian' => $this->dataBagianModel,
             'dataNamaRs' => $namars,
@@ -80,7 +70,7 @@ class StaseRumahSakit extends BaseController
         );
 
         if ($this->staseRumahSakitModel->insert($data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Ditambah!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -114,7 +104,7 @@ class StaseRumahSakit extends BaseController
         // dd($this->request->getPost('rumahSakitEmail'));
 
         if ($this->staseRumahSakitModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Diupdate!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -122,7 +112,7 @@ class StaseRumahSakit extends BaseController
     public function delete($id)
     {
         if ($this->staseRumahSakitModel->delete($id)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Dihapus!');
         };
         return redirect()->to('staseRumahSakit');
     }

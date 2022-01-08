@@ -14,9 +14,9 @@ class DataBagian extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Stase",
+            'title' => "Stase",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Data Stase'],
+            'breadcrumb' => ['Master', 'Data', 'Stase'],
             'dataBagian' => $this->dataBagianModel->whereNotIn('staseId', [99])->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()

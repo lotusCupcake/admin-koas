@@ -21,19 +21,11 @@ class DetailKelompokDosen extends BaseController
     }
     public function index()
     {
-
-        $builder = $this->db->table('dosen_kelompok_detail');
-        $builder->select('*');
-        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = dosen_kelompok_detail.detKelompokDosenKelompokId');
-        $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingId  = dosen_kelompok_detail.detKelompokDopingId');
-        $query = $builder->get();
-
         $data = [
-            'title' => "Detail Kelompok Dosen",
+            'title' => "Dosen",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Detail Kelompok Dosen'],
-            'detailDosen' => $query->getResult(),
-            'detailkelompokDosen' => $this->detailKelompokDosenModel->findAll(),
+            'breadcrumb' => ['Master', 'Penugasan', 'Dosen'],
+            'detailkelompokDosen' => $this->detailKelompokDosenModel->getDetailDosen()->getResult(),
             'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
             'validation' => \Config\Services::validation(),
@@ -48,7 +40,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Grup Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
@@ -68,7 +60,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Ditambah Di Grup!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -79,7 +71,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Grup Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
@@ -99,7 +91,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Diupdate Di Grup!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -107,7 +99,7 @@ class DetailKelompokDosen extends BaseController
     public function delete($id)
     {
         if ($this->detailKelompokDosenModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Detail Kelompok Dosen Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Dihapus Di Grup!');
         };
         return redirect()->to('detailKelompokDosen');
     }

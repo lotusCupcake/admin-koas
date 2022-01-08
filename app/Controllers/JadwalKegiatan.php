@@ -25,9 +25,10 @@ class JadwalKegiatan extends BaseController
         $data = [
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
+            'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+            'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
         // dd($data);
@@ -78,6 +79,7 @@ class JadwalKegiatan extends BaseController
     public function add()
     {
         // dd($_POST);
+<<<<<<< HEAD
         // if (!$this->validate([
         //     'rumahSakitNama' => [
         //         'rules' => 'required',
@@ -116,6 +118,49 @@ class JadwalKegiatan extends BaseController
         // $jlhweek = $this->jadwalKegiatanModel->getJlhWeek(['staseId' => $this->request->getPost('stase')])->getFirstRow()->staseJumlahWeek;
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+=======
+        if (!$this->validate([
+            'tanggalAwal' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Awal Harus Diisi!',
+                ]
+            ],
+            'jamMasuk' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Jam Masuk Diisi!',
+                ]
+            ],
+            'jamKeluar' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'jam Keluar Harus Diisi!',
+                ]
+            ],
+            'rumahSakitId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
+            'staseId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'kelompokId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelompok Harus Dipilih!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('jadwalKegiatan')->withInput();
+        }
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
+>>>>>>> 4fa0c5689eac02b7ebd8fdd49fcbd2bd51b81d95
         $dt = array(
             'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
             'rumkitDetStaseId' => $this->request->getPost('staseId'),

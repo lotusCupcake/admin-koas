@@ -17,7 +17,7 @@ class DosenPembimbing extends BaseController
         $data = [
             'title' => "Dosen Pembimbing",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Dosen Pembimbing'],
+            'breadcrumb' => ['Master', 'Data', 'Dosen Pembimbing'],
             'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()

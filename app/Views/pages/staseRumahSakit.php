@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Stase Rumah Sakit</h1>
+      <h1>Stase Di RS</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/staseRumahSakit"><?= $breadcrumb[1]; ?></a></div>
@@ -70,7 +70,7 @@
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $no++ ?></strong></td>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $row->rumahSakitNama ?></strong></td>
                     <?php $u = 0;
-                    foreach ($staseRumahSakit->getResult() as $r) : ?>
+                    foreach ($staseRumahSakit as $r) : ?>
                       <?php if ($r->rumkitDetRumkitId == $row->rumahSakitId) : ?>
                         <?php if ($u < 1) : ?>
                           <td><?= $r->staseNama; ?></td>
@@ -109,7 +109,7 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Data<strong> Stase Rumah Sakit</strong></h5>
+          <h5 class="modal-title">Tambah Data<strong> Stase Di RS</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -153,14 +153,14 @@
 <!-- end modal tambah -->
 
 <!-- start modal edit  -->
-<?php foreach ($staseRumahSakit->getResult() as $edit) : ?>
+<?php foreach ($staseRumahSakit as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editStaseRumahSakit<?= $edit->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <form action="/staseRumahSakit/<?= $edit->rumkitDetId; ?>/edit" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit Data<strong> Stase Rumah Sakit</strong></h5>
+            <h5 class="modal-title">Edit Data<strong> Stase Di RS</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -204,12 +204,12 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus  -->
-<?php foreach ($staseRumahSakit->getResult() as $delete) : ?>
+<?php foreach ($staseRumahSakit as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusStaseRumahSakit<?= $delete->rumkitDetId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Data<strong> Stase Rumah Sakit</strong></h5>
+          <h5 class="modal-title">Hapus Data<strong> Stase Di RS</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
