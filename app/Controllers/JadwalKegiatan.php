@@ -25,9 +25,10 @@ class JadwalKegiatan extends BaseController
         $data = [
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
+            'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+            'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
         // dd($data);
@@ -120,34 +121,40 @@ class JadwalKegiatan extends BaseController
     {
         // dd($_POST);
         if (!$this->validate([
-            'rumahSakitNama' => [
+            'tanggalAwal' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                    'required' => 'Tanggal Awal Harus Diisi!',
                 ]
             ],
-            'rumahSakitLat' => [
+            'jamMasuk' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Jam Masuk Diisi!',
                 ]
             ],
-            'rumahSakitLong' => [
+            'jamKeluar' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'jam Keluar Harus Diisi!',
                 ]
             ],
-            'rumahSakitTelp' => [
+            'rumahSakitId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                    'required' => 'Rumah Sakit Harus Dipilih!',
                 ]
             ],
-            'rumahSakitEmail' => [
+            'staseId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Email Rumah Sakit Harus Diisi',
+                    'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'kelompokId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelompok Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -171,7 +178,7 @@ class JadwalKegiatan extends BaseController
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
         );
-        // dd($data);
+        dd($data);
 
         if ($this->jadwalKegiatanModel->insert($data)) {
             session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
