@@ -18,7 +18,17 @@
     <div class="section-body">
       <div class="card">
         <div class="card-header">
-          <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
+          <!-- <div class="form-group col-md-3">
+            <label>Tahun</label>
+            <select name="kelompokTahunAkademik" class="form-control select2">
+              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
+                <option value="<?= $i ?>"><?= $i ?></option>
+              <?php endfor ?>
+            </select>
+          </div> -->
+          <div class="card-header-action">
+            <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
+          </div>
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
@@ -76,9 +86,9 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Tahun</th>
                   <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Kelompok Dosen</th>
-                  <th scope="col">Tahun</th>
                   <th scope="col">Jumlah Partisipan</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
@@ -89,9 +99,9 @@
                 foreach ($dataKelompok as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                    <td><?= $row->kelompokTahunAkademik; ?></td>
                     <td><?= $row->kelompokNama; ?></td>
                     <td><?= $row->dosenKelompokNama; ?></td>
-                    <td><?= $row->kelompokTahunAkademik; ?></td>
                     <td><span class="badge badge-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</span></td>
                     <td style="text-align:center">
                       <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
@@ -122,6 +132,15 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
+            <label>Tahun</label>
+            <select name="kelompokTahunAkademik" class="form-control select2">
+              <option value="">--Select--</option>
+              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
+                <option value="<?= $i ?>"><?= $i ?></option>
+              <?php endfor ?>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Nama Kelompok Mahasiswa</label>
             <input name="kelompokNama" type=" text" class="form-control">
           </div>
@@ -132,15 +151,6 @@
               <?php foreach ($kelompokDosen as $row) : ?>
                 <option value="<?= $row->dosenKelompokId; ?>"><?= $row->dosenKelompokNama; ?></option>
               <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Tahun</label>
-            <select name="kelompokTahunAkademik" class="form-control select2">
-              <option value="">--Select--</option>
-              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
-                <option value="<?= $i ?>"><?= $i ?></option>
-              <?php endfor ?>
             </select>
           </div>
           <div class="modal-footer bg-whitesmoke br">
@@ -169,6 +179,14 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
+              <label>Tahun</label>
+              <select name="kelompokTahunAkademik" class="form-control select2">
+                <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
+                  <option value="<?= $i ?>" <?php if ($i == $edit->kelompokTahunAkademik) echo " selected" ?>><?= $i ?></option>
+                <?php endfor ?>
+              </select>
+            </div>
+            <div class="form-group">
               <label>Nama Kelompok Mahasiswa</label>
               <input name="kelompokNama" type=" text" class="form-control" value="<?= $edit->kelompokNama; ?>">
             </div>
@@ -178,14 +196,6 @@
                 <?php foreach ($kelompokDosen as $row) : ?>
                   <option value="<?= $row->dosenKelompokId; ?>" <?php if ($row->dosenKelompokId == $edit->kelompokDosenKelompokId) echo "selected" ?>><?= $row->dosenKelompokNama; ?></option>
                 <?php endforeach; ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Tahun</label>
-              <select name="kelompokTahunAkademik" class="form-control select2">
-                <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
-                  <option value="<?= $i ?>" <?php if ($i == $edit->kelompokTahunAkademik) echo " selected" ?>><?= $i ?></option>
-                <?php endfor ?>
               </select>
             </div>
             <div class="modal-footer bg-whitesmoke br">
