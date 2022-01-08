@@ -17,9 +17,9 @@ class KelompokMahasiswa extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Kelompok Mahasiswa",
+            'title' => "Kel. Mahasiswa",
             'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Kelompok Mahasiswa'],
+            'breadcrumb' => ['Master', 'Penugasan', 'Kel. Mahasiswa'],
             'kelompok' => $this->kelompokMahasiswaModel->getKelompok()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -30,7 +30,7 @@ class KelompokMahasiswa extends BaseController
     public function delete($id)
     {
         if ($this->kelompokMahasiswaModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Kelompok Mahasiswa Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Data Mahasiswa Berhasil Dihapus Di Kelompok!');
         };
         return redirect()->to('kelompokMahasiswa');
     }

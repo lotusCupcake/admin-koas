@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Mahasiswa Per Kelompok</h1>
+      <h1>Kel. Mahasiswa</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/kelompokMahasiswa"><?= $breadcrumb[1]; ?></a></div>
@@ -25,7 +25,7 @@
                 <span>&times;</span>
               </button>
               <div class="alert-title">Tips</div>
-              Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Data Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>
+              Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>
             </div>
           </div>
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
@@ -75,7 +75,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Data <strong>Kelompok Mahasiswa</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Mahasiswa Di Kelompok</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

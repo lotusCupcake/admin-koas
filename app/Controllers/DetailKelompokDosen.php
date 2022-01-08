@@ -60,7 +60,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Dosen Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Ditambah Di Grup!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -71,7 +71,7 @@ class DetailKelompokDosen extends BaseController
             'detKelompokDosenKelompokId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
+                    'required' => 'Grup Dosen Harus Dipilih!',
                 ]
             ],
             'detKelompokDopingId' => [
@@ -91,7 +91,7 @@ class DetailKelompokDosen extends BaseController
         );
 
         if ($this->detailKelompokDosenModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Data Dosen Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Diupdate Di Grup!');
             return redirect()->to('detailKelompokDosen');
         }
     }
@@ -99,7 +99,7 @@ class DetailKelompokDosen extends BaseController
     public function delete($id)
     {
         if ($this->detailKelompokDosenModel->delete($id)) {
-            session()->setFlashdata('success', 'Data Dosen Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Data Dosen Berhasil Dihapus Di Grup!');
         };
         return redirect()->to('detailKelompokDosen');
     }
