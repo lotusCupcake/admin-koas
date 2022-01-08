@@ -26,7 +26,7 @@ class JadwalKegiatan extends BaseController
             'title' => "Jadwal Kegiatan",
             'appName' => "KOAS",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
+            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
@@ -70,7 +70,7 @@ class JadwalKegiatan extends BaseController
         // Proses Get Data Stase Dari Tabel Kelompok
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompok->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>"; // Tambahkan tag option ke variabel $lists
         }
         $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
         echo json_encode($callback); // konversi variabel $callback menjadi JSON
@@ -120,19 +120,19 @@ class JadwalKegiatan extends BaseController
             return redirect()->to('jadwalKegiatan')->withInput();
         }
         $jlhweek = $this->request->getPost('jumlahWeek');
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
-        $dt = array(
-            'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
-            'rumkitDetStaseId' => $this->request->getPost('staseId'),
-        );
-        $rumkitDetailId = '';
-        $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
-        foreach ($rumkitDetail->getResult() as $row) {
-            $rumkitDetailId = $row->rumkitDetId;
-        }
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+        // $dt = array(
+        //     'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
+        //     'rumkitDetStaseId' => $this->request->getPost('staseId'),
+        // );
+        // $rumkitDetailId = '';
+        // $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
+        // foreach ($rumkitDetail->getResult() as $row) {
+        //     $rumkitDetailId = $row->rumkitDetId;
+        // }
         // dd($rumkitDetailId);
         $data = array(
-            'jadwalRumkitDetId' => $rumkitDetailId,
+            'jadwalRumkitDetId' => $this->request->getPost('staseId'),
             'jadwalKelompokId' => $this->request->getPost('kelompokId'),
             'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
             'jadwalTanggalSelesai' => $dateSelesai,
@@ -187,17 +187,17 @@ class JadwalKegiatan extends BaseController
         // $jlhweek = $this->jadwalKegiatanModel->getJlhWeek(['staseId' => $this->request->getPost('stase')])->getFirstRow()->staseJumlahWeek;
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
-        $dt = array(
-            'rumkitDetRumkitId' => $this->request->getPost('rumahSakit'),
-            'rumkitDetStaseId' => $this->request->getPost('stase'),
-        );
-        $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
-        foreach ($rumkitDetail->getResult() as $row) {
-            $rumkitDetailId = $row->rumkitDetId;
-        }
+        // $dt = array(
+        //     'rumkitDetRumkitId' => $this->request->getPost('rumahSakit'),
+        //     'rumkitDetStaseId' => $this->request->getPost('stase'),
+        // );
+        // $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
+        // foreach ($rumkitDetail->getResult() as $row) {
+        //     $rumkitDetailId = $row->rumkitDetId;
+        // }
         // dd($rumkitDetailId);
         $data = array(
-            'jadwalRumkitDetId' => $rumkitDetailId,
+            'jadwalRumkitDetId' =>  $this->request->getPost('stase'),
             'jadwalKelompokId' => $this->request->getPost('kelompok'),
             'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
             'jadwalTanggalSelesai' => $dateSelesai,
