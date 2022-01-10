@@ -22,10 +22,8 @@ class KelompokMahasiswaModel extends Model
 
     public function getKelompok()
     {
-        $builder = $this->db->table('kelompok_detail');
-        $builder->select('*');
-        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId');
-        $query = $builder->get();
+        $builder = $this->db->query('CALL Kelompok_Mahasiswa');
+        $query = $builder;
         return $query;
     }
 }
