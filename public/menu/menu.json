@@ -80,6 +80,15 @@
         "pages": "/manajemenAkun"
     },
     {
+        "id": "18",
+        "nama": "Panduan",
+        "parent": "5",
+        "level": "child",
+        "status": true,
+        "icon": "far fa-file-pdf",
+        "pages": "/dataPanduan"
+    },
+    {
         "id": "8",
         "nama": "Stase",
         "parent": "5",
@@ -93,7 +102,7 @@
         "nama": "Kegiatan",
         "parent": "5",
         "level": "child",
-        "status": false,
+        "status": true,
         "icon": "fas fa-running",
         "pages": "/dataKegiatan"
     },
