@@ -53,8 +53,7 @@
                 foreach ($kelompok as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kelompokTahunAkademik; ?></td>
-                    <td data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><?= $row->kelompokNama; ?></td>
+                    <td scope="row"><?= $row->kelompokTahunAkademik; ?></td>
                     <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><?= $row->kelompokNama; ?></td>
                   </tr>
                 <?php endforeach ?>
