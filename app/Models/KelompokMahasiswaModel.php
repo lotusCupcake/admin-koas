@@ -20,10 +20,10 @@ class KelompokMahasiswaModel extends Model
         return $query;
     }
 
-    public function getKelompok()
-    {
-        $builder = $this->db->query('CALL Kelompok_Mahasiswa');
-        $query = $builder;
-        return $query;
-    }
+    // public function getKelompok()
+    // {
+    //     $builder = $this->db->query('CALL Kelompok_Mahasiswa');
+    //     $query = $builder;
+    //     return $query;
+    // }
 }

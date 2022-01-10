@@ -71,6 +71,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('dopingRumkitId')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('dopingRumkitId'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -80,6 +90,7 @@
                   <th scope="col">No. Telp</th>
                   <th scope="col">Email</th>
                   <th scope="col">Alamat</th>
+                  <th scope="col">Rumah Sakit</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -93,6 +104,7 @@
                     <td><?= $row->dopingNoHandphone; ?></td>
                     <td><?= $row->dopingEmail; ?></td>
                     <td><?= $row->dopingAlamat; ?></td>
+                    <td><?= $row->rumahSakitNama; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-trash"></i></button>
@@ -151,6 +163,15 @@
             <label>Alamat</label>
             <input name="dopingAlamat" type="text" class="form-control">
           </div>
+          <div class="form-group">
+            <label>Rumah Sakit</label>
+            <select class="form-control select2" name="dopingRumkitId">
+              <option value="" selected="selected">--Select--</option>
+              <?php foreach ($dataRumahSakit as $row) : ?>
+                <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -205,6 +226,14 @@
             <div class="form-group">
               <label>Alamat</label>
               <input name="dopingAlamat" type="text" class="form-control" value="<?= $edit->dopingAlamat; ?>">
+            </div>
+            <div class="form-group">
+              <label>Rumah Sakit</label>
+              <select class="form-control select2" name="dopingRumkitId">
+                <?php foreach ($dataRumahSakit as $row) : ?>
+                  <option value="<?= $row->rumahSakitId; ?>" <?php if ($row->rumahSakitId == $edit->dopingRumkitId) echo " selected" ?>><?= $row->rumahSakitNama; ?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">

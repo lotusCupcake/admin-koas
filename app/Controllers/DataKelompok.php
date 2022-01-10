@@ -3,13 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\DataKelompokModel;
-use App\Models\KelompokDosenModel;
 use App\Models\KelompokMahasiswaModel;
 
 class DataKelompok extends BaseController
 {
     protected $dataKelompokModel;
-    protected $kelompokDosenModel;
+    // protected $kelompokDosenModel;
     protected $kelompokMahasiswaModel;
     protected $db;
     protected $curl;
@@ -17,7 +16,6 @@ class DataKelompok extends BaseController
     {
         $this->dataKelompokModel = new DataKelompokModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
-        $this->kelompokDosenModel = new KelompokDosenModel();
         $this->db = \Config\Database::connect();
         $this->curl = service('curlrequest');
     }
@@ -28,7 +26,6 @@ class DataKelompok extends BaseController
             'appName' => "KOAS",
             'breadcrumb' => ['Master', 'Penugasan', 'Kelompok'],
             'dataKelompok' => $this->dataKelompokModel->getDataKelompok()->getResult(),
-            'kelompokDosen' => $this->kelompokDosenModel->findAll(),
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -57,12 +54,6 @@ class DataKelompok extends BaseController
                     'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
-            'kelompokDosenKelompokId' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
-                ]
-            ],
             'kelompokTahunAkademik' => [
                 'rules' => 'required',
                 'errors' => [
@@ -76,7 +67,6 @@ class DataKelompok extends BaseController
         // dd($_POST);
         $data = array(
             'kelompokNama' => trim($this->request->getPost('kelompokNama')),
-            'kelompokDosenKelompokId' => trim($this->request->getPost('kelompokDosenKelompokId')),
             'kelompokTahunAkademik' => trim($this->request->getPost('kelompokTahunAkademik')),
         );
 
@@ -130,12 +120,6 @@ class DataKelompok extends BaseController
                     'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
-            'kelompokDosenKelompokId' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Kelompok Dosen Harus Dipilih!',
-                ]
-            ],
             'kelompokTahunAkademik' => [
                 'rules' => 'required',
                 'errors' => [
@@ -149,7 +133,6 @@ class DataKelompok extends BaseController
         // dd($_POST);
         $data = array(
             'kelompokNama' => trim($this->request->getPost('kelompokNama')),
-            'kelompokDosenKelompokId' => trim($this->request->getPost('kelompokDosenKelompokId')),
             'kelompokTahunAkademik' => trim($this->request->getPost('kelompokTahunAkademik')),
         );
 

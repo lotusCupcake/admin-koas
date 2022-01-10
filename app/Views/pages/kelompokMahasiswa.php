@@ -44,8 +44,6 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Kelompok Mahasiswa</th>
-                  <th scope="col">Nama/NPM Mahasiswa</th>
-                  <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,11 +52,7 @@
                 foreach ($kelompok as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kelompokNama; ?></td>
-                    <td><?= $row->Mahasiswa; ?></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKelompokMahasiswa<?= $row->kelompokDetId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><?= $row->kelompokNama; ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
@@ -69,8 +63,56 @@
   </section>
 </div>
 
+<!-- start modal detail mahasiswa -->
+<?php foreach ($kelompok as $detail) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailMahasiswa<?= $detail->kelompokId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail <strong>Mahasiswa Di Kelompok</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="10%" style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Nama/NPM Mahasiswa</th>
+                  <th width="15%" style="text-align:center" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                foreach ($kelompokDetail as $row) : ?>
+                  <?php if ($row->kelompokDetKelompokId == $detail->kelompokId) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKelompokMahasiswa<?= $row->kelompokDetId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endif ?>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal detail mahasiswa -->
+
 <!-- start modal hapus  -->
-<?php foreach ($kelompok as $delete) : ?>
+<?php foreach ($kelompokDetail as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusKelompokMahasiswa<?= $delete->kelompokDetId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -81,7 +123,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus data <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong> di <strong><?= $delete->kelompokNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus data <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/kelompokMahasiswa/<?= $delete->kelompokDetId; ?>" method="post">
@@ -97,7 +139,6 @@
   </div>
 <?php endforeach ?>
 <!-- end modal hapus -->
-
 <?= view('layout/templateFooter'); ?>
 
 <?= $this->endSection(); ?>

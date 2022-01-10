@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Data Jadwal Kegiatan</h1>
+      <h1>Jadwal Kegiatan</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
@@ -20,13 +20,92 @@
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahJadwalKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
         </div>
         <div class="card-body">
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <div class="alert alert-success alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <?php echo session()->getFlashdata('success'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('tanggalAwal')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('tanggalAwal'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('jumlahWeek')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('jumlahWeek'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('jamMasuk')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('jamMasuk'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('jamKeluar')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('jamKeluar'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitId')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitId'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('staseId')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('staseId'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($validation->hasError('kelompokId')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('kelompokId'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal Mulai</th>
-                  <th scope="col">Tanggal Akhir</th>
+                  <th scope="col">Tanggal Mulai/Akhir</th>
                   <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
@@ -45,8 +124,7 @@
                   foreach ($jadwalKegiatan as $row_jadwal) { ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= $row_jadwal->jadwalTanggalMulai; ?></td>
-                      <td><?= $row_jadwal->jadwalTanggalSelesai; ?></td>
+                      <td><?= $row_jadwal->jadwalTanggalMulai . " s/d " . $row_jadwal->jadwalTanggalSelesai; ?></td>
                       <td><?= $row_jadwal->jadwalJam; ?></td>
                       <td><?= $row_jadwal->rumahSakitNama; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
@@ -73,7 +151,7 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Data Jadwal Kegiatan</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Jadwal Kegiatan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -92,7 +170,7 @@
           </div>
 
           <div class="form-group">
-            <label>Jumlah Minggu</label>
+            <label>Durasi (Minggu)</label>
             <div class="input-group">
               <input type="number" class="form-control" value="" name="jumlahWeek">
             </div>
@@ -182,7 +260,7 @@
             </div>
 
             <div class="form-group">
-              <label>Jumlah Minggu</label>
+              <label>Durasi (Minggu)</label>
               <div class="input-group">
                 <input type="number" class="form-control" value="<?php echo $edit_jadwal->jadwalJumlahWeek;  ?>" name="jumlahWeek">
               </div>
@@ -253,7 +331,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Jadwal Kegiatan</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Jadwal Kegiatan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
