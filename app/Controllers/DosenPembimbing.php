@@ -3,13 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\DosenPembimbingModel;
+use App\Models\DataRumahSakitModel;
 
 class DosenPembimbing extends BaseController
 {
     protected $dosenPembimbingModel;
+    protected $dataRumahSakitModel;
+    protected $db;
     public function __construct()
     {
         $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->dataRumahSakitModel = new DataRumahSakitModel();
+        $this->db = \Config\Database::connect();
     }
 
     public function index()
@@ -18,7 +23,8 @@ class DosenPembimbing extends BaseController
             'title' => "Dosen Pembimbing",
             'appName' => "KOAS",
             'breadcrumb' => ['Master', 'Data', 'Dosen Pembimbing'],
-            'dosenPembimbing' => $this->dosenPembimbingModel->findAll(),
+            'dosenPembimbing' => $this->dosenPembimbingModel->getDosenPembimbing()->getResult(),
+            'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
@@ -52,6 +58,12 @@ class DosenPembimbing extends BaseController
                     'required' => 'Alamat Dosen Harus Diisi!',
                 ]
             ],
+            'dopingRumkitId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
         ])) {
             return redirect()->to('dataRumahSakit')->withInput();
         }
@@ -62,6 +74,7 @@ class DosenPembimbing extends BaseController
             'dopingEmail' => trim($this->request->getPost('dopingEmail')),
             'dopingNoHandphone' => trim($this->request->getPost('dopingNoHandphone')),
             'dopingAlamat' => trim($this->request->getPost('dopingAlamat')),
+            'dopingRumkitId' => trim($this->request->getPost('dopingRumkitId')),
         );
 
         if ($this->dosenPembimbingModel->insert($data)) {
@@ -97,6 +110,12 @@ class DosenPembimbing extends BaseController
                     'required' => 'Alamat Dosen Harus Diisi!',
                 ]
             ],
+            'dopingRumkitId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
         ])) {
             return redirect()->to('dosenPembimbing')->withInput();
         }
@@ -107,6 +126,7 @@ class DosenPembimbing extends BaseController
             'dopingEmail' => trim($this->request->getPost('dopingEmail')),
             'dopingNoHandphone' => trim($this->request->getPost('dopingNoHandphone')),
             'dopingAlamat' => trim($this->request->getPost('dopingAlamat')),
+            'dopingRumkitId' => trim($this->request->getPost('dopingRumkitId')),
         );
 
         if ($this->dosenPembimbingModel->update($id, $data)) {
