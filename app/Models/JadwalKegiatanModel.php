@@ -15,6 +15,7 @@ class JadwalKegiatanModel extends Model
     public function show_Jadwal_Kegiatan()
     {
         $builder = $this->db->query('CALL Jadwal_Mahasiswa');
+
         $jadwal = $builder;
         return $jadwal;
     }

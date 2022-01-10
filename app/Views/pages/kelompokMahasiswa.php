@@ -55,7 +55,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->kelompokNama; ?></td>
-                    <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                    <td><?= $row->Mahasiswa; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKelompokMahasiswa<?= $row->kelompokDetId; ?>"><i class="fas fa-trash"></i></button>
                     </td>
