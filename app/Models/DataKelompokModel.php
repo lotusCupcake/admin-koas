@@ -15,7 +15,7 @@ class DataKelompokModel extends Model
     {
         $builder = $this->db->table('kelompok');
         $builder->select('*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId)as jumlahPartisipan');
-        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = kelompok.kelompokDosenKelompokId');
+        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = kelompok.kelompokDosenKelompokId', 'left');
         $kelompok = $builder->get();
         return $kelompok;
     }

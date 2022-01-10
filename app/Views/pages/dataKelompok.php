@@ -102,7 +102,7 @@
                     <td><?= $row->kelompokTahunAkademik; ?></td>
                     <td><?= $row->kelompokNama; ?></td>
                     <td><?= $row->dosenKelompokNama; ?></td>
-                    <td><span class="badge badge-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</span></td>
+                    <td><button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</button></td>
                     <td style="text-align:center">
                       <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
