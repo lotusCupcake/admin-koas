@@ -57,8 +57,6 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Grup Dosen</th>
-                  <th scope="col">Dosen</th>
-                  <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -67,12 +65,7 @@
                 foreach ($detailkelompokDosen as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->dosenKelompokNama; ?></td>
-                    <td><?= $row->dopingNamaLengkap; ?></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDetailKelompokDosen<?= $row->detKelompokDosenId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDetailKelompokDosen<?= $row->detKelompokDosenId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td data-toggle="modal" data-target="#detailKelompokDosen<?= $row->detKelompokDosenId; ?>"><?= $row->dosenKelompokNama; ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
@@ -124,6 +117,54 @@
   </div>
 </div>
 <!-- end modal tambah -->
+
+<!-- start modal detail dosen  -->
+<?php foreach ($detailkelompokDosen as $detail) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailKelompokDosen<?= $detail->detKelompokDosenId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail<strong> Dosen Di Grup</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Dosen</th>
+                  <th width="40%" style="text-align:center" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                foreach ($detailkelompokDosen as $row) : ?>
+                  <tr>
+                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                    <td><?= $row->dopingNamaLengkap; ?></td>
+                    <td style="text-align:center">
+                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDetailKelompokDosen<?= $row->detKelompokDosenId; ?>"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDetailKelompokDosen<?= $row->detKelompokDosenId; ?>"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal detail dosen -->
 
 <!-- start modal edit  -->
 <?php foreach ($detailkelompokDosen as $edit) : ?>

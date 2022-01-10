@@ -51,16 +51,6 @@
               </div>
             </div>
           <?php endif; ?>
-          <?php if ($validation->hasError('kelompokDosenKelompokId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokDosenKelompokId'); ?>
-              </div>
-            </div>
-          <?php endif; ?>
           <?php if ($validation->hasError('kelompokTahunAkademik')) : ?>
             <div class="alert alert-danger alert-dismissible show fade">
               <div class="alert-body">
@@ -88,7 +78,6 @@
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tahun</th>
                   <th scope="col">Nama Kelompok Mahasiswa</th>
-                  <th scope="col">Kelompok Dosen</th>
                   <th scope="col">Jumlah Partisipan</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
@@ -101,7 +90,6 @@
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->kelompokTahunAkademik; ?></td>
                     <td><?= $row->kelompokNama; ?></td>
-                    <td><?= $row->dosenKelompokNama; ?></td>
                     <td><button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</button></td>
                     <td style="text-align:center">
                       <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
@@ -144,15 +132,6 @@
             <label>Nama Kelompok Mahasiswa</label>
             <input name="kelompokNama" type=" text" class="form-control">
           </div>
-          <div class="form-group">
-            <label>Kelompok Dosen</label>
-            <select name="kelompokDosenKelompokId" class="form-control select2">
-              <option value="">--Select--</option>
-              <?php foreach ($kelompokDosen as $row) : ?>
-                <option value="<?= $row->dosenKelompokId; ?>"><?= $row->dosenKelompokNama; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -189,14 +168,6 @@
             <div class="form-group">
               <label>Nama Kelompok Mahasiswa</label>
               <input name="kelompokNama" type=" text" class="form-control" value="<?= $edit->kelompokNama; ?>">
-            </div>
-            <div class="form-group">
-              <label>Kelompok Dosen</label>
-              <select name="kelompokDosenKelompokId" class="form-control select2">
-                <?php foreach ($kelompokDosen as $row) : ?>
-                  <option value="<?= $row->dosenKelompokId; ?>" <?php if ($row->dosenKelompokId == $edit->kelompokDosenKelompokId) echo "selected" ?>><?= $row->dosenKelompokNama; ?></option>
-                <?php endforeach; ?>
-              </select>
             </div>
             <div class="modal-footer bg-whitesmoke br">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
