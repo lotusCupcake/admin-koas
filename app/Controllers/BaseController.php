@@ -52,7 +52,12 @@ class BaseController extends Controller
 
     public function fetchMenu()
     {
-        $file = "public/menu/menu.json";
+        if (in_groups('superadmin')) {
+            $file = "public/menu/menu.json";
+        } elseif (in_groups('dosen')) {
+            $file = "public/menu/menudosen.json";
+        }
+
         $data = file_get_contents(ROOTPATH . $file);
 
         $data = json_decode($data, false);

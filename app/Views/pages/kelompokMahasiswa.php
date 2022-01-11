@@ -54,7 +54,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td scope="row"><?= $row->kelompokTahunAkademik; ?></td>
-                    <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><?= $row->kelompokNama; ?></td>
+                    <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><strong><a><?= $row->kelompokNama; ?></a></strong></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
