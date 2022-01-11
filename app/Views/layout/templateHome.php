@@ -59,6 +59,14 @@
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
   <script src="<?= base_url() ?>/js/script.js"></script>
 
+  <!-- Data table plugin-->
+  <script src="<?= base_url() ?>/template/assets/js/plugins/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url() ?>/template/assets/js/plugins/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript">
+    // $('#sampleTable').DataTable();
+    $('[name="sampleTable"]').DataTable();
+  </script>
+
 
 </body>
 
