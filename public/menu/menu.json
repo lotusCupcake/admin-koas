@@ -95,7 +95,7 @@
         "level": "child",
         "status": true,
         "icon": "far fa-file-pdf",
-        "pages": "/dataPanduan",
+        "pages": "/panduan",
         "role": "dosen"
     },
     {

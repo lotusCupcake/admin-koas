@@ -95,6 +95,12 @@ $routes->post('/dataKegiatan', 'DataKegiatan::add');
 $routes->delete('/dataKegiatan/(:num)', 'DataKegiatan::delete/$1');
 $routes->add('/dataKegiatan/(:num)/edit', 'DataKegiatan::edit/$1');
 
+// route panduan
+$routes->get('/panduan/(:any)', 'Panduan::index');
+$routes->post('/panduan', 'Panduan::add');
+$routes->delete('/panduan/(:num)', 'Panduan::delete/$1');
+$routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
+
 
 
 /*
