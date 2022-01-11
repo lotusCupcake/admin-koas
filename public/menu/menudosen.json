@@ -5,8 +5,7 @@
         "level": "title",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": "#",
-        "role": "superadmin"
+        "pages": "#"
     },
     {
         "id": "2",
@@ -15,8 +14,7 @@
         "level": "title",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": "#",
-        "role": "superadmin"
+        "pages": "#"
     },
     {
         "id": "18",
@@ -25,8 +23,7 @@
         "level": "title",
         "status": true,
         "icon": "",
-        "pages": "",
-        "role": "superadmin"
+        "pages": ""
     },
     {
         "id": "19",
@@ -35,8 +32,16 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-calendar-plus",
-        "pages": "/jadwalKegiatan",
-        "role": "superadmin"
+        "pages": "/jadwalKegiatan"
+    },
+    {
+        "id": "3",
+        "nama": "User",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": ""
     },
     {
         "id": "4",
@@ -45,8 +50,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-home",
-        "pages": "/home",
-        "role": "superadmin"
+        "pages": "/home"
     },
     {
         "id": "5",
@@ -55,8 +59,7 @@
         "level": "parent",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": "",
-        "role": "superadmin"
+        "pages": ""
     },
     {
         "id": "6",
@@ -65,10 +68,17 @@
         "level": "parent",
         "status": true,
         "icon": "fas fa-file-medical",
-        "pages": "",
-        "role": "dosen"
+        "pages": ""
     },
-
+    {
+        "id": "7",
+        "nama": "Manajemen Akun",
+        "parent": "3",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user",
+        "pages": "/manajemenAkun"
+    },
     {
         "id": "18",
         "nama": "Panduan",
@@ -76,8 +86,7 @@
         "level": "child",
         "status": true,
         "icon": "far fa-file-pdf",
-        "pages": "/dataPanduan",
-        "role": "dosen"
+        "pages": "/panduan"
     },
     {
         "id": "8",
@@ -86,8 +95,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-file-medical-alt",
-        "pages": "/dataBagian",
-        "role": "dosen"
+        "pages": "/dataBagian"
     },
     {
         "id": "9",
@@ -96,8 +104,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-running",
-        "pages": "/dataKegiatan",
-        "role": "dosen"
+        "pages": "/dataKegiatan"
     },
     {
         "id": "10",
@@ -106,8 +113,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-hospital",
-        "pages": "/dataRumahSakit",
-        "role": "dosen"
+        "pages": "/dataRumahSakit"
     },
     {
         "id": "11",
@@ -116,8 +122,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-stethoscope",
-        "pages": "/dosenPembimbing",
-        "role": "dosen"
+        "pages": "/dosenPembimbing"
     },
     {
         "id": "17",
@@ -126,8 +131,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-user-tie",
-        "pages": "/kelompokMahasiswa",
-        "role": "dosen"
+        "pages": "/kelompokMahasiswa"
     },
     {
         "id": "14",
@@ -136,8 +140,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-user-graduate",
-        "pages": "/mahasiswaProfesi",
-        "role": "dosen"
+        "pages": "/mahasiswaProfesi"
     },
     {
         "id": "15",
@@ -146,8 +149,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-clinic-medical",
-        "pages": "/staseRumahSakit",
-        "role": "dosen"
+        "pages": "/staseRumahSakit"
     },
     {
         "id": "12",
@@ -156,7 +158,6 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-users",
-        "pages": "/dataKelompok",
-        "role": "dosen"
+        "pages": "/dataKelompok"
     }
 ]
