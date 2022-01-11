@@ -41,6 +41,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('panduanFile')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('panduanFile'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -78,7 +88,7 @@
 <!-- start modal tambah panduan -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahPanduan">
   <div class="modal-dialog" role="document">
-    <form action="/panduan" method="POST">
+    <form action="/panduan" method="POST" enctype="multipart/form-data">
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
@@ -95,7 +105,7 @@
           <label>File Panduan Profesi</label>
           <div class="form-group">
             <div class="custom-file">
-              <input name="panduanFile" type="file" class="custom-file-input" id="customFile">
+              <input name="panduanFile" type="file" accept="application/pdf" class="custom-file-input" id="customFile" onchange="labelDokumen()">
               <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
           </div>

@@ -71,6 +71,16 @@
               </div>
             </div>
           <?php endif; ?>
+          <?php if ($validation->hasError('rumahSakitShortname')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <strong>Failed ! </strong><?= $validation->getError('rumahSakitShortname'); ?>
+              </div>
+            </div>
+          <?php endif; ?>
           <?php if ($validation->hasError('rumahSakitEmail')) : ?>
             <div class="alert alert-danger alert-dismissible show fade">
               <div class="alert-body">
@@ -134,6 +144,10 @@
             <label>Nama Rumah Sakit</label>
             <input name="rumahSakitNama" type=" text" class="form-control">
           </div>
+          <div class="form-group">
+            <label>Nama Singkat Rumah Sakit</label>
+            <input name="rumahSakitShortname" type="text" class="form-control" placeholder="Cth: RSUD Deli Serdang/RS Haji ">
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Koordinat Latitude</label>
@@ -195,6 +209,10 @@
             <div class="form-group">
               <label>Nama Rumah Sakit</label>
               <input name="rumahSakitNama" type="text" class="form-control" value="<?= $edit->rumahSakitNama; ?>">
+            </div>
+            <div class="form-group">
+              <label>Nama Singkat Rumah Sakit</label>
+              <input name="rumahSakitShortname" type="text" class="form-control" value="<?= $edit->rumahSakitShortname; ?>">
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
