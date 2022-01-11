@@ -55,6 +55,22 @@
   <script src="<?= base_url() ?>/js/script.js"></script>
 
 
+  <!-- label dokumen -->
+  <script>
+    function labelDokumen() {
+      const dokumen = document.querySelector('#customFile');
+      const dokumenLabel = document.querySelector('.custom-file-label');
+
+      documentLabel.textContent = customFile.files[0].name;
+
+      const fileDokumen = new FileReader();
+      fileDokumen.readAsDataURL(customFile.files[0]);
+
+      fileDokumen.onload = function(e) {
+        dokumenLabel.src = e.target.result;
+      }
+    }
+  </script>
 </body>
 
 </html>

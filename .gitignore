@@ -134,5 +134,6 @@ node_modules
 
 public/null/
 public/template/
+public/dokumen/
 
 # public/menu/menu.json

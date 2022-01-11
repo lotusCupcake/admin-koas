@@ -33,19 +33,25 @@ class Panduan extends BaseController
                     'required' => 'Nama Panduan Harus Diisi!',
                 ]
             ],
-            // 'panduanFile' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'File Panduan Harus Dipilih!',
-            //     ]
-            // ],
+            'panduanFile' => [
+                'rules' => 'uploaded[panduanFile]',
+                'errors' => [
+                    'uploaded' => 'File Panduan Harus Dipilih!'
+                ]
+            ]
         ])) {
             return redirect()->to('panduan')->withInput();
         }
 
-        // dd($_POST);
+        // upload file
+        $fileDokumen = $this->request->getFile('panduanFile');
+        $namaDokumen = $fileDokumen->getRandomName();
+        $fileDokumen->move('dokumen', $namaDokumen);
+
+        // dd('berhasil');
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
+            'panduanFile' => $namaDokumen,
             'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
         );
 
