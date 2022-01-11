@@ -45,9 +45,6 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-home",
-<<<<<<< HEAD
-        "pages": "/home"
-=======
         "pages": "/home",
         "role": "superadmin"
     },
@@ -161,6 +158,5 @@
         "icon": "fas fa-users",
         "pages": "/dataKelompok",
         "role": "dosen"
->>>>>>> 57abef87dfb7351c382cd36fe84ac4ef7737736c
     }
 ]

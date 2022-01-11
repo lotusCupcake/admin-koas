@@ -30,7 +30,7 @@ class StaseRumahSakit extends BaseController
 
         $data = [
             'title' => "Stase Di RS",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Penugasan', 'Stase Di RS'],
             'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel,

@@ -15,7 +15,7 @@ class DataBagian extends BaseController
     {
         $data = [
             'title' => "Stase",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Stase'],
             'dataBagian' => $this->dataBagianModel->whereNotIn('staseId', [99])->findAll(),
             'validation' => \Config\Services::validation(),

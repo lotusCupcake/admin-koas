@@ -24,7 +24,7 @@ class JadwalKegiatan extends BaseController
     {
         $data = [
             'title' => "Jadwal Kegiatan",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),

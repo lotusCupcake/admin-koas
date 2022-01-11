@@ -39,6 +39,7 @@ class JadwalKegiatanModel extends Model
         // $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
         // $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->where('jadwal.jadwalRumkitDetId', $rumkitDetId);
+
         $jadwalKelompok = $builder->get();
         return $jadwalKelompok;
     }
@@ -50,7 +51,7 @@ class JadwalKegiatanModel extends Model
         $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
-        // $builder->whereNotIn('kelompok.kelompokId', $kelompokId);
+        $builder->groupBy('kelompok.kelompokId');
         $kelompok = $builder->get();
         return $kelompok;
     }

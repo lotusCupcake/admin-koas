@@ -8,7 +8,7 @@ class Maintenance extends BaseController
     {
         $data = [
             'title' => "Maintenance",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Home', 'Maintenance'],
             'menu' => $this->fetchMenu()
         ];

@@ -39,15 +39,22 @@
         "role": "superadmin"
     },
     {
+        "id": "3",
+        "nama": "User",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "fas fa-th-large",
+        "pages": "",
+        "role": "superadmin"
+    },
+    {
         "id": "4",
         "nama": "Dashboard",
         "parent": "1",
         "level": "child",
         "status": true,
         "icon": "fas fa-home",
-<<<<<<< HEAD
-        "pages": "/home"
-=======
         "pages": "/home",
         "role": "superadmin"
     },
@@ -71,7 +78,16 @@
         "pages": "",
         "role": "dosen"
     },
-
+    {
+        "id": "7",
+        "nama": "Manajemen Akun",
+        "parent": "3",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user",
+        "pages": "/manajemenAkun",
+        "role": "dosen"
+    },
     {
         "id": "18",
         "nama": "Panduan",
@@ -161,6 +177,5 @@
         "icon": "fas fa-users",
         "pages": "/dataKelompok",
         "role": "dosen"
->>>>>>> 57abef87dfb7351c382cd36fe84ac4ef7737736c
     }
 ]

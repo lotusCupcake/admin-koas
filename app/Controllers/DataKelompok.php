@@ -23,7 +23,7 @@ class DataKelompok extends BaseController
     {
         $data = [
             'title' => "Kelompok",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Penugasan', 'Kelompok'],
             'dataKelompok' => $this->dataKelompokModel->getDataKelompok()->getResult(),
             'mahasiswaProfesi' => $this->getMahasiswa(),

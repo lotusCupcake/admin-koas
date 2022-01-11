@@ -15,7 +15,7 @@ class DataKegiatan extends BaseController
     {
         $data = [
             'title' => "Kegiatan",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kegiatan'],
             'dataKegiatan' => $this->dataKegiatanModel->findAll(),
             'validation' => \Config\Services::validation(),

@@ -83,7 +83,7 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="/home"><?= (in_groups('superadmin') ? "yaa" : "tidak") ?> Administrator KOAS</a>
+      <a href="/home">Admin Dokter Muda</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
     </div>

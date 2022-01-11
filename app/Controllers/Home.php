@@ -8,7 +8,7 @@ class Home extends BaseController
     {
         $data = [
             'title' => "Home",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Home', 'Dashboard'],
             'menu' => $this->fetchMenu()
         ];

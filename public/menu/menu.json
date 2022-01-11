@@ -5,7 +5,8 @@
         "level": "title",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": "#"
+        "pages": "#",
+        "role": "superadmin"
     },
     {
         "id": "2",
@@ -14,7 +15,8 @@
         "level": "title",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": "#"
+        "pages": "#",
+        "role": "superadmin"
     },
     {
         "id": "18",
@@ -23,7 +25,8 @@
         "level": "title",
         "status": true,
         "icon": "",
-        "pages": ""
+        "pages": "",
+        "role": "superadmin"
     },
     {
         "id": "19",
@@ -32,7 +35,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-calendar-plus",
-        "pages": "/jadwalKegiatan"
+        "pages": "/jadwalKegiatan",
+        "role": "superadmin"
     },
     {
         "id": "3",
@@ -41,7 +45,8 @@
         "level": "title",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": ""
+        "pages": "",
+        "role": "superadmin"
     },
     {
         "id": "4",
@@ -50,7 +55,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-home",
-        "pages": "/home"
+        "pages": "/home",
+        "role": "superadmin"
     },
     {
         "id": "5",
@@ -59,7 +65,8 @@
         "level": "parent",
         "status": true,
         "icon": "fas fa-th-large",
-        "pages": ""
+        "pages": "",
+        "role": "superadmin"
     },
     {
         "id": "6",
@@ -68,7 +75,8 @@
         "level": "parent",
         "status": true,
         "icon": "fas fa-file-medical",
-        "pages": ""
+        "pages": "",
+        "role": "dosen"
     },
     {
         "id": "7",
@@ -77,7 +85,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-user",
-        "pages": "/manajemenAkun"
+        "pages": "/manajemenAkun",
+        "role": "dosen"
     },
     {
         "id": "18",
@@ -86,7 +95,8 @@
         "level": "child",
         "status": true,
         "icon": "far fa-file-pdf",
-        "pages": "/dataPanduan"
+        "pages": "/panduan",
+        "role": "dosen"
     },
     {
         "id": "8",
@@ -95,7 +105,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-file-medical-alt",
-        "pages": "/dataBagian"
+        "pages": "/dataBagian",
+        "role": "dosen"
     },
     {
         "id": "9",
@@ -104,7 +115,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-running",
-        "pages": "/dataKegiatan"
+        "pages": "/dataKegiatan",
+        "role": "dosen"
     },
     {
         "id": "10",
@@ -113,7 +125,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-hospital",
-        "pages": "/dataRumahSakit"
+        "pages": "/dataRumahSakit",
+        "role": "dosen"
     },
     {
         "id": "11",
@@ -122,7 +135,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-stethoscope",
-        "pages": "/dosenPembimbing"
+        "pages": "/dosenPembimbing",
+        "role": "dosen"
     },
     {
         "id": "17",
@@ -131,7 +145,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-user-tie",
-        "pages": "/kelompokMahasiswa"
+        "pages": "/kelompokMahasiswa",
+        "role": "dosen"
     },
     {
         "id": "14",
@@ -140,7 +155,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-user-graduate",
-        "pages": "/mahasiswaProfesi"
+        "pages": "/mahasiswaProfesi",
+        "role": "dosen"
     },
     {
         "id": "15",
@@ -149,7 +165,8 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-clinic-medical",
-        "pages": "/staseRumahSakit"
+        "pages": "/staseRumahSakit",
+        "role": "dosen"
     },
     {
         "id": "12",
@@ -158,6 +175,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-users",
-        "pages": "/dataKelompok"
+        "pages": "/dataKelompok",
+        "role": "dosen"
     }
 ]

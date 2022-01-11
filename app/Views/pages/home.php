@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Selamat Datang di Aplikasi Koas UMSU</h1>
+      <h1>Selamat Datang di Aplikasi Dokter Muda UMSU</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="#"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
