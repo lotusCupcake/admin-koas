@@ -39,16 +39,6 @@
         "role": "superadmin"
     },
     {
-        "id": "3",
-        "nama": "User",
-        "parent": "0",
-        "level": "title",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "",
-        "role": "superadmin"
-    },
-    {
         "id": "4",
         "nama": "Dashboard",
         "parent": "1",
@@ -78,16 +68,7 @@
         "pages": "",
         "role": "dosen"
     },
-    {
-        "id": "7",
-        "nama": "Manajemen Akun",
-        "parent": "3",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-user",
-        "pages": "/manajemenAkun",
-        "role": "dosen"
-    },
+
     {
         "id": "18",
         "nama": "Panduan",

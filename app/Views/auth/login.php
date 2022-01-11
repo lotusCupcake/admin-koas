@@ -77,7 +77,7 @@
 				<div class="absolute-bottom-left index-2">
 					<div class="text-light p-5 pb-2">
 						<div class="mb-5 pb-3">
-							<h1 style="color:white;" class="col-lg-12 col-12 mb-2 display-4 font-weight-bold">KOAS UMSU</h1>
+							<h1 style="color:white;" class="col-lg-12 col-12 mb-2 display-4 font-weight-bold">Dokter Muda</h1>
 							<h5 class="col-lg-12 col-12 font-weight-normal text-muted-transparent">Fakultas Kedokteran UMSU</h5>
 						</div>
 					</div>

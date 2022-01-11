@@ -21,7 +21,7 @@ class KelompokMahasiswa extends BaseController
     {
         $data = [
             'title' => "Kel. Mahasiswa",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kel. Mahasiswa'],
             'kelompokDetail' => $this->kelompokMahasiswaModel->findAll(),
             'kelompok' => $this->dataKelompokModel->findAll(),

@@ -20,4 +20,15 @@ class UsersModel extends Model
         $query = $builder->get();
         return $query;
     }
+
+    public function getSpecificUser($where)
+    {
+        $builder = $this->db->table('users');
+        $builder->select('*');
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
+        $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id');
+        $builder->where($where);
+        $query = $builder->get();
+        return $query;
+    }
 }

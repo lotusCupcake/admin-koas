@@ -15,7 +15,7 @@ class DataRumahSakit extends BaseController
     {
         $data = [
             'title' => "Data Rumah Sakit",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Rumah Sakit'],
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),

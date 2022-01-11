@@ -24,7 +24,7 @@ class ManajemenAkun extends BaseController
 
         $data = [
             'title' => "Manajemen Akun",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Home', 'Manajemen Akun'],
             'menu' => $this->fetchMenu(),
             'akun' =>  $this->usersModel->getUser()->getResult(),

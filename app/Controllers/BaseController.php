@@ -7,7 +7,10 @@ use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\UsersModel;
 use Psr\Log\LoggerInterface;
+
+
 
 /**
  * Class BaseController
@@ -27,6 +30,7 @@ class BaseController extends Controller
      * @var CLIRequest|IncomingRequest
      */
     protected $request;
+    protected $usersModel;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -52,8 +56,11 @@ class BaseController extends Controller
 
     public function fetchMenu()
     {
-        $file = "public/menu/menu.json";
-        $data = file_get_contents(ROOTPATH . $file);
+        $this->usersModel = new UsersModel();
+        $id_loggedin = user()->id;
+        $usr = $this->usersModel->getSpecificUser(['users.id' => $id_loggedin])->getResult()[0]->name;
+        // dd($usr);
+        $data = file_get_contents(ROOTPATH . $this->getFile($usr));
 
         $data = json_decode($data, false);
 
@@ -111,5 +118,29 @@ class BaseController extends Controller
         }
 
         return $menu;
+    }
+
+    public function getFile($usr)
+    {
+        switch ($usr) {
+            case "superadmin":
+                $file = "public/menu/menu.json";
+                break;
+            case "admin":
+                $file = "public/menu/menuadmin.json";
+                break;
+            case "dosen":
+                $file = "public/menu/menudosen.json";
+                break;
+            case "prodi":
+                $file = "public/menu/menuprodi.json";
+                break;
+            case "koordik":
+                $file = "public/menu/menukoordik.json";
+                break;
+            default:
+                $file = "public/menu/menu.json";
+        }
+        return $file;
     }
 }

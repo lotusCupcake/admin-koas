@@ -13,7 +13,7 @@ class MahasiswaProfesi extends BaseController
     {
         $data = [
             'title' => "Mahasiswa Profesi",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Mahasiswa Profesi'],
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'menu' => $this->fetchMenu()

@@ -21,7 +21,7 @@ class DosenPembimbing extends BaseController
     {
         $data = [
             'title' => "Dosen Pembimbing",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Dosen Pembimbing'],
             'dosenPembimbing' => $this->dosenPembimbingModel->getDosenPembimbing()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
