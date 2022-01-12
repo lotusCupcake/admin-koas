@@ -10,4 +10,10 @@ class PanduanModel extends Model
     protected $primaryKey = 'panduanId';
     protected $allowedFields = ['panduanNama', 'panduanFile', 'panduanStatus'];
     protected $returnType = 'object';
+
+    public function updateStatus()
+    {
+        $builder = $this->db->query('UPDATE panduan SET panduanStatus=0');
+        return $builder;
+    }
 }

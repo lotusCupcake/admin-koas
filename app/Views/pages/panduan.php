@@ -109,14 +109,6 @@
               <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
           </div>
-          <div class="form-group">
-            <div class="control-label">Status File</div>
-            <label style="display: inline-block; padding-left: 0 !important;" class="custom-switch mt-2">
-              <input type="checkbox" name="panduanStatus" class="custom-switch-input">
-              <span class="custom-switch-indicator"></span>
-            </label>
-            <span style="display: inline-block; margin-top: 0 !important;" class="custom-switch-description">(Berlaku/Tidak Berlaku)</span>
-          </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>

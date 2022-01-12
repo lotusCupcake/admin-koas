@@ -53,8 +53,11 @@ class Panduan extends BaseController
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
             'panduanFile' => $namaDokumen,
-            'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
+            'panduanStatus' => ('1')
         );
+
+        // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
+        $this->panduanModel->updateStatus();
 
         if ($this->panduanModel->insert($data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Ditambah!');
@@ -92,6 +95,9 @@ class Panduan extends BaseController
             'panduanFile' => $namaDokumen,
             'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
         );
+
+        // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
+        $this->panduanModel->updateStatus();
 
         if ($this->panduanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Diupdate!');
