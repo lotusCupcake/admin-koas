@@ -19,7 +19,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered display" id="example" style="width:100%">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
@@ -28,6 +28,7 @@
                   <th scope="col">Email</th>
                   <th scope="col">No. Telp</th>
                   <th width="10%" scope="col">Kelas</th>
+                  <th scope="col">Angkatan</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,7 @@
                     <td><?= $mahasiswa->Email; ?></td>
                     <td><?= $mahasiswa->Phone; ?></td>
                     <td><?= $mahasiswa->Kelas; ?> <?= $mahasiswa->Waktu_Kuliah; ?></td>
+                    <td><?= $mahasiswa->Angkatan; ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

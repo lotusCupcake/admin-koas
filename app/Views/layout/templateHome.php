@@ -19,6 +19,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+  <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/dataTables.bootstrap4.min.css">
   <style>
     a:hover {
       background-color: goldenrod;
@@ -60,16 +62,30 @@
   <script src="<?= base_url() ?>/js/script.js"></script>
 
   <!-- Data table plugin-->
+  <script src="<?= base_url() ?>/template/assets/js/plugins/main.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/plugins/jquery.dataTables.min.js"></script>
-  <script src="<?= base_url() ?>/template/assets/js/plugins/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">
-    // $('#sampleTable').DataTable();
-    $('[name="sampleTable"]').DataTable();
-  </script>
-
+  <!-- <script src="<? //= base_url() 
+                    ?>/template/assets/js/plugins/dataTables.bootstrap.min.js"></script> -->
 
   <!-- label dokumen -->
   <script>
+    $(document).ready(function() {
+      var table = $('#example').removeAttr('width').DataTable({
+        scrollCollapse: true,
+        paging: false,
+        columnDefs: [{
+            width: 350,
+            targets: 2
+          },
+          {
+            width: 350,
+            targets: 3
+          }
+        ],
+        fixedColumns: true
+      });
+    });
+
     function labelDokumen() {
       const dokumen = document.querySelector('#customFile');
       const dokumenLabel = document.querySelector('.custom-file-label');
