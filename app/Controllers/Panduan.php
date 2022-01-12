@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PanduanModel;
+use CodeIgniter\HTTP\Request;
 
 class Panduan extends BaseController
 {
@@ -45,8 +46,8 @@ class Panduan extends BaseController
 
         // upload file
         $fileDokumen = $this->request->getFile('panduanFile');
-        $namaDokumen = $fileDokumen->getRandomName();
-        $fileDokumen->move('dokumen', $namaDokumen);
+        $fileDokumen->move('dokumen');
+        $namaDokumen = $fileDokumen->getName();
 
         // dd('berhasil');
         $data = array(
@@ -63,6 +64,7 @@ class Panduan extends BaseController
 
     public function edit($id)
     {
+        // dd($_POST);
         if (!$this->validate([
             'panduanNama' => [
                 'rules' => 'required',
@@ -70,23 +72,28 @@ class Panduan extends BaseController
                     'required' => 'Nama Panduan Harus Diisi!',
                 ]
             ],
-            // 'panduanFile' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'File Panduan Harus Dipilih!',
-            //     ]
-            // ],
         ])) {
             return redirect()->to('panduan')->withInput();
+        }
+
+        $fileDokumen = $this->request->getFile('panduanFile');
+
+        if ($fileDokumen->getError() == 4) {
+            $namaDokumen = $this->request->getVar('fileLama');
+        } else {
+            $fileDokumen->move('dokumen');
+            $namaDokumen = $fileDokumen->getName();
+            unlink('dokumen/' . $this->request->getVar('fileLama'));
         }
 
         // dd($_POST);
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
+            'panduanFile' => $namaDokumen,
             'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
         );
 
-        if ($this->panduanModel->update($data, $id)) {
+        if ($this->panduanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Diupdate!');
             return redirect()->to('panduan');
         }
@@ -94,6 +101,12 @@ class Panduan extends BaseController
 
     public function delete($id)
     {
+        // cari gambar 
+        $panduan = $this->panduanModel->find($id);
+
+        //hapus gambar
+        unlink('dokumen/' . $panduan->panduanFile);
+
         if ($this->panduanModel->delete($id)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Dihapus!');
         };

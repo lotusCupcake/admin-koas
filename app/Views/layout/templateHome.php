@@ -44,6 +44,7 @@
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/selectric/public/jquery.selectric.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+  <script src="<?= base_url() ?>/template/node_modules/cleave.js/dist/addons/cleave-phone.us.js"></script>
 
   <!-- Template JS File -->
   <script src="<?= base_url() ?>/template/assets/js/scripts.js"></script>
@@ -61,14 +62,14 @@
       const dokumen = document.querySelector('#customFile');
       const dokumenLabel = document.querySelector('.custom-file-label');
 
-      documentLabel.textContent = customFile.files[0].name;
+      dokumenLabel.textContent = dokumen.files[0].name;
+    }
 
-      const fileDokumen = new FileReader();
-      fileDokumen.readAsDataURL(customFile.files[0]);
+    function labelDokumenEdit(id) {
+      const dokumen = document.querySelector('#customFile' + id);
+      const dokumenLabel = document.querySelector('.custom-file-label' + id);
 
-      fileDokumen.onload = function(e) {
-        dokumenLabel.src = e.target.result;
-      }
+      dokumenLabel.textContent = dokumen.files[0].name;
     }
   </script>
 </body>
