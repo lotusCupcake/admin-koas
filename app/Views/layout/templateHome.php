@@ -65,8 +65,6 @@
   <!-- Data table plugin-->
   <script src="<?= base_url() ?>/template/assets/js/plugins/main.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!-- <script src="<? //= base_url() 
-                    ?>/template/assets/js/plugins/dataTables.bootstrap.min.js"></script> -->
 
   <!-- label dokumen -->
   <script>
