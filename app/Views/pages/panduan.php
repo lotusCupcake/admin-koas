@@ -132,8 +132,9 @@
 <?php foreach ($panduan as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editPanduan<?= $edit->panduanId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/panduan/<?= $edit->panduanId; ?>/edit" method="POST">
+      <form action="/panduan/<?= $edit->panduanId; ?>/edit" method="POST" enctype="multipart/form-data">
         <?= csrf_field() ?>
+        <input type="hidden" name="fileLama" value="<?= $edit->panduanFile; ?>">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Edit<strong> Panduan Profesi</strong></h5>
@@ -149,8 +150,8 @@
             <label>File Panduan Profesi</label>
             <div class="form-group">
               <div class="custom-file">
-                <input name="panduanFile" type="file" class="custom-file-input" id="customFile" value="">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <input name="panduanFile" type="file" accept="application/pdf" class="custom-file-input" value="<?= $edit->panduanFile; ?>" id="customFile<?= $edit->panduanId; ?>" onchange="labelDokumenEdit(<?= $edit->panduanId; ?>)">
+                <label class="custom-file-label custom-file-label<?= $edit->panduanId; ?>" for="customFile"><?= $edit->panduanFile; ?></label>
               </div>
             </div>
             <div class="form-group">
@@ -201,6 +202,26 @@
   </div>
 <?php endforeach ?>
 <!-- end modal hapus -->
+
+<!-- start modal lihat  -->
+<?php foreach ($panduan as $lihat) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="lihatPanduan<?= $lihat->panduanId; ?>">
+    <div class="modal-dialog modal-lg" role="banner">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">File<strong> Panduan Profesi</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <embed src="dokumen<?= $lihat->panduanFile; ?>" frameborder="0" width="100%" height="500px">
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal lihat  -->
 
 <?= view('layout/templateFooter'); ?>
 
