@@ -20,6 +20,11 @@
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/dataTables.bootstrap4.min.css">
+  <style>
+    .text-primary:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
