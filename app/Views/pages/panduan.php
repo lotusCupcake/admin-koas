@@ -57,7 +57,7 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Panduan Profesi</th>
-                  <th scope="col">Status</th>
+                  <th style="text-align:center" scope="col">Status</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -68,7 +68,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= $row->panduanNama; ?></td>
-                    <td><span class="badge <?= $row->panduanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->panduanStatus == 1 ? "Berlaku" : "Tidak Berlaku"; ?></td>
+                    <td style="text-align:center"><span class="badge <?= $row->panduanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->panduanStatus == 1 ? "Berlaku" : "Tidak Berlaku"; ?></td>
                     <td style="text-align:center">
                       <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
                       <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editPanduan<?= $row->panduanId; ?>"><i class="fas fa-edit"></i></button>
