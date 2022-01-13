@@ -14,7 +14,7 @@ class DataRumahSakit extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Rumah Sakit",
+            'title' => "Rumah Sakit",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Rumah Sakit'],
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
