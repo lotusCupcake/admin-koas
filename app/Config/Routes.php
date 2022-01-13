@@ -101,6 +101,10 @@ $routes->post('/panduan', 'Panduan::add');
 $routes->delete('/panduan/(:num)', 'Panduan::delete/$1');
 $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 
+// route logbook
+$routes->get('/logbookMahasiswa/(:any)', 'LogbookMahasiswa::index');
+$routes->delete('/logbookMahasiswa/(:num)', 'LogbookMahasiswa::delete/$1');
+$routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
 
 
 /*

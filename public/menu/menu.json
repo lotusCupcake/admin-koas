@@ -35,6 +35,15 @@
         "pages": "/jadwalKegiatan"
     },
     {
+        "id": "20",
+        "nama": "Logbook",
+        "parent": "18",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-book-medical",
+        "pages": "/logbookMahasiswa"
+    },
+    {
         "id": "3",
         "nama": "User",
         "parent": "0",
