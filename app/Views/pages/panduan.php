@@ -198,7 +198,7 @@
 <!-- start modal lihat  -->
 <?php foreach ($panduan as $lihat) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="lihatPanduan<?= $lihat->panduanId; ?>">
-    <div class="modal-dialog modal-lg" role="banner">
+    <div class="modal-dialog modal-xl" role="banner">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">File<strong> Panduan Profesi</strong></h5>
@@ -207,7 +207,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <embed src="dokumen<?= $lihat->panduanFile; ?>" frameborder="0" width="100%" height="500px">
+          <embed src="<?= base_url() ?>/dokumen/<?= $lihat->panduanFile; ?><?= $lihat->panduanFile; ?>" frameborder="0" width="100%" height="500px">
         </div>
       </div>
     </div>
