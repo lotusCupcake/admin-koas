@@ -72,10 +72,10 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered display" style="width:100%" id="example">
               <thead>
                 <tr>
-                  <th width="10%" style="text-align:center" scope="col">No.</th>
+                  <th width=" 10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tahun</th>
                   <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Jumlah Partisipan</th>
