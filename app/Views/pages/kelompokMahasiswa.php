@@ -39,7 +39,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
@@ -78,7 +78,7 @@
         </div>
         <div class="modal-body">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
