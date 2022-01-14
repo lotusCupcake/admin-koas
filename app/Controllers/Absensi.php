@@ -19,9 +19,9 @@ class Absensi extends BaseController
     {
         $currentPage = $this->request->getVar('page_absensi') != null ? $this->request->getVar('page_absensi') : 1;
         $data = [
-            'title' => "List Absensi Mahasiswa",
+            'title' => "Absensi",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['List', 'Absensi'],
+            'breadcrumb' => ['Mahasiswa', 'Absensi'],
             'currentPage' => $currentPage,
             'absensi' => $this->absensiModel->absensiPaginate(5, 'absensi'),
             'pager' => $this->absensiModel->pager,
