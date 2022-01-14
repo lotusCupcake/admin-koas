@@ -8,9 +8,9 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Logbook</h1>
+      <h1>Follow Up</h1>
       <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item"><a href="/logbookMahasiswa"><?= $breadcrumb[0]; ?></a></div>
+        <div class="breadcrumb-item"><a href="/followUp"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
       </div>
     </div>
@@ -48,27 +48,25 @@
                   <th scope="col">Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
-                  <th scope="col">Kegiatan</th>
-                  <th scope="col">Topik</th>
+                  <th width="20%" scope="col">Kasus Yang Ditangani</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <th width="20%" style="text-align:center" scope="col">Status</th>
+                  <th width="15%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($logbook as $row) : ?>
+                foreach ($followUp as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= gmdate("Y-m-d", substr($row->logbookTanggal, 0, -3)); ?></td>
+                    <td><?= gmdate("Y-m-d", substr($row->followUpTglPeriksa, 0, -3)); ?></td>
                     <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                     <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
-                    <td><?= $row->kegiatanNama; ?></td>
-                    <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
+                    <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
                     <td><?= $row->dopingNamaLengkap; ?></td>
                     <td style="text-align:center">
-                      <?php if ($row->logbookIsVerify == 0) : ?>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
+                      <?php if ($row->followUpVerify == 0) : ?>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>">Belum Disetujui</button>
                       <?php else : ?>
                         <button class="btn btn-icon icon-left btn-success">Disetujui</button>
                       <?php endif ?>
@@ -84,18 +82,18 @@
 </div>
 
 <!-- start modal deskripsi -->
-<?php foreach ($logbook as $deskripsi) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="deskripsiLogbook<?= $deskripsi->logbookId; ?>">
+<?php foreach ($followUp as $deskripsi) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="deskripsiFollowUp<?= $deskripsi->followUpId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Topik <strong>Logbook</strong></h5>
+          <h5 class="modal-title">Kasus <strong>Yang Ditangani</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <?= $deskripsi->logbookDeskripsi; ?>
+          <?= $deskripsi->followUpKasusSOAP; ?>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -107,21 +105,21 @@
 <!-- end modal deskripsi -->
 
 <!-- start modal setujui -->
-<?php foreach ($logbook as $setujui) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="setujuiLogbook<?= $setujui->logbookId; ?>">
+<?php foreach ($followUp as $setujui) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="setujuiLogbook<?= $setujui->followUpId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/logbookMahasiswa/<?= $setujui->logbookId; ?>/setujui" method="POST">
+      <form action="/followUp/<?= $setujui->followUpId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Logbook<strong> Mahasiswa</strong></h5>
+            <h5 class="modal-title">Kasus<strong> Yang Ditangani</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Apakah kamu yakin untuk menyetujui logbook <strong><?= $setujui->kelompokDetNama; ?> (<?= $setujui->kelompokDetNim; ?>)</strong>?</p>
-            <p class="text-warning"><small>Jika logbook sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
+            <p>Apakah kamu yakin untuk menyetujui follow up <strong><?= $setujui->kelompokDetNama; ?> (<?= $setujui->kelompokDetNim; ?>)</strong>?</p>
+            <p class="text-warning"><small>Jika follow up sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -26,9 +26,9 @@ class Absensi extends BaseController
         }
 
         $data = [
-            'title' => "List Absensi Mahasiswa",
+            'title' => "Absensi",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['List', 'Absensi'],
+            'breadcrumb' => ['Mahasiswa', 'Absensi'],
             'currentPage' => $currentPage,
             'absensi' => $absen->paginate(5, 'absensi'),
             'pager' => $this->absensiModel->pager,
