@@ -44,6 +44,15 @@
         "pages": "/logbookMahasiswa"
     },
     {
+        "id": "21",
+        "nama": "List Absensi",
+        "parent": "18",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-clock",
+        "pages": "/absensi"
+    },
+    {
         "id": "3",
         "nama": "User",
         "parent": "0",
