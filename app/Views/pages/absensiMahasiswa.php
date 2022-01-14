@@ -21,8 +21,34 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <button class="btn btn-icon icon-left btn-primary disabled" data-toggle="modal" data-target="#tambahDataAbsensi"><i class="fas fa-plus"></i> Tambah Data</button>
+                    <h4></h4>
+                    <div class="card-header-form">
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <!-- <div class="card-header">
+                    <div class="card-header-form">
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> -->
+
+                <!-- <button class="btn btn-icon icon-left btn-primary disabled" data-toggle="modal" data-target="#tambahDataAbsensi"><i class="fas fa-plus"></i> Tambah Data</button> -->
+
+                <!-- </div> -->
+
                 <div class="card-body">
                     <?php if (!empty(session()->getFlashdata('success'))) : ?>
                         <div class="alert alert-success alert-dismissible show fade">
