@@ -18,17 +18,23 @@ class Absensi extends BaseController
     public function index()
     {
         $currentPage = $this->request->getVar('page_absensi') != null ? $this->request->getVar('page_absensi') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $absen = $this->absensiModel->searchAbsensi($keyword);
+        } else {
+            $absen = $this->absensiModel->absensiPaginate();
+        }
+
         $data = [
             'title' => "Absensi",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Absensi'],
             'currentPage' => $currentPage,
-            'absensi' => $this->absensiModel->absensiPaginate(5, 'absensi'),
+            'absensi' => $absen->paginate(5, 'absensi'),
             'pager' => $this->absensiModel->pager,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
         return view('pages/absensiMahasiswa', $data);
     }
 }
