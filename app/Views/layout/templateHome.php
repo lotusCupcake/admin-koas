@@ -39,7 +39,6 @@
   <!-- General JS Scripts -->
   <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="<?= base_url() ?>/template/node_modules/popper.js/dist/popper.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/moment/min/moment.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/stisla.js"></script>
