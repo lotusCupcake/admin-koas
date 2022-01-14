@@ -16,7 +16,7 @@ class LogbookMahasiswa extends BaseController
         $data = [
             'title' => "Logbook",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Setting', 'Logbook'],
+            'breadcrumb' => ['Mahasiswa', 'Logbook'],
             'logbook' => $this->logbookMahasiswaModel->getLogbook()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()

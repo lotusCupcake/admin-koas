@@ -48,7 +48,7 @@
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
                     <td><?= gmdate("Y-m-d", substr($row->logbookTanggal, 0, -3)); ?></td>
-                    <td><?= $row->logbookNim; ?></td>
+                    <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                     <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                     <td><?= $row->kegiatanNama; ?></td>
                     <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
@@ -107,7 +107,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Apakah kamu yakin untuk menyetujui logbook <strong><?= $setujui->logbookNim; ?></strong>?</p>
+            <p>Apakah kamu yakin untuk menyetujui logbook <strong><?= $setujui->kelompokDetNama; ?> (<?= $setujui->kelompokDetNim; ?>)</strong>?</p>
             <p class="text-warning"><small>Jika logbook sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
           </div>
           <div class="modal-footer bg-whitesmoke br">
