@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/@fortawesome/fontawesome-free/css/all.css">
   <!-- CSS Libraries -->
+  <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/select2/dist/css/select2.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/bootstrap-daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
@@ -19,7 +21,6 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
-  <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/dataTables.bootstrap4.min.css">
   <style>
     .text-primary:hover {
       text-decoration: underline;
@@ -44,6 +45,9 @@
   <script src="<?= base_url() ?>/template/assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
+  <script src="<?= base_url() ?>/template/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url() ?>/template/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>/template/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/select2/dist/js/select2.full.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
@@ -59,30 +63,10 @@
   <!-- Page Specific JS File -->
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
   <script src="<?= base_url() ?>/js/script.js"></script>
-
-  <!-- Data table plugin-->
-  <script src="<?= base_url() ?>/template/assets/js/plugins/main.js"></script>
-  <script src="<?= base_url() ?>/template/assets/js/plugins/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
 
   <!-- label dokumen -->
   <script>
-    $(document).ready(function() {
-      var table = $('#example').removeAttr('width').DataTable({
-        scrollCollapse: true,
-        paging: false,
-        columnDefs: [{
-            width: 350,
-            targets: 2
-          },
-          {
-            width: 350,
-            targets: 3
-          }
-        ],
-        fixedColumns: true
-      });
-    });
-
     function labelDokumen() {
       const dokumen = document.querySelector('#customFile');
       const dokumenLabel = document.querySelector('.custom-file-label');

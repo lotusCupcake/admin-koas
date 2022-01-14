@@ -177,7 +177,7 @@
                   <i class="fas fa-envelope"></i>
                 </div>
               </div>
-              <input name="rumahSakitEmail" type="text" class="form-control phone-number">
+              <input name="rumahSakitEmail" type="text" class="form-control">
             </div>
           </div>
           <input type="hidden" name="rumahSakitWarna" value="<?php printf("%06X\n", mt_rand(0, 0xFFFFFF)); ?>">
@@ -243,7 +243,7 @@
                     <i class="fas fa-envelope"></i>
                   </div>
                 </div>
-                <input name="rumahSakitEmail" type="text" class="form-control phone-number" value="<?= $edit->rumahSakitEmail; ?>">
+                <input name="rumahSakitEmail" type="text" class="form-control" value="<?= $edit->rumahSakitEmail; ?>">
               </div>
             </div>
             <input type="hidden" name="rumahSakitWarna" value="<?= $edit->rumahSakitWarna; ?>">

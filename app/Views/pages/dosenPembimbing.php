@@ -145,7 +145,7 @@
                   <i class="fas fa-envelope"></i>
                 </div>
               </div>
-              <input name="dopingEmail" type="text" class="form-control phone-number">
+              <input name="dopingEmail" type="text" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -209,7 +209,7 @@
                     <i class="fas fa-envelope"></i>
                   </div>
                 </div>
-                <input name="dopingEmail" type="text" class="form-control phone-number" value="<?= $edit->dopingEmail; ?>">
+                <input name="dopingEmail" type="text" class="form-control" value="<?= $edit->dopingEmail; ?>">
               </div>
             </div>
             <div class="form-group">

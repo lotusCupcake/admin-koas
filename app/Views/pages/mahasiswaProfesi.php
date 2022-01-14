@@ -19,7 +19,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-striped table-bordered display" style="width:100%" id="example">
+            <table class="table table-striped table-bordered" id="table-1">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>

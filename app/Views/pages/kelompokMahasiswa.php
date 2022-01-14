@@ -39,7 +39,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped table-bordered display" id="example" style="width:100%">
+            <table class="table table-striped table-bordered" id="table-1">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>

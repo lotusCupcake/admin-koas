@@ -18,14 +18,6 @@
     <div class="section-body">
       <div class="card">
         <div class="card-header">
-          <!-- <div class="form-group col-md-3">
-            <label>Tahun</label>
-            <select name="kelompokTahunAkademik" class="form-control select2">
-              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
-                <option value="<?= $i ?>"><?= $i ?></option>
-              <?php endfor ?>
-            </select>
-          </div> -->
           <div class="card-header-action">
             <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
           </div>
@@ -72,7 +64,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped table-bordered display" style="width:100%" id="example">
+            <table class="table table-striped table-bordered" id="table-1">
               <thead>
                 <tr>
                   <th width=" 10%" style="text-align:center" scope="col">No.</th>
@@ -223,7 +215,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table class="table table-striped table-bordered">
+              <table class="table table-striped table-bordered" id="table-2">
                 <thead>
                   <tr>
                     <th style="text-align:center" scope="col"></th>
