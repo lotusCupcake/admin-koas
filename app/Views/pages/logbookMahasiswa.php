@@ -16,6 +16,19 @@
     </div>
     <div class="section-body">
       <div class="card">
+        <div class="card-header">
+          <h4></h4>
+          <div class="card-header-form">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div class="alert alert-success alert-dismissible show fade">
@@ -36,9 +49,9 @@
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>
-                  <th scope="col">Deskripsi</th>
+                  <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <th width="15%" style="text-align:center" scope="col">Status</th>
+                  <th width="20%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -76,7 +89,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Deskripsi <strong>Logbook</strong></h5>
+          <h5 class="modal-title">Topik <strong>Logbook</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
