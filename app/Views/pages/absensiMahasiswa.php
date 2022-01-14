@@ -67,24 +67,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $no = 1 + (5 * ($currentPage - 1));
-                                foreach ($absensi as $row) : ?>
+                                <?php if (!empty($absensi)) : ?>
+                                    <?php
+                                    $no = 1 + (5 * ($currentPage - 1));
+                                    foreach ($absensi as $row) : ?>
+                                        <tr>
+                                            <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                                            <!-- <td><? //= $row->kelompokDetNama; 
+                                                        ?> ( <? //= $row->absensiNim; 
+                                                                ?> )</td> -->
+                                            <td><?= $row->absensiNim; ?></td>
+                                            <td><?= $row->absensiTanggal; ?></td>
+                                            <td><?= $row->absensiLokasi; ?></td>
+                                            <td><?= $row->absensiKeterangan; ?></td>
+                                            <td style="text-align:center">
+                                                <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataAbsensi<?= $row->absensiId; ?>"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataAbsensi<?= $row->absensiId; ?>"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                                        <!-- <td><? //= $row->kelompokDetNama; 
-                                                    ?> ( <? //= $row->absensiNim; 
-                                                            ?> )</td> -->
-                                        <td><?= $row->absensiNim; ?></td>
-                                        <td><?= $row->absensiTanggal; ?></td>
-                                        <td><?= $row->absensiLokasi; ?></td>
-                                        <td><?= $row->absensiKeterangan; ?></td>
-                                        <td style="text-align:center">
-                                            <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataAbsensi<?= $row->absensiId; ?>"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataAbsensi<?= $row->absensiId; ?>"><i class="fas fa-trash"></i></button>
-                                        </td>
+                                        <td colspan="6" align="center">Data Tidak Ditemukan</td>
                                     </tr>
-                                <?php endforeach ?>
+                                <?php endif ?>
                             </tbody>
                         </table>
                         <?= $pager->links('absensi', 'absen_pager') ?>
