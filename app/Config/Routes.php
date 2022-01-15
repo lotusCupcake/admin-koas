@@ -107,8 +107,6 @@ $routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1')
 
 // route Absensi
 $routes->get('/absensi/(:any)', 'Absensi::index');
-$routes->delete('/logbookMahasiswa/(:num)', 'LogbookMahasiswa::delete/$1');
-$routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
 
 // route Folow Up
 $routes->get('/followUp/(:any)', 'FollowUp::index');
