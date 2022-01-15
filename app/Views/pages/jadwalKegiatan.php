@@ -18,6 +18,17 @@
       <div class="card">
         <div class="card-header">
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahJadwalKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
+          <h4></h4>
+          <div class="card-header-form">
+            <form action="/jadwalKegiatan/index">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class=" input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
@@ -117,10 +128,11 @@
                 <?php
                 if (empty($jadwalKegiatan)) { ?>
                   <tr>
-                    <td class="danger" colspan="8" align="center">Data Tidak Ditemukan</td>
+                    <td class="danger" colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
                   <?php } else {
-                  $no = 1;
+                  $no =
+                    1 + (5 * ($currentPage - 1));
                   foreach ($jadwalKegiatan as $row_jadwal) { ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -138,6 +150,7 @@
                 } ?>
               </tbody>
             </table>
+            <?= $pager->links('jadwal', 'pager') ?>
           </div>
         </div>
       </div>
