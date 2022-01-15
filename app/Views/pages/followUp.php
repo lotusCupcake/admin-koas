@@ -19,11 +19,11 @@
         <div class="card-header">
           <h4></h4>
           <div class="card-header-form">
-            <form>
+            <form action="" method="POST">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search" name="keyword">
                 <div class="input-group-btn">
-                  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
               </div>
             </form>
@@ -54,27 +54,34 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($followUp as $row) : ?>
+                <?php if (!empty($followUp)) : ?>
+                  <?php
+                  $no = 1 + (5 * ($currentPage - 1));
+                  foreach ($followUp as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= gmdate("Y-m-d", substr($row->followUpTglPeriksa, 0, -3)); ?></td>
+                      <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                      <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
+                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
+                      <td><?= $row->dopingNamaLengkap; ?></td>
+                      <td style="text-align:center">
+                        <?php if ($row->followUpVerify == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>">Belum Disetujui</button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                        <?php endif ?>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= gmdate("Y-m-d", substr($row->followUpTglPeriksa, 0, -3)); ?></td>
-                    <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                    <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
-                    <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
-                    <td><?= $row->dopingNamaLengkap; ?></td>
-                    <td style="text-align:center">
-                      <?php if ($row->followUpVerify == 0) : ?>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>">Belum Disetujui</button>
-                      <?php else : ?>
-                        <button class="btn btn-icon icon-left btn-success">Disetujui</button>
-                      <?php endif ?>
-                    </td>
+                    <td colspan="7" align="center">Data Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('followUp', 'pager') ?>
           </div>
         </div>
       </div>
