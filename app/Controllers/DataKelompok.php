@@ -8,24 +8,31 @@ use App\Models\KelompokMahasiswaModel;
 class DataKelompok extends BaseController
 {
     protected $dataKelompokModel;
-    // protected $kelompokDosenModel;
     protected $kelompokMahasiswaModel;
-    protected $db;
     protected $curl;
     public function __construct()
     {
         $this->dataKelompokModel = new DataKelompokModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
-        $this->db = \Config\Database::connect();
         $this->curl = service('curlrequest');
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_kelompok') ? $this->request->getVar('page_kelompok') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $dataKelompok = $this->dataKelompokModel->getDataKelompokSearch($keyword);
+        } else {
+            $dataKelompok = $this->dataKelompokModel->getDataKelompok();
+        }
+
         $data = [
             'title' => "Kelompok",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Penugasan', 'Kelompok'],
-            'dataKelompok' => $this->dataKelompokModel->getDataKelompok()->getResult(),
+            'dataKelompok' => $dataKelompok->paginate(5, 'kelompok'),
+            'pager' => $this->dataKelompokModel->pager,
+            'currentPage' => $currentPage,
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
