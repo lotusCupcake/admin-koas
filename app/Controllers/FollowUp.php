@@ -13,7 +13,7 @@ class FollowUp extends BaseController
     }
     public function index()
     {
-        $currentPage = $this->request->getVar('followUp') ? $this->request->getVar('followUp') : 1;
+        $currentPage = $this->request->getVar('page_followUp') ? $this->request->getVar('page_followUp') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $followUp = $this->followUpModel->getFollowUpSearch($keyword);
@@ -24,7 +24,7 @@ class FollowUp extends BaseController
             'title' => "Follow Up",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Follow Up'],
-            'followUp' => $followUp->paginate(5, 'followUp'),
+            'followUp' => $followUp->paginate(5, 'anj'),
             'pager' => $this->followUpModel->pager,
             'currentPage' => $currentPage,
             'validation' => \Config\Services::validation(),
