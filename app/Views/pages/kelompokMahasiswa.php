@@ -141,6 +141,7 @@
   </div>
 <?php endforeach ?>
 <!-- end modal hapus -->
+
 <?= view('layout/templateFooter'); ?>
 
 <?= $this->endSection(); ?>
