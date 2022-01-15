@@ -19,9 +19,9 @@
         <div class="card-header">
           <h4></h4>
           <div class="card-header-form">
-            <form action="" method="POST">
+            <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="keyword">
+                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -76,7 +76,7 @@
                   <?php endforeach ?>
                 <?php else : ?>
                   <tr>
-                    <td colspan="7" align="center">Data Tidak Ditemukan</td>
+                    <td colspan="7" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
                 <?php endif ?>
               </tbody>

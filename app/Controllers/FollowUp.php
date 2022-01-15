@@ -13,7 +13,7 @@ class FollowUp extends BaseController
     }
     public function index()
     {
-        $currentPage = $this->request->getVar('page_followUp') ? $this->request->getVar('page_followUp') : 1;
+        $currentPage = $this->request->getVar('followUp') ? $this->request->getVar('followUp') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $followUp = $this->followUpModel->getFollowUpSearch($keyword);

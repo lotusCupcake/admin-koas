@@ -22,11 +22,21 @@ class JadwalKegiatan extends BaseController
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('jadwal') ? $this->request->getVar('jadwal') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword);
+        } else {
+            $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
+        }
+
         $data = [
             'title' => "Jadwal Kegiatan",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan()->getResult(),
+            'jadwalKegiatan' => $jadwal->paginate(5, 'jadwal'),
+            'pager' => $this->jadwalKegiatanModel->pager,
+            'currentPage' => $currentPage,
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
