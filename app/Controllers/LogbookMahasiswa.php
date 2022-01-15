@@ -13,11 +13,21 @@ class LogbookMahasiswa extends BaseController
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_logbook') ? $this->request->getVar('page_logbook') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $logbook = $this->logbookMahasiswaModel->getLogbookSearch($keyword);
+        } else {
+            $logbook = $this->logbookMahasiswaModel->getLogbook();
+        }
+
         $data = [
             'title' => "Logbook",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Logbook'],
-            'logbook' => $this->logbookMahasiswaModel->getLogbook()->getResult(),
+            'logbook' => $logbook->paginate(5, 'logbook'),
+            'pager' => $this->logbookMahasiswaModel->pager,
+            'currentPage' => $currentPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

@@ -16,6 +16,7 @@ class AbsensiModel extends Model
         $builder = $this->table('absensi');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
 
@@ -26,6 +27,7 @@ class AbsensiModel extends Model
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
         $builder->like('kelompok_detail.kelompokDetNama', $keyword);
         $builder->orLike('absensi.absensiNim', $keyword);
+        $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
 }

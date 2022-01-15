@@ -10,12 +10,8 @@
         <div class="section-header">
             <h1>Absensi</h1>
             <div class="section-header-breadcrumb">
-                <!-- <div class="breadcrumb-item"><a href="/home"><? //= $breadcrumb[0]; 
-                                                                    ?></a></div>
-                <div class="breadcrumb-item"><a href="/absensi"><? //= $breadcrumb[1]; 
-                                                                ?></a></div>
-                <div class="breadcrumb-item active"><? //= $breadcrumb[2]; 
-                                                    ?></div> -->
+                <div class="breadcrumb-item"><a href="/absensi"><?= $breadcrumb[0]; ?></a></div>
+                <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
             </div>
         </div>
         <div class="section-body">
@@ -93,7 +89,7 @@
                                 <?php endif ?>
                             </tbody>
                         </table>
-                        <?= $pager->links('absensi', 'absen_pager') ?>
+                        <?= $pager->links('absensi', 'pager') ?>
                     </div>
                 </div>
             </div>

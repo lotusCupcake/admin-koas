@@ -103,7 +103,6 @@ $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 
 // route logbook
 $routes->get('/logbookMahasiswa/(:any)', 'LogbookMahasiswa::index');
-$routes->delete('/logbookMahasiswa/(:num)', 'LogbookMahasiswa::delete/$1');
 $routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
 
 // route Absensi
@@ -113,7 +112,6 @@ $routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1')
 
 // route Folow Up
 $routes->get('/followUp/(:any)', 'FollowUp::index');
-$routes->delete('/followUp/(:num)', 'FollowUp::delete/$1');
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
 

@@ -19,11 +19,11 @@
         <div class="card-header">
           <h4></h4>
           <div class="card-header-form">
-            <form>
+            <form action="" method="POST">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <div class="input-group-btn">
-                  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                <input type="text" class="form-control" placeholder="Search" name="keyword">
+                <div class=" input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
               </div>
             </form>
@@ -56,7 +56,7 @@
               </thead>
               <tbody>
                 <?php
-                $no = 1;
+                $no = 1 + (5 * ($currentPage - 1));
                 foreach ($logbook as $row) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -77,6 +77,7 @@
                 <?php endforeach ?>
               </tbody>
             </table>
+            <?= $pager->links('logbook', 'pager') ?>
           </div>
         </div>
       </div>
