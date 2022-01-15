@@ -55,26 +55,32 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1 + (5 * ($currentPage - 1));
-                foreach ($logbook as $row) : ?>
+                <?php if (!empty($logbook)) : ?>
+                  <?php
+                  $no = 1 + (5 * ($currentPage - 1));
+                  foreach ($logbook as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= gmdate("Y-m-d", substr($row->logbookTanggal, 0, -3)); ?></td>
+                      <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                      <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
+                      <td><?= $row->kegiatanNama; ?></td>
+                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
+                      <td><?= $row->dopingNamaLengkap; ?></td>
+                      <td style="text-align:center">
+                        <?php if ($row->logbookIsVerify == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                        <?php endif ?>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= gmdate("Y-m-d", substr($row->logbookTanggal, 0, -3)); ?></td>
-                    <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                    <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
-                    <td><?= $row->kegiatanNama; ?></td>
-                    <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
-                    <td><?= $row->dopingNamaLengkap; ?></td>
-                    <td style="text-align:center">
-                      <?php if ($row->logbookIsVerify == 0) : ?>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
-                      <?php else : ?>
-                        <button class="btn btn-icon icon-left btn-success">Disetujui</button>
-                      <?php endif ?>
-                    </td>
+                    <td colspan="8" align="center">Data Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
             <?= $pager->links('logbook', 'pager') ?>
