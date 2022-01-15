@@ -18,8 +18,17 @@
     <div class="section-body">
       <div class="card">
         <div class="card-header">
-          <div class="card-header-action">
-            <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
+          <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
+          <h4></h4>
+          <div class="card-header-form">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div class="card-body">
@@ -64,7 +73,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="table-1">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width=" 10%" style="text-align:center" scope="col">No.</th>
@@ -75,23 +84,30 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($dataKelompok as $row) : ?>
+                <?php if (!empty($dataKelompok)) : ?>
+                  <?php
+                  $no = 1  + (5 * ($currentPage - 1));
+                  foreach ($dataKelompok as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->kelompokTahunAkademik; ?></td>
+                      <td><?= $row->kelompokNama; ?></td>
+                      <td><button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</button></td>
+                      <td style="text-align:center">
+                        <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kelompokTahunAkademik; ?></td>
-                    <td><?= $row->kelompokNama; ?></td>
-                    <td><button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</button></td>
-                    <td style="text-align:center">
-                      <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('kelompok', 'pager') ?>
           </div>
         </div>
       </div>

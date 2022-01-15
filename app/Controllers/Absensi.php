@@ -17,7 +17,7 @@ class Absensi extends BaseController
 
     public function index()
     {
-        $currentPage = $this->request->getVar('absensi') ? $this->request->getVar('absensi') : 1;
+        $currentPage = $this->request->getVar('page_absensi') ? $this->request->getVar('page_absensi') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $absen = $this->absensiModel->searchAbsensi($keyword);

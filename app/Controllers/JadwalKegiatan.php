@@ -22,14 +22,13 @@ class JadwalKegiatan extends BaseController
     }
     public function index()
     {
-        $currentPage = $this->request->getVar('jadwal') ? $this->request->getVar('jadwal') : 1;
+        $currentPage = $this->request->getVar('page_jadwal') ? $this->request->getVar('page_jadwal') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword);
         } else {
             $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
         }
-
         $data = [
             'title' => "Jadwal Kegiatan",
             'appName' => "Dokter Muda",
@@ -42,6 +41,7 @@ class JadwalKegiatan extends BaseController
             'menu' => $this->fetchMenu(),
         ];
         // dd($data);
+
         return view('pages/jadwalKegiatan', $data);
     }
 

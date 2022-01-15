@@ -13,7 +13,7 @@ class LogbookMahasiswa extends BaseController
     }
     public function index()
     {
-        $currentPage = $this->request->getVar('logbook') ? $this->request->getVar('logbook') : 1;
+        $currentPage = $this->request->getVar('page_logbook') ? $this->request->getVar('page_logbook') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $logbook = $this->logbookMahasiswaModel->getLogbookSearch($keyword);

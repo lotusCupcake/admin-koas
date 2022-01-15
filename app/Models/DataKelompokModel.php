@@ -13,9 +13,19 @@ class DataKelompokModel extends Model
 
     public function getDataKelompok()
     {
-        $builder = $this->db->table('kelompok');
-        $builder->select('*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId)as jumlahPartisipan');
-        $kelompok = $builder->get();
-        return $kelompok;
+        $builder = $this->select('' . $this->table . '.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = ' . $this->table . '.kelompokId) as jumlahPartisipan');
+        $builder->table($this->table);
+        $builder->orderBy('' . $this->table . '.kelompokId', 'DESC');
+        return $builder;
+    }
+
+    public function getDataKelompokSearch($keyword)
+    {
+        $builder = $this->select('' . $this->table . '.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = ' . $this->table . '.kelompokId) as jumlahPartisipan');
+        $builder->table($this->table);
+        $builder->like('' . $this->table . '.kelompokNama', $keyword);
+        $builder->orlike('' . $this->table . '.kelompokTahunAkademik', $keyword);
+        $builder->orderBy('' . $this->table . '.kelompokId', 'DESC');
+        return $builder;
     }
 }
