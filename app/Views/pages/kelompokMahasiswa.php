@@ -17,6 +17,19 @@
     </div>
     <div class="section-body">
       <div class="card">
+        <div class="card-header">
+          <h4></h4>
+          <div class="card-header-form">
+            <form action="" method="GET">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="card-body">
           <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
             <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
@@ -39,7 +52,7 @@
             </div>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="table-1">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
@@ -48,17 +61,24 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($kelompok as $row) : ?>
+                <?php if (!empty($kelompok)) : ?>
+                  <?php
+                  $no = 1  + (5 * ($currentPage - 1));
+                  foreach ($kelompok as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td scope="row"><?= $row->kelompokTahunAkademik; ?></td>
+                      <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><span class="text-primary"><?= $row->kelompokNama; ?></span></td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td scope="row"><?= $row->kelompokTahunAkademik; ?></td>
-                    <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row->kelompokId; ?>"><span class="text-primary"><?= $row->kelompokNama; ?></span></td>
+                    <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('kelompok', 'pager') ?>
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahJadwalKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
           <h4></h4>
           <div class="card-header-form">
-            <form action="/jadwalKegiatan/index">
+            <form action="">
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class=" input-group-btn">
@@ -117,37 +117,32 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tanggal Mulai/Akhir</th>
-                  <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
-                  <th scope="col">Kelompok</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                if (empty($jadwalKegiatan)) { ?>
-                  <tr>
-                    <td class="danger" colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                  </tr>
-                  <?php } else {
-                  $no =
+                <?php if (!empty($jadwalKegiatan)) : ?>
+                  <?php $no =
                     1 + (5 * ($currentPage - 1));
-                  foreach ($jadwalKegiatan as $row_jadwal) { ?>
+                  foreach ($jadwalKegiatan as $row_jadwal) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTanggalMulai . " s/d " . $row_jadwal->jadwalTanggalSelesai; ?></td>
-                      <td><?= $row_jadwal->jadwalJam; ?></td>
                       <td><?= $row_jadwal->rumahSakitNama; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
-                      <td><?= $row_jadwal->Mahasiswa; ?></td>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
-                <?php }
-                } ?>
+                  <?php endforeach ?>
+                <?php else : ?>
+                  <tr>
+                    <td class="danger" colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
+                  </tr>
+                <?php endif ?>
               </tbody>
             </table>
             <?= $pager->links('jadwal', 'pager') ?>

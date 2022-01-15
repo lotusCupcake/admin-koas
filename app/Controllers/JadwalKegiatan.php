@@ -29,7 +29,6 @@ class JadwalKegiatan extends BaseController
         } else {
             $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
         }
-
         $data = [
             'title' => "Jadwal Kegiatan",
             'appName' => "Dokter Muda",
@@ -42,6 +41,7 @@ class JadwalKegiatan extends BaseController
             'menu' => $this->fetchMenu(),
         ];
         // dd($data);
+
         return view('pages/jadwalKegiatan', $data);
     }
 
