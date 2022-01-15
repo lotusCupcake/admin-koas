@@ -117,8 +117,10 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tanggal Mulai/Akhir</th>
+                  <th scope="col">Jam Oprasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
+                  <th scope="col">Kelompok</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -130,8 +132,14 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTanggalMulai . " s/d " . $row_jadwal->jadwalTanggalSelesai; ?></td>
+                      <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
                       <td><?= $row_jadwal->rumahSakitNama; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
+                      <?php foreach ($mhsDetail as $mhs) : ?>
+                        <?php if ($row_jadwal->kelompokId == $mhs->kelompokDetKelompokId) : ?>
+                          <td><strong><?= $row_jadwal->kelompokNama ?></strong> : </br><?= $mhs->kelompokDetKelompokMahasiswa; ?></td>
+                        <?php endif ?>
+                      <?php endforeach ?>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>

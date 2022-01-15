@@ -34,13 +34,14 @@ class JadwalKegiatan extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $jadwal->paginate(5, 'jadwal'),
+            'mhsDetail' => $this->jadwalKegiatanModel->showKelompokDetail()->getResult(),
             'pager' => $this->jadwalKegiatanModel->pager,
             'currentPage' => $currentPage,
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
+        // dd($data['mhsDetail']);
 
         return view('pages/jadwalKegiatan', $data);
     }

@@ -27,6 +27,13 @@ class JadwalKegiatanModel extends Model
         return $builder;
     }
 
+    public function showKelompokDetail()
+    {
+        return $this->db->query(
+            'SELECT kelompok_detail.kelompokDetKelompokId, GROUP_CONCAT(DISTINCT CONCAT( " ", kelompok_detail.kelompokDetNama, " (" ), CONCAT(kelompok_detail.kelompokDetNim,")") ORDER BY kelompok_detail.kelompokDetId ASC ) as kelompokDetKelompokMahasiswa from kelompok_detail GROUP BY kelompok_detail.kelompokDetKelompokId'
+        );
+    }
+
     public function show_Jadwal_KegiatanSearch($keyword)
     {
         $builder = $this->table('jadwal');
