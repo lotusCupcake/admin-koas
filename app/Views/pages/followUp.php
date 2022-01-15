@@ -81,7 +81,7 @@
                 <?php endif ?>
               </tbody>
             </table>
-            <?= $pager->links('anj', 'pager') ?>
+            <?= $pager->links('followUp', 'pager') ?>
           </div>
         </div>
       </div>
