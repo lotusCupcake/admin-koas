@@ -60,7 +60,7 @@
                   foreach ($followUp as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate("Y-m-d", substr($row->followUpTglPeriksa, 0, -3)); ?></td>
+                      <td><?= gmdate("Y-m-d", ($row->followUpTglPeriksa / 1000)); ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>

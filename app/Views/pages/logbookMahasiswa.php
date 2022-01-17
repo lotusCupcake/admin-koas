@@ -61,7 +61,7 @@
                   foreach ($logbook as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate("Y-m-d", substr($row->logbookTanggal, 0, -3)); ?></td>
+                      <td><?= gmdate("Y-m-d", ($row->logbookTanggal / 1000)); ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>

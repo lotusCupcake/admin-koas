@@ -2,23 +2,22 @@
 
 namespace App\Controllers;
 
+use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 // use App\Models\DataBagianModel;
 
 class JadwalKegiatan extends BaseController
 {
+    protected $kelompokMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
-    // protected $DataBagianModel; 
-    protected $db;
 
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
-        // $this->penyiarModel = new DataRumahSakitModel();
-        $this->db = \Config\Database::connect();
+        $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
     }
     public function index()
     {
@@ -34,13 +33,14 @@ class JadwalKegiatan extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
             'jadwalKegiatan' => $jadwal->paginate(5, 'jadwal'),
+            'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
             'pager' => $this->jadwalKegiatanModel->pager,
             'currentPage' => $currentPage,
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
+        // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);
     }

@@ -20,18 +20,17 @@ class KelompokMahasiswa extends BaseController
         $currentPage = $this->request->getVar('page_kelompok') ? $this->request->getVar('page_kelompok') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
-            $kelompok = $this->dataKelompokModel->getDataKelompokSearch($keyword);
+            $kelompok = $this->kelompokMahasiswaModel->getKelompokMahasiswaSearch($keyword);
         } else {
-            $kelompok = $this->dataKelompokModel->getDataKelompok();
+            $kelompok = $this->kelompokMahasiswaModel->getKelompokMahasiswa();
         }
 
         $data = [
             'title' => "Kel. Mahasiswa",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kel. Mahasiswa'],
-            'kelompokDetail' => $this->kelompokMahasiswaModel->findAll(),
-            'kelompok' => $kelompok->paginate(5, 'kelompok'),
-            'pager' => $this->dataKelompokModel->pager,
+            'kelompokDetail' => $kelompok->paginate(5, 'kelompok'),
+            'pager' => $this->kelompokMahasiswaModel->pager,
             'currentPage' => $currentPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
