@@ -207,7 +207,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <embed src="<?= base_url() ?>/dokumen/<?= $lihat->panduanFile; ?><?= $lihat->panduanFile; ?>" frameborder="0" width="100%" height="500px">
+          <embed src="<?= base_url() ?>/dokumen/<?= $lihat->panduanFile; ?>" frameborder="0" width="100%" height="500px">
         </div>
       </div>
     </div>
