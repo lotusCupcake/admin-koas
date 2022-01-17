@@ -34,6 +34,9 @@ class FollowUpModel extends Model
         $builder->table($this->table);
         $builder->like('kelompok_detail.kelompokDetNama', $keyword);
         $builder->orLike('kelompok_detail.kelompokDetNim', $keyword);
+        $builder->orLike('rumkit.rumahSakitNama', $keyword);
+        $builder->orLike('stase.staseNama', $keyword);
+        $builder->orLike('dosen_pembimbing.dopingNamaLengkap', $keyword);
         $builder->orderBy('' . $this->table . '.followUpId', 'DESC');
         return $builder;
     }
