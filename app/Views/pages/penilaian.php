@@ -34,7 +34,7 @@
               <a class="nav-link" id="refa-rat" data-toggle="tab" href="#refarat" role="tab" aria-controls="contact" aria-selected="false">Refarat</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="refleksi-kasus" data-toggle="tab" href="#refleksiKasus" role="tab" aria-controls="contact" aria-selected="false">Refleksi Kasus</a>
+              <a class="nav-link" id="refleksi-kasus" data-toggle="tab" href="#refleksiKasus" role="tab" aria-controls="contact" aria-selected="false">Laporan/Refleksi Kasus</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="mid-test" data-toggle="tab" href="#midTest" role="tab" aria-controls="contact" aria-selected="false">Mid Test</a>
@@ -48,53 +48,409 @@
           </ul>
           <div class="tab-content tab-bordered" id="myTab3Content">
             <div class="tab-pane fade show active" id="pretest" role="tabpanel" aria-labelledby="pre-test">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="tutorialKlinik" role="tabpanel" aria-labelledby="tutorial-klinik">
-              Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus pharetra a.
+            <div class="tab-pane fade show" id="tutorialKlinik" role="tabpanel" aria-labelledby="tutorial-klinik">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Sikap & Tanggungjawab</th>
+                      <th scope="col">Peran Aktif & Komunikasi</th>
+                      <th scope="col">Sumber Informasi</th>
+                      <th scope="col">Informasi yang disampaikan</th>
+                      <th scope="col">Penalaran Klinis</th>
+                      <th style="text-align:center" scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td>
+                          <h1>80</h1>
+                        </td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="jurnalReading" role="tabpanel" aria-labelledby="jurnal-reading">
-              Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+
+            <div class="tab-pane fade show" id="jurnalReading" role="tabpanel" aria-labelledby="jurnal-reading">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiJurnalReading"><i class="fas fa-edit"></i></button></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="refarat" role="tabpanel" aria-labelledby="refa-rat">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            <div class="tab-pane fade show" id="refarat" role="tabpanel" aria-labelledby="refarat">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiRefarat"><i class="fas fa-edit"></i></button></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="refleksiKasus" role="tabpanel" aria-labelledby="refleksi-kasus">
-              Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus pharetra a.
+
+            <div class="tab-pane fade show" id="refleksiKasus" role="tabpanel" aria-labelledby="refleksi-kasus">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiRefleksiKasus"><i class="fas fa-edit"></i></button></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="refleksiKasus" role="tabpanel" aria-labelledby="refleksi-kasus">
-              Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+
+            <div class="tab-pane fade show" id="midTest" role="tabpanel" aria-labelledby="mid-test">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="midTest" role="tabpanel" aria-labelledby="mid-test">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            <div class="tab-pane fade show" id="followUp" role="tabpanel" aria-labelledby="follow-up">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Aspek Penilaian</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                      <th style="text-align:center" scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td rowspan="2"><?= $no++ ?></td>
+                        <td rowspan="2"><?= $mhs->kelompokDetNim ?></td>
+                        <td rowspan="2"><?= $mhs->kelompokDetNama ?></td>
+                        <td>Sistematika penulisan catatan medis (SOAP)</td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                        <td rowspan="2">
+                          <h1>80</h1>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Pemahaman Dasar Pengetahuan Terkait Kasus</td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tab-pane fade" id="followUp" role="tabpanel" aria-labelledby="follow-up">
-              Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus pharetra a.
-            </div>
-            <div class="tab-pane fade" id="postTest" role="tabpanel" aria-labelledby="post-test">
-              Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+
+            <div class="tab-pane fade show" id="postTest" role="tabpanel" aria-labelledby="post-test">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Tanggal</th>
+                      <th scope="col">NPM</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Kelompok</th>
+                      <th scope="col">Stase</th>
+                      <th style="text-align:center" scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach ($mahasiswa as $mhs) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $mhs->logbookTanggal ?></td>
+                        <td><?= $mhs->kelompokDetNim ?></td>
+                        <td><?= $mhs->kelompokDetNama ?></td>
+                        <td><?= $mhs->kelompokNama ?></td>
+                        <td><?= $mhs->staseNama ?></td>
+                        <td><input class="form-control" type="text" name="" id=""></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 </div>
+</div>
+</section>
+</div>
+
+<!-- start modal jurnal reading  -->
+<div class="modal fade" tabindex="-1" role="dialog" id="nilaiJurnalReading">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="text-align:center" scope="col">No.</th>
+                <th scope="col">Nama Komponen</th>
+                <th style="text-align:center" scope="col">Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1;
+              foreach ($penilainJurnalReading as $nilai) : ?>
+                <tr>
+                  <td><?= $no++ ?></td>
+                  <td><?= $nilai->komponenNilaiNama ?></td>
+                  <td><input class="form-control" type="text" name="" id=""></td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end modal jurnal reading -->
+
+<!-- start modal refarat  -->
+<div class="modal fade" tabindex="-1" role="dialog" id="nilaiRefarat">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="text-align:center" scope="col">No.</th>
+                <th scope="col">Nama Komponen</th>
+                <th style="text-align:center" scope="col">Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1;
+              foreach ($penilainRefarat as $nilai) : ?>
+                <tr>
+                  <td><?= $no++ ?></td>
+                  <td><?= $nilai->komponenNilaiNama ?></td>
+                  <td><input class="form-control" type="text" name="" id=""></td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end modal refarat-->
+
+<!-- start modal refarat  -->
+<div class="modal fade" tabindex="-1" role="dialog" id="nilaiRefleksiKasus">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="text-align:center" scope="col">No.</th>
+                <th scope="col">Nama Komponen</th>
+                <th style="text-align:center" scope="col">Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1;
+              foreach ($penilainRefleksiKasus as $nilai) : ?>
+                <tr>
+                  <td><?= $no++ ?></td>
+                  <td><?= $nilai->komponenNilaiNama ?></td>
+                  <td><input class="form-control" type="text" name="" id=""></td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end modal refarat-->
 
 <?= view('layout/templateFooter'); ?>
 
