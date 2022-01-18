@@ -27,6 +27,7 @@ class AbsensiModel extends Model
         $builder->table($this->table);
         $builder->like('kelompok_detail.kelompokDetNama', $keyword);
         $builder->orLike('' . $this->table . '.absensiNim', $keyword);
+        $builder->orLike('' . $this->table . '.absensiKeterangan', $keyword);
         $builder->orderBy('' . $this->table . '.absensiId', 'DESC');
         return $builder;
     }

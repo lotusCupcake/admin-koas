@@ -179,6 +179,15 @@
         "pages": "/logbookMahasiswa"
     },
     {
+        "id": "25",
+        "nama": "Penilaian",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/penilaian"
+    },
+    {
         "id": "23",
         "nama": "User",
         "parent": "0",

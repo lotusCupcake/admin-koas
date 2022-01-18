@@ -20,10 +20,10 @@
         <div class="card-header">
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
           <h4></h4>
-          <div class="card-header-form">
+          <div class="card-header-form col-md-4">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Tahun/Kelompok" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -252,7 +252,7 @@
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </form>
       </div>

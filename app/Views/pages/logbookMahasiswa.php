@@ -18,10 +18,10 @@
       <div class="card">
         <div class="card-header">
           <h4></h4>
-          <div class="card-header-form">
+          <div class="card-header-form col-md-6">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Nama/NPM/Rumah Sakit/Stase/Kegiatan/Dosen" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class=" input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
