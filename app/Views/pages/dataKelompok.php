@@ -86,7 +86,7 @@
               <tbody>
                 <?php if (!empty($dataKelompok)) : ?>
                   <?php
-                  $no = 1  + (5 * ($currentPage - 1));
+                  $no = 1  + ($numberPage * ($currentPage - 1));
                   foreach ($dataKelompok as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>

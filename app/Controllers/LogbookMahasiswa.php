@@ -25,9 +25,10 @@ class LogbookMahasiswa extends BaseController
             'title' => "Logbook",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Logbook'],
-            'logbook' => $logbook->paginate(5, 'logbook'),
+            'logbook' => $logbook->paginate($this->numberPage, 'logbook'),
             'pager' => $this->logbookMahasiswaModel->pager,
             'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

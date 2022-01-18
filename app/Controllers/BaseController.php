@@ -143,4 +143,6 @@ class BaseController extends Controller
         }
         return $file;
     }
+
+    protected $numberPage = 10;
 }

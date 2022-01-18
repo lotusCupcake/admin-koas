@@ -24,9 +24,10 @@ class FollowUp extends BaseController
             'title' => "Follow Up",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Follow Up'],
-            'followUp' => $followUp->paginate(5, 'followUp'),
+            'followUp' => $followUp->paginate($this->numberPage, 'followUp'),
             'pager' => $this->followUpModel->pager,
             'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
