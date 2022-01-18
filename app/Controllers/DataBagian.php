@@ -67,10 +67,9 @@ class DataBagian extends BaseController
     {
         if (!$this->validate([
             'staseNama' => [
-                'rules' => 'required|is_unique[stase.staseNama]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Stase Harus Diisi!',
-                    'is_unique' => 'Nama Stase Sudah terdaftar!',
                 ]
             ],
             'staseJumlahWeek' => [

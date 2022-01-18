@@ -112,6 +112,9 @@ $routes->get('/absensi/(:any)', 'Absensi::index');
 $routes->get('/followUp/(:any)', 'FollowUp::index');
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
+// route penilaian
+$routes->get('/penilaian/(:any)', 'Penilaian::index');
+
 
 /*
  * --------------------------------------------------------------------

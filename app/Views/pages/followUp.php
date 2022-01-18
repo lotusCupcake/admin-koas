@@ -48,7 +48,7 @@
                   <th scope="col">Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
-                  <th width="20%" scope="col">Kasus Yang Ditangani</th>
+                  <th scope="col">Kasus</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
                   <th width="15%" style="text-align:center" scope="col">Status</th>
                 </tr>
