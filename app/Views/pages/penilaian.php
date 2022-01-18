@@ -20,7 +20,7 @@
           <h4>Bordered Tab</h4>
         </div> -->
         <div class="card-body">
-          <ul class="nav nav-tabs" id="myTab2" role="tablist">
+          <ul class="nav nav-tabs" id="myTab3" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="pre-test" data-toggle="tab" href="#pretest" role="tab" aria-controls="contact" aria-selected="true">Pretest</a>
             </li>
