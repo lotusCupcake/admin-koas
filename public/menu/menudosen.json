@@ -177,5 +177,14 @@
         "status": true,
         "icon": "fas fa-book-medical",
         "pages": "/logbookMahasiswa"
+    },
+    {
+        "id": "23",
+        "nama": "Penilaian",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/penilaian"
     }
 ]
