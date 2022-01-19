@@ -20,8 +20,8 @@ class FollowUp extends BaseController
         $this->usersModel = new UsersModel();
         $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0]->name;
         $where = null;
-        if ($usr == 'Dosen,Koordik') {
-            $where = array('dosen_pembimbing.dopingId', 'rumkit.rumahSakitId' => user()->id);
+        if ($usr == 'Dosen') {
+            $where = array('dosen_pembimbing.dopingId' => user()->id);
         }
         if ($keyword) {
             $followUp = $this->followUpModel->getFollowUpSearch($keyword, $where);
