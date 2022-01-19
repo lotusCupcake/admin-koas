@@ -12,6 +12,8 @@ use Psr\Log\LoggerInterface;
 
 
 
+
+
 /**
  * Class BaseController
  *
@@ -31,6 +33,7 @@ class BaseController extends Controller
      */
     protected $request;
     protected $usersModel;
+
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -58,6 +61,7 @@ class BaseController extends Controller
     {
         $this->usersModel = new UsersModel();
         $id_loggedin = user()->id;
+
         $usr = $this->usersModel->getSpecificUser(['users.id' => $id_loggedin])->getResult()[0]->name;
         // dd($usr);
         $data = file_get_contents(ROOTPATH . $this->getFile($usr));
