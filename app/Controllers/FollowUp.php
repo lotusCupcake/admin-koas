@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\FollowUpModel;
+use App\Models\UsersModel;
 
 class FollowUp extends BaseController
 {
@@ -15,18 +16,26 @@ class FollowUp extends BaseController
     {
         $currentPage = $this->request->getVar('page_followUp') ? $this->request->getVar('page_followUp') : 1;
         $keyword = $this->request->getVar('keyword');
+
+        $this->usersModel = new UsersModel();
+        $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0]->name;
+        $where = null;
+        if ($usr == 'Dosen,Koordik') {
+            $where = array('dosen_pembimbing.dopingId', 'rumkit.rumahSakitId' => user()->id);
+        }
         if ($keyword) {
-            $followUp = $this->followUpModel->getFollowUpSearch($keyword);
+            $followUp = $this->followUpModel->getFollowUpSearch($keyword, $where);
         } else {
-            $followUp = $this->followUpModel->getFollowUp();
+            $followUp = $this->followUpModel->getFollowUp($where);
         }
         $data = [
             'title' => "Follow Up",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Follow Up'],
-            'followUp' => $followUp->paginate(5, 'followUp'),
+            'followUp' => $followUp->paginate($this->numberPage, 'followUp'),
             'pager' => $this->followUpModel->pager,
             'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

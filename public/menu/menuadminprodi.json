@@ -72,7 +72,7 @@
     },
     {
         "id": "9",
-        "nama": "Dosen Pembimbing",
+        "nama": "Dosen/Koordik",
         "parent": "4",
         "level": "child",
         "status": true,
@@ -177,5 +177,14 @@
         "status": true,
         "icon": "fas fa-book-medical",
         "pages": "/logbookMahasiswa"
+    },
+    {
+        "id": "23",
+        "nama": "Penilaian",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/penilaian"
     }
 ]

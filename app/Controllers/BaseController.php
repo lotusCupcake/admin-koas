@@ -127,19 +127,19 @@ class BaseController extends Controller
     public function getFile($usr)
     {
         switch ($usr) {
-            case "superadmin":
+            case "Superadmin":
                 $file = "public/menu/menu.json";
                 break;
-            case "admin":
-                $file = "public/menu/menuadmin.json";
+            case "Admin Prodi":
+                $file = "public/menu/menuadminprodi.json";
                 break;
-            case "dosen":
+            case "Dosen":
                 $file = "public/menu/menudosen.json";
                 break;
-            case "prodi":
-                $file = "public/menu/menuprodi.json";
+            case "General User":
+                $file = "public/menu/menugeneraluser.json";
                 break;
-            case "koordik":
+            case "Koordik":
                 $file = "public/menu/menukoordik.json";
                 break;
             default:
@@ -147,4 +147,6 @@ class BaseController extends Controller
         }
         return $file;
     }
+
+    protected $numberPage = 10;
 }

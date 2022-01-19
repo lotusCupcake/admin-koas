@@ -50,13 +50,15 @@
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kasus</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <th width="15%" style="text-align:center" scope="col">Status</th>
+                  <?php if (in_groups('Dosen')) : ?>
+                    <th width="15%" style="text-align:center" scope="col">Status</th>
+                  <?php endif; ?>
                 </tr>
               </thead>
               <tbody>
                 <?php if (!empty($followUp)) : ?>
                   <?php
-                  $no = 1 + (5 * ($currentPage - 1));
+                  $no = 1 + ($numberPage * ($currentPage - 1));
                   foreach ($followUp as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -65,13 +67,15 @@
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <td style="text-align:center">
-                        <?php if ($row->followUpVerify == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>">Belum Disetujui</button>
-                        <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success">Disetujui</button>
-                        <?php endif ?>
-                      </td>
+                      <?php if (in_groups('Dosen')) : ?>
+                        <td style="text-align:center">
+                          <?php if ($row->followUpVerify == 0) : ?>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>">Belum Disetujui</button>
+                          <?php else : ?>
+                            <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                          <?php endif ?>
+                        </td>
+                      <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>

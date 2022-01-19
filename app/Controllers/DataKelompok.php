@@ -30,9 +30,10 @@ class DataKelompok extends BaseController
             'title' => "Kelompok",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Penugasan', 'Kelompok'],
-            'dataKelompok' => $dataKelompok->paginate(5, 'kelompok'),
+            'dataKelompok' => $dataKelompok->paginate($this->numberPage, 'kelompok'),
             'pager' => $this->dataKelompokModel->pager,
             'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
