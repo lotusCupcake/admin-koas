@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\FollowUpModel;
+use App\Models\UsersModel;
 
 class FollowUp extends BaseController
 {
@@ -15,10 +16,17 @@ class FollowUp extends BaseController
     {
         $currentPage = $this->request->getVar('page_followUp') ? $this->request->getVar('page_followUp') : 1;
         $keyword = $this->request->getVar('keyword');
+
+        $this->usersModel = new UsersModel();
+        $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0]->name;
+        $where = null;
+        if ($usr == 'Dosen,Koordik') {
+            $where = array('dosen_pembimbing.dopingId', 'rumkit.rumahSakitId' => user()->id);
+        }
         if ($keyword) {
-            $followUp = $this->followUpModel->getFollowUpSearch($keyword);
+            $followUp = $this->followUpModel->getFollowUpSearch($keyword, $where);
         } else {
-            $followUp = $this->followUpModel->getFollowUp();
+            $followUp = $this->followUpModel->getFollowUp($where);
         }
         $data = [
             'title' => "Follow Up",

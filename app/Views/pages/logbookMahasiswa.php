@@ -51,7 +51,9 @@
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <th width="20%" style="text-align:center" scope="col">Status</th>
+                  <?php if (in_groups('Dosen')) : ?>
+                    <th width="20%" style="text-align:center" scope="col">Status</th>
+                  <?php endif; ?>
                 </tr>
               </thead>
               <tbody>
@@ -67,13 +69,15 @@
                       <td><?= $row->kegiatanNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <td style="text-align:center">
-                        <?php if ($row->logbookIsVerify == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
-                        <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success">Disetujui</button>
-                        <?php endif ?>
-                      </td>
+                      <?php if (in_groups('Dosen')) : ?>
+                        <td style="text-align:center">
+                          <?php if ($row->logbookIsVerify == 0) : ?>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
+                          <?php else : ?>
+                            <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                          <?php endif ?>
+                        </td>
+                      <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
