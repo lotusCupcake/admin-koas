@@ -128,6 +128,9 @@ $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
 
+// route cetak laporan
+$routes->get('/report/(:any)', 'Report::index/$1');
+
 
 /*
  * --------------------------------------------------------------------

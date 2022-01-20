@@ -8,7 +8,9 @@
         "php": "^7.3 || ^8.0",
         "codeigniter4/framework": "^4",
         "myth/auth": "^1.0",
-        "deanblackborough/php-quill-renderer": "^4.01"
+        "deanblackborough/php-quill-renderer": "^4.01",
+        "tecnickcom/tcpdf": "^6.4",
+        "mpdf/mpdf": "^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
