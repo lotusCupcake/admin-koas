@@ -16,6 +16,7 @@ class DosenPembimbingModel extends Model
         $builder = $this->table('dosen_pembimbing');
         $builder->select('*');
         $builder->join('rumkit', 'rumkit.rumahSakitId = dosen_pembimbing.dopingRumkitId', 'LEFT');
+        $builder->orderBy('dosen_pembimbing.dopingId', 'DESC');
         if ($where) {
             $builder->where($where);
         }

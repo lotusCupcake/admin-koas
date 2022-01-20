@@ -21,11 +21,10 @@ class FollowUp extends BaseController
 
         if (in_groups('Koordik')) {
             $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
-            dd($rs);
+            // dd($rs);
             if ($keyword) {
                 $followUp = $this->followUpModel->getFollowUpSearch($keyword, ['dosen_pembimbing.dopingRumkitId' => $rs]);
             } else {
-                // dd($this->followUpModel->getFollowUp(['dosen_pembimbing.dopingRumkitId' => $rs])->get()->getResult());
                 $followUp = $this->followUpModel->getFollowUp(['dosen_pembimbing.dopingRumkitId' => $rs]);
             };
         } else {

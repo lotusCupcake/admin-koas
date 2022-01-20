@@ -76,7 +76,7 @@
         "parent": "4",
         "level": "child",
         "status": true,
-        "icon": "fas fa-stethoscope",
+        "icon": "fas fa-user-md",
         "pages": "/dosenPembimbing"
     },
     {
