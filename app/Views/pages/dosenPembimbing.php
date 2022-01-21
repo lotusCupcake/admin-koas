@@ -306,8 +306,8 @@
               <div class="form-group">
                 <label>Status</label>
                 <select class="form-control select2" name="type">
-                  <option value="Dosen" <?= ($edit->type = "Dosen") ? "selected" : "" ?>>Dosen</option>
-                  <option value="Koordik" <?= ($edit->type = "Koordik") ? "selected" : "" ?>>Koordik</option>
+                  <option value="Dosen" <?= ($edit->type == "Dosen") ? "selected" : "" ?>>Dosen</option>
+                  <option value="Koordik" <?= ($edit->type == "Koordik") ? "selected" : "" ?>>Koordik</option>
                 </select>
               </div>
             <?php endif; ?>
