@@ -71,6 +71,15 @@
         "pages": ""
     },
     {
+        "id": "18",
+        "nama": "Jadwal Kegiatan",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-calendar-plus",
+        "pages": "/jadwalKegiatan"
+    },
+    {
         "id": "21",
         "nama": "Follow Up",
         "parent": "19",

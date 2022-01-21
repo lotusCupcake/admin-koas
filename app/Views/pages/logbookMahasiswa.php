@@ -31,14 +31,7 @@
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -51,7 +44,7 @@
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <?php if (in_groups('Dosen')) : ?>
+                  <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                     <th width="20%" style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
                 </tr>
@@ -69,21 +62,19 @@
                       <td><?= $row->kegiatanNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <?php if (in_groups('Dosen')) : ?>
+                      <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                         <td style="text-align:center">
                           <?php if ($row->logbookIsVerify == 0) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
                           <?php else : ?>
-                            <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                            <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
                           <?php endif ?>
                         </td>
                       <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <tr>
-                    <td colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                  </tr>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
                 <?php endif ?>
               </tbody>
             </table>

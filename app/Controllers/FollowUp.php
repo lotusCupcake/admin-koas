@@ -13,6 +13,7 @@ class FollowUp extends BaseController
     {
         $this->followUpModel = new FollowUpModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->usersModel = new UsersModel();
     }
     public function index()
     {
@@ -28,11 +29,10 @@ class FollowUp extends BaseController
                 $followUp = $this->followUpModel->getFollowUp(['dosen_pembimbing.dopingRumkitId' => $rs]);
             };
         } else {
-            $this->usersModel = new UsersModel();
-            $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0]->name;
+            $usr = $this->usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->name;
             $where = null;
             if ($usr == 'Dosen') {
-                $where = array('dosen_pembimbing.dopingId' => user()->id);
+                $where = array('dosen_pembimbing.dopingEmail' => user()->email);
             }
             if ($keyword) {
                 $followUp = $this->followUpModel->getFollowUpSearch($keyword, $where);
