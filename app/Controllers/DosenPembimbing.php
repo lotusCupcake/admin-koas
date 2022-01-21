@@ -5,10 +5,6 @@ namespace App\Controllers;
 use App\Models\DosenPembimbingModel;
 use App\Models\DataRumahSakitModel;
 use Myth\Auth\Entities\User;
-use App\Models\UsersModel;
-use CodeIgniter\Controller;
-use CodeIgniter\Session\Session;
-use Myth\Auth\Config\Auth as AuthConfig;
 
 class DosenPembimbing extends BaseController
 {
@@ -28,22 +24,43 @@ class DosenPembimbing extends BaseController
 
     public function index()
     {
+        $currentPage = $this->request->getVar('page_doping') ? $this->request->getVar('page_doping') : 1;
+
+        $keyword = $this->request->getVar('keyword');
+
         if (in_groups('Koordik')) {
+            $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
+            if ($keyword) {
+                $dosen = $this->dosenPembimbingModel->getDosenPembimbing(['type' => 'dosen', 'dopingRumkitId' => $rs], $keyword);
+            } else {
+                $dosen = $this->dosenPembimbingModel->getDosenPembimbing(['type' => 'dosen', 'dopingRumkitId' => $rs]);
+            }
             $data = [
                 'title' => "Dosen Pembimbing",
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Master', 'Data', 'Dosen Pembimbing'],
-                'dosenPembimbing' => $this->dosenPembimbingModel->getDosenPembimbing()->getResult(),
+                'numberPage' => $this->numberPage,
+                'dosenPembimbing' =>  $dosen->paginate($this->numberPage, 'doping'),
+                'currentPage' => $currentPage,
+                'pager' => $this->dosenPembimbingModel->pager,
                 'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
                 'validation' => \Config\Services::validation(),
                 'menu' => $this->fetchMenu()
             ];
         } else {
+            if ($keyword) {
+                $dosen = $this->dosenPembimbingModel->getDosenPembimbing(null, $keyword);
+            } else {
+                $dosen = $this->dosenPembimbingModel->getDosenPembimbing();
+            }
             $data = [
                 'title' => "Dosen/Koordik",
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Master', 'Data', 'Dosen/Koordik'],
-                'dosenPembimbing' => $this->dosenPembimbingModel->getDosenPembimbing()->getResult(),
+                'numberPage' => $this->numberPage,
+                'dosenPembimbing' => $dosen->paginate($this->numberPage, 'doping'),
+                'currentPage' => $currentPage,
+                'pager' => $this->dosenPembimbingModel->pager,
                 'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
                 'validation' => \Config\Services::validation(),
                 'menu' => $this->fetchMenu()

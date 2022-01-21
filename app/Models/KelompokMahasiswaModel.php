@@ -22,21 +22,21 @@ class KelompokMahasiswaModel extends Model
 
     public function getKelompokMahasiswa()
     {
-        $builder = $this->join('kelompok', 'kelompok.kelompokId = ' . $this->table . '.kelompokDetKelompokId', 'LEFT');
-        $builder->table($this->table);
-        $builder->orderBy('' . $this->table . '.kelompokDetId', 'DESC');
+        $builder = $this->table('kelompok_detail');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->orderBy('kelompok_detail.kelompokDetId', 'DESC');
         return $builder;
     }
 
     public function getKelompokMahasiswaSearch($keyword)
     {
-        $builder = $this->join('kelompok', 'kelompok.kelompokId = ' . $this->table . '.kelompokDetKelompokId', 'LEFT');
-        $builder->table($this->table);
-        $builder->like('' . $this->table . '.kelompokDetNama', $keyword);
-        $builder->orlike('' . $this->table . '.kelompokDetNim', $keyword);
+        $builder = $this->table('kelompok_detail');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->like('kelompok_detail.kelompokDetNama', $keyword);
+        $builder->orlike('kelompok_detail.kelompokDetNim', $keyword);
         $builder->orlike('kelompok.kelompokTahunAkademik', $keyword);
         $builder->orlike('kelompok.kelompokNama', $keyword);
-        $builder->orderBy('' . $this->table . '.kelompokDetId', 'DESC');
+        $builder->orderBy('kelompok_detail.kelompokDetId', 'DESC');
         return $builder;
     }
 }

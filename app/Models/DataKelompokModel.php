@@ -13,19 +13,19 @@ class DataKelompokModel extends Model
 
     public function getDataKelompok()
     {
-        $builder = $this->select('' . $this->table . '.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = ' . $this->table . '.kelompokId) as jumlahPartisipan');
-        $builder->table($this->table);
-        $builder->orderBy('' . $this->table . '.kelompokId', 'DESC');
+        $builder = $this->table('kelompok');
+        $builder->select('kelompok.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId) as jumlahPartisipan');
+        $builder->orderBy('kelompok.kelompokId', 'DESC');
         return $builder;
     }
 
     public function getDataKelompokSearch($keyword)
     {
-        $builder = $this->select('' . $this->table . '.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = ' . $this->table . '.kelompokId) as jumlahPartisipan');
-        $builder->table($this->table);
-        $builder->like('' . $this->table . '.kelompokNama', $keyword);
-        $builder->orlike('' . $this->table . '.kelompokTahunAkademik', $keyword);
-        $builder->orderBy('' . $this->table . '.kelompokId', 'DESC');
+        $builder = $this->table('kelompok');
+        $builder->select('kelompok.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId) as jumlahPartisipan');
+        $builder->like('kelompok.kelompokNama', $keyword);
+        $builder->orlike('kelompok.kelompokTahunAkademik', $keyword);
+        $builder->orderBy('kelompok.kelompokId', 'DESC');
         return $builder;
     }
 }

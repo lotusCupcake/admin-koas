@@ -16,6 +16,19 @@
     </div>
     <div class="section-body">
       <div class="card">
+        <div class="card-header">
+          <h4></h4>
+          <div class="card-header-form col-md-4">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Email/Username/Role" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div class="alert alert-success alert-dismissible show fade">
@@ -70,23 +83,30 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($akun as $user) : ?>
+                <?php if (!empty($akun)) : ?>
+                  <?php
+                  $no = 1 + ($numberPage * ($currentPage - 1));
+                  foreach ($akun as $user) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $user->email; ?></td>
+                      <td><?= $user->username; ?></td>
+                      <td><?= $user->name; ?></td>
+                      <td style="text-align:center"><span class="badge <?= $user->active == 1 ? "badge-success" : "badge-danger"; ?>"><?= $user->active == 1 ? "Aktif" : "Tidak Aktif"; ?></span></td>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editAkun<?= $user->id; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusAkun<?= $user->id; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $user->email; ?></td>
-                    <td><?= $user->username; ?></td>
-                    <td><?= $user->name; ?></td>
-                    <td style="text-align:center"><span class="badge <?= $user->active == 1 ? "badge-success" : "badge-danger"; ?>"><?= $user->active == 1 ? "Aktif" : "Tidak Aktif"; ?></span></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editAkun<?= $user->userid; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusAkun<?= $user->userid; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td colspan="6" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('akun', 'pager') ?>
           </div>
         </div>
       </div>
@@ -96,9 +116,9 @@
 
 <!-- start modal edit  -->
 <?php foreach ($akun as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="editAkun<?= $edit->userid; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="editAkun<?= $edit->id; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/manajemenAkun/<?= $edit->userid; ?>/edit" method="POST">
+      <form action="/manajemenAkun/<?= $edit->id; ?>/edit" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
@@ -120,7 +140,7 @@
               <label>Role</label>
               <select name="userRole" class="form-control select2">
                 <?php foreach ($authGroups as $groups) : ?>
-                  <option value="<?= $groups->id; ?>" <?php if ($groups->id == $edit->groups_id) echo "selected" ?>><?= $groups->name; ?></option>
+                  <option value="<?= $groups->id; ?>" <?php if ($groups->id == $edit->id) echo "selected" ?>><?= $groups->name; ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -146,7 +166,7 @@
 
 <!-- start modal hapus  -->
 <?php foreach ($akun as $delete) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->userid; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->id; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -159,7 +179,7 @@
           <p>Apakah kamu benar ingin menghapus data akun <strong><?= $delete->email; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/manajemenAkun/<?= $delete->userid; ?>" method="post">
+        <form action="/manajemenAkun/<?= $delete->id; ?>" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
           <div class="modal-footer bg-whitesmoke br">

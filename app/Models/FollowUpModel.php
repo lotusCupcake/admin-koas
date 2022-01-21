@@ -19,6 +19,7 @@ class FollowUpModel extends Model
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = follow_up.followUpNim', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->orderBy('follow_up.followUpId', 'DESC');
         if ($where) {
             $builder->where($where);
         }

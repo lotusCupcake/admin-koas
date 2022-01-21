@@ -23,13 +23,20 @@
       <div class="card">
         <div class="card-header">
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDosenPembimbing"><i class="fas fa-plus"></i> Tambah Data</button>
+          <h4></h4>
+          <div class="card-header-form">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Nama" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="card-body">
-          <?php
-
-          use App\Controllers\DosenPembimbing;
-
-          if (!empty(session()->getFlashdata('success'))) : ?>
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div class="alert alert-success alert-dismissible show fade">
               <div class="alert-body">
                 <button class="close" data-dismiss="alert">
@@ -126,27 +133,34 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($dosenPembimbing as $row) : ?>
+                <?php if (!empty($dosenPembimbing)) : ?>
+                  <?php
+                  $no = 1 + ($numberPage * ($currentPage - 1));
+                  foreach ($dosenPembimbing as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->dopingNamaLengkap; ?></td>
+                      <td><?= $row->dopingNoHandphone; ?></td>
+                      <td><?= $row->dopingEmail; ?></td>
+                      <td><?= $row->dopingAlamat; ?></td>
+                      <td><?= $row->rumahSakitShortname; ?></td>
+                      <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                        <td><?= $row->type; ?></td>
+                      <?php endif; ?>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->dopingNamaLengkap; ?></td>
-                    <td><?= $row->dopingNoHandphone; ?></td>
-                    <td><?= $row->dopingEmail; ?></td>
-                    <td><?= $row->dopingAlamat; ?></td>
-                    <td><?= $row->rumahSakitShortname; ?></td>
-                    <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
-                      <td><?= $row->type; ?></td>
-                    <?php endif; ?>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <td colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('doping', 'pager') ?>
           </div>
         </div>
       </div>
