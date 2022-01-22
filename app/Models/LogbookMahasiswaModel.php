@@ -47,7 +47,7 @@ class LogbookMahasiswaModel extends Model
         return $builder;
     }
 
-    public function getMahasiswaNilai($dosenId)
+    public function getMahasiswaNilai($dosenEmail)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -57,7 +57,7 @@ class LogbookMahasiswaModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
-        $builder->where(['dosen_pembimbing.dopingId' => $dosenId]);
+        $builder->where(['dosen_pembimbing.dopingEmail' => $dosenEmail]);
         $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
         return $builder;
     }
