@@ -4,19 +4,19 @@ namespace App\Controllers;
 
 use App\Models\StaseRumahSakitModel;
 use App\Models\DataRumahSakitModel;
-use App\Models\DataBagianModel;
+use App\Models\StaseModel;
 
 class StaseRumahSakit extends BaseController
 {
     protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
-    protected $dataBagianModel;
+    protected $staseModel;
     protected $db;
     public function __construct()
     {
         $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
-        $this->dataBagianModel = new DataBagianModel();
+        $this->staseModel = new StaseModel();
         $this->db = \Config\Database::connect();
     }
     public function index()
@@ -34,7 +34,7 @@ class StaseRumahSakit extends BaseController
             'breadcrumb' => ['Master', 'Penugasan', 'Stase Di RS'],
             'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel,
-            'dataBagian' => $this->dataBagianModel,
+            'dataBagian' => $this->staseModel,
             'dataNamaRs' => $namars,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()

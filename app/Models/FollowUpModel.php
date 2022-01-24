@@ -37,9 +37,14 @@ class FollowUpModel extends Model
         if ($where) {
             $builder->where($where)->like('kelompok_detail.kelompokDetNama', $keyword);
             $builder->orWhere($where)->like('kelompok_detail.kelompokDetNim', $keyword);
-            $builder->orWhere($where)->like('rumkit.rumahSakitNama', $keyword);
             $builder->orWhere($where)->like('stase.staseNama', $keyword);
             $builder->orWhere($where)->like('dosen_pembimbing.dopingNamaLengkap', $keyword);
+        } else {
+            $builder->like('kelompok_detail.kelompokDetNim', $keyword);
+            $builder->orLike('kelompok_detail.kelompokDetNama', $keyword);
+            $builder->orLike('stase.staseNama', $keyword);
+            $builder->orLike('rumkit.rumahSakitNama', $keyword);
+            $builder->orLike('dosen_pembimbing.dopingNamaLengkap', $keyword);
         }
         $builder->orderBy('follow_up.followUpId', 'DESC');
         return $builder;
