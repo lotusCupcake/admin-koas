@@ -53,7 +53,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -66,7 +66,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
@@ -122,7 +122,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -135,7 +135,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
@@ -154,7 +154,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -167,7 +167,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
@@ -186,7 +186,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -199,7 +199,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
@@ -218,7 +218,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -231,7 +231,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
@@ -286,7 +286,7 @@
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Tanggal</th>
+
                       <th scope="col">NPM</th>
                       <th scope="col">Nama Lengkap</th>
                       <th scope="col">Kelompok</th>
@@ -299,7 +299,7 @@
                     foreach ($mahasiswa as $mhs) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $mhs->logbookTanggal ?></td>
+
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td><?= $mhs->kelompokNama ?></td>
