@@ -7,12 +7,10 @@ use App\Models\AbsensiModel;
 class Absensi extends BaseController
 {
     protected $AbsensiModel;
-    protected $pager;
 
     public function __construct()
     {
         $this->absensiModel = new AbsensiModel();
-        $this->pager = \Config\Services::pager();
     }
 
     public function index()
@@ -30,11 +28,13 @@ class Absensi extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Absensi'],
             'currentPage' => $currentPage,
-            'absensi' => $absen->paginate(5, 'absensi'),
-            'pager' => $this->absensiModel->pager,
+            'numberPage' => $this->numberPage,
+            'absensi' => $absen->paginate($this->numberPage, 'absensi'),
+            'pager' => $absen->pager,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
+        // dd($data);
         return view('pages/absensiMahasiswa', $data);
     }
 }

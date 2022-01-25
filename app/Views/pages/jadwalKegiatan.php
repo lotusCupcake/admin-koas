@@ -17,7 +17,9 @@
     <div class="section-body">
       <div class="card">
         <div class="card-header">
-          <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahJadwalKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
+          <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+            <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahJadwalKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
+          <?php endif; ?>
           <h4></h4>
           <div class="card-header-form col-md-4">
             <form action="">
@@ -32,84 +34,26 @@
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
-          <?php endif; ?>
-          <?php if ($validation->hasError('tanggalAwal')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('tanggalAwal'); ?>
-              </div>
-            </div>
+            <!-- simpan -->
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('jumlahWeek')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('jumlahWeek'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('jumlahWeek')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('jamMasuk')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('jamMasuk'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('jamMasuk')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('jamKeluar')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('jamKeluar'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('jamKeluar')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('rumahSakitId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('rumahSakitId'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('rumahSakitId')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('staseId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('staseId'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseId')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kelompokId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokId'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokId')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -121,13 +65,15 @@
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
                   <th width="15%" scope="col">Kelompok</th>
-                  <th width="15%" style="text-align:center" scope="col">Action</th>
+                  <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                    <th width="15%" style="text-align:center" scope="col">Action</th>
+                  <?php endif; ?>
                 </tr>
               </thead>
               <tbody>
                 <?php if (!empty($jadwalKegiatan)) : ?>
                   <?php
-                  $no = 1  + (5 * ($currentPage - 1));
+                  $no = 1  + ($numberPage * ($currentPage - 1));
                   foreach ($jadwalKegiatan as $row_jadwal) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -136,16 +82,16 @@
                       <td><?= $row_jadwal->rumahSakitShortname; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row_jadwal->kelompokId; ?>"><span class="text-primary"><?= $row_jadwal->kelompokNama ?></td>
-                      <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
-                      </td>
+                      <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-trash"></i></button>
+                        </td>
+                      <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <tr>
-                    <td class="danger" colspan="7" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                  </tr>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 7]); ?>
                 <?php endif ?>
               </tbody>
             </table>

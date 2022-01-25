@@ -12,6 +12,8 @@ use Psr\Log\LoggerInterface;
 
 
 
+
+
 /**
  * Class BaseController
  *
@@ -31,6 +33,7 @@ class BaseController extends Controller
      */
     protected $request;
     protected $usersModel;
+
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -58,6 +61,7 @@ class BaseController extends Controller
     {
         $this->usersModel = new UsersModel();
         $id_loggedin = user()->id;
+
         $usr = $this->usersModel->getSpecificUser(['users.id' => $id_loggedin])->getResult()[0]->name;
         // dd($usr);
         $data = file_get_contents(ROOTPATH . $this->getFile($usr));
@@ -123,19 +127,19 @@ class BaseController extends Controller
     public function getFile($usr)
     {
         switch ($usr) {
-            case "superadmin":
+            case "Superadmin":
                 $file = "public/menu/menu.json";
                 break;
-            case "admin":
-                $file = "public/menu/menuadmin.json";
+            case "Admin Prodi":
+                $file = "public/menu/menuadminprodi.json";
                 break;
-            case "dosen":
+            case "Dosen":
                 $file = "public/menu/menudosen.json";
                 break;
-            case "prodi":
-                $file = "public/menu/menuprodi.json";
+            case "General User":
+                $file = "public/menu/menugeneraluser.json";
                 break;
-            case "koordik":
+            case "Koordik":
                 $file = "public/menu/menukoordik.json";
                 break;
             default:
@@ -143,4 +147,6 @@ class BaseController extends Controller
         }
         return $file;
     }
+
+    protected $numberPage = 10;
 }

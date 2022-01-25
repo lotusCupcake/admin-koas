@@ -13,11 +13,22 @@ class DataKegiatan extends BaseController
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_kegiatan') ? $this->request->getVar('page_kegiatan') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kegiatan = $this->dataKegiatanModel->getKegiatanSearch($keyword);
+        } else {
+            $kegiatan = $this->dataKegiatanModel->getKegiatan();
+        }
+
         $data = [
             'title' => "Kegiatan",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kegiatan'],
-            'dataKegiatan' => $this->dataKegiatanModel->findAll(),
+            'dataKegiatan' => $kegiatan->paginate($this->numberPage, 'kegiatan'),
+            'pager' => $this->dataKegiatanModel->pager,
+            'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

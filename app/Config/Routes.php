@@ -36,7 +36,8 @@ $routes->setAutoRoute(true);
 $routes->get('/home/(:any)', 'Home::index');
 
 // route mamajemen user
-$routes->get('/manajemenAkun/(:any)', 'ManajemenAkun::index');
+$routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
+$routes->get('/manajemenAkun/index', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
 $routes->add('/manajemenAkun/(:num)/edit', 'ManajemenAkun::edit/$1');
 
@@ -44,69 +45,81 @@ $routes->add('/manajemenAkun/(:num)/edit', 'ManajemenAkun::edit/$1');
 $routes->get('/maintenance/(:any)', 'Maintenance::index');
 
 // route data rumah sakit
-$routes->get('/dataRumahSakit/(:any)', 'DataRumahSakit::index');
+$routes->get('/dataRumahSakit/', 'DataRumahSakit::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/dataRumahSakit/index', 'DataRumahSakit::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataRumahSakit', 'DataRumahSakit::add');
 $routes->delete('/dataRumahSakit/(:num)', 'DataRumahSakit::delete/$1');
 $routes->add('/dataRumahSakit/(:num)/edit', 'DataRumahSakit::edit/$1');
 
 // route stase rumah sakit
-$routes->get('/staseRumahSakit/(:any)', 'StaseRumahSakit::index');
+$routes->get('/staseRumahSakit/', 'StaseRumahSakit::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/staseRumahSakit/index', 'StaseRumahSakit::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/staseRumahSakit', 'StaseRumahSakit::add');
 $routes->delete('/staseRumahSakit/(:num)', 'StaseRumahSakit::delete/$1');
 $routes->add('/staseRumahSakit/(:num)/edit', 'StaseRumahSakit::edit/$1');
 
 // route data bagian
-$routes->get('/dataBagian/(:any)', 'DataBagian::index');
-$routes->post('/dataBagian', 'DataBagian::add');
-$routes->delete('/dataBagian/(:num)', 'DataBagian::delete/$1');
-$routes->add('/dataBagian/(:num)/edit', 'DataBagian::edit/$1');
+$routes->get('/stase/', 'Stase::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/stase/index', 'Stase::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/stase', 'Stase::add');
+$routes->delete('/stase/(:num)', 'Stase::delete/$1');
+$routes->add('/stase/(:num)/edit', 'Stase::edit/$1');
 
 // route dosen pembimbing
-$routes->get('/dosenPembimbing/(:any)', 'DosenPembimbing::index');
+$routes->get('/dosenPembimbing/', 'DosenPembimbing::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/dosenPembimbing/index', 'DosenPembimbing::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->post('/dosenPembimbing', 'DosenPembimbing::add');
 $routes->delete('/dosenPembimbing/(:num)', 'DosenPembimbing::delete/$1');
 $routes->add('/dosenPembimbing/(:num)/edit', 'DosenPembimbing::edit/$1');
 
 // route data kelompok
-$routes->get('/dataKelompok/(:any)', 'DataKelompok::index');
+$routes->get('/dataKelompok/', 'DataKelompok::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/dataKelompok/index', 'DataKelompok::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataKelompok', 'DataKelompok::add');
 $routes->delete('/dataKelompok/(:num)', 'DataKelompok::delete/$1');
 $routes->add('/dataKelompok/(:num)/edit', 'DataKelompok::edit/$1');
 $routes->post('/tambahPartisipan', 'DataKelompok::tambahPartisipan');
 
 // route kelompok mahasiswa
-$routes->get('/kelompokMahasiswa/(:any)', 'KelompokMahasiswa::index');
+$routes->get('/kelompokMahasiswa/', 'KelompokMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/kelompokMahasiswa/index', 'KelompokMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->delete('/kelompokMahasiswa/(:num)', 'KelompokMahasiswa::delete/$1');
 
 // route mahasiswa profesi
-$routes->get('/mahasiswaProfesi/(:any)', 'MahasiswaProfesi::index');
+$routes->get('/mahasiswaProfesi/', 'MahasiswaProfesi::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/mahasiswaProfesi/index', 'MahasiswaProfesi::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 
 // route jadwal kegiatan
-$routes->get('/jadwalKegiatan/(:any)', 'JadwalKegiatan::index');
+$routes->get('/jadwalKegiatan/', 'JadwalKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/jadwalKegiatan/index', 'JadwalKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
 $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
 
-// route dosen pembimbing
-$routes->get('/dataKegiatan/(:any)', 'DataKegiatan::index');
+// route doata kegiatan
+$routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/dataKegiatan/index', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataKegiatan', 'DataKegiatan::add');
 $routes->delete('/dataKegiatan/(:num)', 'DataKegiatan::delete/$1');
 $routes->add('/dataKegiatan/(:num)/edit', 'DataKegiatan::edit/$1');
 
 // route panduan
-$routes->get('/panduan/(:any)', 'Panduan::index');
+$routes->get('/panduan/', 'Panduan::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/panduan/index', 'Panduan::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->post('/panduan', 'Panduan::add');
 $routes->delete('/panduan/(:num)', 'Panduan::delete/$1');
 $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 
 // route logbook
-$routes->get('/logbookMahasiswa/(:any)', 'LogbookMahasiswa::index');
+$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
 
 // route Absensi
-$routes->get('/absensi/(:any)', 'Absensi::index');
+$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 
 // route Folow Up
 $routes->get('/followUp/(:any)', 'FollowUp::index');
@@ -114,6 +127,9 @@ $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
+
+// route cetak laporan
+$routes->get('/report/(:any)', 'Report::index/$1');
 
 
 /*

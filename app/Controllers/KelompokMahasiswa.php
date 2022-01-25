@@ -29,9 +29,10 @@ class KelompokMahasiswa extends BaseController
             'title' => "Kel. Mahasiswa",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kel. Mahasiswa'],
-            'kelompokDetail' => $kelompok->paginate(5, 'kelompok'),
+            'kelompokDetail' => $kelompok->paginate($this->numberPage, 'kelompok'),
             'pager' => $this->kelompokMahasiswaModel->pager,
             'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];

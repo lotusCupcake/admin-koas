@@ -50,7 +50,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-file-medical-alt",
-        "pages": "/dataBagian"
+        "pages": "/stase"
     },
     {
         "id": "7",
@@ -72,11 +72,11 @@
     },
     {
         "id": "9",
-        "nama": "Dosen Pembimbing",
+        "nama": "Dosen/Koordik",
         "parent": "4",
         "level": "child",
         "status": true,
-        "icon": "fas fa-stethoscope",
+        "icon": "fas fa-user-md",
         "pages": "/dosenPembimbing"
     },
     {
@@ -177,5 +177,14 @@
         "status": true,
         "icon": "fas fa-book-medical",
         "pages": "/logbookMahasiswa"
+    },
+    {
+        "id": "23",
+        "nama": "Penilaian",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/penilaian"
     }
 ]

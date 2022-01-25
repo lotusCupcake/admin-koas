@@ -22,7 +22,7 @@ class Penilaian extends BaseController
             'breadcrumb' => ['Mahasiswa', 'Penilaian'],
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
-            'mahasiswa' => $this->logbookModel->getMahasiswaNilai(user()->id)->findAll(),
+            'mahasiswa' => $this->logbookModel->getMahasiswaNilai(user()->email)->findAll(),
             'penilainJurnalReading' => $this->penilaianModel->getFormJurnalReading()->findAll(),
             'penilainRefarat' => $this->penilaianModel->getFormJurnalRefarat()->findAll(),
             'penilainRefleksiKasus' => $this->penilaianModel->getFormJurnalRefleksiKasus()->findAll(),

@@ -42,14 +42,7 @@
             </div>
           </div>
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -65,7 +58,7 @@
               <tbody>
                 <?php if (!empty($kelompokDetail)) : ?>
                   <?php
-                  $no = 1  + (5 * ($currentPage - 1));
+                  $no = 1  + ($numberPage * ($currentPage - 1));
                   foreach ($kelompokDetail as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -78,9 +71,7 @@
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <tr>
-                    <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                  </tr>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
                 <?php endif ?>
               </tbody>
             </table>
@@ -119,6 +110,7 @@
   </div>
 <?php endforeach ?>
 <!-- end modal hapus -->
+
 <?= view('layout/templateFooter'); ?>
 
 <?= $this->endSection(); ?>

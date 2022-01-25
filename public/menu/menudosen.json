@@ -44,51 +44,6 @@
         "pages": "/panduan"
     },
     {
-        "id": "6",
-        "nama": "Stase",
-        "parent": "4",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-file-medical-alt",
-        "pages": "/dataBagian"
-    },
-    {
-        "id": "7",
-        "nama": "Kegiatan",
-        "parent": "4",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-running",
-        "pages": "/dataKegiatan"
-    },
-    {
-        "id": "8",
-        "nama": "Rumah Sakit",
-        "parent": "4",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-hospital",
-        "pages": "/dataRumahSakit"
-    },
-    {
-        "id": "9",
-        "nama": "Dosen Pembimbing",
-        "parent": "4",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-stethoscope",
-        "pages": "/dosenPembimbing"
-    },
-    {
-        "id": "10",
-        "nama": "Kel. Mahasiswa",
-        "parent": "4",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-user-tie",
-        "pages": "/kelompokMahasiswa"
-    },
-    {
         "id": "11",
         "nama": "Mahasiswa Profesi",
         "parent": "4",
@@ -98,51 +53,6 @@
         "pages": "/mahasiswaProfesi"
     },
     {
-        "id": "12",
-        "nama": "Penugasan",
-        "parent": "3",
-        "level": "parent",
-        "status": true,
-        "icon": "fas fa-file-medical",
-        "pages": ""
-    },
-    {
-        "id": "15",
-        "nama": "Stase Di RS",
-        "parent": "12",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-clinic-medical",
-        "pages": "/staseRumahSakit"
-    },
-    {
-        "id": "16",
-        "nama": "Kelompok",
-        "parent": "12",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-users",
-        "pages": "/dataKelompok"
-    },
-    {
-        "id": "17",
-        "nama": "Setting",
-        "parent": "0",
-        "level": "title",
-        "status": true,
-        "icon": "",
-        "pages": ""
-    },
-    {
-        "id": "18",
-        "nama": "Jadwal Kegiatan",
-        "parent": "17",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-calendar-plus",
-        "pages": "/jadwalKegiatan"
-    },
-    {
         "id": "19",
         "nama": "Mahasiswa",
         "parent": "0",
@@ -150,15 +60,6 @@
         "status": true,
         "icon": "",
         "pages": ""
-    },
-    {
-        "id": "20",
-        "nama": "Absensi",
-        "parent": "19",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-clock",
-        "pages": "/absensi"
     },
     {
         "id": "21",

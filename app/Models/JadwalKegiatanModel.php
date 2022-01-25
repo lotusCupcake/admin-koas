@@ -12,13 +12,16 @@ class JadwalKegiatanModel extends Model
     protected $allowedFields = ['jadwalRumkitDetId', 'jadwalKelompokId', 'jadwalJamMasuk', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalJamKeluar', 'jadwalJumlahWeek'];
     protected $returnType = 'object';
 
-    public function show_Jadwal_Kegiatan()
+    public function show_Jadwal_Kegiatan($where = null)
     {
         $builder  = $this->table('jadwal');
         $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        if ($where) {
+            $builder->where($where);
+        }
         $builder->orderBy('jadwal.jadwalId', 'DESC');
         return $builder;
     }
@@ -30,16 +33,19 @@ class JadwalKegiatanModel extends Model
         );
     }
 
-    public function show_Jadwal_KegiatanSearch($keyword)
+    public function show_Jadwal_KegiatanSearch($keyword, $where = null)
     {
         $builder  = $this->table('jadwal');
         $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->like('kelompok.kelompokNama', $keyword);
-        $builder->orLike('stase.staseNama', $keyword);
-        $builder->orLike('rumkit.rumahSakitNama', $keyword);
+        if ($where) {
+            $builder->where($where)->like('kelompok.kelompokNama', $keyword);
+            $builder->orWhere($where)->like('stase.staseNama', $keyword);
+            $builder->orWhere($where)->like('rumkit.rumahSakitNama', $keyword);
+        }
+
         $builder->orderBy('jadwal.jadwalId', 'DESC');
         return $builder;
     }

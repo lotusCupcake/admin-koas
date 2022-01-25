@@ -33,44 +33,16 @@
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kelompokNama')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokNama'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokNama')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kelompokTahunAkademik')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokTahunAkademik'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokTahunAkademik')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('mahasiswa')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('mahasiswa'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('mahasiswa')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -86,7 +58,7 @@
               <tbody>
                 <?php if (!empty($dataKelompok)) : ?>
                   <?php
-                  $no = 1  + (5 * ($currentPage - 1));
+                  $no = 1  + ($numberPage * ($currentPage - 1));
                   foreach ($dataKelompok as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -102,7 +74,7 @@
                   <?php endforeach ?>
                 <?php else : ?>
                   <tr>
-                    <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
+                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
                   </tr>
                 <?php endif ?>
               </tbody>

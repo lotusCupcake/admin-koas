@@ -44,7 +44,7 @@
                             <tbody>
                                 <?php if (!empty($absensi)) : ?>
                                     <?php
-                                    $no = 1 + (5 * ($currentPage - 1));
+                                    $no = 1 + ($numberPage * ($currentPage - 1));
                                     foreach ($absensi as $row) : ?>
                                         <tr>
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
@@ -55,9 +55,7 @@
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
-                                    <tr>
-                                        <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                                    </tr>
+                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
                                 <?php endif ?>
                             </tbody>
                         </table>

@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
-// use App\Models\DataBagianModel;
+use App\Models\DosenPembimbingModel;
 
 class JadwalKegiatan extends BaseController
 {
@@ -17,29 +17,56 @@ class JadwalKegiatan extends BaseController
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
+        $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
     }
     public function index()
     {
         $currentPage = $this->request->getVar('page_jadwal') ? $this->request->getVar('page_jadwal') : 1;
         $keyword = $this->request->getVar('keyword');
-        if ($keyword) {
-            $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword);
+
+        if (in_groups('Koordik')) {
+            $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
+
+            if ($keyword) {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword, ['rumkit.rumahSakitId' => $rs]);
+            } else {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(['rumkit.rumahSakitId' => $rs]);
+                // dd($jadwal->get()->getResult());
+            }
+            $data = [
+                'title' => "Jadwal Kegiatan",
+                'appName' => "Dokter Muda",
+                'breadcrumb' => ['Mahasiswa', 'Jadwal Kegiatan'],
+                'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
+                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'pager' => $this->jadwalKegiatanModel->pager,
+                'currentPage' => $currentPage,
+                'numberPage' => $this->numberPage,
+                'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+                'validation' => \Config\Services::validation(),
+                'menu' => $this->fetchMenu(),
+            ];
         } else {
-            $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
+            if ($keyword) {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword);
+            } else {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
+            }
+            $data = [
+                'title' => "Jadwal Kegiatan",
+                'appName' => "Dokter Muda",
+                'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
+                'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
+                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'pager' => $this->jadwalKegiatanModel->pager,
+                'currentPage' => $currentPage,
+                'numberPage' => $this->numberPage,
+                'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+                'validation' => \Config\Services::validation(),
+                'menu' => $this->fetchMenu(),
+            ];
         }
-        $data = [
-            'title' => "Jadwal Kegiatan",
-            'appName' => "Dokter Muda",
-            'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $jadwal->paginate(5, 'jadwal'),
-            'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
-            'pager' => $this->jadwalKegiatanModel->pager,
-            'currentPage' => $currentPage,
-            'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
-            'validation' => \Config\Services::validation(),
-            'menu' => $this->fetchMenu(),
-        ];
         // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);

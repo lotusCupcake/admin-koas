@@ -13,22 +13,22 @@ class AbsensiModel extends Model
 
     public function absensiPaginate()
     {
-        $builder = $this->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = ' . $this->table . '.absensiNim', 'LEFT');
-        $builder = $this->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
-        $builder->table($this->table);
-        $builder->orderBy('' . $this->table . '.absensiId', 'DESC');
+        $builder = $this->table('absensi');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
 
     public function searchAbsensi($keyword)
     {
-        $builder = $this->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = ' . $this->table . '.absensiNim', 'LEFT');
-        $builder = $this->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
-        $builder->table($this->table);
+        $builder = $this->table('absensi');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
         $builder->like('kelompok_detail.kelompokDetNama', $keyword);
-        $builder->orLike('' . $this->table . '.absensiNim', $keyword);
-        $builder->orLike('' . $this->table . '.absensiKeterangan', $keyword);
-        $builder->orderBy('' . $this->table . '.absensiId', 'DESC');
+        $builder->orLike('absensi.absensiNim', $keyword);
+        $builder->orLike('absensi.absensiKeterangan', $keyword);
+        $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
 }
