@@ -21,6 +21,7 @@ function week($nim, $stase, $now)
         }
 
         if ($dari == $today) {;
+            $minggu = $minggu + 1;
             break;
         }
     }
