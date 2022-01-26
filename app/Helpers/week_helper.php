@@ -20,7 +20,7 @@ function week($nim, $stase, $now)
             $harike = 0;
         }
 
-        if ($dari == $today) {;
+        if ($dari == $today) {
             $minggu = $minggu + 1;
             break;
         }

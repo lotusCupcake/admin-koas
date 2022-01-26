@@ -38,7 +38,7 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal</th>
+                  <th scope="col">Minggu ke / Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>
@@ -54,12 +54,11 @@
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
                   foreach ($logbook as $row) :
-                    $mingguke = "Minggu Ke-" . week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
+                    $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
                   ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= $mingguke;
-                          ?> (<?= gmdate("Y-m-d", ($row->logbookTanggal / 1000)); ?>)</td>
+                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
