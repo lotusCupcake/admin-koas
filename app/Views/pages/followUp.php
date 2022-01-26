@@ -38,7 +38,7 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal</th>
+                  <th scope="col">Minggu ke / Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kasus</th>
@@ -52,10 +52,10 @@
                 <?php if (!empty($followUp)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($followUp as $row) : ?>
+                  foreach ($followUp as $row) : $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->followUpTglPeriksa / 1000)) ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate("Y-m-d", ($row->followUpTglPeriksa / 1000)); ?></td>
+                      <td><sup><strong><?= $mingguke; ?></strong></sup> / <?= gmdate("d-m-Y", ($row->followUpTglPeriksa / 1000)); ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>

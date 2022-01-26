@@ -77,7 +77,7 @@
                   foreach ($jadwalKegiatan as $row_jadwal) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate('Y-m-d', ($row_jadwal->jadwalTanggalMulai / 1000)); ?> s/d <?= gmdate('Y-m-d', ($row_jadwal->jadwalTanggalSelesai / 1000)); ?></td>
+                      <td><?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalSelesai / 1000)); ?></td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
                       <td><?= $row_jadwal->rumahSakitShortname; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
