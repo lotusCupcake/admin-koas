@@ -53,10 +53,13 @@
                 <?php if (!empty($logbook)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($logbook as $row) : ?>
+                  foreach ($logbook as $row) :
+                    $mingguke = "Minggu Ke-" . week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
+                  ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate("Y-m-d", ($row->logbookTanggal / 1000)); ?></td>
+                      <td><?= $mingguke;
+                          ?> (<?= gmdate("Y-m-d", ($row->logbookTanggal / 1000)); ?>)</td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>

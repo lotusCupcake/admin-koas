@@ -56,6 +56,7 @@ class LogbookMahasiswa extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data['logbook']);
         return view('pages/logbookMahasiswa', $data);
     }
 

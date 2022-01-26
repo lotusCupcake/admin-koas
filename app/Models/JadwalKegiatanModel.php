@@ -103,4 +103,21 @@ class JadwalKegiatanModel extends Model
         $stase = $builder->get();
         return $stase;
     }
+
+    public function getMinMax($type, $where)
+    {
+        $builder = $this->table('jadwal');
+        if ($type === "min") {
+            $builder->selectMin('jadwal.jadwalTanggalMulai');
+        } else {
+            $builder->selectMin('jadwal.jadwalTanggalSelesai');
+        }
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where($where);
+        return $builder;
+    }
 }

@@ -1,11 +1,11 @@
 <?php
-function week($from, $to, $now)
+function week($nim, $stase, $now)
 {
-    $dari = date("Y-m-d", 1643090400);
-    $sampai = date("Y-m-d", 1648098000);
+    $dari = date("Y-m-d", (minDate($nim, $stase) / 1000));
+    $sampai = date("Y-m-d", (maxDate($nim, $stase) / 1000));
 
 
-    $prepare = strtotime('02/19/2022');
+    $prepare = $now;
     $today = date('Y-m-d', $prepare);
     $harike = 0;
     $minggu = 0;
@@ -16,15 +16,28 @@ function week($from, $to, $now)
         $harike++;
 
         if ($harike === 7) {
-            $minggu++;
+            $minggu = $minggu + 1;
             $harike = 0;
         }
 
-        if ($dari == $today) {
-            $minggu = $minggu + 1;
+        if ($dari == $today) {;
             break;
         }
     }
 
     return $minggu;
+}
+
+function minDate($nim, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMax('min', ['kelompok_detail.kelompokDetNim' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
+    return $result;
+}
+
+function maxDate($nim, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMax('max', ['kelompok_detail.kelompokDetNim' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
+    return $result;
 }
