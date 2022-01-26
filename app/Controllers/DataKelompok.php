@@ -38,7 +38,6 @@ class DataKelompok extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        dd($this->dataKelompokModel->pager);
         return view('pages/dataKelompok', $data);
     }
 

@@ -50,7 +50,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-file-medical-alt",
-        "pages": "/dataBagian"
+        "pages": "/stase"
     },
     {
         "id": "7",

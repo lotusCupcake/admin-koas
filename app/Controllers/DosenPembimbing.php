@@ -170,12 +170,6 @@ class DosenPembimbing extends BaseController
                     'required' => 'Nama Dan Gelar Dosen Harus Diisi!',
                 ]
             ],
-            'dopingEmail' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Email Dosen Harus Diisi!',
-                ]
-            ],
             'dopingNoHandphone' => [
                 'rules' => 'required',
                 'errors' => [
@@ -201,7 +195,6 @@ class DosenPembimbing extends BaseController
         // dd($_POST);
         $data = array(
             'dopingNamaLengkap' => trim($this->request->getPost('dopingNamaLengkap')),
-            'dopingEmail' => trim($this->request->getPost('dopingEmail')),
             'dopingNoHandphone' => trim($this->request->getPost('dopingNoHandphone')),
             'dopingAlamat' => trim($this->request->getPost('dopingAlamat')),
             'dopingRumkitId' => trim($this->request->getPost('dopingRumkitId')),

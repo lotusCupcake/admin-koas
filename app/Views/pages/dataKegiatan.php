@@ -19,27 +19,24 @@
       <div class="card">
         <div class="card-header">
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKegiatan"><i class="fas fa-plus"></i> Tambah Data</button>
+          <h4></h4>
+          <div class="card-header-form col-md-4">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Kegiatan" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kegiatanNama')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kegiatanNama'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kegiatanNama')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -52,21 +49,26 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($dataKegiatan as $row) : ?>
-                  <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kegiatanNama; ?></td>
-                    <td style="text-align:center"><span class="badge <?= $row->kegiatanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->kegiatanStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKegiatan<?= $row->kegiatanId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKegiatan<?= $row->kegiatanId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
+                <?php if (!empty($dataKegiatan)) : ?>
+                  <?php
+                  $no = 1 + ($numberPage * ($currentPage - 1));
+                  foreach ($dataKegiatan as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->kegiatanNama; ?></td>
+                      <td style="text-align:center"><span class="badge <?= $row->kegiatanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->kegiatanStatus == 1 ? "Tersedia" : "Tidak Tersedia"; ?></span></td>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKegiatan<?= $row->kegiatanId; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKegiatan<?= $row->kegiatanId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 4]); ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('kegiatan', 'pager') ?>
           </div>
         </div>
       </div>

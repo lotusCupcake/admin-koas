@@ -14,6 +14,7 @@ class LogbookMahasiswa extends BaseController
     {
         $this->logbookMahasiswaModel = new LogbookMahasiswaModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->usersModel = new UsersModel();
     }
     public function index()
     {
@@ -29,12 +30,13 @@ class LogbookMahasiswa extends BaseController
                 $logbook = $this->logbookMahasiswaModel->getLogbook(['dosen_pembimbing.dopingRumkitId' => $rs]);
             };
         } else {
-            $this->usersModel = new UsersModel();
-            $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0]->name;
+            $usr = $this->usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->name;
+            // dd($usr);
             $where = null;
             if ($usr == 'Dosen') {
-                $where = array('dosen_pembimbing.dopingId' => user()->id);
+                $where = array('dosen_pembimbing.dopingEmail' => user()->email);
             }
+            // dd($where = array('dosen_pembimbing.dopingEmail' => user()->email));
             if ($keyword) {
                 $logbook = $this->logbookMahasiswaModel->getLogbookSearch($keyword, $where);
             } else {
@@ -54,6 +56,7 @@ class LogbookMahasiswa extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data['logbook']);
         return view('pages/logbookMahasiswa', $data);
     }
 

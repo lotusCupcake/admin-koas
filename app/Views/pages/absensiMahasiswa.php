@@ -55,9 +55,7 @@
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
-                                    <tr>
-                                        <td colspan="5" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                                    </tr>
+                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
                                 <?php endif ?>
                             </tbody>
                         </table>

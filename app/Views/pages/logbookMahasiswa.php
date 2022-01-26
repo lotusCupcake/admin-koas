@@ -31,27 +31,20 @@
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tanggal</th>
+                  <th scope="col">Minggu ke / Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <?php if (in_groups('Dosen')) : ?>
+                  <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                     <th width="20%" style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
                 </tr>
@@ -60,30 +53,30 @@
                 <?php if (!empty($logbook)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($logbook as $row) : ?>
+                  foreach ($logbook as $row) :
+                    $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
+                  ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate("Y-m-d", ($row->logbookTanggal / 1000)); ?></td>
+                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <?php if (in_groups('Dosen')) : ?>
+                      <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                         <td style="text-align:center">
                           <?php if ($row->logbookIsVerify == 0) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>">Belum Disetujui</button>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
                           <?php else : ?>
-                            <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                            <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
                           <?php endif ?>
                         </td>
                       <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <tr>
-                    <td colspan="8" align="center">Pencarian "<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>" Tidak Ditemukan</td>
-                  </tr>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
                 <?php endif ?>
               </tbody>
             </table>
