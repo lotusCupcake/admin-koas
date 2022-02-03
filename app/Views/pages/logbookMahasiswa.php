@@ -58,7 +58,7 @@
                   ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></td>
+                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <sub><?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
