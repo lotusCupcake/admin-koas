@@ -143,6 +143,15 @@
         "pages": "/jadwalKegiatan"
     },
     {
+        "id": "24",
+        "nama": "Utilitas",
+        "parent": "17",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-star",
+        "pages": "/utilitas"
+    },
+    {
         "id": "19",
         "nama": "Mahasiswa",
         "parent": "0",
