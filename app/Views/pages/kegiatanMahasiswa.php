@@ -44,9 +44,7 @@
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
-                    <th width="20%" style="text-align:center" scope="col">Status</th>
-                  <?php endif; ?>
+                  <th width="20%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -64,7 +62,6 @@
                       <td><?= $row->kegiatanNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiKegiatan<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                         <td style="text-align:center">
                           <?php if ($row->logbookIsVerify == 0) : ?>
                             <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiKegiatan<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
@@ -72,7 +69,6 @@
                             <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
                           <?php endif ?>
                         </td>
-                      <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
