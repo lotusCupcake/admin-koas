@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Panduan Profesi</h1>
+      <h1>Panduan</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/panduan"><?= $breadcrumb[1]; ?></a></div>
@@ -58,7 +58,7 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Panduan Profesi</th>
+                  <th scope="col">Nama Panduan</th>
                   <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
                     <th style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
