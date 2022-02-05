@@ -11,26 +11,37 @@ class ManajemenAkun extends BaseController
     protected $usersModel;
     protected $authGroupsUsersModel;
     protected $authGroupsModel;
-    protected $db;
     public function __construct()
     {
         $this->usersModel = new UsersModel();
         $this->authGroupsModel = new AuthGroupsModel();
         $this->authGroupsUsersModel = new AuthGroupsUsersModel();
-        $this->db = \Config\Database::connect();
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_akun') ? $this->request->getVar('page_akun') : 1;
+        $keyword = $this->request->getVar('keyword');
+        // dd($keyword);
+        if ($keyword) {
+            $akun = $this->usersModel->getUserSearch($keyword);
+        } else {
+            $akun = $this->usersModel->getUser();
+        }
 
         $data = [
             'title' => "Manajemen Akun",
-            'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Manajemen Akun'],
+            'appName' => "Dokter Muda",
+            'breadcrumb' => ['User', 'Manajemen Akun'],
             'menu' => $this->fetchMenu(),
-            'akun' =>  $this->usersModel->getUser()->getResult(),
+            'akun' => $akun->paginate($this->numberPage, 'akun'),
+            'currentPage' => $currentPage,
+            'pager' => $akun->pager,
+            'numberPage' => $this->numberPage,
             'authGroups' =>  $this->authGroupsModel->findAll(),
             'validation' => \Config\Services::validation()
         ];
+        // dd($data);
+
         return view('pages/manajemenAkun', $data);
     }
 

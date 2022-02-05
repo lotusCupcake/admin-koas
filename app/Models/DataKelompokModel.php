@@ -8,15 +8,24 @@ class DataKelompokModel extends Model
 {
     protected $table = 'kelompok';
     protected $primaryKey = 'kelompokId';
-    protected $allowedFields = ['kelompokNama', 'kelompokDosenKelompokId', 'kelompokTahunAkademik'];
+    protected $allowedFields = ['kelompokNama', 'kelompokTahunAkademik'];
     protected $returnType = 'object';
 
     public function getDataKelompok()
     {
-        $builder = $this->db->table('kelompok');
-        $builder->select('*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId)as jumlahPartisipan');
-        $builder->join('dosen_kelompok', 'dosen_kelompok.dosenKelompokId = kelompok.kelompokDosenKelompokId');
-        $kelompok = $builder->get();
-        return $kelompok;
+        $builder = $this->table('kelompok');
+        $builder->select('kelompok.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId) as jumlahPartisipan');
+        $builder->orderBy('kelompok.kelompokId', 'DESC');
+        return $builder;
+    }
+
+    public function getDataKelompokSearch($keyword)
+    {
+        $builder = $this->table('kelompok');
+        $builder->select('kelompok.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId) as jumlahPartisipan');
+        $builder->like('kelompok.kelompokNama', $keyword);
+        $builder->orlike('kelompok.kelompokTahunAkademik', $keyword);
+        $builder->orderBy('kelompok.kelompokId', 'DESC');
+        return $builder;
     }
 }

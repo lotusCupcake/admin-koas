@@ -3,27 +3,40 @@
 namespace App\Controllers;
 
 use App\Models\KelompokMahasiswaModel;
+use App\Models\DataKelompokModel;
 
 class KelompokMahasiswa extends BaseController
 {
     protected $kelompokMahasiswaModel;
-    protected $db;
+    protected $dataKelompokModel;
     public function __construct()
     {
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
-        $this->db = \Config\Database::connect();
+        $this->dataKelompokModel = new DataKelompokModel();
         $this->curl = service('curlrequest');
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_kelompok') ? $this->request->getVar('page_kelompok') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kelompok = $this->kelompokMahasiswaModel->getKelompokMahasiswaSearch($keyword);
+        } else {
+            $kelompok = $this->kelompokMahasiswaModel->getKelompokMahasiswa();
+        }
+
         $data = [
             'title' => "Kel. Mahasiswa",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Kel. Mahasiswa'],
-            'kelompok' => $this->kelompokMahasiswaModel->getKelompok()->getResult(),
+            'kelompokDetail' => $kelompok->paginate($this->numberPage, 'kelompok'),
+            'pager' => $this->kelompokMahasiswaModel->pager,
+            'currentPage' => $currentPage,
+            'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data);
         return view('pages/kelompokMahasiswa', $data);
     }
 

@@ -6,7 +6,7 @@
 		<div class="d-flex flex-wrap align-items-stretch">
 			<div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
 				<div class="p-4 m-3">
-					<img src="<?= base_url() ?>/template/assets/img/logo-fk.png" alt="logo" width="200">
+					<a href="/login"><img src="<?= base_url() ?>/template/assets/img/logo-fk.webp" alt="logo" width="200px" height="78px"></a>
 					<br>
 					<br>
 					<h4 class="text-dark font-weight-normal"><strong><?= lang('Auth.loginTitle') ?></strong></h2>
@@ -73,11 +73,11 @@
 						</div>
 				</div>
 			</div>
-			<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="<?= base_url() ?>/template/assets/img/unsplash/login-fk.jpg">
+			<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="<?= base_url() ?>/template/assets/img/unsplash/login-fk.webp">
 				<div class="absolute-bottom-left index-2">
 					<div class="text-light p-5 pb-2">
 						<div class="mb-5 pb-3">
-							<h1 style="color:white;" class="col-lg-12 col-12 mb-2 display-4 font-weight-bold">KOAS UMSU</h1>
+							<h1 style="color:white;" class="col-lg-12 col-12 mb-2 display-4 font-weight-bold">Dokter Muda</h1>
 							<h5 class="col-lg-12 col-12 font-weight-normal text-muted-transparent">Fakultas Kedokteran UMSU</h5>
 						</div>
 					</div>

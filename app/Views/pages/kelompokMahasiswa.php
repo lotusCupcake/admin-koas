@@ -17,6 +17,19 @@
     </div>
     <div class="section-body">
       <div class="card">
+        <div class="card-header">
+          <h4></h4>
+          <div class="card-header-form col-md-4">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Tahun/Kelompok/Nama/NPM" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="card-body">
           <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
             <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
@@ -29,40 +42,40 @@
             </div>
           </div>
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Tahun</th>
                   <th scope="col">Kelompok Mahasiswa</th>
                   <th scope="col">Nama/NPM Mahasiswa</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($kelompok as $row) : ?>
-                  <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kelompokNama; ?></td>
-                    <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKelompokMahasiswa<?= $row->kelompokDetId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
+                <?php if (!empty($kelompokDetail)) : ?>
+                  <?php
+                  $no = 1  + ($numberPage * ($currentPage - 1));
+                  foreach ($kelompokDetail as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td scope="row"><?= $row->kelompokTahunAkademik; ?></td>
+                      <td><?= $row->kelompokNama; ?></td>
+                      <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKelompokMahasiswa<?= $row->kelompokDetId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('kelompok', 'pager') ?>
           </div>
         </div>
       </div>
@@ -70,7 +83,7 @@
 </div>
 
 <!-- start modal hapus  -->
-<?php foreach ($kelompok as $delete) : ?>
+<?php foreach ($kelompokDetail as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusKelompokMahasiswa<?= $delete->kelompokDetId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -81,7 +94,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus data <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong> di <strong><?= $delete->kelompokNama; ?></strong>?</p>
+          <p>Apakah kamu benar ingin menghapus data <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/kelompokMahasiswa/<?= $delete->kelompokDetId; ?>" method="post">
