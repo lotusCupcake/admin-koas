@@ -14,8 +14,8 @@ class DataRumahSakit extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Data Rumah Sakit",
-            'appName' => "KOAS",
+            'title' => "Rumah Sakit",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Data', 'Rumah Sakit'],
             'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'validation' => \Config\Services::validation(),
@@ -31,6 +31,12 @@ class DataRumahSakit extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Rumah Sakit Harus Diisi!',
+                ]
+            ],
+            'rumahSakitShortname' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Shortname Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLat' => [
@@ -64,6 +70,7 @@ class DataRumahSakit extends BaseController
         // dd($_POST);
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
+            'rumahSakitShortname' => trim($this->request->getPost('rumahSakitShortname')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
             'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
@@ -83,6 +90,12 @@ class DataRumahSakit extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Rumah Sakit Harus Diisi!',
+                ]
+            ],
+            'rumahSakitShortname' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Shortname Rumah Sakit Harus Diisi!',
                 ]
             ],
             'rumahSakitLat' => [
@@ -116,6 +129,7 @@ class DataRumahSakit extends BaseController
 
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
+            'rumahSakitShortname' => trim($this->request->getPost('rumahSakitShortname')),
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
             'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),

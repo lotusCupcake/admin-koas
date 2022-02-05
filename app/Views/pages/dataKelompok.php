@@ -19,89 +19,67 @@
       <div class="card">
         <div class="card-header">
           <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahDataKelompok"><i class="fas fa-plus"></i> Tambah Data</button>
+          <h4></h4>
+          <div class="card-header-form col-md-4">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Tahun/Kelompok" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kelompokNama')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokNama'); ?>
-              </div>
-            </div>
-          <?php endif; ?>
-          <?php if ($validation->hasError('kelompokDosenKelompokId')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokDosenKelompokId'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokNama')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('kelompokTahunAkademik')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('kelompokTahunAkademik'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokTahunAkademik')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('mahasiswa')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('mahasiswa'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('mahasiswa')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Kelompok Mahasiswa</th>
-                  <th scope="col">Kelompok Dosen</th>
+                  <th width=" 10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tahun</th>
+                  <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Jumlah Partisipan</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $no = 1;
-                foreach ($dataKelompok as $row) : ?>
+                <?php if (!empty($dataKelompok)) : ?>
+                  <?php
+                  $no = 1  + ($numberPage * ($currentPage - 1));
+                  foreach ($dataKelompok as $row) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->kelompokTahunAkademik; ?></td>
+                      <td><?= $row->kelompokNama; ?></td>
+                      <td><button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</button></td>
+                      <td style="text-align:center">
+                        <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php else : ?>
                   <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->kelompokNama; ?></td>
-                    <td><?= $row->dosenKelompokNama; ?></td>
-                    <td><?= $row->kelompokTahunAkademik; ?></td>
-                    <td><span class="badge badge-success" data-toggle="modal" data-target="#tambahPartisipan<?= $row->kelompokId ?>"><?= $row->jumlahPartisipan; ?> Partisipan</span></td>
-                    <td style="text-align:center">
-                      <a href="/kelompokMahasiswa" class="btn btn-icon icon-left btn-light"><i class="fas fa-ellipsis-h"></i></a>
-                      <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-edit"></i></button>
-                      <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDataKelompok<?= $row->kelompokId; ?>"><i class="fas fa-trash"></i></button>
-                    </td>
+                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
                   </tr>
-                <?php endforeach ?>
+                <?php endif ?>
               </tbody>
             </table>
+            <?= $pager->links('kelompok', 'pager') ?>
           </div>
         </div>
       </div>
@@ -122,19 +100,6 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Kelompok Mahasiswa</label>
-            <input name="kelompokNama" type=" text" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Kelompok Dosen</label>
-            <select name="kelompokDosenKelompokId" class="form-control select2">
-              <option value="">--Select--</option>
-              <?php foreach ($kelompokDosen as $row) : ?>
-                <option value="<?= $row->dosenKelompokId; ?>"><?= $row->dosenKelompokNama; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
             <label>Tahun</label>
             <select name="kelompokTahunAkademik" class="form-control select2">
               <option value="">--Select--</option>
@@ -142,6 +107,10 @@
                 <option value="<?= $i ?>"><?= $i ?></option>
               <?php endfor ?>
             </select>
+          </div>
+          <div class="form-group">
+            <label>Nama Kelompok Mahasiswa</label>
+            <input name="kelompokNama" type=" text" class="form-control">
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -169,24 +138,16 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Kelompok Mahasiswa</label>
-              <input name="kelompokNama" type=" text" class="form-control" value="<?= $edit->kelompokNama; ?>">
-            </div>
-            <div class="form-group">
-              <label>Kelompok Dosen</label>
-              <select name="kelompokDosenKelompokId" class="form-control select2">
-                <?php foreach ($kelompokDosen as $row) : ?>
-                  <option value="<?= $row->dosenKelompokId; ?>" <?php if ($row->dosenKelompokId == $edit->kelompokDosenKelompokId) echo "selected" ?>><?= $row->dosenKelompokNama; ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-            <div class="form-group">
               <label>Tahun</label>
               <select name="kelompokTahunAkademik" class="form-control select2">
                 <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
                   <option value="<?= $i ?>" <?php if ($i == $edit->kelompokTahunAkademik) echo " selected" ?>><?= $i ?></option>
                 <?php endfor ?>
               </select>
+            </div>
+            <div class="form-group">
+              <label>Nama Kelompok Mahasiswa</label>
+              <input name="kelompokNama" type=" text" class="form-control" value="<?= $edit->kelompokNama; ?>">
             </div>
             <div class="modal-footer bg-whitesmoke br">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -242,7 +203,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table class="table table-striped table-bordered" id="table-2">
                 <thead>
                   <tr>
                     <th style="text-align:center" scope="col"></th>
@@ -263,7 +224,7 @@
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
         </form>
       </div>
