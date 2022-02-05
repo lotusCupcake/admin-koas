@@ -112,14 +112,14 @@ $routes->post('/panduan', 'Panduan::add');
 $routes->delete('/panduan/(:num)', 'Panduan::delete/$1');
 $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 
-// route logbook
-$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
-$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
-$routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
+// route kegiatan
+$routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->add('/kegiatanMahasiswa/(:num)/setujui', 'KegiatanMahasiswa::setujui/$1');
 
 // route Absensi
-$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
-$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 
 // route Folow Up
 $routes->get('/followUp/(:any)', 'FollowUp::index');

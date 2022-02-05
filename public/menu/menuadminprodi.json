@@ -180,12 +180,12 @@
     },
     {
         "id": "22",
-        "nama": "Logbook",
+        "nama": "Kegiatan",
         "parent": "19",
         "level": "child",
         "status": true,
         "icon": "fas fa-book-medical",
-        "pages": "/logbookMahasiswa"
+        "pages": "/kegiatanMahasiswa"
     },
     {
         "id": "23",
