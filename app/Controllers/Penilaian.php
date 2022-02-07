@@ -3,16 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\PenilaianModel;
-use App\Models\LogbookMahasiswaModel;
+use App\Models\KegiatanMahasiswaModel;
 
 class Penilaian extends BaseController
 {
     protected $penilaianModel;
-    protected $logbookModel;
+    protected $kegiatanModel;
     public function __construct()
     {
         $this->penilaianModel = new PenilaianModel();
-        $this->logbookModel = new LogbookMahasiswaModel();
+        $this->kegiatanModel = new KegiatanMahasiswaModel();
     }
     public function index()
     {
@@ -22,7 +22,7 @@ class Penilaian extends BaseController
             'breadcrumb' => ['Mahasiswa', 'Penilaian'],
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
-            'mahasiswa' => $this->logbookModel->getMahasiswaNilai(user()->email)->findAll(),
+            'mahasiswa' => $this->kegiatanModel->getMahasiswaNilai(user()->email)->findAll(),
             'penilainJurnalReading' => $this->penilaianModel->getFormJurnalReading()->findAll(),
             'penilainRefarat' => $this->penilaianModel->getFormJurnalRefarat()->findAll(),
             'penilainRefleksiKasus' => $this->penilaianModel->getFormJurnalRefleksiKasus()->findAll(),

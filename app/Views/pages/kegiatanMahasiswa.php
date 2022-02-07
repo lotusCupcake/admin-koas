@@ -38,7 +38,7 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Minggu ke / Tanggal</th>
+                  <th width="15%"scope="col">Minggu ke / Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>

@@ -143,7 +143,7 @@
         "pages": "/jadwalKegiatan"
     },
     {
-        "id": "25",
+        "id": "26",
         "nama": "Utilitas",
         "parent": "17",
         "level": "child",
@@ -195,6 +195,33 @@
         "status": true,
         "icon": "fas fa-marker",
         "pages": "/penilaian"
+    },
+    {
+        "id": "27",
+        "nama": "Evaluasi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-comment-dots",
+        "pages": "/evaluasi"
+    },
+    {
+        "id": "28",
+        "nama": "Administrasi",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "29",
+        "nama": "Berita Acara Kegiatan",
+        "parent": "28",
+        "level": "child",
+        "status": true,
+        "icon": "fa fa-envelope",
+        "pages": "/berita"
     },
     {
         "id": "23",
