@@ -138,6 +138,11 @@ $routes->post('/pengumuman', 'Utilitas::pengumumanAdd');
 $routes->delete('/pengumuman/(:num)', 'Utilitas::pengumumanDelete/$1');
 $routes->add('/pengumuman/(:num)/edit', 'Utilitas::pengumumanEdit/$1');
 
+//route rekap absen
+$routes->get('/rekapAbsen/(:any)', 'RekapAbsen::index');
+$routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
+$routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
+
 
 /*
  * --------------------------------------------------------------------
