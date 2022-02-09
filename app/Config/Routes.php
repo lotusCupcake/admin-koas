@@ -131,6 +131,13 @@ $routes->get('/penilaian/(:any)', 'Penilaian::index');
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
 
+//route utilitas
+$routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/pengumuman', 'Utilitas::pengumumanAdd');
+$routes->delete('/pengumuman/(:num)', 'Utilitas::pengumumanDelete/$1');
+$routes->add('/pengumuman/(:num)/edit', 'Utilitas::pengumumanEdit/$1');
+
 
 /*
  * --------------------------------------------------------------------

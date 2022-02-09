@@ -31,7 +31,7 @@ class ManajemenAkun extends BaseController
         $data = [
             'title' => "Manajemen Akun",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Home', 'Manajemen Akun'],
+            'breadcrumb' => ['User', 'Manajemen Akun'],
             'menu' => $this->fetchMenu(),
             'akun' => $akun->paginate($this->numberPage, 'akun'),
             'currentPage' => $currentPage,
