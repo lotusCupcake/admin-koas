@@ -8,9 +8,9 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Logbook</h1>
+      <h1>Kegiatan</h1>
       <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item"><a href="/logbookMahasiswa"><?= $breadcrumb[0]; ?></a></div>
+        <div class="breadcrumb-item"><a href="/kegiatanMahasiswa"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
       </div>
     </div>
@@ -38,41 +38,37 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Minggu ke / Tanggal</th>
+                  <th width="15%"scope="col">Minggu ke / Tanggal</th>
                   <th scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
-                    <th width="20%" style="text-align:center" scope="col">Status</th>
-                  <?php endif; ?>
+                  <th width="20%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
-                <?php if (!empty($logbook)) : ?>
+                <?php if (!empty($kegiatan)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($logbook as $row) :
+                  foreach ($kegiatan as $row) :
                     $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
                   ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></td>
+                      <td><sup><strong><?= $mingguke; ?></sup></strong> / <sub><?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
-                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiLogbook<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
+                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiKegiatan<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                      <?php if (in_groups(['Dosen', 'Koordik'])) : ?>
                         <td style="text-align:center">
                           <?php if ($row->logbookIsVerify == 0) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
+                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiKegiatan<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
                           <?php else : ?>
                             <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
                           <?php endif ?>
                         </td>
-                      <?php endif; ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
@@ -80,7 +76,7 @@
                 <?php endif ?>
               </tbody>
             </table>
-            <?= $pager->links('logbook', 'pager') ?>
+            <?= $pager->links('kegiatan', 'pager') ?>
           </div>
         </div>
       </div>
@@ -88,12 +84,12 @@
 </div>
 
 <!-- start modal deskripsi -->
-<?php foreach ($logbook as $deskripsi) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="deskripsiLogbook<?= $deskripsi->logbookId; ?>">
+<?php foreach ($kegiatan as $deskripsi) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="deskripsiKegiatan<?= $deskripsi->logbookId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Topik <strong>Logbook</strong></h5>
+          <h5 class="modal-title">Topik <strong>Kegiatan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -111,21 +107,21 @@
 <!-- end modal deskripsi -->
 
 <!-- start modal setujui -->
-<?php foreach ($logbook as $setujui) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="setujuiLogbook<?= $setujui->logbookId; ?>">
+<?php foreach ($kegiatan as $setujui) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="setujuiKegiatan<?= $setujui->logbookId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/logbookMahasiswa/<?= $setujui->logbookId; ?>/setujui" method="POST">
+      <form action="/kegiatanMahasiswa/<?= $setujui->logbookId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Logbook<strong> Mahasiswa</strong></h5>
+            <h5 class="modal-title">Kegiatan<strong> Mahasiswa</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Apakah kamu yakin untuk menyetujui logbook <strong><?= $setujui->kelompokDetNama; ?> (<?= $setujui->kelompokDetNim; ?>)</strong>?</p>
-            <p class="text-warning"><small>Jika logbook sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
+            <p>Apakah kamu yakin untuk menyetujui kegiatan <strong><?= $setujui->kelompokDetNama; ?> (<?= $setujui->kelompokDetNim; ?>)</strong>?</p>
+            <p class="text-warning"><small>Jika kegiatan sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

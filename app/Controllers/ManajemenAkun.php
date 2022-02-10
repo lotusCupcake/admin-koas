@@ -31,7 +31,7 @@ class ManajemenAkun extends BaseController
         $data = [
             'title' => "Manajemen Akun",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Home', 'Manajemen Akun'],
+            'breadcrumb' => ['User', 'Manajemen Akun'],
             'menu' => $this->fetchMenu(),
             'akun' => $akun->paginate($this->numberPage, 'akun'),
             'currentPage' => $currentPage,
@@ -40,7 +40,7 @@ class ManajemenAkun extends BaseController
             'authGroups' =>  $this->authGroupsModel->findAll(),
             'validation' => \Config\Services::validation()
         ];
-        // dd($data);
+        // dd($data['akun']);
 
         return view('pages/manajemenAkun', $data);
     }

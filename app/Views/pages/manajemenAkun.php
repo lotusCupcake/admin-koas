@@ -66,8 +66,8 @@
                       <td><?= $user->name; ?></td>
                       <td style="text-align:center"><span class="badge <?= $user->active == 1 ? "badge-success" : "badge-danger"; ?>"><?= $user->active == 1 ? "Aktif" : "Tidak Aktif"; ?></span></td>
                       <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editAkun<?= $user->id; ?>"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusAkun<?= $user->id; ?>"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editAkun<?= $user->user_id; ?>"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusAkun<?= $user->user_id; ?>"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -86,9 +86,9 @@
 
 <!-- start modal edit  -->
 <?php foreach ($akun as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="editAkun<?= $edit->id; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="editAkun<?= $edit->user_id; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/manajemenAkun/<?= $edit->id; ?>/edit" method="POST">
+      <form action="/manajemenAkun/<?= $edit->user_id; ?>/edit" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">

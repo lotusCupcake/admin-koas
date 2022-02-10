@@ -238,6 +238,17 @@
               </div>
             </div>
             <div class="form-group">
+              <label>Email</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                </div>
+                <input name="dopingEmail" type="text" class="form-control" value="<?= $edit->dopingEmail; ?>" disabled>
+              </div>
+            </div>
+            <div class="form-group">
               <label>Alamat</label>
               <input name="dopingAlamat" type="text" class="form-control" value="<?= $edit->dopingAlamat; ?>">
             </div>
@@ -253,8 +264,8 @@
               <div class="form-group">
                 <label>Status</label>
                 <select class="form-control select2" name="type">
-                  <option value="Dosen" <?= ($edit->type = "Dosen") ? "selected" : "" ?>>Dosen</option>
-                  <option value="Koordik" <?= ($edit->type = "Koordik") ? "selected" : "" ?>>Koordik</option>
+                  <option value="Dosen" <?= ($edit->type == "Dosen") ? "selected" : "" ?>>Dosen</option>
+                  <option value="Koordik" <?= ($edit->type == "Koordik") ? "selected" : "" ?>>Koordik</option>
                 </select>
               </div>
             <?php endif; ?>
