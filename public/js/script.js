@@ -138,7 +138,7 @@ $(document).ready(function () { // Ketika halaman sudah siap (sudah selesai di l
     console.log("rs dipilih");
     $.ajax({
       type: "POST", // Method pengiriman data bisa dengan GET atau POST
-      url: "rekapAbsen/rekapAbsenStase", // Isi dengan url/path file php yang dituju
+      url: "/rekapAbsen/rekapAbsenStase", // Isi dengan url/path file php yang dituju
       data: {
         rumahSakitId: $('[name="rumahSakitIdAbsen"]').val()
       }, // data yang akan dikirim ke file yang dituju
@@ -167,7 +167,7 @@ $(document).ready(function () { // Ketika halaman sudah siap (sudah selesai di l
 
     $.ajax({
       type: "POST", // Method pengiriman data bisa dengan GET atau POST
-      url: "rekapAbsen/rekapAbsenKelompok", // Isi dengan url/path file php yang dituju
+      url: "/rekapAbsen/rekapAbsenKelompok", // Isi dengan url/path file php yang dituju
       data: {
         staseId: $('[name="staseIdAbsen"]').val()
       }, // data yang akan dikirim ke file yang dituju
