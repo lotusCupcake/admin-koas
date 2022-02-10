@@ -4,19 +4,19 @@ namespace App\Controllers;
 
 use App\Models\StaseRumahSakitModel;
 use App\Models\DataRumahSakitModel;
-use App\Models\DataBagianModel;
+use App\Models\StaseModel;
 
 class StaseRumahSakit extends BaseController
 {
     protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
-    protected $dataBagianModel;
+    protected $staseModel;
     protected $db;
     public function __construct()
     {
         $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
-        $this->dataBagianModel = new DataBagianModel();
+        $this->staseModel = new StaseModel();
         $this->db = \Config\Database::connect();
     }
     public function index()
@@ -29,12 +29,12 @@ class StaseRumahSakit extends BaseController
         }
 
         $data = [
-            'title' => "Stase Rumah Sakit",
-            'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Utama', 'Stase Rumah Sakit'],
+            'title' => "Stase Di RS",
+            'appName' => "Dokter Muda",
+            'breadcrumb' => ['Master', 'Penugasan', 'Stase Di RS'],
             'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
             'dataRumahSakit' => $this->dataRumahSakitModel,
-            'dataBagian' => $this->dataBagianModel,
+            'dataBagian' => $this->staseModel,
             'dataNamaRs' => $namars,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
@@ -70,7 +70,7 @@ class StaseRumahSakit extends BaseController
         );
 
         if ($this->staseRumahSakitModel->insert($data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Ditambah!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Ditambah!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -104,7 +104,7 @@ class StaseRumahSakit extends BaseController
         // dd($this->request->getPost('rumahSakitEmail'));
 
         if ($this->staseRumahSakitModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Diupdate!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Diupdate!');
             return redirect()->to('staseRumahSakit');
         }
     }
@@ -112,7 +112,7 @@ class StaseRumahSakit extends BaseController
     public function delete($id)
     {
         if ($this->staseRumahSakitModel->delete($id)) {
-            session()->setFlashdata('success', 'Stase Rumah Sakit Berhasil Dihapus!');
+            session()->setFlashdata('success', 'Stase Di RS Berhasil Dihapus!');
         };
         return redirect()->to('staseRumahSakit');
     }

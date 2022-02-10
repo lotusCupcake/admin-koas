@@ -33,7 +33,7 @@ class Filters extends BaseConfig
     public $globals = [
         'before' => [
             'honeypot',
-            'login'
+            // 'login'
         ],
         'after' => [
             'toolbar',
@@ -62,6 +62,27 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        // 'login' => ['before' => ['acara']],
+        'login' => [
+            'before' => [
+                '',
+                'home',
+                'manajemenAkun',
+                'maintenance',
+                'dataRumahSakit',
+                'staseRumahSakit',
+                'dataBagian',
+                'dosenPembimbing',
+                'dataKelompok',
+                'kelompokMahasiswa',
+                'mahasiswaProfesi',
+                'jadwalKegiatan',
+                'dataKegiatan',
+                'panduan',
+                'logbookMahasiswa',
+                'absensi',
+                'followUp',
+                'penilaian'
+            ]
+        ],
     ];
 }

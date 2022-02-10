@@ -20,12 +20,23 @@ class KelompokMahasiswaModel extends Model
         return $query;
     }
 
-    public function getKelompok()
+    public function getKelompokMahasiswa()
     {
-        $builder = $this->db->table('kelompok_detail');
-        $builder->select('*');
-        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId');
-        $query = $builder->get();
-        return $query;
+        $builder = $this->table('kelompok_detail');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->orderBy('kelompok_detail.kelompokDetId', 'DESC');
+        return $builder;
+    }
+
+    public function getKelompokMahasiswaSearch($keyword)
+    {
+        $builder = $this->table('kelompok_detail');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->like('kelompok_detail.kelompokDetNama', $keyword);
+        $builder->orlike('kelompok_detail.kelompokDetNim', $keyword);
+        $builder->orlike('kelompok.kelompokTahunAkademik', $keyword);
+        $builder->orlike('kelompok.kelompokNama', $keyword);
+        $builder->orderBy('kelompok_detail.kelompokDetId', 'DESC');
+        return $builder;
     }
 }

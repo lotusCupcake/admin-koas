@@ -13,10 +13,32 @@ class UsersModel extends Model
 
     public function getUser()
     {
+        $builder = $this->table('users');
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id', 'LEFT');
+        $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id', 'LEFT');
+        $builder->orderBy('users.id', 'DESC');
+        return $builder;
+    }
+
+    public function getUserSearch($keyword)
+    {
+        $builder = $this->table('users');
+        $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id', 'LEFT');
+        $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id', 'LEFT');
+        $builder->like('auth_groups.name', $keyword);
+        $builder->orlike('users.username', $keyword);
+        $builder->orlike('users.email', $keyword);
+        $builder->orderBy('users.id', 'DESC');
+        return $builder;
+    }
+
+    public function getSpecificUser($where)
+    {
         $builder = $this->db->table('users');
-        $builder->select('users.id as userid, auth_groups_users.group_id as groups_id, username, email, name, active');
+        $builder->select('*');
         $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
         $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id');
+        $builder->where($where);
         $query = $builder->get();
         return $query;
     }

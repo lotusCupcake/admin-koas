@@ -2,35 +2,73 @@
 
 namespace App\Controllers;
 
+use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
-// use App\Models\DataBagianModel;
+use App\Models\DosenPembimbingModel;
 
 class JadwalKegiatan extends BaseController
 {
+    protected $kelompokMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
-    // protected $DataBagianModel; 
-    protected $db;
 
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
-        // $this->penyiarModel = new DataRumahSakitModel();
-        $this->db = \Config\Database::connect();
+        $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
     }
     public function index()
     {
-        $data = [
-            'title' => "Jadwal Kegiatan",
-            'appName' => "KOAS",
-            'breadcrumb' => ['Home', 'Jadwal Kegiatan'],
-            'jadwalKegiatan' => $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(),
-            'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
-            'menu' => $this->fetchMenu(),
-        ];
-        // dd($data);
+        $currentPage = $this->request->getVar('page_jadwal') ? $this->request->getVar('page_jadwal') : 1;
+        $keyword = $this->request->getVar('keyword');
+
+        if (in_groups('Koordik')) {
+            $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
+
+            if ($keyword) {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword, ['rumkit.rumahSakitId' => $rs]);
+            } else {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(['rumkit.rumahSakitId' => $rs]);
+                // dd($jadwal->get()->getResult());
+            }
+            $data = [
+                'title' => "Jadwal Kegiatan",
+                'appName' => "Dokter Muda",
+                'breadcrumb' => ['Mahasiswa', 'Jadwal Kegiatan'],
+                'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
+                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'pager' => $this->jadwalKegiatanModel->pager,
+                'currentPage' => $currentPage,
+                'numberPage' => $this->numberPage,
+                'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+                'validation' => \Config\Services::validation(),
+                'menu' => $this->fetchMenu(),
+            ];
+        } else {
+            if ($keyword) {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword);
+            } else {
+                $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan();
+            }
+            $data = [
+                'title' => "Jadwal Kegiatan",
+                'appName' => "Dokter Muda",
+                'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
+                'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
+                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'pager' => $this->jadwalKegiatanModel->pager,
+                'currentPage' => $currentPage,
+                'numberPage' => $this->numberPage,
+                'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
+                'validation' => \Config\Services::validation(),
+                'menu' => $this->fetchMenu(),
+            ];
+        }
+        // dd($data['jadwalKegiatan']);
+
         return view('pages/jadwalKegiatan', $data);
     }
 
@@ -38,23 +76,6 @@ class JadwalKegiatan extends BaseController
     {
         // Ambil data rumahSakitId yang dikirim via ajax post
         $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
-        $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
-        // Proses Get Data Stase Dari Tabel Rumkit_Detail
-
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
-        $lists = "<option value=''>Pilih Stase</option>";
-        foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
-        }
-        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
-    }
-
-    public function editStase()
-    {
-        // Ambil data rumahSakitId yang dikirim via ajax post
-        $rumahSakitId = trim($this->request->getPost('rumahSakit'));
         $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
         // Proses Get Data Stase Dari Tabel Rumkit_Detail
 
@@ -86,31 +107,7 @@ class JadwalKegiatan extends BaseController
         // Proses Get Data Stase Dari Tabel Kelompok
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompok->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
-        }
-        $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
-    }
-
-    public function editKelompok()
-    {
-        $kelompokId = [];
-        $rumkitDetId = trim($this->request->getPost('stase'));
-
-        $jadwalKelompok = $this->jadwalKegiatanModel->Show_Jadwal_Kelompok($rumkitDetId);
-
-        foreach ($jadwalKelompok->getResult() as $kelompok_jadwal) {
-            array_push($kelompokId, $kelompok_jadwal->jadwalKelompokId);
-        }
-
-        if (count($kelompokId) == 0) {
-            $kelompokId = [0];
-        }
-        $kelompok = $this->jadwalKegiatanModel->Show_Kelompok($kelompokId);
-        // Proses Get Data Stase Dari Tabel Kelompok
-        $lists = "<option value=''>Pilih Kelompok</option>";
-        foreach ($kelompok->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>"; // Tambahkan tag option ke variabel $lists
         }
         $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
         echo json_encode($callback); // konversi variabel $callback menjadi JSON
@@ -120,61 +117,117 @@ class JadwalKegiatan extends BaseController
     {
         // dd($_POST);
         if (!$this->validate([
-            'rumahSakitNama' => [
+            'tanggalAwal' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Rumah Sakit Harus Diisi',
+                    'required' => 'Tanggal Awal Harus Diisi!',
                 ]
             ],
-            'rumahSakitLat' => [
+            'jumlahWeek' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Durasi Harus Diisi!',
                 ]
             ],
-            'rumahSakitLong' => [
+            'jamMasuk' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Koordinat Rumah Sakit Harus Diisi',
+                    'required' => 'Jam Masuk Diisi!',
                 ]
             ],
-            'rumahSakitTelp' => [
+            'jamKeluar' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'No. Telp Rumah Sakit Harus Diisi',
+                    'required' => 'jam Keluar Harus Diisi!',
                 ]
             ],
-            'rumahSakitEmail' => [
+            'rumahSakitId' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Email Rumah Sakit Harus Diisi',
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
+            'staseId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'kelompokId' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelompok Harus Dipilih!',
                 ]
             ],
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +12 weeks") * 1000;
-        $dt = array(
-            'rumkitDetRumkitId' => $this->request->getPost('rumahSakitId'),
-            'rumkitDetStaseId' => $this->request->getPost('staseId'),
-        );
-        $rumkitDetail = $this->jadwalKegiatanModel->Get_Where('rumkit_detail', $dt);
-        foreach ($rumkitDetail->getResult() as $row) {
-            $rumkitDetailId = $row->rumkitDetId;
-        }
-        // dd($rumkitDetailId);
+        $jlhweek = $this->request->getPost('jumlahWeek');
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+
         $data = array(
-            'jadwalRumkitDetId' => $rumkitDetailId,
+            'jadwalRumkitDetId' => $this->request->getPost('staseId'),
             'jadwalKelompokId' => $this->request->getPost('kelompokId'),
             'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
             'jadwalTanggalSelesai' => $dateSelesai,
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+            'jadwalJumlahWeek' => $jlhweek,
         );
-        // dd($data);
 
         if ($this->jadwalKegiatanModel->insert($data)) {
-            session()->setFlashdata('success', 'Data Rumah Sakit Berhasil Ditambah !');
+            session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
+
+    public function edit($id)
+    {
+        if (!$this->validate([
+            'tanggalAwal' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Awal Harus Diisi!',
+                ]
+            ],
+            'jumlahWeek' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Durasi Harus Diisi!',
+                ]
+            ],
+            'jamMasuk' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Jam Masuk Diisi!',
+                ]
+            ],
+            'jamKeluar' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'jam Keluar Harus Diisi!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('jadwalKegiatan')->withInput();
+        }
+
+        $jlhweek = $this->request->getPost('jumlahWeek');
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+
+        $data = array(
+            'jadwalRumkitDetId' =>  $this->request->getPost('stase'),
+            'jadwalKelompokId' => $this->request->getPost('kelompok'),
+            'jadwalTanggalMulai' => (int)strtotime($this->request->getPost('tanggalAwal')) * 1000,
+            'jadwalTanggalSelesai' => $dateSelesai,
+            'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
+            'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
+            'jadwalJumlahWeek' => $jlhweek,
+        );
+
+
+        if ($this->jadwalKegiatanModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
             return redirect()->to('jadwalKegiatan');
         }
     }

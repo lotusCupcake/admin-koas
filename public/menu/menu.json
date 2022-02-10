@@ -4,29 +4,11 @@
         "parent": "0",
         "level": "title",
         "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "#"
-    },
-    {
-        "id": "2",
-        "nama": "Master",
-        "parent": "0",
-        "level": "title",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "#"
-    },
-    {
-        "id": "3",
-        "nama": "User",
-        "parent": "0",
-        "level": "title",
-        "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "",
         "pages": ""
     },
     {
-        "id": "4",
+        "id": "2",
         "nama": "Dashboard",
         "parent": "1",
         "level": "child",
@@ -35,120 +17,192 @@
         "pages": "/home"
     },
     {
-        "id": "5",
+        "id": "3",
+        "nama": "Master",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "4",
         "nama": "Data",
-        "parent": "2",
+        "parent": "3",
         "level": "parent",
         "status": true,
         "icon": "fas fa-th-large",
         "pages": ""
     },
     {
+        "id": "5",
+        "nama": "Panduan",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "far fa-file-pdf",
+        "pages": "/panduan"
+    },
+    {
         "id": "6",
+        "nama": "Stase",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-medical-alt",
+        "pages": "/stase"
+    },
+    {
+        "id": "7",
+        "nama": "Kegiatan",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-running",
+        "pages": "/dataKegiatan"
+    },
+    {
+        "id": "8",
+        "nama": "Rumah Sakit",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-hospital",
+        "pages": "/dataRumahSakit"
+    },
+    {
+        "id": "9",
+        "nama": "Dosen/Koordik",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-md",
+        "pages": "/dosenPembimbing"
+    },
+    {
+        "id": "10",
+        "nama": "Kel. Mahasiswa",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-tie",
+        "pages": "/kelompokMahasiswa"
+    },
+    {
+        "id": "11",
+        "nama": "Mahasiswa Profesi",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-graduate",
+        "pages": "/mahasiswaProfesi"
+    },
+    {
+        "id": "12",
         "nama": "Penugasan",
-        "parent": "2",
+        "parent": "3",
         "level": "parent",
         "status": true,
         "icon": "fas fa-file-medical",
         "pages": ""
     },
     {
-        "id": "7",
-        "nama": "Manajemen Akun",
-        "parent": "3",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-user",
-        "pages": "/manajemenAkun"
-    },
-    {
-        "id": "8",
-        "nama": "Stase",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/dataBagian"
-    },
-    {
-        "id": "9",
-        "nama": "Kegiatan",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/dataKegiatan"
-    },
-    {
-        "id": "10",
-        "nama": "Rumah Sakit",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/dataRumahSakit"
-    },
-    {
-        "id": "11",
-        "nama": "Dosen Pembimbing",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/dosenPembimbing"
-    },
-    {
-        "id": "12",
-        "nama": "Kelompok",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/dataKelompok"
-    },
-    {
-        "id": "13",
-        "nama": "Grup Dosen",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/kelompokDosen"
-    },
-    {
-        "id": "14",
-        "nama": "Mahasiswa Profesi",
-        "parent": "5",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/mahasiswaProfesi"
-    },
-    {
         "id": "15",
         "nama": "Stase Di RS",
-        "parent": "6",
+        "parent": "12",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
+        "icon": "fas fa-clinic-medical",
         "pages": "/staseRumahSakit"
     },
     {
         "id": "16",
-        "nama": "Dosen",
-        "parent": "6",
+        "nama": "Kelompok",
+        "parent": "12",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/detailKelompokDosen"
+        "icon": "fas fa-users",
+        "pages": "/dataKelompok"
     },
     {
         "id": "17",
-        "nama": "Kel. Mahasiswa",
-        "parent": "6",
+        "nama": "Setting",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "18",
+        "nama": "Jadwal Kegiatan",
+        "parent": "17",
         "level": "child",
         "status": true,
-        "icon": "fas fa-th-large",
-        "pages": "/kelompokMahasiswa"
+        "icon": "fas fa-calendar-plus",
+        "pages": "/jadwalKegiatan"
+    },
+    {
+        "id": "19",
+        "nama": "Mahasiswa",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "20",
+        "nama": "Absensi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-clock",
+        "pages": "/absensi"
+    },
+    {
+        "id": "21",
+        "nama": "Follow Up",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-notes-medical",
+        "pages": "/followUp"
+    },
+    {
+        "id": "22",
+        "nama": "Logbook",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-book-medical",
+        "pages": "/logbookMahasiswa"
+    },
+    {
+        "id": "25",
+        "nama": "Penilaian",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-marker",
+        "pages": "/penilaian"
+    },
+    {
+        "id": "23",
+        "nama": "User",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "24",
+        "nama": "Manajemen Akun",
+        "parent": "23",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user",
+        "pages": "/manajemenAkun"
     }
 ]

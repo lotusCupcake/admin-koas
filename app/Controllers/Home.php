@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
+
 class Home extends BaseController
 {
     public function index()
     {
         $data = [
             'title' => "Home",
-            'appName' => "KOAS",
+            'appName' => "Dokter Muda",
             'breadcrumb' => ['Home', 'Dashboard'],
             'menu' => $this->fetchMenu()
         ];
