@@ -19,7 +19,6 @@ class FollowUp extends BaseController
     {
         $currentPage = $this->request->getVar('page_followUp') ? $this->request->getVar('page_followUp') : 1;
         $keyword = $this->request->getVar('keyword');
-
         if (in_groups('Koordik')) {
             $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
             // dd($rs);
@@ -40,18 +39,20 @@ class FollowUp extends BaseController
                 $followUp = $this->followUpModel->getFollowUp($where);
             }
         }
+        $where = $this->usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->email;
         $data = [
             'title' => "Follow Up",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Follow Up'],
             'followUp' => $followUp->paginate($this->numberPage, 'followUp'),
+            'jumlahFollowUp' => $this->followUpModel->getJumlahFollowUp($where)->get()->getResult(),
             'pager' => $this->followUpModel->pager,
             'currentPage' => $currentPage,
             'numberPage' => $this->numberPage,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['followUp']);
+        // dd($data['jumlahFollowUp']);
         return view('pages/followUp', $data);
     }
 

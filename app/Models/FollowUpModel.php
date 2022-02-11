@@ -51,4 +51,13 @@ class FollowUpModel extends Model
         $builder->orderBy('follow_up.followUpId', 'DESC');
         return $builder;
     }
+
+    public function getJumlahFollowUp($where)
+    {
+        $builder = $this->table('follow_up');
+        $builder->selectCount('follow_up.followUpId');
+        $builder->join('users', 'users.email = follow_up.followUpDopingEmail', 'LEFT');
+        $builder->where('follow_up.followUpDopingEmail', $where);
+        return $builder;
+    }
 }
