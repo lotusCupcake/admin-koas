@@ -216,21 +216,21 @@
         "pages": ""
     },
     {
-        "id": "28",
+        "id": "27",
         "nama": "Rekap Absensi",
         "parent": "26",
         "level": "child",
         "status": true,
-        "icon": "fa fa-reply",
+        "icon": "fas fa-reply",
         "pages": "/rekapAbsen"
     },
     {
-        "id": "27",
+        "id": "28",
         "nama": "Berita Acara Kegiatan",
         "parent": "26",
         "level": "child",
         "status": true,
-        "icon": "fa fa-envelope",
+        "icon": "fas fa-envelope",
         "pages": "/berita"
     }
 ]

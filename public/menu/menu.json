@@ -221,16 +221,16 @@
         "parent": "28",
         "level": "child",
         "status": true,
-        "icon": "fa fa-reply",
+        "icon": "fas fa-reply",
         "pages": "/rekapAbsen"
     },
     {
-        "id": "29",
+        "id": "30",
         "nama": "Berita Acara Kegiatan",
         "parent": "28",
         "level": "child",
         "status": true,
-        "icon": "fa fa-envelope",
+        "icon": "fas fa-envelope",
         "pages": "/berita"
     },
     {
