@@ -39,13 +39,12 @@ class FollowUp extends BaseController
                 $followUp = $this->followUpModel->getFollowUp($where);
             }
         }
-        $where = $this->usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->email;
+
         $data = [
             'title' => "Follow Up",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Follow Up'],
             'followUp' => $followUp->paginate($this->numberPage, 'followUp'),
-            'jumlahFollowUp' => $this->followUpModel->getJumlahFollowUp($where)->get()->getResult(),
             'pager' => $this->followUpModel->pager,
             'currentPage' => $currentPage,
             'numberPage' => $this->numberPage,

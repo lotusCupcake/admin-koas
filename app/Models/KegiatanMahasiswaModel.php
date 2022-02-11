@@ -72,4 +72,13 @@ class KegiatanMahasiswaModel extends Model
         $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
         return $builder;
     }
+
+    public function getJumlahKegiatan($where)
+    {
+        $builder = $this->table('logbook');
+        $builder->selectCount('logbook.logbookId');
+        $builder->join('users', 'users.email = logbook.logbookDopingEmail', 'LEFT');
+        $builder->where($where);
+        return $builder;
+    }
 }

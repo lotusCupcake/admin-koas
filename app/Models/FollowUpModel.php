@@ -57,7 +57,7 @@ class FollowUpModel extends Model
         $builder = $this->table('follow_up');
         $builder->selectCount('follow_up.followUpId');
         $builder->join('users', 'users.email = follow_up.followUpDopingEmail', 'LEFT');
-        $builder->where('follow_up.followUpDopingEmail', $where);
+        $builder->where($where);
         return $builder;
     }
 }

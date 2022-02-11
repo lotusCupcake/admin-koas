@@ -21,16 +21,16 @@
               </div>
               <div class="dropdown-item-desc">
                 Jumlah Follow Up yang belum kamu verifikasi
-                <div class="time text-primary"><?= $jumlahFollowUp[0]->followUpId; ?> Follow Up</div>
+                <div class="time text-primary"><?= jumlahFollowUp(); ?> Follow Up</div>
               </div>
             </a>
-            <a href="/kegiatan" class="dropdown-item">
+            <a href="/kegiatanMahasiswa" class="dropdown-item">
               <div class="dropdown-item-icon bg-info text-white">
                 <i class="fas fa-book-medical"></i>
               </div>
               <div class="dropdown-item-desc">
                 Jumlah Kegiatan yang belum kamu verifikasi
-                <div class="time text-primary">270 Kegiatan</div>
+                <div class="time text-primary"><?= jumlahKegiatan(); ?> Kegiatan</div>
               </div>
             </a>
           </div>
