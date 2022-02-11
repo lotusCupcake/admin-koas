@@ -1,13 +1,4 @@
 <?php
-<<<<<<< HEAD
-function week($from, $to, $now)
-{
-    $dari = date("Y-m-d", 1643090400);
-    $sampai = date("Y-m-d", 1648098000);
-
-
-    $prepare = strtotime('02/19/2022');
-=======
 function week($nim, $stase, $now)
 {
     $dari = date("Y-m-d", (minDate($nim, $stase) / 1000));
@@ -15,7 +6,6 @@ function week($nim, $stase, $now)
 
 
     $prepare = $now;
->>>>>>> 0bef54247d50dd86ff594d7beb5ff1b73c85bfc6
     $today = date('Y-m-d', $prepare);
     $harike = 0;
     $minggu = 0;
@@ -26,11 +16,7 @@ function week($nim, $stase, $now)
         $harike++;
 
         if ($harike === 7) {
-<<<<<<< HEAD
-            $minggu++;
-=======
             $minggu = $minggu + 1;
->>>>>>> 0bef54247d50dd86ff594d7beb5ff1b73c85bfc6
             $harike = 0;
         }
 
@@ -42,8 +28,6 @@ function week($nim, $stase, $now)
 
     return $minggu;
 }
-<<<<<<< HEAD
-=======
 
 function minDate($nim, $stase)
 {
@@ -58,4 +42,3 @@ function maxDate($nim, $stase)
     $result = $model->getMinMax('max', ['kelompok_detail.kelompokDetNim' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
     return $result;
 }
->>>>>>> 0bef54247d50dd86ff594d7beb5ff1b73c85bfc6

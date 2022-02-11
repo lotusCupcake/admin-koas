@@ -61,6 +61,7 @@ class FollowUp extends BaseController
         );
 
         if ($this->followUpModel->update($id, $data)) {
+            sendNotificationBulk(['title' => 'Kunci Ada', 'message' => 'Fikri Bedol']);
             session()->setFlashdata('success', 'Follow Up Mahasiswa Sudah Disetujui!');
             return redirect()->to('followUp');
         }
