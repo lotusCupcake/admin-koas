@@ -147,10 +147,19 @@
         "id": "26",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "child",
+        "level": "parent",
         "status": true,
         "icon": "fas fa-star",
-        "pages": "/utilitas"
+        "pages": ""
+    },
+    {
+        "id": "31",
+        "nama": "Announcement",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bullhorn",
+        "pages": "/announce"
     },
     {
         "id": "19",

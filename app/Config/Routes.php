@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 // route home
 $routes->get('/home/(:any)', 'Home::index');
 
-// route mamajemen user
+// route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->get('/manajemenAkun/index', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
@@ -98,7 +98,7 @@ $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
 
-// route doata kegiatan
+// route data kegiatan
 $routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/dataKegiatan/index', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataKegiatan', 'DataKegiatan::add');
@@ -131,12 +131,12 @@ $routes->get('/penilaian/(:any)', 'Penilaian::index');
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
 
-//route utilitas
-$routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->post('/pengumuman', 'Utilitas::pengumumanAdd');
-$routes->delete('/pengumuman/(:num)', 'Utilitas::pengumumanDelete/$1');
-$routes->add('/pengumuman/(:num)/edit', 'Utilitas::pengumumanEdit/$1');
+//route announcement
+$routes->get('/Announce/', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/Announce/index', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/announce', 'Announce::announceAdd');
+$routes->delete('/announce/(:num)', 'Announce::announceDelete/$1');
+$routes->add('/announce/(:num)/edit', 'Announce::announceEdit/$1');
 
 //route rekap absen
 $routes->get('/rekapAbsen/(:any)', 'RekapAbsen::index');
