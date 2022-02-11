@@ -67,10 +67,11 @@ class DataRumahSakit extends BaseController
             return redirect()->to('dataRumahSakit')->withInput();
         }
 
-        // dd($_POST);
+        $alamat = getLokasi(trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')));
         $data = array(
             'rumahSakitNama' => trim($this->request->getPost('rumahSakitNama')),
             'rumahSakitShortname' => trim($this->request->getPost('rumahSakitShortname')),
+            'rumahSakitAlamat' => $alamat,
             'rumahSakitLatLong' => trim($this->request->getPost('rumahSakitLat')) . ',' . trim($this->request->getPost('rumahSakitLong')),
             'rumahSakitTelp' => trim($this->request->getPost('rumahSakitTelp')),
             'rumahSakitEmail' => trim($this->request->getPost('rumahSakitEmail')),
