@@ -54,9 +54,9 @@
                       <td><?= $row->notifIsi; ?></td>
                       <td><?= ($row->notifPenerima) == 999 ? 'Semua Pengguna' : $row->notifPenerima; ?></td>
                       <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#kirimNotifikasi<?= $row->notifId; ?>"><i class="fas fa-paper-plane"></i></button>
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editNotifikasi<?= $row->notifId; ?>"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusNotifikasi<?= $row->notifId; ?>"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#kirimNotifikasi<?= $row->notifId; ?>"><i class="fas fa-paper-plane"></i></button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -172,7 +172,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus data notifikasi<strong> <?= $delete->notifJudul; ?>?</p>
+          <p>Apakah kamu benar ingin menghapus data notifikasi<strong> <?= $delete->notifJudul; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/notif/<?= $delete->notifId; ?>" method="post">
@@ -201,7 +201,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin mengirim notifikasi<strong> <?= $delete->notifJudul; ?>?</p>
+          <p>Apakah kamu benar ingin mengirim notifikasi<strong> <?= $send->notifJudul; ?></strong> ke <strong> <?= ($send->notifPenerima == 999) ? "Semua Pengguna" : $send->notifPenerima; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
         <form action="/notif/send" method="post">
@@ -211,7 +211,7 @@
           <input type="hidden" value="<?= $send->notifPenerima; ?>" name="notifPenerima">
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-info">Send</button>
+            <button type="submit" class="btn btn-primary">Send</button>
           </div>
         </form>
       </div>
