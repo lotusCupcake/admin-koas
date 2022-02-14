@@ -20,78 +20,27 @@
           <h4>Bordered Tab</h4>
         </div> -->
         <div class="card-body">
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
+          <?php endif; ?>
           <ul class="nav nav-tabs" id="myTab3" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="pre-test" data-toggle="tab" href="#pretest" role="tab" aria-controls="contact" aria-selected="true">Pretest</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="tutorial-klinik" data-toggle="tab" href="#tutorialKlinik" role="tab" aria-controls="contact" aria-selected="false">Tutorial Klinik</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="jurnal-reading" data-toggle="tab" href="#jurnalReading" role="tab" aria-controls="contact" aria-selected="false">Jurnal Reading</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="refa-rat" data-toggle="tab" href="#refarat" role="tab" aria-controls="contact" aria-selected="false">Refarat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="refleksi-kasus" data-toggle="tab" href="#refleksiKasus" role="tab" aria-controls="contact" aria-selected="false">Laporan/Refleksi Kasus</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="mid-test" data-toggle="tab" href="#midTest" role="tab" aria-controls="contact" aria-selected="false">Mid Test</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="follow-up" data-toggle="tab" href="#followUp" role="tab" aria-controls="contact" aria-selected="false">Mini Cex/Follow Up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="post-test" data-toggle="tab" href="#postTest" role="tab" aria-controls="contact" aria-selected="false">Post Test</a>
-            </li>
+            <?php foreach ($menuNilai as $menu) : ?>
+              <li class="nav-item">
+                <a class="nav-link <?= $menu->penilaianStatus ?>" id="<?= $menu->penilaianSlug ?>" data-toggle="tab" href="#<?= $menu->penilaianHref ?>" role="tab" aria-controls="contact" aria-selected="<?= ($menu->penilaianStatus) ? true : false ?>"><?= $menu->penilaianNamaSingkat ?></a>
+              </li>
+            <?php endforeach ?>
           </ul>
           <div class="tab-content tab-bordered" id="myTab3Content">
-            <div class="tab-pane fade show active" id="pretest" role="tabpanel" aria-labelledby="pre-test">
-              <div class="table-responsive">
+            <?php foreach ($menuNilai as $menu) : ?>
+              <div class="tab-pane fade show <?= ($menu->penilaianStatus) ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
+                <?= view('layout/templateAlert', ['msg' => ['info', "<strong>Failed ! </strong>" . $menu->penilaianNama]]); ?>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
+                      <th scope="col">Nim</th>
                       <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="tab-pane fade show" id="tutorialKlinik" role="tabpanel" aria-labelledby="tutorial-klinik">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Sikap & Tanggungjawab</th>
-                      <th scope="col">Peran Aktif & Komunikasi</th>
-                      <th scope="col">Sumber Informasi</th>
-                      <th scope="col">Informasi yang disampaikan</th>
-                      <th scope="col">Penalaran Klinis</th>
-                      <th style="text-align:center" scope="col">Total</th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -101,216 +50,15 @@
                         <td><?= $no++ ?></td>
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
                         <td>
-                          <h1>80</h1>
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim; ?>"><i class="fas fa-marker"></i> Nilai</button>
                         </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            <div class="tab-pane fade show" id="jurnalReading" role="tabpanel" aria-labelledby="jurnal-reading">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiJurnalReading"><i class="fas fa-edit"></i></button></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="tab-pane fade show" id="refarat" role="tabpanel" aria-labelledby="refarat">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiRefarat"><i class="fas fa-edit"></i></button></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="tab-pane fade show" id="refleksiKasus" role="tabpanel" aria-labelledby="refleksi-kasus">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#nilaiRefleksiKasus"><i class="fas fa-edit"></i></button></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="tab-pane fade show" id="midTest" role="tabpanel" aria-labelledby="mid-test">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="tab-pane fade show" id="followUp" role="tabpanel" aria-labelledby="follow-up">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Aspek Penilaian</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                      <th style="text-align:center" scope="col">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td rowspan="2"><?= $no++ ?></td>
-                        <td rowspan="2"><?= $mhs->kelompokDetNim ?></td>
-                        <td rowspan="2"><?= $mhs->kelompokDetNama ?></td>
-                        <td>Sistematika penulisan catatan medis (SOAP)</td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                        <td rowspan="2">
-                          <h1>80</h1>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Pemahaman Dasar Pengetahuan Terkait Kasus</td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="tab-pane fade show" id="postTest" role="tabpanel" aria-labelledby="post-test">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-
-                      <th scope="col">NPM</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Kelompok</th>
-                      <th scope="col">Stase</th>
-                      <th style="text-align:center" scope="col">Nilai</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td><?= $mhs->kelompokNama ?></td>
-                        <td><?= $mhs->staseNama ?></td>
-                        <td><input class="form-control" type="text" name="" id=""></td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <?php endforeach ?>
           </div>
         </div>
       </div>
@@ -320,137 +68,92 @@
 </section>
 </div>
 
-<!-- start modal jurnal reading  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="nilaiJurnalReading">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<!-- start modal laporan kasus  -->
+<?php foreach ($menuNilai as $menu) : ?>
+  <?php foreach ($mahasiswa as $mhs) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim ?>">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <form action="/penilaian/save" method="post">
+            <?= csrf_field() ?>
+            <input type="hidden" name="npm" value="<?= $mhs->kelompokDetNim ?>">
+            <input type="hidden" name="rumkitDetId" value="<?= $mhs->rumkitDetId ?>">
+            <input type="hidden" name="penilaianId" value="<?= $menu->penilaianId ?>">
+            <div class="modal-header">
+              <h5 class="modal-title">Penilaian <strong><?= $menu->penilaianNama; ?></strong></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php if ($menu->penilaianType != 2) : $colspan = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                      <th scope="col" rowspan="2">Aspek Penilaian</th>
+                      <th scope="col" colspan="<?= $colspan ?>">Nilai</th>
+                      <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                        <th rowspan="2">Bobot</th>
+                      <?php endif ?>
+                    </tr>
+                    <tr>
+                      <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                        <th><?= $i; ?></th>
+                      <?php endfor ?>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $komp->komponenNama ?></td>
+                        <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                          <td><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / 2) == $i) ? "checked" : "" ?>></td>
+                        <?php endfor ?>
+                        <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                          <td><?= $komp->komponenBobot ?></td>
+                        <?php endif ?>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              <?php else : ?>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                      <th scope="col" rowspan="2">Aspek Penilaian</th>
+                      <th scope="col">Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1;
+                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                      <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $komp->komponenNama ?></td>
+                        <td style="padding: 10px;">
+                          <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
+                        </td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+              <?php endif ?>
+            </div>
+            <div class=" modal-footer bg-whitesmoke br">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <form action="#" method="post">
-        <?= csrf_field() ?>
-        <div class="modal-body">
-
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th style="text-align:center" scope="col">No.</th>
-                <th scope="col">Nama Komponen</th>
-                <th style="text-align:center" scope="col">Nilai</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no = 1;
-              foreach ($penilainJurnalReading as $nilai) : ?>
-                <tr>
-                  <td><?= $no++ ?></td>
-                  <td><?= $nilai->komponenNilaiNama ?></td>
-                  <td><input class="form-control" type="text" name="" id=""></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<!-- end modal jurnal reading -->
-
-<!-- start modal refarat  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="nilaiRefarat">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="#" method="post">
-        <?= csrf_field() ?>
-        <div class="modal-body">
-
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th style="text-align:center" scope="col">No.</th>
-                <th scope="col">Nama Komponen</th>
-                <th style="text-align:center" scope="col">Nilai</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no = 1;
-              foreach ($penilainRefarat as $nilai) : ?>
-                <tr>
-                  <td><?= $no++ ?></td>
-                  <td><?= $nilai->komponenNilaiNama ?></td>
-                  <td><input class="form-control" type="text" name="" id=""></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- end modal refarat-->
-
-<!-- start modal refarat  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="nilaiRefleksiKasus">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Data <strong>Kegiatan</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="#" method="post">
-        <?= csrf_field() ?>
-        <div class="modal-body">
-
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th style="text-align:center" scope="col">No.</th>
-                <th scope="col">Nama Komponen</th>
-                <th style="text-align:center" scope="col">Nilai</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no = 1;
-              foreach ($penilainRefleksiKasus as $nilai) : ?>
-                <tr>
-                  <td><?= $no++ ?></td>
-                  <td><?= $nilai->komponenNilaiNama ?></td>
-                  <td><input class="form-control" type="text" name="" id=""></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- end modal refarat-->
+  <?php endforeach ?>
+<?php endforeach ?>
+<!-- end modal laporan kasus -->
 
 <?= view('layout/templateFooter'); ?>
 
