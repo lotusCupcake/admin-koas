@@ -72,9 +72,9 @@ function initNotificationBulk($message = '', $title = '')
 
 function sendNotification($data)
 {
-    $message = $data['message'];
     $title = $data['title'];
     $user = $data['user'];
+    $message = $data['message'];
     $response = initNotification($message, $user, $title);
     $return["allresponses"] = $response;
     $return = json_encode($return);

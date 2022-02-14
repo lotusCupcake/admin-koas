@@ -122,7 +122,8 @@ $routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'ro
 $routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 
 // route Folow Up
-$routes->get('/followUp/(:any)', 'FollowUp::index');
+$routes->get('/followUp/', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/followUp/index', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
 // route penilaian
@@ -139,11 +140,21 @@ $routes->delete('/announce/(:num)', 'Announce::announceDelete/$1');
 $routes->add('/announce/(:num)/edit', 'Announce::announceEdit/$1');
 
 //route rekap absen
-$routes->get('/rekapAbsen/(:any)', 'RekapAbsen::index');
+$routes->get('/rekapAbsen/', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapAbsen/index', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/rekapAbsen/rekapAbsenStase', 'RekapAbsen::rekapAbsenStase');
 $routes->get('/rekapAbsen/rekapAbsenKelompok', 'RekapAbsen::rekapAbsenKelompok');
 $routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
 $routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
+
+//route notifikasi
+$routes->get('/notif/', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/notif/index', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/notif', 'Notif::Add');
+$routes->delete('/notif/(:num)', 'Notif::delete/$1');
+$routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
+$routes->add('/notif/send', 'Notif::send');
+
 
 
 /*

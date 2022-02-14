@@ -162,6 +162,15 @@
         "pages": "/announce"
     },
     {
+        "id": "32",
+        "nama": "Notifikasi",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bell",
+        "pages": "/notif"
+    },
+    {
         "id": "19",
         "nama": "Mahasiswa",
         "parent": "0",
