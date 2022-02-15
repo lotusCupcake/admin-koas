@@ -69,7 +69,7 @@ class KegiatanMahasiswaModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
         $builder->where(['dosen_pembimbing.dopingEmail' => $dosenEmail]);
-        $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
+        $builder->groupBy(['kelompok_detail.kelompokDetNim']);
         return $builder;
     }
 
