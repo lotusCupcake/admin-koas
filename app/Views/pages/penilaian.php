@@ -51,7 +51,7 @@
                         <td><?= $mhs->kelompokDetNim ?></td>
                         <td><?= $mhs->kelompokDetNama ?></td>
                         <td>
-                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim; ?>"><i class="fas fa-marker"></i> Nilai</button>
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
                         </td>
                       </tr>
                     <?php endforeach ?>
@@ -72,7 +72,7 @@
 <?php foreach ($menuNilai as $menu) : ?>
   <?php foreach ($mahasiswa as $mhs) :
     $file_header = @get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"); ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim ?>">
+    <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim . $mhs->staseId ?>">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <form action="/penilaian/save" method="post">

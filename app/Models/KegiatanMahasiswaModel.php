@@ -21,10 +21,12 @@ class KegiatanMahasiswaModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
+        // $builder->join('jadwal', 'jadwal.jadwalRumkitDetId = rumkit_detail.rumkitDetId', 'LEFT');
         $builder->orderBy('logbook.logbookId', 'DESC');
         if ($where) {
             $builder->where($where);
         }
+        // $builder->groupBy(['logbook.logbookId']);
         return $builder;
     }
 
@@ -67,7 +69,7 @@ class KegiatanMahasiswaModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
         $builder->where(['dosen_pembimbing.dopingEmail' => $dosenEmail]);
-        $builder->groupBy(['kelompok_detail.kelompokDetNim']);
+        $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
         return $builder;
     }
 

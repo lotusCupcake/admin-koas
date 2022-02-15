@@ -44,6 +44,7 @@ class Penilaian extends BaseController
             'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data['mahasiswa']);
         return view('pages/penilaian', $data);
     }
 
