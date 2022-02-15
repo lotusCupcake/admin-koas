@@ -70,7 +70,8 @@
 
 <!-- start modal laporan kasus  -->
 <?php foreach ($menuNilai as $menu) : ?>
-  <?php foreach ($mahasiswa as $mhs) : ?>
+  <?php foreach ($mahasiswa as $mhs) :
+    $file_header = @get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"); ?>
     <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim ?>">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -84,6 +85,37 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+            </div>
+            <div class="row mt-sm-4">
+              <div class="col-12 col-md-12">
+                <div class="card profile-widget">
+                  <div class="profile-widget-header">
+                    <img alt="image" height="100" src="<?= (!$file_header || $file_header[0] == 'HTTP/1.1 404 Not Found') ?  base_url() . "/template/assets/img/avatar/avatar-1.png" : "https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"; ?>" class="rounded-circle profile-widget-picture">
+
+                    <div class="profile-widget-items">
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">NPM</div>
+                        <div class="profile-widget-item-value"><?= $mhs->kelompokDetNim ?></div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">NAMA LENGKAP</div>
+                        <div class="profile-widget-item-value"><?= $mhs->kelompokDetNama ?></div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">KELOMPOK</div>
+                        <div class="profile-widget-item-value"><?= $mhs->kelompokNama ?></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-widget-description">
+                    <div class="profile-widget-name"><?= $mhs->kelompokDetNim ?> <div class="text-muted d-inline font-weight-normal">
+                        <div class="slash"></div> <?= $mhs->kelompokDetNama ?>
+                      </div>
+                    </div>
+                    Penilaian kepada <?= $mhs->kelompokDetNama ?> untuk kegiatan <?= $menu->penilaianNama ?> Pada <?= $mhs->rumahSakitNama ?> - Stase <?= $mhs->staseNama ?>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="modal-body">
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>

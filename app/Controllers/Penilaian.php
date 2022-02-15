@@ -19,6 +19,7 @@ class Penilaian extends BaseController
     }
     public function index()
     {
+        // dd(@get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/2019/1908320001.jpg"));
         $data = [
             'title' => "Penilaian",
             'appName' => "Dokter Muda",
@@ -48,7 +49,7 @@ class Penilaian extends BaseController
 
     public function save()
     {
-        // dd($_POST);
+        dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();

@@ -157,6 +157,12 @@ $routes->delete('/notif/(:num)', 'Notif::delete/$1');
 $routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
 $routes->add('/notif/send', 'Notif::send');
 
+//route rekap nilai
+$routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/rekapNilai/proses', 'RekapNilai::proses');
+$routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
+
 
 
 /*
