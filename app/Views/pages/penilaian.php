@@ -134,9 +134,15 @@
                       <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $komp->komponenNama ?></td>
-                        <td style="padding: 10px;">
-                          <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
-                        </td>
+                        <?php if (!$komp->komponenIsNumber) : ?>
+                          <td style="padding: 10px;">
+                            <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
+                          </td>
+                        <?php else : ?>
+                          <td style="padding: 10px;">
+                            <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
+                          </td>
+                        <?php endif ?>
                       </tr>
                     <?php endforeach ?>
                   </tbody>

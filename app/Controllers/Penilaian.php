@@ -39,10 +39,10 @@ class Penilaian extends BaseController
             'nilaiMiniCex' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 10])->findAll(),
             'nilaiIPC' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 11])->findAll(),
             'nilaiKondite' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 12])->findAll(),
+            'nilaiPretest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 13])->findAll(),
+            'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['nilaiLapKasus']);
-        // dd($data['mahasiswa']);
         return view('pages/penilaian', $data);
     }
 
