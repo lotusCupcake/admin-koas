@@ -145,6 +145,12 @@ $routes->get('/rekapAbsen/rekapAbsenKelompok', 'RekapAbsen::rekapAbsenKelompok')
 $routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
 $routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
 
+// Berita Acara
+$routes->get('/beritaAcara/(:any)', 'BeritaAcara::index');
+$routes->get('/beritaAcara/kegiatan', 'BeritaAcara::kegiatan');
+$routes->get('/beritaAcara/kelompok', 'BeritaAcara::kelompok');
+$routes->get('/beritaAcara/cetak', 'BeritaAcara::cetak');
+
 
 /*
  * --------------------------------------------------------------------
