@@ -105,12 +105,12 @@
                   </thead>
                   <tbody>
                     <?php $no = 1;
-                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;')) > 3) ? $half = 1.5 : $half = 2; ?>
                       <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $komp->komponenNama ?></td>
                         <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                          <td><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / 2) == $i) ? "checked" : "" ?>></td>
+                          <td><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / $half) == $i) ? "checked" : "" ?>></td>
                         <?php endfor ?>
                         <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
                           <td><?= $komp->komponenBobot ?></td>
