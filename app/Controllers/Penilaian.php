@@ -51,23 +51,25 @@ class Penilaian extends BaseController
         // dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
-
+        $json = array();
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
-                    'gradeRumkitDetId' => $_POST['rumkitDetId'],
-                    'gradePenilaianId' => $_POST['penilaianId'],
-                    'gradeNpm' => $_POST['npm'],
-                    'gradeKomponenId' => $keys[$i],
-                    'gradeCreatedBy' => user()->email,
-                    'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                    $keys[$i] => $values[$i],
                 );
-
-                ($_POST['penilaianId'] != 12) ? $data['gradeNilai'] = $values[$i] : $data['gradeKeterangan'] = $values[$i];
-
-                $this->gradeModel->insert($data);
+                array_push($json, $data);
             }
         }
+        $nilai = json_encode($json);
+        $dataInsert = array(
+            'gradeRumkitDetId' => $_POST['rumkitDetId'],
+            'gradePenilaianId' => $_POST['penilaianId'],
+            'gradeNpm' => $_POST['npm'],
+            'gradeNilai' => $nilai,
+            'gradeCreatedBy' => user()->email,
+            'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+        );
+        $this->gradeModel->insert($dataInsert);
 
         session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
         return redirect()->to('penilaian');
