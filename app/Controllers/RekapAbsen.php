@@ -25,7 +25,7 @@ class RekapAbsen extends BaseController
             'breadcrumb' => ['Administrasi', 'Rekap Absensi'],
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
-            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkitAbsensi()->getResult(),
+            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataResult' => [],
             'dataFilter' => [null, null]
         ];
@@ -109,7 +109,7 @@ class RekapAbsen extends BaseController
             'breadcrumb' => ['Administrasi', 'Rekap Absensi'],
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
-            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkitAbsensi()->getResult(),
+            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataResult' => $rekapAbsen,
             'dataFilter' => [$jadwalRumkitDetId, $kelompokId]
         ];
