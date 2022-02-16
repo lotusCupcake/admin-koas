@@ -3,16 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\PenilaianModel;
+use App\Models\JadwalKegiatanModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RekapNilai extends BaseController
 {
+    protected $jadwalKegiatanModel;
     protected $penilaianModel;
     protected $spreadsheet;
 
     public function __construct()
     {
+        $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->penilaianModel = new PenilaianModel();
         $this->spreadsheet = new Spreadsheet();
     }
@@ -26,10 +29,23 @@ class RekapNilai extends BaseController
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
             'penilaian' => $this->penilaianModel->findAll(),
+            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataResult' => [],
             'dataFilter' => [null, null]
         ];
         return view('pages/rekapNilai', $data);
+    }
+
+    public function rekapNilaiStase()
+    {
+        $rumahSakitId = $this->request->getPost('rumahSakitId');
+        $staseRumkit = $this->jadwalKegiatanModel->rekapNilaiStase($rumahSakitId);
+        $lists = "<option value=''>Pilih Stase</option>";
+        foreach ($staseRumkit->getResult() as $data) {
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
+        }
+        $callback = array('list_stase_rumkit' => $lists);
+        echo json_encode($callback);
     }
 
     public function proses()

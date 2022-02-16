@@ -125,7 +125,7 @@ class JadwalKegiatanModel extends Model
         return $builder;
     }
 
-    public function getRumkitAbsensi()
+    public function getRumkit()
     {
         $builder = $this->table('jadwal');
         $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
@@ -180,5 +180,21 @@ class JadwalKegiatanModel extends Model
         );
         $kelompok = $builder->get();
         return $kelompok;
+    }
+
+    public function rekapNilaiStase($rumahSakitId)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitId,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ]
+        );
+        $staseRumkit = $builder->get();
+        return $staseRumkit;
     }
 }
