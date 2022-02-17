@@ -20,6 +20,14 @@ class KelompokMahasiswaModel extends Model
         return $query;
     }
 
+    public function dataKelompok($where)
+    {
+        $builder = $this->table('kelompok_detail');
+        $builder->where($where);
+        $query = $builder->get();
+        return $query;
+    }
+
     public function getKelompokMahasiswa()
     {
         $builder = $this->table('kelompok_detail');

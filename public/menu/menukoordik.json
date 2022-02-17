@@ -132,6 +132,6 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-envelope",
-        "pages": "/berita"
+        "pages": "/beritaAcara"
     }
 ]

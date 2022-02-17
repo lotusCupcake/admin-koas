@@ -16,6 +16,7 @@ class KegiatanMahasiswa extends BaseController
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->usersModel = new UsersModel();
     }
+
     public function index()
     {
         $currentPage = $this->request->getVar('page_kegiatan') ? $this->request->getVar('page_kegiatan') : 1;

@@ -3735,5 +3735,9 @@
         "php": "^7.3 || ^8.0"
     },
     "platform-dev": [],
+<<<<<<< HEAD
     "plugin-api-version": "2.1.0"
+=======
+    "plugin-api-version": "2.0.0"
+>>>>>>> 6cca67596837eaea991b1a95d8d9a1b021748c65
 }
