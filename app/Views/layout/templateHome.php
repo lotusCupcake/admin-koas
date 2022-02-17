@@ -25,6 +25,37 @@
     .text-primary:hover {
       text-decoration: underline;
     }
+
+    label {
+      display: block;
+      padding: 5px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    label input {
+      display: none;
+    }
+
+    label span {
+      border: 1px solid #ccc;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      overflow: hidden;
+      line-height: 1;
+      text-align: center;
+      border-radius: 100%;
+      top: 25%;
+      left: 25%;
+      display: grid;
+      align-items: center;
+    }
+
+    input:checked+span {
+      background: #acb5f6;
+      border-color: #acb5f6;
+    }
   </style>
 </head>
 

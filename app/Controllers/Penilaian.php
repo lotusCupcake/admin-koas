@@ -25,7 +25,7 @@ class Penilaian extends BaseController
             'breadcrumb' => ['Mahasiswa', 'Penilaian'],
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
-            'menuNilai' => $this->penilaianModel->getMenuNilai()->findAll(),
+            'menuNilai' => $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll(),
             // mahasiswa dalam setiap penilaian berbeda sesuai nilai exists
             'mahasiswa' => $this->kegiatanModel->getMahasiswaNilai(user()->email)->findAll(),
             'nilaiLapKasus' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 1])->findAll(),

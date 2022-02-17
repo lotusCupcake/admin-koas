@@ -24,41 +24,47 @@
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <ul class="nav nav-tabs" id="myTab3" role="tablist">
-            <?php foreach ($menuNilai as $menu) : ?>
+            <?php $urut = 1;
+            foreach ($menuNilai as $menu) : ?>
               <li class="nav-item">
-                <a class="nav-link <?= $menu->penilaianStatus ?>" id="<?= $menu->penilaianSlug ?>" data-toggle="tab" href="#<?= $menu->penilaianHref ?>" role="tab" aria-controls="contact" aria-selected="<?= ($menu->penilaianStatus) ? true : false ?>"><?= $menu->penilaianNamaSingkat ?></a>
+                <a class="nav-link <?= ($urut == 1) ? "active" : "" ?>" id="<?= $menu->penilaianSlug ?>" data-toggle="tab" href="#<?= $menu->penilaianHref ?>" role="tab" aria-controls="contact" aria-selected="<?= ($urut == 1) ? true : false ?>"><?= $menu->penilaianNamaSingkat ?></a>
               </li>
-            <?php endforeach ?>
+            <?php $urut++;
+            endforeach ?>
           </ul>
           <div class="tab-content tab-bordered" id="myTab3Content">
-            <?php foreach ($menuNilai as $menu) : ?>
-              <div class="tab-pane fade show <?= ($menu->penilaianStatus) ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
+            <?php $urut = 1;
+            foreach ($menuNilai as $menu) : ?>
+              <div class="tab-pane fade show <?= ($urut == 1) ? "active" : "" ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
                 <?= view('layout/templateAlert', ['msg' => ['info', "<strong>Failed ! </strong>" . $menu->penilaianNama]]); ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Nim</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
+                <div class="table table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
                       <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td>
-                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
-                        </td>
+                        <th style="text-align:center" scope="col">No.</th>
+                        <th scope="col">Nim</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Action</th>
                       </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <?php $no = 1;
+                      foreach ($mahasiswa as $mhs) : ?>
+                        <tr>
+                          <td><?= $no++ ?></td>
+                          <td><?= $mhs->kelompokDetNim ?></td>
+                          <td><?= $mhs->kelompokDetNama ?></td>
+                          <td>
+                            <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            <?php endforeach ?>
+            <?php $urut++;
+            endforeach ?>
           </div>
         </div>
       </div>
@@ -119,66 +125,70 @@
             </div>
             <div class="modal-body">
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
-                      <th scope="col" rowspan="2">Aspek Penilaian</th>
-                      <th scope="col" colspan="<?= $colspan ?>">Nilai</th>
-                      <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
-                        <th rowspan="2">Bobot</th>
-                      <?php endif ?>
-                    </tr>
-                    <tr>
-                      <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                        <th><?= $i; ?></th>
-                      <?php endfor ?>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;')) > 3) ? $half = 1.5 : $half = 2; ?>
+                <div class="table table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
                       <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $komp->komponenNama ?></td>
-                        <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                          <td><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / $half) == $i) ? "checked" : "" ?>></td>
-                        <?php endfor ?>
+                        <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                        <th scope="col" rowspan="2">Aspek Penilaian</th>
+                        <th scope="col" colspan="<?= $colspan ?>">Nilai</th>
                         <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
-                          <td><?= $komp->komponenBobot ?></td>
+                          <th rowspan="2">Bobot</th>
                         <?php endif ?>
                       </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-              <?php else : ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
-                      <th scope="col" rowspan="2">Aspek Penilaian</th>
-                      <th scope="col">Keterangan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
                       <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $komp->komponenNama ?></td>
-                        <?php if (!$komp->komponenIsNumber) : ?>
-                          <td style="padding: 10px;">
-                            <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
-                          </td>
-                        <?php else : ?>
-                          <td style="padding: 10px;">
-                            <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
-                          </td>
-                        <?php endif ?>
+                        <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                          <th><?= $i; ?></th>
+                        <?php endfor ?>
                       </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <?php $no = 1;
+                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;')) > 3) ? $half = 1.5 : $half = 2; ?>
+                        <tr>
+                          <td><?= $no++ ?></td>
+                          <td><?= $komp->komponenNama ?></td>
+                          <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                            <td><label><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / $half) == $i) ? "checked" : "" ?>><span><?= $i ?></span></label></td>
+                          <?php endfor ?>
+                          <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                            <td><?= $komp->komponenBobot ?></td>
+                          <?php endif ?>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php else : ?>
+                <div class="table table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                        <th scope="col" rowspan="2">Aspek Penilaian</th>
+                        <th scope="col">Keterangan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php $no = 1;
+                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                        <tr>
+                          <td><?= $no++ ?></td>
+                          <td><?= $komp->komponenNama ?></td>
+                          <?php if (!$komp->komponenIsNumber) : ?>
+                            <td style="padding: 10px;">
+                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
+                            </td>
+                          <?php else : ?>
+                            <td style="padding: 10px;">
+                              <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
+                            </td>
+                          <?php endif ?>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
               <?php endif ?>
             </div>
             <div class=" modal-footer bg-whitesmoke br">
