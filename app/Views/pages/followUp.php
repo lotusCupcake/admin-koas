@@ -58,13 +58,13 @@
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                        <td style="text-align:center">
-                          <?php if ($row->followUpVerify == 0) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
-                          <?php else : ?>
-                            <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
-                          <?php endif ?>
-                        </td>
+                      <td style="text-align:center">
+                        <?php if ($row->followUpVerify == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiLogbook<?= $row->followUpId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
+                        <?php endif ?>
+                      </td>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
@@ -108,6 +108,7 @@
     <div class="modal-dialog" role="document">
       <form action="/followUp/<?= $setujui->followUpId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
+        <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Kasus<strong> Yang Ditangani</strong></h5>

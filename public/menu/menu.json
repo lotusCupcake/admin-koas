@@ -147,10 +147,28 @@
         "id": "26",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "child",
+        "level": "parent",
         "status": true,
         "icon": "fas fa-star",
-        "pages": "/utilitas"
+        "pages": ""
+    },
+    {
+        "id": "31",
+        "nama": "Announcement",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bullhorn",
+        "pages": "/announce"
+    },
+    {
+        "id": "32",
+        "nama": "Notifikasi",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bell",
+        "pages": "/notif"
     },
     {
         "id": "19",
@@ -221,11 +239,20 @@
         "parent": "28",
         "level": "child",
         "status": true,
-        "icon": "fa fa-reply",
+        "icon": "fas fa-reply",
         "pages": "/rekapAbsen"
     },
     {
-        "id": "29",
+        "id": "33",
+        "nama": "Rekap Nilai",
+        "parent": "28",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-download",
+        "pages": "/rekapNilai"
+    },
+    {
+        "id": "30",
         "nama": "Berita Acara Kegiatan",
         "parent": "28",
         "level": "child",

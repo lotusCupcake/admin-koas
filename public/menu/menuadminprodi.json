@@ -1,4 +1,5 @@
-[{
+[
+    {
         "id": "1",
         "nama": "Home",
         "parent": "0",
@@ -146,10 +147,28 @@
         "id": "24",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "child",
+        "level": "parent",
         "status": true,
         "icon": "fas fa-star",
-        "pages": "/utilitas"
+        "pages": ""
+    },
+    {
+        "id": "29",
+        "nama": "Announcement",
+        "parent": "24",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bullhorn",
+        "pages": "/announce"
+    },
+    {
+        "id": "30",
+        "nama": "Notifikasi",
+        "parent": "24",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bell",
+        "pages": "/notif"
     },
     {
         "id": "19",
@@ -216,6 +235,15 @@
     },
     {
         "id": "27",
+        "nama": "Rekap Absensi",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-reply",
+        "pages": "/rekapAbsen"
+    },
+    {
+        "id": "28",
         "nama": "Berita Acara Kegiatan",
         "parent": "26",
         "level": "child",

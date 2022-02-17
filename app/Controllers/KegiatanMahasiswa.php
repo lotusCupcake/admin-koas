@@ -68,6 +68,9 @@ class KegiatanMahasiswa extends BaseController
         );
 
         if ($this->kegiatanMahasiswaModel->update($id, $data)) {
+            if ($this->request->getVar('playerId') != null) {
+                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Verifikasi Kegiatan', 'message' => 'Ada kegiatan kamu yang sudah disetujui']);
+            }
             session()->setFlashdata('success', 'Kegiatan Mahasiswa Sudah Disetujui!');
             return redirect()->to('kegiatanMahasiswa');
         }

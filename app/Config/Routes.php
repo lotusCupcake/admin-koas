@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 // route home
 $routes->get('/home/(:any)', 'Home::index');
 
-// route mamajemen user
+// route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->get('/manajemenAkun/index', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
@@ -98,7 +98,7 @@ $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
 
-// route doata kegiatan
+// route data kegiatan
 $routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/dataKegiatan/index', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataKegiatan', 'DataKegiatan::add');
@@ -122,24 +122,28 @@ $routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'ro
 $routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 
 // route Folow Up
-$routes->get('/followUp/(:any)', 'FollowUp::index');
+$routes->get('/followUp/', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/followUp/index', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
+$routes->post('/penilaian/save', 'Penilaian::save');
+
 
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
 
-//route utilitas
-$routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->post('/pengumuman', 'Utilitas::pengumumanAdd');
-$routes->delete('/pengumuman/(:num)', 'Utilitas::pengumumanDelete/$1');
-$routes->add('/pengumuman/(:num)/edit', 'Utilitas::pengumumanEdit/$1');
+//route announcement
+$routes->get('/Announce/', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/Announce/index', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/announce', 'Announce::announceAdd');
+$routes->delete('/announce/(:num)', 'Announce::announceDelete/$1');
+$routes->add('/announce/(:num)/edit', 'Announce::announceEdit/$1');
 
 //route rekap absen
-$routes->get('/rekapAbsen/(:any)', 'RekapAbsen::index');
+$routes->get('/rekapAbsen/', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapAbsen/index', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/rekapAbsen/rekapAbsenStase', 'RekapAbsen::rekapAbsenStase');
 $routes->get('/rekapAbsen/rekapAbsenKelompok', 'RekapAbsen::rekapAbsenKelompok');
 $routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
@@ -150,6 +154,22 @@ $routes->get('/beritaAcara/(:any)', 'BeritaAcara::index');
 $routes->get('/beritaAcara/kegiatan', 'BeritaAcara::kegiatan');
 $routes->get('/beritaAcara/kelompok', 'BeritaAcara::kelompok');
 $routes->get('/beritaAcara/cetak', 'BeritaAcara::cetak');
+
+//route notifikasi
+$routes->get('/notif/', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/notif/index', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/notif', 'Notif::Add');
+$routes->delete('/notif/(:num)', 'Notif::delete/$1');
+$routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
+$routes->add('/notif/send', 'Notif::send');
+
+//route rekap nilai
+$routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/rekapNilaiStase', 'RekapNilai::rekapNilaiStase');
+$routes->post('/rekapNilai/proses', 'RekapNilai::proses');
+$routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
+
 
 
 /*
