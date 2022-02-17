@@ -80,9 +80,10 @@ class BeritaAcara extends BaseController
             'dataMahasiswa' => $this->kelompokModel->dataKelompok(['kelompokDetKelompokId' => $kelompokBeritaAcara])->getResult(),
         );
 
-        dd($dataCetak);
-        $mpdf = new Mpdf(['mode' => 'utf-8']);
-        $mpdf->WriteHTML(view('welcome_message', $dataCetak));
-        return redirect()->to($mpdf->Output('Test.pdf', 'I'));
+        // dd($cetakBeritaAcara);
+        $mpdf = new Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
+        // $mpdf->margin_header(['pad']);
+        $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
+        return redirect()->to($mpdf->Output('laporan_Berita_Acara.pdf', 'I'));
     }
 }
