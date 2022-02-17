@@ -248,7 +248,7 @@
         "parent": "26",
         "level": "child",
         "status": true,
-        "icon": "fa fa-envelope",
+        "icon": "fas fa-envelope",
         "pages": "/beritaAcara"
     }
 ]
