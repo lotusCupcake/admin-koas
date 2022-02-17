@@ -44,6 +44,10 @@ class JadwalKegiatanModel extends Model
             $builder->where($where)->like('kelompok.kelompokNama', $keyword);
             $builder->orWhere($where)->like('stase.staseNama', $keyword);
             $builder->orWhere($where)->like('rumkit.rumahSakitNama', $keyword);
+        } else {
+            $builder->like('kelompok.kelompokNama', $keyword);
+            $builder->orLike('stase.staseNama', $keyword);
+            $builder->orLike('rumkit.rumahSakitNama', $keyword);
         }
 
         $builder->orderBy('jadwal.jadwalId', 'DESC');
@@ -119,5 +123,78 @@ class JadwalKegiatanModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->where($where);
         return $builder;
+    }
+
+    public function getRumkit()
+    {
+        $builder = $this->table('jadwal');
+        $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->groupBy('rumkit.rumahSakitId');
+        return $builder->get();
+    }
+
+    public function rekapAbsenStase($rumahSakitId)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitId,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ]
+        );
+        $staseRumkit = $builder->get();
+        return $staseRumkit;
+    }
+
+    public function rekapAbsenKelompok($rumkitDetId)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('kelompok', 'kelompok.kelompokId=jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where('jadwal.jadwalRumkitDetId', $rumkitDetId);
+        $builder->groupBy('jadwal.jadwalRumkitDetId,  jadwal.jadwalKelompokId');
+        $kelompok = $builder->get();
+        return $kelompok;
+    }
+
+    public function getFilterAbsen($jadwalRumkitDetId, $kelompokId)
+    {
+        $builder = $this->db->table('absensi');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'jadwal.jadwalRumkitDetId' => $jadwalRumkitDetId,
+                'kelompok.kelompokId' => $kelompokId
+            ]
+        );
+        $kelompok = $builder->get();
+        return $kelompok;
+    }
+
+    public function rekapNilaiStase($rumahSakitId)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitId,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ]
+        );
+        $staseRumkit = $builder->get();
+        return $staseRumkit;
     }
 }

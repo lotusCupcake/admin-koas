@@ -8,16 +8,16 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Utilitas</h1>
+      <h1>Announcement</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-        <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
+        <div class="breadcrumb-item"><a href="/announce"><?= $breadcrumb[1]; ?></a></div>
+        <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
       </div>
     </div>
     <div class="section-body">
       <div class="card">
         <div class="card-header">
-          <h4>Pengumuman</h4>
           <div class="card-header-action">
             <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahPengumuman"><i class="fas fa-plus"></i> Tambah Data</button>
           </div>
@@ -46,10 +46,10 @@
                 </tr>
               </thead>
               <tbody>
-                <?php if (!empty($pengumuman)) : ?>
+                <?php if (!empty($announcement)) : ?>
                   <?php
                   $no = 1;
-                  foreach ($pengumuman as $row) : ?>
+                  foreach ($announcement as $row) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->pengumumanJudul; ?></td>
@@ -78,11 +78,11 @@
 <!-- start modal tambah -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahPengumuman">
   <div class="modal-dialog" role="document">
-    <form action="/pengumuman" method="POST">
+    <form action="/announce" method="POST">
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Data <strong>Pengumuman</strong></h5>
+          <h5 class="modal-title">Tambah Data <strong>Announcement</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -140,14 +140,14 @@
 <!-- end modal tambah -->
 
 <!-- start modal Edit -->
-<?php foreach ($pengumuman as $edit) : ?>
+<?php foreach ($announcement as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="editPengumuman<?= $edit->pengumumanId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/pengumuman/<?= $edit->pengumumanId; ?>/edit" method="POST">
+      <form action="/announce/<?= $edit->pengumumanId; ?>/edit" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah Data <strong>Pengumuman</strong></h5>
+            <h5 class="modal-title">Tambah Data <strong>Announcement</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -206,21 +206,21 @@
 <!-- end modal Edit -->
 
 <!-- start modal hapus -->
-<?php foreach ($pengumuman as $delete) : ?>
+<?php foreach ($announcement as $delete) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="hapusPengumuman<?= $delete->pengumumanId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Data <strong>Pengumuman</strong></h5>
+          <h5 class="modal-title">Hapus Data <strong>Announcement</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu ingin menghapus pengumuman <strong><?= $delete->pengumumanJudul; ?></strong>?</p>
+          <p>Apakah kamu ingin menghapus announcement <strong><?= $delete->pengumumanJudul; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/pengumuman/<?= $delete->pengumumanId; ?>" method="post">
+        <form action="/announce/<?= $delete->pengumumanId; ?>" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
           <div class="modal-footer bg-whitesmoke br">

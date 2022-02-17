@@ -57,7 +57,7 @@ class Panduan extends BaseController
         );
 
         // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
-        $this->panduanModel->updateStatus();
+        // $this->panduanModel->updateStatus();
 
         if ($this->panduanModel->insert($data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Ditambah!');
@@ -97,7 +97,7 @@ class Panduan extends BaseController
         );
 
         // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
-        $this->panduanModel->updateStatus();
+        // $this->panduanModel->updateStatus();
 
         if ($this->panduanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Diupdate!');

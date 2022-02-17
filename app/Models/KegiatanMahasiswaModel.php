@@ -4,14 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LogbookMahasiswaModel extends Model
+class KegiatanMahasiswaModel extends Model
 {
     protected $table = 'logbook';
     protected $primaryKey = 'logbookId';
     protected $allowedFields = ['logbookRumkitDetId', 'logbookDopingEmail', 'logbookNim', 'logbookTanggal', 'logbookCreateDate', 'logbookKegiatanId', 'logbookJudulDeskripsi', 'logbookDeskripsi', 'logbookIsVerify'];
     protected $returnType = 'object';
 
-    public function getLogbook($where = null)
+    public function getKegiatan($where = null)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -30,7 +30,7 @@ class LogbookMahasiswaModel extends Model
         return $builder;
     }
 
-    public function getLogbookSearch($keyword, $where = null)
+    public function getKegiatanSearch($keyword, $where = null)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -70,6 +70,15 @@ class LogbookMahasiswaModel extends Model
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
         $builder->where(['dosen_pembimbing.dopingEmail' => $dosenEmail]);
         $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
+        return $builder;
+    }
+
+    public function getJumlahKegiatan($where)
+    {
+        $builder = $this->table('logbook');
+        $builder->selectCount('logbook.logbookId');
+        $builder->join('users', 'users.email = logbook.logbookDopingEmail', 'LEFT');
+        $builder->where($where);
         return $builder;
     }
 }

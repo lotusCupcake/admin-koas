@@ -40,7 +40,7 @@ class ManajemenAkun extends BaseController
             'authGroups' =>  $this->authGroupsModel->findAll(),
             'validation' => \Config\Services::validation()
         ];
-        // dd($data);
+        // dd($data['akun']);
 
         return view('pages/manajemenAkun', $data);
     }

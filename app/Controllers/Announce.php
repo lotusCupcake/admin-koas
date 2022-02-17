@@ -2,58 +2,58 @@
 
 namespace App\Controllers;
 
-use App\Models\PengumumanModel;
+use App\Models\AnnounceModel;
 use CodeIgniter\HTTP\Request;
 
-class Utilitas extends BaseController
+class Announce extends BaseController
 {
-    protected $pengumumanModel;
+    protected $announceModel;
     public function __construct()
     {
-        $this->pengumumanModel = new PengumumanModel();
+        $this->announceModel = new AnnounceModel();
     }
     public function index()
     {
         $data = [
-            'title' => "Utilitas",
+            'title' => "Announcement",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Setting', 'Utilitas'],
-            'pengumuman' => $this->pengumumanModel->findAll(),
+            'breadcrumb' => ['Setting', 'Utilitas', 'Announcement'],
+            'announcement' => $this->announceModel->findAll(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        return view('pages/utilitas', $data);
+        return view('pages/announce', $data);
     }
 
-    public function pengumumanAdd()
+    public function announceAdd()
     {
         if (!$this->validate([
             'pengumumanJudul' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Judul Pengumuman Harus Diisi!',
+                    'required' => 'Judul Announcement Harus Diisi!',
                 ]
             ],
             'pengumumanIsi' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Isi Pengumuman Harus Dipilih!'
+                    'required' => 'Isi Announcement Harus Dipilih!'
                 ]
             ],
             'pengumumanTanggalMulai' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Mulai Pengumuman Harus Dipilih!'
+                    'required' => 'Tanggal Mulai Announcement Harus Dipilih!'
                 ]
             ],
             'pengumumanTanggalAkhir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Akhir Pengumuman Harus Dipilih!'
+                    'required' => 'Tanggal Akhir Announcement Harus Dipilih!'
                 ]
             ]
         ])) {
-            return redirect()->to('pengumuman')->withInput();
+            return redirect()->to('announce')->withInput();
         }
 
         // dd($_POST);
@@ -65,41 +65,41 @@ class Utilitas extends BaseController
             'pengumumanIsForceToShow' => trim($this->request->getPost('pengumumanIsForceToShow')) == null ? 0 : 1
         );
 
-        if ($this->pengumumanModel->insert($data)) {
-            session()->setFlashdata('success', 'Pengumuman Berhasil Ditambahkan!');
-            return redirect()->to('utilitas');
+        if ($this->announceModel->insert($data)) {
+            session()->setFlashdata('success', 'Announcement Berhasil Ditambahkan!');
+            return redirect()->to('announce');
         }
     }
 
-    public function pengumumanEdit($id)
+    public function announceEdit($id)
     {
         if (!$this->validate([
             'pengumumanJudul' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Judul Pengumuman Harus Diisi!',
+                    'required' => 'Judul Announcement Harus Diisi!',
                 ]
             ],
             'pengumumanIsi' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Isi Pengumuman Harus Dipilih!'
+                    'required' => 'Isi Announcement Harus Dipilih!'
                 ]
             ],
             'pengumumanTanggalMulai' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Mulai Pengumuman Harus Dipilih!'
+                    'required' => 'Tanggal Mulai Announcement Harus Dipilih!'
                 ]
             ],
             'pengumumanTanggalAkhir' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Tanggal Akhir Pengumuman Harus Dipilih!'
+                    'required' => 'Tanggal Akhir Announcement Harus Dipilih!'
                 ]
             ]
         ])) {
-            return redirect()->to('pengumuman')->withInput();
+            return redirect()->to('announce')->withInput();
         }
 
         // dd($_POST);
@@ -111,17 +111,17 @@ class Utilitas extends BaseController
             'pengumumanIsForceToShow' => trim($this->request->getPost('pengumumanIsForceToShow')) == null ? 0 : 1
         );
 
-        if ($this->pengumumanModel->update($id, $data)) {
-            session()->setFlashdata('success', 'Pengumuman Berhasil Diupdate!');
-            return redirect()->to('utilitas');
+        if ($this->announceModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Announcement Berhasil Diupdate!');
+            return redirect()->to('announce');
         }
     }
 
-    public function pengumumanDelete($id)
+    public function announceDelete($id)
     {
-        if ($this->pengumumanModel->delete($id)) {
-            session()->setFlashdata('success', 'Pengumuman Berhasil Dihapus!');
+        if ($this->announceModel->delete($id)) {
+            session()->setFlashdata('success', 'Announcement Berhasil Dihapus!');
         };
-        return redirect()->to('utilitas');
+        return redirect()->to('announce');
     }
 }

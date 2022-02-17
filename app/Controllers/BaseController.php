@@ -42,7 +42,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['auth', 'week'];
+    protected $helpers = ['auth', 'week', 'notifikasi', 'lokasi', 'reminder'];
 
     /**
      * Constructor.
@@ -115,7 +115,7 @@ class BaseController extends Controller
                     if ($child->status) {
                         $menu .= '<li><a class="nav-link" href="' . $child->pages . '"><i class="' . $child->icon . '"></i> <span>' . $child->nama . '</span></a></li>';
                     } else {
-                        $menu .= '<li><a class="nav-link" href="/maintenance"><i class="' . $child->icon . '"></i><span>   ' . $child->nama . '</span></a><ul>';
+                        $menu .= '<li><a class="nav-link" href="/maintenance"><i class="' . $child->icon . '"></i><span>   ' . $child->nama . '</span></a></li>';
                     }
                 }
             }

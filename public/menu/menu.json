@@ -1,4 +1,5 @@
-[{
+[
+    {
         "id": "1",
         "nama": "Home",
         "parent": "0",
@@ -143,13 +144,31 @@
         "pages": "/jadwalKegiatan"
     },
     {
-        "id": "25",
+        "id": "26",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "child",
+        "level": "parent",
         "status": true,
         "icon": "fas fa-star",
-        "pages": "/utilitas"
+        "pages": ""
+    },
+    {
+        "id": "31",
+        "nama": "Announcement",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bullhorn",
+        "pages": "/announce"
+    },
+    {
+        "id": "32",
+        "nama": "Notifikasi",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-bell",
+        "pages": "/notif"
     },
     {
         "id": "19",
@@ -180,12 +199,12 @@
     },
     {
         "id": "22",
-        "nama": "Logbook",
+        "nama": "Kegiatan",
         "parent": "19",
         "level": "child",
         "status": true,
         "icon": "fas fa-book-medical",
-        "pages": "/logbookMahasiswa"
+        "pages": "/kegiatanMahasiswa"
     },
     {
         "id": "25",
@@ -195,6 +214,51 @@
         "status": true,
         "icon": "fas fa-marker",
         "pages": "/penilaian"
+    },
+    {
+        "id": "27",
+        "nama": "Evaluasi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-comment-dots",
+        "pages": "/evaluasi"
+    },
+    {
+        "id": "28",
+        "nama": "Administrasi",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "29",
+        "nama": "Rekap Absensi",
+        "parent": "28",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-reply",
+        "pages": "/rekapAbsen"
+    },
+    {
+        "id": "33",
+        "nama": "Rekap Nilai",
+        "parent": "28",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-download",
+        "pages": "/rekapNilai"
+    },
+    {
+        "id": "30",
+        "nama": "Berita Acara Kegiatan",
+        "parent": "28",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-envelope",
+        "pages": "/beritaAcara"
     },
     {
         "id": "23",
