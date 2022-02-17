@@ -81,7 +81,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim . $mhs->staseId ?>">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-          <form action="/penilaian/save" method="post">
+          <form class="needs-validation" action="/penilaian/save" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="npm" value="<?= $mhs->kelompokDetNim ?>">
             <input type="hidden" name="rumkitDetId" value="<?= $mhs->rumkitDetId ?>">
@@ -144,12 +144,35 @@
                     </thead>
                     <tbody>
                       <?php $no = 1;
-                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;')) > 3) ? $half = 1.5 : $half = 2; ?>
+                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
                         <tr>
                           <td><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                            <td><label><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / $half) == $i) ? "checked" : "" ?>><span><?= $i ?></span></label></td>
+                            <td>
+                              <!-- <label>
+                                <label for="<? //= $komp->komponenNama . $i; 
+                                            ?>"></label>
+                                <input type="radio" id="<? //= $komp->komponenNama . $i; 
+                                                        ?>" name="<? //= $komp->komponenId 
+                                                                  ?>" value="<? //= $i 
+                                                                              ?>" class="form-control" required>
+                                <div class="invalid-tooltip">
+                                  Berikan nilai untuk penilaian <? //= $no 
+                                                                ?>
+                                </div>
+                                <span><? //= $i 
+                                      ?></span>
+                              </label> -->
+                              <div class="selectgroup selectgroup-pills">
+                                <label for="<?= $komp->komponenNama . $i; ?>"></label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value=" <?= $i ?>" class="selectgroup-input form-control" required>
+                                  <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                                </label>
+                              </div>
+
+                            </td>
                           <?php endfor ?>
                           <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
                             <td><?= $komp->komponenBobot ?></td>

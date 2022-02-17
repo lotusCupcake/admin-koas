@@ -39,13 +39,14 @@
 
     label span {
       border: 1px solid #ccc;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       position: absolute;
       overflow: hidden;
       line-height: 1;
       text-align: center;
       border-radius: 100%;
+      font-size: 10pt;
       top: 25%;
       left: 25%;
       display: grid;
@@ -70,6 +71,7 @@
 
   <!-- General JS Scripts -->
   <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/moment/min/moment.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
@@ -84,6 +86,7 @@
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/selectric/public/jquery.selectric.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+  <script src="<?= base_url() ?>/template/node_modules/cleave.js/dist/cleave.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/cleave.js/dist/addons/cleave-phone.us.js"></script>
 
   <!-- Template JS File -->
@@ -112,6 +115,7 @@
       dokumenLabel.textContent = dokumen.files[0].name;
     }
   </script>
+
 </body>
 
 </html>
