@@ -11,8 +11,7 @@ function week($nim, $stase, $now)
     $minggu = 0;
 
     while (strtotime($dari) <= strtotime($sampai)) {
-        $day  =  date('D', strtotime($dari));
-        $dari = date("Y-m-d", strtotime("+1 day", strtotime($dari)));
+
         $harike++;
 
         if ($harike === 7) {
@@ -24,6 +23,7 @@ function week($nim, $stase, $now)
             $minggu = $minggu + 1;
             break;
         }
+        $dari = date("Y-m-d", strtotime("+1 day", strtotime($dari)));
     }
 
     return $minggu;

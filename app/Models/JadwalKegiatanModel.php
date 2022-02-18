@@ -103,9 +103,9 @@ class JadwalKegiatanModel extends Model
     {
         $builder = $this->table('jadwal');
         if ($type === "min") {
-            $builder->selectMin('jadwal.jadwalTanggalMulai');
+            $builder->selectMin('jadwal_detail.jadwalDetailTanggalMulai');
         } else {
-            $builder->selectMin('jadwal.jadwalTanggalSelesai');
+            $builder->selectMin('jadwal_detail.jadwalDetailTanggalSelesai');
         }
         $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
