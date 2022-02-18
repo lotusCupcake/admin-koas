@@ -52,7 +52,7 @@ class RekapNilai extends BaseController
     {
         // dd($_POST);
         if (!$this->validate([
-            'staseNama' => [
+            'staseIdNilai' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Stase Harus Dipilih!',

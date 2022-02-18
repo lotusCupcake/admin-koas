@@ -19,14 +19,14 @@ class Penilaian extends BaseController
     }
     public function index()
     {
-        // dd(@get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/2019/1908320001.jpg"));
         $data = [
             'title' => "Penilaian",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Penilaian'],
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
-            'menuNilai' => $this->penilaianModel->getMenuNilai()->findAll(),
+            'menuNilai' => $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll(),
+            // mahasiswa dalam setiap penilaian berbeda sesuai nilai exists
             'mahasiswa' => $this->kegiatanModel->getMahasiswaNilai(user()->email)->findAll(),
             'nilaiLapKasus' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 1])->findAll(),
             'nilaiP2KM' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 2])->findAll(),
@@ -44,12 +44,12 @@ class Penilaian extends BaseController
             'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data['mahasiswa']);
         return view('pages/penilaian', $data);
     }
 
     public function save()
     {
-        dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();

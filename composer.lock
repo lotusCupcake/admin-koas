@@ -1009,22 +1009,7 @@
                 "homepage": "http://www.php-fig.org/"
             }],
             "description": "Common interfaces for PSR-7 HTTP message factories",
-            "keywords": ["Authentication",
-                "authorization",
-                "codeigniter"
-            ],
-            "support": {
-                "issues": "https://github.com/lonnieezell/myth-auth/issues",
-                "source": "https://github.com/lonnieezell/myth-auth/tree/v1.0.1"
-            },
-            "funding": [{
-                    "url": "https://github.com/lonnieezell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/lonnieezell",
-                    "type": "patreon"
-                },
+            "keywords": [
                 "factory",
                 "http",
                 "message",
@@ -3582,5 +3567,24 @@
         "php": "^7.3 || ^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
-}
+    <<
+    <<
+    <<
+    < HEAD "plugin-api-version": "2.2.0"
+} ===
+===
+= <<
+<<
+<<
+< HEAD
+    "plugin-api-version": "2.1.0" ===
+    ===
+    =
+    "plugin-api-version": "2.0.0" >>>
+    >>>
+    >
+    6 cca67596837eaea991b1a95d8d9a1b021748c65
+} >>>
+>>>
+>
+ee444ebcd1191ccb9bf74a36cf0c18322285029a
