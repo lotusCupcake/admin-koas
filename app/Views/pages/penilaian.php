@@ -169,20 +169,6 @@
                           <td><?= $komp->komponenNama ?></td>
                           <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
                             <td>
-                              <!-- <label>
-                                <label for="<? //= $komp->komponenNama . $i; 
-                                            ?>"></label>
-                                <input type="radio" id="<? //= $komp->komponenNama . $i; 
-                                                        ?>" name="<? //= $komp->komponenId 
-                                                                  ?>" value="<? //= $i 
-                                                                              ?>" class="form-control" required>
-                                <div class="invalid-tooltip">
-                                  Berikan nilai untuk penilaian <? //= $no 
-                                                                ?>
-                                </div>
-                                <span><? //= $i 
-                                      ?></span>
-                              </label> -->
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
