@@ -26,13 +26,6 @@ class JadwalKegiatanModel extends Model
         return $builder;
     }
 
-    public function showKelompokDetail()
-    {
-        return $this->db->query(
-            'SELECT kelompok_detail.kelompokDetKelompokId, GROUP_CONCAT(DISTINCT CONCAT( " ", kelompok_detail.kelompokDetNama, " (" ), CONCAT(kelompok_detail.kelompokDetNim,")") ORDER BY kelompok_detail.kelompokDetId ASC ) as kelompokDetKelompokMahasiswa from kelompok_detail GROUP BY kelompok_detail.kelompokDetKelompokId'
-        );
-    }
-
     public function show_Jadwal_KegiatanSearch($keyword, $where = null)
     {
         $builder  = $this->table('jadwal');
@@ -70,8 +63,6 @@ class JadwalKegiatanModel extends Model
     {
         $builder = $this->db->table('jadwal');
         $builder->select('*');
-        // $builder->join('kelompok', 'kelompok.kelompokId = '.$this->table.'.jadwalKelompokId', 'LEFT');
-        // $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = '.$this->table.'.jadwalRumkitDetId', 'LEFT');
         $builder->where('jadwal.jadwalRumkitDetId', $rumkitDetId);
 
         $jadwalKelompok = $builder->get();
@@ -116,8 +107,7 @@ class JadwalKegiatanModel extends Model
         } else {
             $builder->selectMin('jadwal.jadwalTanggalSelesai');
         }
-        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
-        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
