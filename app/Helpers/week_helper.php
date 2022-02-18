@@ -32,13 +32,13 @@ function week($nim, $stase, $now)
 function minDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMax('min', ['kelompok_detail.kelompokDetNim' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
+    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
     return $result;
 }
 
 function maxDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMax('max', ['kelompok_detail.kelompokDetNim' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
+    $result = $model->getMinMax('max', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
     return $result;
 }
