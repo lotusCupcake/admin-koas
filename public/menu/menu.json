@@ -143,15 +143,6 @@
         "pages": "/jadwalKegiatan"
     },
     {
-        "id": "34",
-        "nama": "Tunda Jadwal Kegiatan",
-        "parent": "17",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-calendar-week",
-        "pages": "/tundaJadwal"
-    },
-    {
         "id": "26",
         "nama": "Utilitas",
         "parent": "17",
