@@ -3,6 +3,7 @@ function week($nim, $stase, $now)
 {
     $dari = date("Y-m-d", (minDate($nim, $stase) / 1000));
     $sampai = date("Y-m-d", (maxDate($nim, $stase) / 1000));
+    $skipawal = date("Y-m-d", (maxDate($nim, $stase) / 1000));
 
 
     $prepare = $now;
@@ -29,6 +30,27 @@ function week($nim, $stase, $now)
     return $minggu;
 }
 
+function skipAwal($nim, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    return $result;
+}
+
+function skipAkhir($nim, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    return $result;
+}
+
+function skipAktifKembali($nim, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    return $result;
+}
+
 function minDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
@@ -40,5 +62,19 @@ function maxDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
     $result = $model->getMinMax('max', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
+    return $result;
+}
+
+function minDateKel($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompok('min', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
+    return $result;
+}
+
+function maxDateKel($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompok('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
     return $result;
 }

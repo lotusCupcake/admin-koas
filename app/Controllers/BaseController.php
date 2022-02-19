@@ -42,7 +42,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['auth', 'week', 'notifikasi', 'lokasi', 'reminder'];
+    protected $helpers = ['auth', 'week', 'notifikasi', 'lokasi', 'reminder', 'rumkit'];
 
     /**
      * Constructor.

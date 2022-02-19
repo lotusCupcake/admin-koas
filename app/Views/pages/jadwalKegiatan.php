@@ -78,14 +78,16 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td>
-                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-html="true" data-placement="top" title="<em>Tooltip</em> <a href='#'>with</a> <b>HTML</b> <br /> <em>Tooltip</em> <u>with</u> <b>HTML</b>">
-                          <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalSelesai / 1000)); ?>
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-html="true" data-placement="top" title="<?php foreach (getDetailJadwalKelStase($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) as $key) : ?>
+                          <em><?= $key->jadwalTanggalMulai ?></em> <a href='#'><?= $key->rumahSakitShortname ?></a> <br /> 
+                        <?php endforeach ?>">
+                          <?= gmdate('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= gmdate('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
                         </button>
                       </td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
-                      <td><?= $row_jadwal->rumahSakitShortname; ?></td>
+                      <td><?= getRumkit($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
-                      <td style="cursor: pointer;" data-toggle="modal" data-target="#detailMahasiswa<?= $row_jadwal->kelompokId; ?>"><span class="text-primary"><?= $row_jadwal->kelompokNama ?></td>
+                      <td data-toggle="modal" data-target="#detailMahasiswa<?= $row_jadwal->kelompokId; ?>"><span class="text-primary"><?= $row_jadwal->kelompokNama ?></td>
                       <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                         <td style="text-align:center">
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $row_jadwal->jadwalId; ?>"><i class="fas fa-edit"></i></button>
