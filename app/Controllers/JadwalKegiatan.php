@@ -35,7 +35,6 @@ class JadwalKegiatan extends BaseController
                 $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword, ['rumkit.rumahSakitId' => $rs]);
             } else {
                 $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(['rumkit.rumahSakitId' => $rs]);
-                // dd($jadwal->get()->getResult());
             }
             $data = [
                 'title' => "Jadwal Kegiatan",
@@ -69,29 +68,21 @@ class JadwalKegiatan extends BaseController
                 'validation' => \Config\Services::validation(),
                 'menu' => $this->fetchMenu(),
             ];
-
-            // dd($data['mhsDetail']);
         }
-        // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);
     }
 
     public function stase()
     {
-        // Ambil data rumahSakitId yang dikirim via ajax post
         $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
         $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
-        // Proses Get Data Stase Dari Tabel Rumkit_Detail
-
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
         $lists = "<option value=''>Pilih Stase</option>";
         foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
         }
-        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_stase_rumkit' => $lists);
+        echo json_encode($callback);
     }
 
     public function kelompok()
@@ -109,18 +100,16 @@ class JadwalKegiatan extends BaseController
             $kelompokId = [0];
         }
         $kelompok = $this->jadwalKegiatanModel->Show_Kelompok($kelompokId);
-        // Proses Get Data Stase Dari Tabel Kelompok
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompok->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>";
         }
-        $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_kelompok' => $lists);
+        echo json_encode($callback);
     }
 
     public function add()
     {
-        // dd($_POST);
         if (!$this->validate([
             'tanggalAwal' => [
                 'rules' => 'required',

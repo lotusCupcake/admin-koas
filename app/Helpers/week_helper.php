@@ -64,3 +64,17 @@ function maxDate($nim, $stase)
     $result = $model->getMinMax('max', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
     return $result;
 }
+
+function minDateKel($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompok('min', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
+    return $result;
+}
+
+function maxDateKel($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompok('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
+    return $result;
+}

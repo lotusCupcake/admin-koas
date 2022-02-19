@@ -105,13 +105,30 @@ class JadwalKegiatanModel extends Model
         if ($type === "min") {
             $builder->selectMin('jadwal_detail.jadwalDetailTanggalMulai');
         } else {
-            $builder->selectMin('jadwal_detail.jadwalDetailTanggalSelesai');
+            $builder->selectMax('jadwal_detail.jadwalDetailTanggalSelesai');
         }
         $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('jadwal_skip', 'jadwal_skip.skipJadwalDetailId = jadwal_detail.jadwalDetailId', 'LEFT');
+        $builder->where($where);
+        return $builder;
+    }
+
+    public function getMinMaxKelompok($type, $where)
+    {
+        $builder = $this->table('jadwal');
+        if ($type === "min") {
+            $builder->selectMin('jadwal.jadwalTanggalMulai');
+        } else {
+            $builder->selectMax('jadwal.jadwalTanggalSelesai');
+        }
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->where($where);
         return $builder;
     }
@@ -187,5 +204,30 @@ class JadwalKegiatanModel extends Model
         );
         $staseRumkit = $builder->get();
         return $staseRumkit;
+    }
+
+    public function getRumkitOneline($where)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->select('(select  GROUP_CONCAT( DISTINCT CONCAT( " ", rumkit.rumahSakitShortname))) AS Rumkit');
+        $builder->join('kelompok', 'kelompok.kelompokId =jadwal.jadwalKelompokId', 'INNER');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where($where);
+        $query = $builder->get();
+        return $query;
+    }
+
+    public function getDetailJadwalKelStase($where)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('kelompok', 'kelompok.kelompokId =jadwal.jadwalKelompokId', 'INNER');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where($where);
+        $query = $builder->get();
+        return $query;
     }
 }
