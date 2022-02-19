@@ -64,7 +64,7 @@
                   <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
                   <th scope="col">Stase</th>
-                  <th width="15%" scope="col">Kelompok</th>
+                  <th scope="col">Kelompok</th>
                   <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                     <th width="15%" style="text-align:center" scope="col">Action</th>
                   <?php endif; ?>
@@ -77,7 +77,11 @@
                   foreach ($jadwalKegiatan as $row_jadwal) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalSelesai / 1000)); ?></td>
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-html="true" data-placement="top" title="<em>Tooltip</em> <a href='#'>with</a> <b>HTML</b> <br /> <em>Tooltip</em> <u>with</u> <b>HTML</b>">
+                          <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row_jadwal->jadwalTanggalSelesai / 1000)); ?>
+                        </button>
+                      </td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
                       <td><?= $row_jadwal->rumahSakitShortname; ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
