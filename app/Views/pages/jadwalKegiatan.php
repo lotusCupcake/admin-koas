@@ -132,8 +132,11 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#skipJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-pause"></i></button>
-                        <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#aktifJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-check"></i></button>
+                        <?php if ($row->skipNpm == null && $row->skipTanggalAktifKembali == null || $row->skipNpm != null && $row->skipTanggalAktifKembali != null) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#skipJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-pause"></i></button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#aktifJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-check"></i></button>
+                        <?php endif; ?>
                       </td>
                     </tr>
                   <?php endif ?>
@@ -186,13 +189,13 @@
                     <i class="fas fa-calendar"></i>
                   </div>
                 </div>
-                <input type="text" class="form-control datepicker" name="skipTanggalAkhir">
+                <input type="text" class="form-control datepicker" value="<?= date("Y-m-d", strtotime("+1 week")) ?>" name="skipTanggalAkhir">
               </div>
             </div>
             <div class="form-group">
               <label>Alasan Penundaan</label>
               <div class="input-group">
-                <textarea name="skipAlasan" id="" class="form-control" style="height: 60px;"></textarea>
+                <textarea name="skipAlasan" id="" class="form-control" style="height: 140px;"></textarea>
               </div>
             </div>
           </div>
@@ -206,6 +209,43 @@
   </div>
 <?php endforeach; ?>
 <!-- end modal skip jadwal -->
+
+<!-- start modal aktif jadwal -->
+<?php foreach ($mhsDetail as $row) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="aktifJadwal<?= $row->jadwalDetailId; ?>">
+    <div class="modal-dialog" role="document">
+      <form action="/jadwalKegiatan/<?= $row->skipId; ?>/aktif" method="POST">
+        <?= csrf_field() ?>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Aktif <strong>Jadwal Kegiatan</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Tanggal Aktif Kembali</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div>
+                </div>
+                <input type="text" class="form-control datepicker" name="skipTanggalAktifKembali">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<?php endforeach; ?>
+<!-- end modal aktif jadwal -->
 
 
 <!-- start modal tambah  -->

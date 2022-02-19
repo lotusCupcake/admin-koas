@@ -97,7 +97,8 @@ $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
-$routes->add('/jadwalKegiatan/skip', 'JadwalKegiatan::skip');
+$routes->post('/jadwalKegiatan/skip', 'JadwalKegiatan::skip');
+$routes->add('/jadwalKegiatan/(:num)/aktif', 'JadwalKegiatan::aktif/$1');
 
 // route data kegiatan
 $routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);

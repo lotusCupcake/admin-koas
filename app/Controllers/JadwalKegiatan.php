@@ -290,4 +290,17 @@ class JadwalKegiatan extends BaseController
             return redirect()->to('jadwalKegiatan');
         }
     }
+
+    public function aktif($id)
+    {
+        $skipTanggalAktifKembali = (int)strtotime($this->request->getPost('skipTanggalAktifKembali'));
+        $data = array(
+            'skipTanggalAktifKembali' => $skipTanggalAktifKembali * 1000,
+        );
+
+        if ($this->jadwalSkipModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Tanggal Aktif Kembali Berhasil Disetting!');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
 }
