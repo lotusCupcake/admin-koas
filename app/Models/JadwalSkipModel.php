@@ -13,8 +13,7 @@ class JadwalSKipModel extends Model
 
     public function getJadwalTanggal($where)
     {
-        $builder = $this->table('jadwal_skip');
-        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailId = jadwal_skip.skipJadwalDetailId');
+        $builder = $this->db->table('jadwal_detail');
         $builder->where($where);
         $result = $builder->get();
         return $result;

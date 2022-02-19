@@ -6,7 +6,7 @@ use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 use App\Models\DosenPembimbingModel;
-use App\Models\JadwalSKipModel;
+use App\Models\JadwalSkipModel;
 
 class JadwalKegiatan extends BaseController
 {
@@ -261,8 +261,8 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-        $tanggalMulai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalMulai;
-        $tanggalSelesai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalSelesai;
+        $tanggalMulai = $this->jadwalSkipModel->getJadwalTanggal(['jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalMulai;
+        $tanggalSelesai = $this->jadwalSkipModel->getJadwalTanggal(['jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalSelesai;
         $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
         $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai / 1000);
         $tanggalAwalSkip = (int)strtotime($this->request->getPost('skipTanggalAwal'));
@@ -284,8 +284,6 @@ class JadwalKegiatan extends BaseController
             'skipHariKe' => $skipHariKe,
             'skipSisaHari' => $skipSisaHari
         );
-
-        dd($data);
 
         if ($this->jadwalSkipModel->insert($data)) {
             session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
