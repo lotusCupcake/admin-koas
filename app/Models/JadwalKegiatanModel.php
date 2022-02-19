@@ -21,6 +21,7 @@ class JadwalKegiatanModel extends Model
         if ($where) {
             $builder->where($where);
         }
+        $builder->groupBy(['stase.staseId', 'kelompok.kelompokId']);
         $builder->orderBy('jadwal.jadwalId', 'DESC');
         return $builder;
     }
