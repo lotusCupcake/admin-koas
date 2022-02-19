@@ -47,4 +47,14 @@ class KelompokMahasiswaModel extends Model
         $builder->orderBy('kelompok_detail.kelompokDetId', 'DESC');
         return $builder;
     }
+
+    public function getDetailMhs()
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId ', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = jadwal_detail.jadwalDetailNpm', 'LEFT');
+        $query = $builder->get();
+        return $query;
+    }
 }

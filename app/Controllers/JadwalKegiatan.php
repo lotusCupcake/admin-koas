@@ -6,12 +6,14 @@ use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 use App\Models\DosenPembimbingModel;
+use App\Models\JadwalSKipModel;
 
 class JadwalKegiatan extends BaseController
 {
     protected $kelompokMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
+    protected $jadwalSkipModel;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class JadwalKegiatan extends BaseController
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
+        $this->jadwalSkipModel = new JadwalSkipModel();
     }
     public function index()
     {
@@ -39,7 +42,7 @@ class JadwalKegiatan extends BaseController
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Mahasiswa', 'Jadwal Kegiatan'],
                 'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
-                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'mhsDetail' => $this->kelompokMahasiswaModel->getDetailMhs()->getResult(),
                 'pager' => $this->jadwalKegiatanModel->pager,
                 'currentPage' => $currentPage,
                 'numberPage' => $this->numberPage,
@@ -58,7 +61,7 @@ class JadwalKegiatan extends BaseController
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
                 'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
-                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'mhsDetail' => $this->kelompokMahasiswaModel->getDetailMhs()->getResult(),
                 'pager' => $this->jadwalKegiatanModel->pager,
                 'currentPage' => $currentPage,
                 'numberPage' => $this->numberPage,
@@ -66,6 +69,8 @@ class JadwalKegiatan extends BaseController
                 'validation' => \Config\Services::validation(),
                 'menu' => $this->fetchMenu(),
             ];
+
+            // dd($data['mhsDetail']);
         }
         // dd($data['jadwalKegiatan']);
 
@@ -228,6 +233,62 @@ class JadwalKegiatan extends BaseController
 
         if ($this->jadwalKegiatanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
+
+    public function skip()
+    {
+        if (!$this->validate([
+            'skipTanggalAwal' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Awal Harus Dipilih!',
+                ]
+            ],
+            'skipTanggalAkhir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Akhir Harus Dipilih!',
+                ]
+            ],
+            'skipAlasan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Alasan Penundaan Harus Diisi!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('jadwalKegiatan')->withInput();
+        }
+        $tanggalMulai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalMulai;
+        $tanggalSelesai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalSelesai;
+        $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
+        $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai / 1000);
+        $tanggalAwalSkip = (int)strtotime($this->request->getPost('skipTanggalAwal'));
+        $tanggalAkhirSkip = (int)strtotime($this->request->getPost('skipTanggalAkhir'));
+
+        $tglAwalStase = date_create($tanggalMulaiFormat);
+        $tglAkhirStase = date_create($tanggalSelesaiFormat);
+        $tglAwalSkip = date_create(gmdate("Y-m-d", $tanggalAwalSkip));
+        $tglAkhirSkip = date_create(gmdate("Y-m-d", $tanggalAkhirSkip));
+        $skipHariKe = $tglAwalStase->diff($tglAwalSkip)->d + 1;
+        $hariStase = $tglAwalStase->diff($tglAkhirStase)->d + 1;
+        $skipSisaHari = $hariStase - $skipHariKe;
+        $data = array(
+            'skipJadwalDetailId' =>  $this->request->getPost('skipJadwalDetailId'),
+            'skipNpm' => $this->request->getPost('skipNpm'),
+            'skipTanggalAwal' => $tanggalAwalSkip * 1000,
+            'skipTanggalAkhir' => $tanggalAkhirSkip * 1000,
+            'skipAlasan' => $this->request->getPost('skipAlasan'),
+            'skipHariKe' => $skipHariKe,
+            'skipSisaHari' => $skipSisaHari
+        );
+
+        dd($data);
+
+        if ($this->jadwalSkipModel->insert($data)) {
+            session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
             return redirect()->to('jadwalKegiatan');
         }
     }
