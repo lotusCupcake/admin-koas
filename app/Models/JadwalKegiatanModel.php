@@ -110,6 +110,7 @@ class JadwalKegiatanModel extends Model
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->join('jadwal_skip', 'jadwal_skip.skipJadwalDetailId = jadwal_detail.jadwalDetailId', 'LEFT');
         $builder->where($where);
         return $builder;
     }
