@@ -264,13 +264,17 @@ class JadwalKegiatan extends BaseController
         $tanggalMulai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalMulai;
         $tanggalSelesai = $this->jadwalSkipModel->getJadwalTanggal(['skipJadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalSelesai;
         $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
-        $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai);
+        $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai / 1000);
         $tanggalAwalSkip = (int)strtotime($this->request->getPost('skipTanggalAwal'));
         $tanggalAkhirSkip = (int)strtotime($this->request->getPost('skipTanggalAkhir'));
 
-        $tanggalAwal = date_create($tanggalMulaiFormat);
-        $tanggalAwal = date_create($tanggalAwalSkip);
-        $skipHariKe = $tanggalAwal->diff($tanggalAwal)->d + 1;
+        $tglAwalStase = date_create($tanggalMulaiFormat);
+        $tglAkhirStase = date_create($tanggalSelesaiFormat);
+        $tglAwalSkip = date_create(gmdate("Y-m-d", $tanggalAwalSkip));
+        $tglAkhirSkip = date_create(gmdate("Y-m-d", $tanggalAkhirSkip));
+        $skipHariKe = $tglAwalStase->diff($tglAwalSkip)->d + 1;
+        $hariStase = $tglAwalStase->diff($tglAkhirStase)->d + 1;
+        $skipSisaHari = $hariStase - $skipHariKe;
         $data = array(
             'skipJadwalDetailId' =>  $this->request->getPost('skipJadwalDetailId'),
             'skipNpm' => $this->request->getPost('skipNpm'),
@@ -278,8 +282,10 @@ class JadwalKegiatan extends BaseController
             'skipTanggalAkhir' => $tanggalAkhirSkip * 1000,
             'skipAlasan' => $this->request->getPost('skipAlasan'),
             'skipHariKe' => $skipHariKe,
-            'skipSisaHari' => null
+            'skipSisaHari' => $skipSisaHari
         );
+
+        dd($data);
 
         if ($this->jadwalSkipModel->insert($data)) {
             session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
