@@ -8,7 +8,6 @@ class JadwalKegiatanModel extends Model
 {
     protected $table = 'jadwal';
     protected $primaryKey = 'jadwalId';
-    // protected $allowedFields = ['jadwalRumkitDetId', 'jadwalKelompokId', 'jadwalJamMasuk', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalJamKeluar'];
     protected $allowedFields = ['jadwalRumkitDetId', 'jadwalKelompokId', 'jadwalJamMasuk', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalJamKeluar', 'jadwalJumlahWeek'];
     protected $returnType = 'object';
 
