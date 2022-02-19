@@ -105,7 +105,7 @@
 <!-- start modal detail mahasiswa -->
 <?php foreach ($jadwalKegiatan as $detail) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="detailMahasiswa<?= $detail->kelompokId; ?>">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detail <strong>Mahasiswa Di Kelompok</strong></h5>
@@ -120,7 +120,8 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama/NPM Mahasiswa</th>
-                  <th width="40%" style="text-align:center" scope="col">Action</th>
+                  <th width="40%" scope="col">Tanggal Mulai/Akhir</th>
+                  <th style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,6 +132,7 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                      <td><?= gmdate('d-m-Y', ($row->jadwalDetailTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row->jadwalDetailTanggalSelesai / 1000)); ?></td>
                       <td style="text-align:center">
                         <?php if ($row->skipNpm == null && $row->skipTanggalAktifKembali == null || $row->skipNpm != null && $row->skipTanggalAktifKembali != null) : ?>
                           <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#skipJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-pause"></i></button>
