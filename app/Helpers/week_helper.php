@@ -129,3 +129,21 @@ function maxDateKel($kel, $stase)
     $result = $model->getMinMaxKelompok('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
     return $result;
 }
+
+function jumlahPresensi(array $data, String $npm, String $tgl)
+{
+    $jumlah = 0;
+    foreach ($data as $key) {
+        if ($key->absensiNim == $npm && date('Y-m-d', $key->absensiTanggal / 1000) == $tgl) {
+            $jumlah++;
+        }
+    }
+
+    if ($jumlah == 2) {
+        return 'success';
+    } else if ($jumlah == 1) {
+        return 'warning';
+    } else {
+        return 'danger';
+    }
+}
