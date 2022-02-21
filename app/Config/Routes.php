@@ -172,6 +172,10 @@ $routes->get('/rekapNilai/rekapNilaiStase', 'RekapNilai::rekapNilaiStase');
 $routes->post('/rekapNilai/proses', 'RekapNilai::proses');
 $routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
 
+// route tunda jadwal
+$routes->get('/jadwalSkip/', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+
 
 
 /*

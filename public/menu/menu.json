@@ -224,6 +224,15 @@
         "pages": "/evaluasi"
     },
     {
+        "id": "34",
+        "nama": "Penundaan Jadwal",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-clock",
+        "pages": "/jadwalSkip"
+    },
+    {
         "id": "28",
         "nama": "Administrasi",
         "parent": "0",
