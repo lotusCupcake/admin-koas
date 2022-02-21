@@ -252,7 +252,7 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-        $stase = $this->jadwalSkipModel->getStaseByJadwalDetail(['jadwal_detail.jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->staseId;
+        $stase = $this->jadwalKegiatanModel->getStaseByJadwalDetail(['jadwal_detail.jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->staseId;
         $tanggalMulai = minDate($this->request->getPost('skipNpm'), $stase);
         $tanggalSelesai = maxDate($this->request->getPost('skipNpm'), $stase);
         $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
@@ -264,8 +264,8 @@ class JadwalKegiatan extends BaseController
         $tglAkhirStase = date_create($tanggalSelesaiFormat);
         $tglAwalSkip = date_create(gmdate("Y-m-d", $tanggalAwalSkip));
         $tglAkhirSkip = date_create(gmdate("Y-m-d", $tanggalAkhirSkip));
-        $skipHariKe = $tglAwalStase->diff($tglAwalSkip)->d + 1;
-        $hariStase = $tglAwalStase->diff($tglAkhirStase)->d + 1;
+        $skipHariKe = $tglAwalStase->diff($tglAwalSkip)->days + 1;
+        $hariStase = $tglAwalStase->diff($tglAkhirStase)->days + 1;
         $skipSisaHari = $hariStase - $skipHariKe;
         $data = array(
             'skipJadwalDetailId' =>  $this->request->getPost('skipJadwalDetailId'),
