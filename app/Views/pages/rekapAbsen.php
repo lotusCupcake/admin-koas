@@ -82,7 +82,7 @@
                     $mn = $minDate;
                     $mx = $maxDate;
                     while (strtotime($mn) <= strtotime($mx)) : ?>
-                      <th><?= date("d", strtotime($mn)) ?></th>
+                      <th><sup><?= date("d", strtotime($mn)) ?></sup>/<sub><?= date("m", strtotime($mn)) ?></sub></th>
                     <?php $mn = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn)));
                     endwhile ?>
                 </thead>
@@ -96,7 +96,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php while (strtotime($mn2) <= strtotime($mx2)) : ?>
-                        <td class="bg-<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2) ?>"></td>
+                        <td class="<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2) ?>"></td>
                       <?php $mn2 = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn2)));
                       endwhile ?>
                     </tr>

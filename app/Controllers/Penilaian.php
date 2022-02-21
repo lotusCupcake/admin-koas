@@ -52,6 +52,7 @@ class Penilaian extends BaseController
 
     public function save()
     {
+        dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
@@ -72,7 +73,17 @@ class Penilaian extends BaseController
             'gradeCreatedBy' => user()->email,
             'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
         );
+
+        $dataInsertGr = array(
+            'grRumkitDetId' => $_POST['rumkitDetId'],
+            'grPenilaianId' => $_POST['penilaianId'],
+            'grNpm' => $_POST['npm'],
+            'grResult' => $nilai,
+            'grCreatedBy' => user()->email,
+            'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+        );
         $this->gradeModel->insert($dataInsert);
+        $this->gradeGrModel->insert($dataInsertGr);
 
         session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
         return redirect()->to('penilaian');
