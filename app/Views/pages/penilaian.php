@@ -176,7 +176,6 @@
                                   <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                 </label>
                               </div>
-
                             </td>
                           <?php endfor ?>
                           <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
@@ -185,6 +184,27 @@
                         </tr>
                       <?php endforeach ?>
                     </tbody>
+                    <?php if ($menu->penilaianIsGlobalRating != 0) : ?>
+                      <thead>
+                        <tr>
+                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                              <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                              <label class="form-check-label" for="inlineradio2">Kompeten</label>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    <?php endif ?>
                   </table>
                 </div>
               <?php else : ?>

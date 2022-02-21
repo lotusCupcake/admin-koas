@@ -111,8 +111,8 @@ class RekapAbsen extends BaseController
             'dataResult' => $rekapAbsen,
             'mahasiswa' => $mahasiswa,
             'dataFilter' => [$staseId, $kelompokId],
-            'minDate' => date("Y-m-d", minDateKel($kelompokId, $staseId) / 1000),
-            'maxDate' => date("Y-m-d", maxDateKel($kelompokId, $staseId) / 1000),
+            'minDate' => date("Y-m-d", minDateKelByDetail($kelompokId, $staseId) / 1000),
+            'maxDate' => date("Y-m-d", maxDateKelByDetail($kelompokId, $staseId) / 1000),
         ];
 
         foreach ($rekapAbsen as $absen) {

@@ -130,6 +130,20 @@ function maxDateKel($kel, $stase)
     return $result;
 }
 
+function minDateKelByDetail($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompokByDetail('min', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    return $result;
+}
+
+function maxDateKelByDetail($kel, $stase)
+{
+    $model = new \App\Models\JadwalKegiatanModel;
+    $result = $model->getMinMaxKelompokByDetail('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
+    return $result;
+}
+
 function jumlahPresensi(array $data, String $npm, String $tgl)
 {
     $jumlah = 0;
@@ -140,10 +154,10 @@ function jumlahPresensi(array $data, String $npm, String $tgl)
     }
 
     if ($jumlah == 2) {
-        return 'success';
+        return 'bg-success';
     } else if ($jumlah == 1) {
-        return 'warning';
+        return 'bg-warning';
     } else {
-        return 'danger';
+        return 'bg-danger';
     }
 }
