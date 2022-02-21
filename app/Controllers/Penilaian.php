@@ -5,17 +5,20 @@ namespace App\Controllers;
 use App\Models\PenilaianModel;
 use App\Models\KegiatanMahasiswaModel;
 use App\Models\GradeModel;
+use App\Models\GradeGrModel;
 
 class Penilaian extends BaseController
 {
     protected $penilaianModel;
     protected $kegiatanModel;
     protected $gradeModel;
+    protected $gradeGrModel;
     public function __construct()
     {
         $this->penilaianModel = new PenilaianModel();
         $this->kegiatanModel = new KegiatanMahasiswaModel();
         $this->gradeModel = new GradeModel();
+        $this->gradeGrModel = new GradeGrModel();
     }
     public function index()
     {
@@ -44,9 +47,11 @@ class Penilaian extends BaseController
             'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
             'nilaiTKlinikII' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 15])->findAll(),
             'nilaiIPE' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 16])->findAll(),
+            'nilaiKDinasKesehatan' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 17])->findAll(),
+            'nilaiKPuskesmas' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 18])->findAll(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['nilaiMiniCex']);
+        // dd($data['mahasiswa']);
         return view('pages/penilaian', $data);
     }
 

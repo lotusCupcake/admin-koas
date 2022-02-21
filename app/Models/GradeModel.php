@@ -8,6 +8,6 @@ class GradeModel extends Model
 {
     protected $table = 'penilaian_grade';
     protected $primaryKey = 'gradeId';
-    protected $allowedFields = ['gradeRumkitDetId', 'gradePenilaianId', 'gradeNpm', 'gradeKomponenId', 'gradeNilai', 'gradeCreatedBy', 'gradeCreatedAt'];
+    protected $allowedFields = ['gradeRumkitDetId', 'gradePenilaianId', 'gradeNpm', 'gradeNilai', 'gradeCreatedBy', 'gradeCreatedAt', 'gradeApproveStatus', 'gradeApproveBy'];
     protected $returnType = 'object';
 }
