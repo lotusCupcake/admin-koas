@@ -252,8 +252,9 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-        $tanggalMulai = $this->jadwalSkipModel->getJadwalTanggal(['jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalMulai;
-        $tanggalSelesai = $this->jadwalSkipModel->getJadwalTanggal(['jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->jadwalDetailTanggalSelesai;
+        $stase = $this->jadwalSkipModel->getStaseByJadwalDetail(['jadwal_detail.jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->staseId;
+        $tanggalMulai = minDate($this->request->getPost('skipNpm'), $stase);
+        $tanggalSelesai = maxDate($this->request->getPost('skipNpm'), $stase);
         $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
         $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai / 1000);
         $tanggalAwalSkip = (int)strtotime($this->request->getPost('skipTanggalAwal'));
