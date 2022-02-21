@@ -78,22 +78,30 @@
                   <tr>
                     <th style="text-align:center" scope="col">No.</th>
                     <th scope="col">Mahasiswa</th>
-                    <th scope="col">Tanggal/Waktu</th>
-                    <th scope="col">Lokasi Absen</th>
-                    <th width="15%" style="text-align:center" scope="col">Keterangan</th>
+                    <?php $no = 0;
+                    $mn = $minDate;
+                    $mx = $maxDate;
+                    while (strtotime($mn) <= strtotime($mx)) : ?>
+                      <th><?= date("d", strtotime($mn)) ?></th>
+                    <?php $mn = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn)));
+                    endwhile ?>
                 </thead>
                 <tbody>
                   <?php
                   $no = 1;
-                  foreach ($dataResult as $mahasiswa) : ?>
+                  $mn2 = $minDate;
+                  $mx2 = $maxDate;
+                  foreach ($mahasiswa as $mahasiswa) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
-                      <td><?= gmdate('Y-m-d H:i:s', ($mahasiswa->absensiTanggal / 1000)); ?></td>
-                      <td><?= $mahasiswa->absensiLokasi; ?></td>
-                      <td style="text-align:center"><span class="btn <?= $mahasiswa->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $mahasiswa->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $mahasiswa->absensiKeterangan; ?></span></td>
+                      <?php while (strtotime($mn2) <= strtotime($mx2)) : ?>
+                        <td class="bg-<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2) ?>"></td>
+                      <?php $mn2 = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn2)));
+                      endwhile ?>
                     </tr>
-                  <?php endforeach ?>
+                  <?php $mn2 = $minDate;
+                  endforeach ?>
                 </tbody>
               </table>
             </div>

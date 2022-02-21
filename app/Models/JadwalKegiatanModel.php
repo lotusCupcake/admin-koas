@@ -154,24 +154,25 @@ class JadwalKegiatanModel extends Model
                 'rumkit_detail.rumkitDetStatus' => 1
             ]
         );
+        $builder->groupBy('stase.staseId');
         $staseRumkit = $builder->get();
         return $staseRumkit;
     }
 
-    public function rekapAbsenKelompok($rumkitDetId)
+    public function rekapAbsenKelompok($staseId)
     {
         $builder = $this->db->table('jadwal');
         $builder->join('kelompok', 'kelompok.kelompokId=jadwal.jadwalKelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where('jadwal.jadwalRumkitDetId', $rumkitDetId);
-        $builder->groupBy('jadwal.jadwalRumkitDetId,  jadwal.jadwalKelompokId');
+        $builder->where('stase.staseId', $staseId);
+        $builder->groupBy('stase.staseId,  jadwal.jadwalKelompokId');
         $kelompok = $builder->get();
         return $kelompok;
     }
 
-    public function getFilterAbsen($jadwalRumkitDetId, $kelompokId)
+    public function getFilterAbsen($staseId, $kelompokId)
     {
         $builder = $this->db->table('absensi');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
@@ -182,12 +183,22 @@ class JadwalKegiatanModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->where(
             [
-                'jadwal.jadwalRumkitDetId' => $jadwalRumkitDetId,
+                'stase.staseId' => $staseId,
                 'kelompok.kelompokId' => $kelompokId
             ]
         );
+        $builder->groupBy(['absensi.absensiKeterangan', "from_unixtime(absensi.absensiTanggal / 1000, '%Y %D %M')"]);
         $kelompok = $builder->get();
         return $kelompok;
+    }
+
+    public function getMahasiswa($where)
+    {
+        $builder = $this->db->table('kelompok');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->where($where);
+        $result = $builder->get();
+        return $result;
     }
 
     public function rekapNilaiStase($rumahSakitId)
