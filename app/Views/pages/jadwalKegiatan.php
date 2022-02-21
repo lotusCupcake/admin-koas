@@ -81,7 +81,7 @@
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
                       <td><?= getRumkit($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) ?></td>
                       <td><?= $row_jadwal->staseNama; ?></td>
-                      <td><?= $row_jadwal->kelompokNama ?></td>
+                      <td><a href="#!"><span data-toggle="modal" data-target="#detail<?= $row_jadwal->jadwalId; ?>" class="text-primary"><?= $row_jadwal->kelompokNama ?></span></a></td>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
@@ -114,7 +114,7 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Tanggal Mulai/Akhir</th>
-                  <th width="40%" scope="col">Rumah Sakit</th>
+                  <th scope="col">Rumah Sakit</th>
                   <th scope="col">Kelompok</th>
                   <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                     <th width="15%" style="text-align:center" scope="col">Action</th>
@@ -150,6 +150,50 @@
   </div>
 <?php endforeach ?>
 <!-- end modal detail rumah sakit -->
+
+<!-- start modal detail mahasiswa di depan-->
+<?php foreach ($jadwalKegiatan as $detail) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="detail<?= $detail->kelompokId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail <strong>Mahasiswa</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Nama/NPM Mahasiswa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                foreach ($kelompokDetail as $row) : ?>
+                  <?php if ($row->kelompokDetKelompokId  == $detail->kelompokId) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
+                    </tr>
+                  <?php endif ?>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal detail mahasiswa di depan -->
 
 <!-- start modal detail mahasiswa -->
 <?php foreach ($jadwalKegiatan as $detail) : ?>
