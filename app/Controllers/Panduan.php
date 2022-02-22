@@ -67,7 +67,6 @@ class Panduan extends BaseController
 
     public function edit($id)
     {
-        // dd($_POST);
         if (!$this->validate([
             'panduanNama' => [
                 'rules' => 'required',
@@ -89,15 +88,11 @@ class Panduan extends BaseController
             unlink('dokumen/' . $this->request->getVar('fileLama'));
         }
 
-        // dd($_POST);
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
             'panduanFile' => $namaDokumen,
             'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
         );
-
-        // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
-        // $this->panduanModel->updateStatus();
 
         if ($this->panduanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Diupdate!');
