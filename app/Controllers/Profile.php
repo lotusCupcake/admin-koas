@@ -36,6 +36,10 @@ class Profile extends BaseController
         $image = str_replace('./signature-image/', '', $file);
 
         $id = getUser(user()->id)->dopingId;
+        $fileLama = getUser(user()->id)->dopingSignature;
+        if ($fileLama != null) {
+            unlink('signature-image/' . $fileLama);
+        }
         $dataEdit = array('dopingSignature' => $image);
         $this->modelDoping->update($id, $dataEdit);
         echo '<img src="' . base_url() . '/signature-image/' . $image . '">';
