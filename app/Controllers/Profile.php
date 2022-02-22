@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\UsersModel;
+use App\Models\DosenPembimbingModel;
 
 class Profile extends BaseController
 {
-    protected $modelUsers;
+    protected $modelDoping;
 
     public function __construct()
     {
-        $this->modelUsers = new UsersModel();
+        $this->modelDoping = new DosenPembimbingModel();
     }
 
     public function index()
@@ -22,7 +22,6 @@ class Profile extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
         return view('pages/profile', $data);
     }
 
@@ -36,8 +35,9 @@ class Profile extends BaseController
         $success = file_put_contents($file, $data);
         $image = str_replace('./', '', $file);
 
-
-        // $this->modelUsers->update($image);
-        // echo '<img src="' . base_url() . '/' . $image . '">';
+        $id = getUser(user()->id)->dopingId;
+        $dataEdit = array('dopingSignature' => $image);
+        $this->modelDoping->update($id, $dataEdit);
+        echo '<img src="' . base_url() . '/' . $image . '">';
     }
 }
