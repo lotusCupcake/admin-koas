@@ -38,6 +38,6 @@ class Profile extends BaseController
         $id = getUser(user()->id)->dopingId;
         $dataEdit = array('dopingSignature' => $image);
         $this->modelDoping->update($id, $dataEdit);
-        echo '<img src="' . base_url() . '/' . $image . '">';
+        echo '<img src="' . base_url() . '/signature-image/' . $image . '">';
     }
 }
