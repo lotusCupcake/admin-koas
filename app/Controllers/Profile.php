@@ -32,7 +32,7 @@ class Profile extends BaseController
         $img = str_replace(' ', '+', $img);
         $data = base64_decode($img);
         $file = './signature-image/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
+        file_put_contents($file, $data);
         $image = str_replace('./signature-image/', '', $file);
 
         $id = getUser(user()->id)->dopingId;
