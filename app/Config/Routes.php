@@ -179,6 +179,8 @@ $routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Supera
 //route profile
 $routes->get('/profile/', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
 $routes->get('/profile/index', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->post('/profile/insert', 'Profile::insert_signature');
+
 
 
 
