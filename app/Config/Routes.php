@@ -176,6 +176,9 @@ $routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
 $routes->get('/jadwalSkip/', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 
+//route profile
+$routes->get('/profile/(:any)', 'Profile::index');
+
 
 
 /*

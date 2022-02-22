@@ -45,7 +45,7 @@
         <div class="dropdown-title"></div>
         <form action="/logout" method="POST">
           <div class="buttons">
-            <a style="display: inline-block;  margin-left: 18px; margin-bottom: 20px;" href="/home" class="btn btn-icon btn-secondary"></i> Cancel</a>
+            <a style="display: inline-block;  margin-left: 18px; margin-bottom: 20px;" href="/profile" class="btn btn-icon btn-primary"></i> Profile</a>
             <button type="submit" style="display: inline-block; margin-bottom: 20px;" class="btn btn-icon icon-left btn-danger"><i class="fas fa-sign-out-alt"></i> logout</button>
           </div>
         </form>
