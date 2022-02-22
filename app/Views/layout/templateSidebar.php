@@ -45,7 +45,7 @@
         <div class="dropdown-title"></div>
         <form action="/logout" method="POST">
           <div class="buttons">
-            <?php if (in_groups(['Koordik', 'Admin Prodi'])) : ?>
+            <?php if (in_groups(['Koordik', 'Dosen'])) : ?>
               <a style="display: inline-block;  margin-left: 18px; width:80%;" href="/profile" class="btn btn-icon btn-primary"></i> Profile</a>
             <?php endif; ?>
             <a style="display: inline-block;  margin-left: 18px; margin-bottom: 20px;" href="/home" class="btn btn-icon btn-secondary"></i> Close</a>

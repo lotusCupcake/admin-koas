@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-  <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/css/signature.css">
   <style>
     .text-primary:hover {
       text-decoration: underline;
@@ -114,7 +114,7 @@
 
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-  <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>/js/signature.js"></script>
 
   <script type="text/javascript">
     var sig = $('#sig').signature({

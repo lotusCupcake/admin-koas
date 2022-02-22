@@ -16,6 +16,6 @@ function getDetailJadwalKelStase($kel, $stase)
 function getUser($id)
 {
     $model = new \App\Models\UsersModel;
-    $result = $model->getSpecificUser(['users.id' => $id])->getResult()[0];
+    $result = $model->getProfile(['users.id' => $id])->getResult()[0];
     return $result;
 }
