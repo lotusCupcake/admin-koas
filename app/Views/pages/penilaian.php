@@ -62,7 +62,7 @@
                       </thead>
                       <tbody>
                         <?php $no = 1;
-                        foreach ($mahasiswa as $mhs) : ?>
+                        foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) : ?>
                           <tr>
                             <td style="text-align:center"><?= $no++ ?></td>
                             <td><?= $mhs->kelompokDetNim ?></td>
@@ -71,7 +71,7 @@
                               <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
                             </td>
                             <td style="text-align:center">
-                              <?php if ($mhs->gradeApproveStatus == null) : ?>
+                              <?php if ($mhs->gradeApproveStatus == 0) : ?>
                                 <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiPenilaian<?= $mhs->gradeId; ?>" <?php in_groups('Koordik') ? "" : "disabled" ?>>Belum Disetujui</button>
                               <?php else : ?>
                                 <button class="btn btn-icon icon-left btn-success" <?php in_groups('Koordik') ? "" : "disabled" ?>>Disetujui</button>
@@ -95,7 +95,7 @@
 
 <!-- start modal nilai  -->
 <?php foreach ($menuNilai as $menu) : ?>
-  <?php foreach ($mahasiswa as $mhs) :
+  <?php foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) :
     $file_header = @get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"); ?>
     <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim . $mhs->staseId ?>">
       <div class="modal-dialog modal-xl" role="document">
@@ -143,7 +143,7 @@
               </div>
             </div>
             <div class="modal-body">
-              <?php if ($menu->penilaianType != 2) : $colspan = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+              <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -151,23 +151,23 @@
                         <th style="text-align:center" scope="col" rowspan="2">No.</th>
                         <th scope="col" rowspan="2">Aspek Penilaian</th>
                         <th style="text-align:center" scope="col" colspan="<?= $colspan ?>">Nilai</th>
-                        <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                        <?php if (eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
                           <th style="text-align:center" rowspan="2">Bobot</th>
                         <?php endif ?>
                       </tr>
                       <tr>
-                        <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                        <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
                           <th style="text-align:center"><?= $i; ?></th>
                         <?php endfor ?>
                       </tr>
                     </thead>
                     <tbody>
                       <?php $no = 1;
-                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                      foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
                         <tr>
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
-                          <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                          <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
                             <td>
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
@@ -178,7 +178,7 @@
                               </div>
                             </td>
                           <?php endfor ?>
-                          <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                          <?php if (eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
                             <td style="text-align:center"><?= $komp->komponenBobot ?></td>
                           <?php endif ?>
                         </tr>
@@ -219,7 +219,7 @@
                     </thead>
                     <tbody>
                       <?php $no = 1;
-                      foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                      foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
                         <tr>
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
@@ -234,6 +234,25 @@
                           <?php endif ?>
                         </tr>
                       <?php endforeach ?>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                            <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                            <label class="form-check-label" for="inlineradio2">Kompeten</label>
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
