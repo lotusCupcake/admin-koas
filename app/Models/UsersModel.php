@@ -38,6 +38,8 @@ class UsersModel extends Model
         $builder->select('*');
         $builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
         $builder->join('auth_groups', 'auth_groups.id  = auth_groups_users.group_id');
+        $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail  = users.email');
+        $builder->join('rumkit', 'rumkit.rumahSakitId  = dosen_pembimbing.dopingRumkitId');
         $builder->where($where);
         $query = $builder->get();
         return $query;

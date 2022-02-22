@@ -21,26 +21,50 @@
             <div class="author-box-left">
               <img alt="image" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle author-box-picture">
               <div class="clearfix"></div>
-              <a href="#" class="btn btn-primary mt-3 follow-btn" data-follow-action="alert('follow clicked');" data-unfollow-action="alert('unfollow clicked');">Follow</a>
+              <a href="#!" class="btn btn-primary mt-3" data-toggle="modal" data-target="#signature">Signature</a>
             </div>
             <div class="author-box-details">
               <div class="author-box-name">
-                <a href="#">Hasan Basri</a>
+                <a href="#"><?= getUser(user()->id)->dopingNamaLengkap; ?></a>
               </div>
-              <div class="author-box-job">Web Developer</div>
+              <div class="author-box-job"><?= getUser(user()->id)->rumahSakitShortname; ?> (<?= getUser(user()->id)->name; ?>) / <?= user()->email ?></div>
               <div class="author-box-description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.</p>
+                <img class="img-responsive" src="" alt="signature">
               </div>
-              <img class="img-responsive" src="" alt="signature">
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+</div>
+
+<div class=" modal fade" tabindex="-1" role="dialog" id="signature">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Draw <strong>Signature</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#!" method="POST">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <br />
+            <div id="sig"></div>
+            <br><br>
+            <textarea id="signature" name="signed" style="display: none"></textarea>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="clear" class="btn btn-danger">Clear</button>
+            <button type="submit" id="clear" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+    </div>
+    </form>
+  </div>
 </div>
 
 <?= view('layout/templateFooter'); ?>
