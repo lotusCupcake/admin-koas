@@ -177,7 +177,8 @@ $routes->get('/jadwalSkip/', 'JadwalSkip::index', ['filter' => 'role:Superadmin,
 $routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 
 //route profile
-$routes->get('/profile/(:any)', 'Profile::index');
+$routes->get('/profile/', 'Profile::index', ['filter' => 'role:Admin Prodi,Koordik']);
+$routes->get('/profile/index', 'Profile::index', ['filter' => 'role:Admin Prodi,Koordik']);
 
 
 
