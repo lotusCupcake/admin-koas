@@ -21,6 +21,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
   <style>
     .text-primary:hover {
       text-decoration: underline;
@@ -56,6 +58,16 @@
     input:checked+span {
       background: #acb5f6;
       border-color: #acb5f6;
+    }
+
+    .kbw-signature {
+      width: 100%;
+      height: 100%;
+    }
+
+    #sig canvas {
+      width: 100% !important;
+      height: auto;
     }
   </style>
 </head>
@@ -99,6 +111,22 @@
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
   <script src="<?= base_url() ?>/js/script.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+  <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+
+  <script type="text/javascript">
+    var sig = $('#sig').signature({
+      syncField: '#signature',
+      syncFormat: 'PNG'
+    });
+    $('#clear').click(function(e) {
+      e.preventDefault();
+      sig.signature('clear');
+      $("#signature").val('');
+    });
+  </script>
 
   <!-- label dokumen -->
   <script>

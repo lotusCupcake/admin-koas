@@ -12,3 +12,10 @@ function getDetailJadwalKelStase($kel, $stase)
     $result = $model->getDetailJadwalKelStase(['kelompok.kelompokId' => $kel, 'stase.staseId' => $stase])->getResult();
     return $result;
 }
+
+function getUser($id)
+{
+    $model = new \App\Models\UsersModel;
+    $result = $model->getSpecificUser(['users.id' => $id])->getResult()[0];
+    return $result;
+}
