@@ -29,7 +29,12 @@
               </div>
               <div class="author-box-job"><?= getUser(user()->id)->rumahSakitShortname; ?> (<?= getUser(user()->id)->name; ?>) / <?= user()->email ?></div>
               <div class="author-box-description">
-                <img class="img-responsive" src="" alt="signature">
+                <section>
+                  <div class="boxarea">
+                    <div id="previewsign1" class="previewsign">
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
@@ -48,22 +53,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="#!" method="POST">
-        <?= csrf_field() ?>
-        <div class="modal-body">
-          <div class="col-md-12">
-            <br />
-            <div id="sig"></div>
-            <br><br>
-            <textarea id="signature" name="signed" style="display: none"></textarea>
-          </div>
-          <div class="modal-footer bg-whitesmoke br">
-            <button id="clear" class="btn btn-danger">Clear</button>
-            <button type="submit" id="clear" class="btn btn-primary">Save changes</button>
+      <div class="modal-body">
+        <input type="hidden" value="<?php echo rand(); ?>" id="rowno">
+        <div class="signature-pad" id="signature-pad">
+          <div class="m-signature-pad">
+            <div class="m-signature-pad-body">
+              <canvas width="450" height="250"></canvas>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="modal-footer bg-whitesmoke br">
+        <button id="clear" class="btn btn-danger">Clear</button>
+        <button id="save2" data-action="save" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+      </div>
     </div>
-    </form>
   </div>
 </div>
 

@@ -21,53 +21,40 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-  <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
-  <style>
+
+  <style type="text/css">
     .text-primary:hover {
       text-decoration: underline;
     }
 
-    label {
-      display: block;
-      padding: 5px;
-      position: relative;
-      padding-left: 20px;
-    }
-
-    label input {
-      display: none;
-    }
-
-    label span {
-      border: 1px solid #ccc;
-      width: 25px;
-      height: 25px;
-      position: absolute;
-      overflow: hidden;
-      line-height: 1;
-      text-align: center;
-      border-radius: 100%;
-      font-size: 10pt;
-      top: 25%;
-      left: 25%;
-      display: grid;
-      align-items: center;
-    }
-
-    input:checked+span {
-      background: #acb5f6;
-      border-color: #acb5f6;
-    }
-
-    .kbw-signature {
+    .previewsign {
+      border: 1px dashed #ccc;
+      border-radius: 5px;
+      color: #bbbabb;
+      height: 250px;
       width: 100%;
-      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      top: 73px;
+      right: 35px;
     }
 
-    #sig canvas {
-      width: 100% !important;
-      height: auto;
+    .m-signature-pad-body {
+      border: 1px dashed #ccc;
+      border-radius: 5px;
+      color: #bbbabb;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      float: right;
+      vertical-align: middle;
+      top: 73px;
+      margin-bottom: 20px;
+    }
+
+    .img {
+      right: 0;
+      position: absolute;
     }
   </style>
 </head>
@@ -110,23 +97,8 @@
   <!-- Page Specific JS File -->
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
   <script src="<?= base_url() ?>/js/script.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>/js/signature-pad.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
-
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
-  <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
-
-  <script type="text/javascript">
-    var sig = $('#sig').signature({
-      syncField: '#signature',
-      syncFormat: 'PNG'
-    });
-    $('#clear').click(function(e) {
-      e.preventDefault();
-      sig.signature('clear');
-      $("#signature").val('');
-    });
-  </script>
 
   <!-- label dokumen -->
   <script>
@@ -143,6 +115,49 @@
 
       dokumenLabel.textContent = dokumen.files[0].name;
     }
+  </script>
+
+  <script>
+    var wrapper = document.getElementById("signature-pad"),
+      canvas = wrapper.querySelector("canvas"),
+      signaturePad;
+
+    clearButton = document.getElementById("clear");
+    saveButton = document.getElementById("save2"),
+
+      function resizeCanvas() {
+
+        var ratio = window.devicePixelRatio || 1;
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+      }
+    signaturePad = new SignaturePad(canvas);
+
+    clearButton.addEventListener("click", function(event) {
+      signaturePad.clear();
+    });
+    saveButton.addEventListener("click", function(event) {
+
+      if (signaturePad.isEmpty()) {
+        $('#myModal').modal('show');
+      } else {
+
+        $.ajax({
+          type: "POST",
+          url: "/profile/insert_signature",
+          data: {
+            'image': signaturePad.toDataURL(),
+            'rowno': $('#rowno').val()
+          },
+          success: function(datas1) {
+            console.log(datas1);
+            signaturePad.clear();
+            $('.previewsign').html(datas1);
+          }
+        });
+      }
+    });
   </script>
 
 </body>
