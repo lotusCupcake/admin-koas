@@ -82,29 +82,40 @@ class Bobot extends BaseController
 
     public function saveBobot($id)
     {
+        // dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
+        $total = 0;
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
                     'penilaian' => $keys[$i], 'bobot' => $values[$i],
                 );
                 array_push($json, $data);
+                $total = $total + $values[$i];
             }
-            // hitung bobot nilai
         }
+        // dd($total);
         // jika nilai belum atau lebih dari 100 maka force dan tampilkan pesan
-        $penilaian = json_encode($json);
-        $data = array(
-            'settingBobotStaseId' => $id,
-            'settingBobotKomposisiNilai' => $penilaian,
-            'settingBobotStatus' => 1,
-        );
-
-        if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
-            session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
+        if ($total < 100) {
+            session()->setFlashdata('danger', 'Total Bobot Nilai Kurang Dari 100!');
             return redirect()->to('bobot');
+        } elseif ($total > 100) {
+            session()->setFlashdata('danger', 'Total Bobot Nilai Lebih Dari 100!');
+            return redirect()->to('bobot');
+        } else {
+            $penilaian = json_encode($json);
+            $data = array(
+                'settingBobotStaseId' => $id,
+                'settingBobotKomposisiNilai' => $penilaian,
+                'settingBobotStatus' => 1,
+            );
+
+            if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
+                session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
+                return redirect()->to('bobot');
+            }
         }
     }
 }
