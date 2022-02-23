@@ -61,7 +61,7 @@
                         <?php elseif ($status == 0) : ?>
                           <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Bobot</button>
                         <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#setUlangBobot<?= $row->staseId; ?>><i class=" fas fa-check"></i> Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#setUlangBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
                       </td>
                     </tr>
