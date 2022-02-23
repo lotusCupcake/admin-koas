@@ -12,6 +12,7 @@ class PenilaianModel extends Model
     public function getPenilaian()
     {
         $builder = $this->table('penilaian');
+        $builder->orderBy('penilaian.penilaianOrder', 'ASC');
         return $builder;
     }
 

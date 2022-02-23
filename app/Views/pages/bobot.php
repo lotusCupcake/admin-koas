@@ -54,7 +54,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->staseNama; ?></td>
                       <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->settingBobotId; ?>"><i class="fas fa-marker"></i> Tambah Penilaian</button>
+                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Tambah Penilaian</button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -72,9 +72,9 @@
 
 <!-- start modal edit penilaian stase  -->
 <?php foreach ($bobot as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $edit->settingBobotId; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $edit->staseId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/penilaian/<?= $edit->settingBobotId; ?>/save" method="POST">
+      <form action="/penilaian/<?= $edit->staseId; ?>/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">

@@ -15,7 +15,6 @@ class BobotModel extends Model
     {
         $builder = $this->table('setting_bobot');
         $builder->join('stase', 'stase.staseId = setting_bobot.settingBobotStaseId', 'LEFT');
-        $builder->orderBy('setting_bobot.settingBobotId', 'DESC');
         return $builder;
     }
 
@@ -23,7 +22,6 @@ class BobotModel extends Model
     {
         $builder = $this->table('setting_bobot');
         $builder->join('stase', 'stase.staseId = setting_bobot.settingBobotStaseId', 'LEFT');
-        $builder->orderBy('setting_bobot.settingBobotId', 'DESC');
         $builder->like('stase.staseNama', $keyword);
         return $builder;
     }

@@ -59,7 +59,7 @@
   </style>
 </head>
 
-<body onload="announcement(<?= getUser(user()->id)->group_id ?>)">
+<body onload="announcement('<?= getUserId(user()->id)->name ?>')">
   <div id="app">
     <div class="main-wrapper">
 
@@ -102,14 +102,14 @@
 
   <!-- label dokumen -->
   <script>
-    function announcement(id) {
-      if (id == 1) {
+    function announcement(role) {
+      if (role == 'Superadmin') {
         $('#announcementSuperadmin').modal('show');
-      } else if (id == 2) {
+      } else if (role == 'Admin Prodi') {
         $('#announcementAdmin').modal('show');
-      } else if (id == 3) {
+      } else if (role == 'General User') {
         $('#announcement').modal('show');
-      } else if (id == 4) {
+      } else if (role == 'Dosen') {
         $('#announcementDosen').modal('show');
       } else {
         $('#announcementKoordik').modal('show');
@@ -131,48 +131,7 @@
     }
   </script>
 
-  <script>
-    var wrapper = document.getElementById("signature-pad"),
-      canvas = wrapper.querySelector("canvas"),
-      signaturePad;
 
-    clearButton = document.getElementById("clear");
-    saveButton = document.getElementById("save2"),
-
-      function resizeCanvas() {
-
-        var ratio = window.devicePixelRatio || 1;
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-      }
-    signaturePad = new SignaturePad(canvas);
-
-    clearButton.addEventListener("click", function(event) {
-      signaturePad.clear();
-    });
-    saveButton.addEventListener("click", function(event) {
-
-      if (signaturePad.isEmpty()) {
-        $('#myModal').modal('show');
-      } else {
-
-        $.ajax({
-          type: "POST",
-          url: "/profile/insert",
-          data: {
-            'image': signaturePad.toDataURL(),
-            'rowno': $('#rowno').val()
-          },
-          success: function(datas1) {
-            console.log(datas1);
-            signaturePad.clear();
-            $('.previewsign').html(datas1);
-          }
-        });
-      }
-    });
-  </script>
 
 </body>
 
