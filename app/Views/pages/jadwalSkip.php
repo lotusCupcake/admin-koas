@@ -8,9 +8,9 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Absensi</h1>
+            <h1><?= $title; ?></h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item"><a href="/absensi"><?= $breadcrumb[0]; ?></a></div>
+                <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
                 <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                     <div class="card-header-form col-md-4">
                         <form action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Nama/NPM/Keterangan" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                                <input type="text" class="form-control" placeholder="Search Nama/NPM/Alasan" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
@@ -35,31 +35,37 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:center" scope="col">No.</th>
-                                    <th scope="col">Mahasiswa</th>
-                                    <th scope="col">Tanggal/Waktu</th>
-                                    <th scope="col">Lokasi Absen</th>
-                                    <th width="15%" style="text-align:center" scope="col">Keterangan</th>
+                                    <th scope="col">Nama/NPM Mahasiswa</th>
+                                    <th scope="col">Tanggal Awal</th>
+                                    <th scope="col">Tanggal Akhir</th>
+                                    <th scope="col">Alasan</th>
+                                    <th scope="col">Penundaan Di Hari</th>
+                                    <th scope="col">Sisa Hari Dalam Jadwal</th>
+                                    <th scope="col">Tanggal Aktif Kembali</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($absensi)) : ?>
+                                <?php if (!empty($jadwalSkip)) : ?>
                                     <?php
                                     $no = 1 + ($numberPage * ($currentPage - 1));
-                                    foreach ($absensi as $row) : ?>
+                                    foreach ($jadwalSkip as $row) : ?>
                                         <tr>
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                                            <td><?= gmdate('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
-                                            <td><?= $row->absensiLokasi; ?></td>
-                                            <td style="text-align:center"><span class="btn <?= $row->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $row->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $row->absensiKeterangan; ?></span></td>
+                                            <td><?= gmdate('d-m-Y', ($row->skipTanggalAwal / 1000)); ?></td>
+                                            <td><?= gmdate('d-m-Y', ($row->skipTanggalAkhir / 1000)); ?></td>
+                                            <td><?= $row->skipAlasan; ?></td>
+                                            <td>Ke <?= $row->skipHariKe; ?></td>
+                                            <td><?= $row->skipSisaHari; ?> Hari</td>
+                                            <td><?= $row->skipTanggalAktifKembali == null ? 'Jadwal Belum Diaktifkan' : gmdate('d-m-Y', ($row->skipTanggalAktifKembali / 1000)); ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
-                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
+                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
                                 <?php endif ?>
                             </tbody>
                         </table>
-                        <?= $pager->links('absensi', 'pager') ?>
+                        <?= $pager->links('jadwalSkip', 'pager') ?>
                     </div>
                 </div>
             </div>

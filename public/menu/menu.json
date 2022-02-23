@@ -1,5 +1,4 @@
-[
-    {
+[{
         "id": "1",
         "nama": "Home",
         "parent": "0",
@@ -135,6 +134,15 @@
         "pages": ""
     },
     {
+        "id": "35",
+        "nama": "Bobot Nilai",
+        "parent": "17",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-balance-scale",
+        "pages": "/bobot"
+    },
+    {
         "id": "18",
         "nama": "Jadwal Kegiatan",
         "parent": "17",
@@ -223,6 +231,15 @@
         "status": true,
         "icon": "fas fa-comment-dots",
         "pages": "/evaluasi"
+    },
+    {
+        "id": "34",
+        "nama": "Penundaan Jadwal",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-clock",
+        "pages": "/jadwalSkip"
     },
     {
         "id": "28",

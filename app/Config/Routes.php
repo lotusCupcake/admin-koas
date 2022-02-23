@@ -97,6 +97,8 @@ $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
+$routes->post('/jadwalKegiatan/skip', 'JadwalKegiatan::skip');
+$routes->add('/jadwalKegiatan/(:num)/aktif', 'JadwalKegiatan::aktif/$1');
 
 // route data kegiatan
 $routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
@@ -169,6 +171,22 @@ $routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Supera
 $routes->get('/rekapNilai/rekapNilaiStase', 'RekapNilai::rekapNilaiStase');
 $routes->post('/rekapNilai/proses', 'RekapNilai::proses');
 $routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
+
+// route tunda jadwal
+$routes->get('/jadwalSkip/', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+
+//route profile
+$routes->get('/profile/', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->get('/profile/index', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->post('/profile/insert', 'Profile::insert_signature');
+
+//route bobot nilai
+$routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
+$routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
+
 
 
 

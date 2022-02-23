@@ -9,6 +9,13 @@ class PenilaianModel extends Model
     protected $table = 'penilaian';
     protected $returnType = 'object';
 
+    public function getPenilaian()
+    {
+        $builder = $this->table('penilaian');
+        $builder->orderBy('penilaianOrder', 'ASC');
+        $builder->whereNotIn('penilaianId', [8, 10, 15, 9, 12]);
+        return $builder;
+    }
 
     public function getFormNilai($where)
     {
@@ -20,11 +27,14 @@ class PenilaianModel extends Model
         return $builder;
     }
 
-    public function getMenuNilai()
+    public function getMenuNilai($where)
     {
         $builder = $this->table('penilaian');
-        $builder->orderBy('penilaianOrder', 'ASC');
-        $builder->where(['penilaianActive' => 1]);
+        $builder->join('kegiatan', 'kegiatan.kegiatanPenilaianId = penilaian.penilaianId', 'LEFT');
+        $builder->join('logbook', 'logbook.logbookKegiatanId = kegiatan.kegiatanId', 'LEFT');
+        $builder->where($where);
+        $builder->groupBy('penilaian.penilaianId ');
+        $builder->orderBy('penilaian.penilaianOrder', 'ASC');
         return $builder;
     }
 }

@@ -16,66 +16,91 @@
     </div>
     <div class="section-body">
       <div class="card">
-        <!-- <div class="card-header">
-          <h4>Bordered Tab</h4>
-        </div> -->
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
-          <ul class="nav nav-tabs" id="myTab3" role="tablist">
-            <?php foreach ($menuNilai as $menu) : ?>
-              <li class="nav-item">
-                <a class="nav-link <?= $menu->penilaianStatus ?>" id="<?= $menu->penilaianSlug ?>" data-toggle="tab" href="#<?= $menu->penilaianHref ?>" role="tab" aria-controls="contact" aria-selected="<?= ($menu->penilaianStatus) ? true : false ?>"><?= $menu->penilaianNamaSingkat ?></a>
-              </li>
-            <?php endforeach ?>
-          </ul>
-          <div class="tab-content tab-bordered" id="myTab3Content">
-            <?php foreach ($menuNilai as $menu) : ?>
-              <div class="tab-pane fade show <?= ($menu->penilaianStatus) ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
-                <?= view('layout/templateAlert', ['msg' => ['info', "<strong>Failed ! </strong>" . $menu->penilaianNama]]); ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Nim</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach ($mahasiswa as $mhs) : ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $mhs->kelompokDetNim ?></td>
-                        <td><?= $mhs->kelompokDetNama ?></td>
-                        <td>
-                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim; ?>"><i class="fas fa-marker"></i> Nilai</button>
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+          <?php if ($menuNilai == null) : ?>
+            <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
+              <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>&times;</span>
+                </button>
+                <div class="alert-title">Tips</div>
+                Penilaian mahasiswa belum tersedia, coba kembali nanti ya!
               </div>
-            <?php endforeach ?>
-          </div>
+            </div>
+            <center>
+              <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_96fkffkf.json" background="transparent" speed="1" style="width: 100%; height: 600px;" loop autoplay></lottie-player>
+            </center>
+          <?php else : ?>
+            <ul class="nav nav-tabs" id="myTab3" role="tablist">
+              <?php $urut = 1;
+              foreach ($menuNilai as $menu) : ?>
+                <li class="nav-item">
+                  <a class="nav-link <?= ($urut == 1) ? "active" : "" ?>" id="<?= $menu->penilaianSlug ?>" data-toggle="tab" href="#<?= $menu->penilaianHref ?>" role="tab" aria-controls="contact" aria-selected="<?= ($urut == 1) ? true : false ?>"><?= $menu->penilaianNamaSingkat ?></a>
+                </li>
+              <?php $urut++;
+              endforeach ?>
+            </ul>
+            <div class="tab-content tab-bordered" id="myTab3Content">
+              <?php $urut = 1;
+              foreach ($menuNilai as $menu) : ?>
+                <div class="tab-pane fade show <?= ($urut == 1) ? "active" : "" ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
+                  <?= view('layout/templateAlert', ['msg' => ['info', "<strong>Failed ! </strong>" . $menu->penilaianNama]]); ?>
+                  <div class="table table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="text-align:center" scope="col">No.</th>
+                          <th scope="col">Nim</th>
+                          <th scope="col">Nama Lengkap</th>
+                          <th style="text-align:center" scope="col">Action</th>
+                          <th style="text-align:center" scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $no = 1;
+                        foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) : ?>
+                          <tr>
+                            <td style="text-align:center"><?= $no++ ?></td>
+                            <td><?= $mhs->kelompokDetNim ?></td>
+                            <td><?= $mhs->kelompokDetNama ?></td>
+                            <td style="text-align:center">
+                              <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
+                            </td>
+                            <td style="text-align:center">
+                              <?php if ($mhs->gradeApproveStatus == 0) : ?>
+                                <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiPenilaian<?= $mhs->gradeId; ?>" <?php in_groups('Koordik') ? "" : "disabled" ?>>Belum Disetujui</button>
+                              <?php else : ?>
+                                <button class="btn btn-icon icon-left btn-success" <?php in_groups('Koordik') ? "" : "disabled" ?>>Disetujui</button>
+                              <?php endif ?>
+                            </td>
+                          </tr>
+                        <?php endforeach ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <?php $urut++;
+              endforeach ?>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>
-</div>
-</div>
-</section>
+  </section>
 </div>
 
-<!-- start modal laporan kasus  -->
+<!-- start modal nilai  -->
 <?php foreach ($menuNilai as $menu) : ?>
-  <?php foreach ($mahasiswa as $mhs) :
+  <?php foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) :
     $file_header = @get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"); ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim ?>">
+    <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim . $mhs->staseId ?>">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-          <form action="/penilaian/save" method="post">
+          <form class="needs-validation" action="/penilaian/save" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="npm" value="<?= $mhs->kelompokDetNim ?>">
             <input type="hidden" name="rumkitDetId" value="<?= $mhs->rumkitDetId ?>">
@@ -118,67 +143,119 @@
               </div>
             </div>
             <div class="modal-body">
-              <?php if ($menu->penilaianType != 2) : $colspan = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
-                      <th scope="col" rowspan="2">Aspek Penilaian</th>
-                      <th scope="col" colspan="<?= $colspan ?>">Nilai</th>
-                      <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
-                        <th rowspan="2">Bobot</th>
-                      <?php endif ?>
-                    </tr>
-                    <tr>
-                      <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                        <th><?= $i; ?></th>
-                      <?php endfor ?>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;')) > 3) ? $half = 1.5 : $half = 2; ?>
+              <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+                <div class="table table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
                       <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $komp->komponenNama ?></td>
-                        <?php for ($i = eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                          <td><input type="radio" id="<?= $komp->komponenNama . $i; ?>" name="<?= $komp->komponenId ?>" value="<?= $i ?>" <?= (ceil(eval('return $' . $menu->penilaianTarget . '[0]->komponenSkorMax;') / $half) == $i) ? "checked" : "" ?>></td>
+                        <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                        <th scope="col" rowspan="2">Aspek Penilaian</th>
+                        <th style="text-align:center" scope="col" colspan="<?= $colspan ?>">Nilai</th>
+                        <?php if (eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                          <th style="text-align:center" rowspan="2">Bobot</th>
+                        <?php endif ?>
+                      </tr>
+                      <tr>
+                        <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                          <th style="text-align:center"><?= $i; ?></th>
                         <?php endfor ?>
-                        <?php if (eval('return $' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
-                          <td><?= $komp->komponenBobot ?></td>
-                        <?php endif ?>
                       </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <?php $no = 1;
+                      foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
+                        <tr>
+                          <td style="text-align:center"><?= $no++ ?></td>
+                          <td><?= $komp->komponenNama ?></td>
+                          <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
+                            <td>
+                              <div class="selectgroup selectgroup-pills">
+                                <label for="<?= $komp->komponenNama . $i; ?>"></label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value=" <?= $i ?>" class="selectgroup-input form-control" required>
+                                  <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                                </label>
+                              </div>
+                            </td>
+                          <?php endfor ?>
+                          <?php if (eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenBobot;') != null) : ?>
+                            <td style="text-align:center"><?= $komp->komponenBobot ?></td>
+                          <?php endif ?>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                    <?php if ($menu->penilaianIsGlobalRating != 0) : ?>
+                      <thead>
+                        <tr>
+                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                              <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                              <label class="form-check-label" for="inlineradio2">Kompeten</label>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    <?php endif ?>
+                  </table>
+                </div>
               <?php else : ?>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="text-align:center" scope="col" rowspan="2">No.</th>
-                      <th scope="col" rowspan="2">Aspek Penilaian</th>
-                      <th scope="col">Keterangan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1;
-                    foreach (eval('return $' . $menu->penilaianTarget . ';') as $komp) : ?>
+                <div class="table table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
                       <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $komp->komponenNama ?></td>
-                        <?php if (!$komp->komponenIsNumber) : ?>
-                          <td style="padding: 10px;">
-                            <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
-                          </td>
-                        <?php else : ?>
-                          <td style="padding: 10px;">
-                            <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
-                          </td>
-                        <?php endif ?>
+                        <th style="text-align:center" scope="col" rowspan="2">No.</th>
+                        <th scope="col" rowspan="2">Aspek Penilaian</th>
+                        <th scope="col">Keterangan</th>
                       </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <?php $no = 1;
+                      foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
+                        <tr>
+                          <td style="text-align:center"><?= $no++ ?></td>
+                          <td><?= $komp->komponenNama ?></td>
+                          <?php if (!$komp->komponenIsNumber) : ?>
+                            <td style="padding: 10px;">
+                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
+                            </td>
+                          <?php else : ?>
+                            <td style="padding: 10px;">
+                              <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
+                            </td>
+                          <?php endif ?>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                            <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                            <label class="form-check-label" for="inlineradio2">Kompeten</label>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               <?php endif ?>
             </div>
             <div class=" modal-footer bg-whitesmoke br">
@@ -191,7 +268,7 @@
     </div>
   <?php endforeach ?>
 <?php endforeach ?>
-<!-- end modal laporan kasus -->
+<!-- end modal nilai -->
 
 <?= view('layout/templateFooter'); ?>
 

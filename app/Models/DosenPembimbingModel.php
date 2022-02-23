@@ -8,7 +8,7 @@ class DosenPembimbingModel extends Model
 {
     protected $table = 'dosen_pembimbing';
     protected $primaryKey = 'dopingId';
-    protected $allowedFields = ['dopingNamaLengkap', 'dopingEmail', 'dopingNoHandphone', 'dopingAlamat', 'dopingRumkitId', 'type'];
+    protected $allowedFields = ['dopingNamaLengkap', 'dopingEmail', 'dopingNoHandphone', 'dopingAlamat', 'dopingRumkitId', 'type', 'dopingSignature'];
     protected $returnType = 'object';
 
     public function getDosenPembimbing($where = null, $keyword = null)

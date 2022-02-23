@@ -77,13 +77,31 @@
                 <thead>
                   <tr>
                     <th style="text-align:center" scope="col">No.</th>
-                    <th scope="col">NPM</th>
-                    <th scope="col">Nama Mahasiswa</th>
-                    <th scope="col">Hari Ke</th>
-                  </tr>
+                    <th scope="col">Mahasiswa</th>
+                    <?php $no = 0;
+                    $mn = $minDate;
+                    $mx = $maxDate;
+                    while (strtotime($mn) <= strtotime($mx)) : ?>
+                      <th><sup><?= date("d", strtotime($mn)) ?></sup>/<sub><?= date("m", strtotime($mn)) ?></sub></th>
+                    <?php $mn = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn)));
+                    endwhile ?>
                 </thead>
                 <tbody>
-
+                  <?php
+                  $no = 1;
+                  $mn2 = $minDate;
+                  $mx2 = $maxDate;
+                  foreach ($mahasiswa as $mahasiswa) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
+                      <?php while (strtotime($mn2) <= strtotime($mx2)) : ?>
+                        <td class="<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2) ?>"></td>
+                      <?php $mn2 = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn2)));
+                      endwhile ?>
+                    </tr>
+                  <?php $mn2 = $minDate;
+                  endforeach ?>
                 </tbody>
               </table>
             </div>

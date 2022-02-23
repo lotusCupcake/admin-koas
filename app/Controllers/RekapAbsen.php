@@ -27,6 +27,7 @@ class RekapAbsen extends BaseController
             'validation' => \Config\Services::validation(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataResult' => [],
+            'mahasiswa' => [],
             'dataFilter' => [null, null]
         ];
         return view('pages/rekapAbsen', $data);
@@ -34,27 +35,22 @@ class RekapAbsen extends BaseController
 
     public function rekapAbsenStase()
     {
-        // Ambil data rumahSakitId yang dikirim via ajax post
         $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
         $staseRumkit = $this->jadwalKegiatanModel->rekapAbsenStase($rumahSakitId);
-        // Proses Get Data Stase Dari Tabel Rumkit_Detail
-
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
         $lists = "<option value=''>Pilih Stase</option>";
         foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->rumkitDetStaseId . "'>" . $data->staseNama . "</option>";
         }
-        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_stase_rumkit' => $lists);
+        echo json_encode($callback);
     }
 
     public function rekapAbsenKelompok()
     {
         $kelompokId = [];
-        $rumkitDetId = trim($this->request->getPost('staseId'));
+        $staseId = trim($this->request->getPost('staseId'));
 
-        $jadwalKelompok = $this->jadwalKegiatanModel->rekapAbsenKelompok($rumkitDetId);
+        $jadwalKelompok = $this->jadwalKegiatanModel->rekapAbsenKelompok($staseId);
         // dd($jadwalKelompok);
         foreach ($jadwalKelompok->getResult() as $kelompok_jadwal) {
             array_push($kelompokId, $kelompok_jadwal->jadwalKelompokId);
@@ -98,12 +94,12 @@ class RekapAbsen extends BaseController
         ])) {
             return redirect()->to('rekapAbsen')->withInput();
         }
-        $jadwalRumkitDetId = trim($this->request->getPost('staseIdAbsen'));
+        $staseId = trim($this->request->getPost('staseIdAbsen'));
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
 
-        $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
-        $absenMahasiswa = $this->jadwalKegiatanModel->getAbsenMahasiswa($jadwalRumkitDetId, $kelompokId)->getResult();
-        $jumlahHari = $this->jadwalKegiatanModel->getJadwalHari($jadwalRumkitDetId, $kelompokId)->getResult();
+        $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($staseId, $kelompokId)->getResult();
+        $mahasiswa = $this->jadwalKegiatanModel->getMahasiswa(['kelompok.kelompokId' => $kelompokId])->getResult();
+        // dd($mahasiswa);
 
         $data = [
             'title' => "Rekap Absensi",
@@ -112,13 +108,13 @@ class RekapAbsen extends BaseController
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
-            'dataAbsenMahasiswa' => $absenMahasiswa,
-            'dataJumlahHari' => $jumlahHari,
             'dataResult' => $rekapAbsen,
-            'dataFilter' => [$jadwalRumkitDetId, $kelompokId]
+            'mahasiswa' => $mahasiswa,
+            'dataFilter' => [$staseId, $kelompokId],
+            'minDate' => date("Y-m-d", minDateKelByDetail($kelompokId, $staseId) / 1000),
+            'maxDate' => date("Y-m-d", maxDateKelByDetail($kelompokId, $staseId) / 1000),
         ];
-        // dd($rekapAbsen);
-        $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
+
         foreach ($rekapAbsen as $absen) {
             $rumahSakit = $absen->rumahSakitShortname;
             $stase = $absen->staseNama;

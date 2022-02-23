@@ -6,12 +6,14 @@ use App\Models\KelompokMahasiswaModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 use App\Models\DosenPembimbingModel;
+use App\Models\JadwalSkipModel;
 
 class JadwalKegiatan extends BaseController
 {
     protected $kelompokMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
+    protected $jadwalSkipModel;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class JadwalKegiatan extends BaseController
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
+        $this->jadwalSkipModel = new JadwalSkipModel();
     }
     public function index()
     {
@@ -32,14 +35,14 @@ class JadwalKegiatan extends BaseController
                 $jadwal = $this->jadwalKegiatanModel->show_Jadwal_KegiatanSearch($keyword, ['rumkit.rumahSakitId' => $rs]);
             } else {
                 $jadwal = $this->jadwalKegiatanModel->show_Jadwal_Kegiatan(['rumkit.rumahSakitId' => $rs]);
-                // dd($jadwal->get()->getResult());
             }
             $data = [
                 'title' => "Jadwal Kegiatan",
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Mahasiswa', 'Jadwal Kegiatan'],
                 'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
-                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'mhsDetail' => $this->kelompokMahasiswaModel->getDetailMhs()->getResult(),
+                'kelompokDetail' => $this->kelompokMahasiswaModel->findAll(),
                 'pager' => $this->jadwalKegiatanModel->pager,
                 'currentPage' => $currentPage,
                 'numberPage' => $this->numberPage,
@@ -58,7 +61,8 @@ class JadwalKegiatan extends BaseController
                 'appName' => "Dokter Muda",
                 'breadcrumb' => ['Setting', 'Jadwal Kegiatan'],
                 'jadwalKegiatan' => $jadwal->paginate($this->numberPage, 'jadwal'),
-                'mhsDetail' => $this->kelompokMahasiswaModel->findAll(),
+                'mhsDetail' => $this->kelompokMahasiswaModel->getDetailMhs()->getResult(),
+                'kelompokDetail' => $this->kelompokMahasiswaModel->findAll(),
                 'pager' => $this->jadwalKegiatanModel->pager,
                 'currentPage' => $currentPage,
                 'numberPage' => $this->numberPage,
@@ -67,26 +71,20 @@ class JadwalKegiatan extends BaseController
                 'menu' => $this->fetchMenu(),
             ];
         }
-        // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);
     }
 
     public function stase()
     {
-        // Ambil data rumahSakitId yang dikirim via ajax post
         $rumahSakitId = trim($this->request->getPost('rumahSakitId'));
         $staseRumkit = $this->jadwalKegiatanModel->Show_Data_Stase($rumahSakitId);
-        // Proses Get Data Stase Dari Tabel Rumkit_Detail
-
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
         $lists = "<option value=''>Pilih Stase</option>";
         foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
         }
-        $callback = array('list_stase_rumkit' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_stase_rumkit' => $lists);
+        echo json_encode($callback);
     }
 
     public function kelompok()
@@ -104,18 +102,16 @@ class JadwalKegiatan extends BaseController
             $kelompokId = [0];
         }
         $kelompok = $this->jadwalKegiatanModel->Show_Kelompok($kelompokId);
-        // Proses Get Data Stase Dari Tabel Kelompok
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompok->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>"; // Tambahkan tag option ke variabel $lists
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik . "</option>";
         }
-        $callback = array('list_kelompok' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_kelompok' => $lists);
+        echo json_encode($callback);
     }
 
     public function add()
     {
-        // dd($_POST);
         if (!$this->validate([
             'tanggalAwal' => [
                 'rules' => 'required',
@@ -228,6 +224,74 @@ class JadwalKegiatan extends BaseController
 
         if ($this->jadwalKegiatanModel->update($id, $data)) {
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
+
+    public function skip()
+    {
+        if (!$this->validate([
+            'skipTanggalAwal' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Awal Harus Dipilih!',
+                ]
+            ],
+            'skipTanggalAkhir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Akhir Harus Dipilih!',
+                ]
+            ],
+            'skipAlasan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Alasan Penundaan Harus Diisi!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('jadwalKegiatan')->withInput();
+        }
+        $stase = $this->jadwalKegiatanModel->getStaseByJadwalDetail(['jadwal_detail.jadwalDetailId' => $this->request->getPost('skipJadwalDetailId')])->getResult()[0]->staseId;
+        $tanggalMulai = minDate($this->request->getPost('skipNpm'), $stase);
+        $tanggalSelesai = maxDate($this->request->getPost('skipNpm'), $stase);
+        $tanggalMulaiFormat = gmdate("Y-m-d", $tanggalMulai / 1000);
+        $tanggalSelesaiFormat = gmdate("Y-m-d", $tanggalSelesai / 1000);
+        $tanggalAwalSkip = (int)strtotime($this->request->getPost('skipTanggalAwal'));
+        $tanggalAkhirSkip = (int)strtotime($this->request->getPost('skipTanggalAkhir'));
+
+        $tglAwalStase = date_create($tanggalMulaiFormat);
+        $tglAkhirStase = date_create($tanggalSelesaiFormat);
+        $tglAwalSkip = date_create(gmdate("Y-m-d", $tanggalAwalSkip));
+        $tglAkhirSkip = date_create(gmdate("Y-m-d", $tanggalAkhirSkip));
+        $skipHariKe = $tglAwalStase->diff($tglAwalSkip)->days + 1;
+        $hariStase = $tglAwalStase->diff($tglAkhirStase)->days + 1;
+        $skipSisaHari = $hariStase - $skipHariKe;
+        $data = array(
+            'skipJadwalDetailId' =>  $this->request->getPost('skipJadwalDetailId'),
+            'skipNpm' => $this->request->getPost('skipNpm'),
+            'skipTanggalAwal' => $tanggalAwalSkip * 1000,
+            'skipTanggalAkhir' => $tanggalAkhirSkip * 1000,
+            'skipAlasan' => $this->request->getPost('skipAlasan'),
+            'skipHariKe' => $skipHariKe,
+            'skipSisaHari' => $skipSisaHari
+        );
+
+        if ($this->jadwalSkipModel->insert($data)) {
+            session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
+            return redirect()->to('jadwalKegiatan');
+        }
+    }
+
+    public function aktif($id)
+    {
+        $skipTanggalAktifKembali = (int)strtotime($this->request->getPost('skipTanggalAktifKembali'));
+        $data = array(
+            'skipTanggalAktifKembali' => $skipTanggalAktifKembali * 1000,
+        );
+
+        if ($this->jadwalSkipModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Tanggal Aktif Kembali Berhasil Disetting!');
             return redirect()->to('jadwalKegiatan');
         }
     }
