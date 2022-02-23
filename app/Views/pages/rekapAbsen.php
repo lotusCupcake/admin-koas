@@ -77,23 +77,13 @@
                 <thead>
                   <tr>
                     <th style="text-align:center" scope="col">No.</th>
-                    <th scope="col">Mahasiswa</th>
-                    <th scope="col">Tanggal/Waktu</th>
-                    <th scope="col">Lokasi Absen</th>
-                    <th width="15%" style="text-align:center" scope="col">Keterangan</th>
+                    <th scope="col">NPM</th>
+                    <th scope="col">Nama Mahasiswa</th>
+                    <th scope="col">Hari Ke</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  $no = 1;
-                  foreach ($dataResult as $mahasiswa) : ?>
-                    <tr>
-                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                      <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
-                      <td><?= gmdate('Y-m-d H:i:s', ($mahasiswa->absensiTanggal / 1000)); ?></td>
-                      <td><?= $mahasiswa->absensiLokasi; ?></td>
-                      <td style="text-align:center"><span class="btn <?= $mahasiswa->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $mahasiswa->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $mahasiswa->absensiKeterangan; ?></span></td>
-                    </tr>
-                  <?php endforeach ?>
+
                 </tbody>
               </table>
             </div>

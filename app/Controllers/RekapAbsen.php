@@ -102,6 +102,8 @@ class RekapAbsen extends BaseController
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
 
         $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
+        $absenMahasiswa = $this->jadwalKegiatanModel->getAbsenMahasiswa($jadwalRumkitDetId, $kelompokId)->getResult();
+        $jumlahHari = $this->jadwalKegiatanModel->getJadwalHari($jadwalRumkitDetId, $kelompokId)->getResult();
 
         $data = [
             'title' => "Rekap Absensi",
@@ -110,6 +112,8 @@ class RekapAbsen extends BaseController
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
+            'dataAbsenMahasiswa' => $absenMahasiswa,
+            'dataJumlahHari' => $jumlahHari,
             'dataResult' => $rekapAbsen,
             'dataFilter' => [$jadwalRumkitDetId, $kelompokId]
         ];

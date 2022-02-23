@@ -178,6 +178,62 @@ class JadwalKegiatanModel extends Model
                 'kelompok.kelompokId' => $kelompokId
             ]
         );
+        $builder->groupBy('absensi.absensiTanggal, absensi.absensiKeterangan');
+        $kelompok = $builder->get();
+        return $kelompok;
+    }
+
+    public function getAbsenMahasiswa($jadwalRumkitDetId, $kelompokId)
+    {
+        $builder = $this->db->table('absensi');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'jadwal.jadwalRumkitDetId' => $jadwalRumkitDetId,
+                'kelompok.kelompokId' => $kelompokId
+            ]
+        );
+        $builder->groupBy('absensi.absensiTanggal, absensi.absensiKeterangan');
+        $kelompok = $builder->get();
+        return $kelompok;
+    }
+
+    public function getJadwalHari($jadwalRumkitDetId, $kelompokId)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->select('CONCAT(jadwalJumlahWeek * 7) AS JlhHari');
+        $builder->where(
+            [
+                'jadwal.jadwalRumkitDetId' => $jadwalRumkitDetId,
+                'jadwal.jadwalKelompokId' => $kelompokId
+            ]
+        );
+        $builder->groupBy('jadwal.jadwalRumkitDetId');
+        $jadwalHari = $builder->get();
+        return $jadwalHari;
+    }
+
+    public function getTotalAbsen($jadwalRumkitDetId, $kelompokId)
+    {
+        $builder = $this->db->table('absensi');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'jadwal.jadwalRumkitDetId' => $jadwalRumkitDetId,
+                'kelompok.kelompokId' => $kelompokId
+            ]
+        );
+        $builder->groupBy(['absensi.absensiTanggal, absensi.absensiKeterangan']);
         $kelompok = $builder->get();
         return $kelompok;
     }
