@@ -27,12 +27,6 @@ class Home extends BaseController
     {
         $data = array('email' =>  $this->request->getVar('email'));
         $this->popupModel->insert($data);
-        $data = [
-            'title' => "Home",
-            'appName' => "Dokter Muda",
-            'breadcrumb' => ['Home', 'Dashboard'],
-            'menu' => $this->fetchMenu()
-        ];
-        return view('pages/home', $data);
+        return redirect()->to('home');
     }
 }
