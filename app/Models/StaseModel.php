@@ -8,7 +8,7 @@ class StaseModel extends Model
 {
     protected $table = 'stase';
     protected $primaryKey = 'staseId';
-    protected $allowedFields = ['staseNama', 'staseJumlahWeek', 'staseType'];
+    protected $allowedFields = ['staseNama', 'staseJumlahWeek'];
     protected $returnType = 'object';
 
 
