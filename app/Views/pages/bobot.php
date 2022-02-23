@@ -56,9 +56,9 @@
                       <td><?= $row->staseNama; ?></td>
                       <td style="text-align:center">
                         <?php if ($status == 99) : ?>
-                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Tambah Penilaian</button>
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Penilaian</button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Bobot</button>
                         <?php else : ?>
                           <button class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Setting Tersedia</button>
                         <?php endif ?>
