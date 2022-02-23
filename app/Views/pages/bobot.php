@@ -43,7 +43,7 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Stase</th>
-                  <th width="25%" style="text-align:center" scope="col">Action</th>
+                  <th width="35%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,9 +59,10 @@
                         <?php if ($status == 99) : ?>
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Bobot</button>
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Penilaian</button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Bobot</button>
                         <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#setUlangBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
                       </td>
                     </tr>
@@ -156,7 +157,7 @@ foreach ($bobot as $edit) : ?>
                           <td>
                             <div class="selectgroup selectgroup-pills">
                               <label class="selectgroup-item">
-                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
+                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
                                 <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                               </label>
                             </div>
