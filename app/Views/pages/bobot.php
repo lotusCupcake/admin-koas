@@ -62,7 +62,6 @@
                         <?php else : ?>
                           <button class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Setting Tersedia</button>
                         <?php endif ?>
-
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -78,15 +77,15 @@
   </section>
 </div>
 
-<!-- start modal edit penilaian stase  -->
-<?php foreach ($bobot as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $edit->staseId; ?>">
+<!-- start modal tambah penilaian stase  -->
+<?php foreach ($bobot as $tambah) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambah->staseId; ?>">
     <div class="modal-dialog" role="document">
-      <form action="/penilaian/<?= $edit->staseId; ?>/save" method="POST">
+      <form action="/penilaian/<?= $tambah->staseId; ?>/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian di Stase <?= $edit->staseNama ?></strong></h5>
+            <h5 class="modal-title">Tambah <strong>Penilaian di Stase <?= $tambah->staseNama ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -108,6 +107,58 @@
                       <td><?= $nilai->penilaianNama; ?></td>
                     </tr>
                   <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal tambah penilaian stase -->
+
+<!-- start modal edit penilaian stase  -->
+<?php $no = 1;
+foreach ($bobot as $edit) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="settingBobot<?= $edit->staseId; ?>">
+    <div class="modal-dialog" role="document">
+      <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
+        <?= csrf_field() ?>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit <strong>Penilaian di Stase <?= $edit->staseNama ?></strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Penilaian</th>
+                    <th scope="col">Bobot (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><?= $no++; ?></td>
+                    <td></td>
+                    <td>
+                      <div class="selectgroup selectgroup-pills">
+                        <label class="selectgroup-item">
+                          <input type="radio" name="" value="" class="selectgroup-input form-control" required>
+                          <span class="selectgroup-button selectgroup-button-icon">100</span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
