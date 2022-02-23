@@ -9,7 +9,6 @@ use App\Models\StaseModel;
 class Bobot extends BaseController
 {
     protected $bobotModel;
-    protected $staseModel;
     protected $penilaianModel;
     public function __construct()
     {
@@ -51,5 +50,25 @@ class Bobot extends BaseController
 
 
         // $data = array('' => , );
+        $keys = array_keys($_POST);
+        $values = array_values($_POST);
+        $json = array();
+        foreach ($_POST['penilaian'] as $i) {
+            $data = array(
+                $i => 0,
+            );
+            array_push($json, $data);
+        }
+        $penilaian = json_encode($json);
+        $data = array(
+            'settingBobotStaseId' => $id,
+            'settingBobotKomposisiNilai' => $penilaian,
+            'settingBobotStatus' => 0,
+        );
+
+        if ($this->bobotModel->insert($data)) {
+            session()->setFlashdata('success', 'Setting nilai berhasil di simpan, silahkan lanjutkan ke setting bobot!');
+            return redirect()->to('bobot');
+        }
     }
 }

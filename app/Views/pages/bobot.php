@@ -49,12 +49,20 @@
                 <?php if (!empty($bobot)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($bobot as $row) : ?>
+                  foreach ($bobot as $row) :  ?>
+                    <?php (count(getStatus(['settingBobotStaseId' => $row->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $row->staseId])[0]->settingBobotStatus : $status = 99 ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->staseNama; ?></td>
                       <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Tambah Penilaian</button>
+                        <?php if ($status == 99) : ?>
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Tambah Penilaian</button>
+                        <?php elseif ($status == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Penilaian</button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Setting Tersedia</button>
+                        <?php endif ?>
+
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -78,7 +86,7 @@
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian</strong></h5>
+            <h5 class="modal-title">Tambah <strong>Penilaian di Stase <?= $edit->staseNama ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

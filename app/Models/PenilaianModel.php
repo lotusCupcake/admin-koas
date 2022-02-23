@@ -12,7 +12,8 @@ class PenilaianModel extends Model
     public function getPenilaian()
     {
         $builder = $this->table('penilaian');
-        $builder->orderBy('penilaian.penilaianOrder', 'ASC');
+        $builder->orderBy('penilaianOrder', 'ASC');
+        $builder->whereNotIn('penilaianId', [8, 10, 15, 9]);
         return $builder;
     }
 
