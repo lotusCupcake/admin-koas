@@ -40,3 +40,10 @@ function getPenilaian($where)
     $result = $model->getWhere($where)->getResult();
     return $result;
 }
+
+function getPopup($where)
+{
+    $model = new \App\Models\PopupModel;
+    $result = $model->selectCount('email')->getWhere($where)->getResult();
+    return $result;
+}
