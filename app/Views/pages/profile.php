@@ -26,7 +26,7 @@
               </div>
               <div class="author-box-details">
                 <div class="author-box-name">
-                  <a href="#"><?= getUser(user()->id)->dopingNamaLengkap; ?></a>
+                  <strong><span class="text-primary"><?= getUser(user()->id)->dopingNamaLengkap; ?></span></strong>
                 </div>
                 <div class="author-box-job"><?= getUser(user()->id)->rumahSakitShortname; ?> (<?= getUser(user()->id)->name; ?>) / <?= user()->email ?></div>
                 <div class="author-box-description">

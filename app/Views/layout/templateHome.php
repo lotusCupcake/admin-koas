@@ -23,9 +23,9 @@
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
 
   <style type="text/css">
-    .text-primary:hover {
+    /* .text-primary:hover {
       text-decoration: underline;
-    }
+    } */
 
     .previewsign {
       border: 1px dashed #ccc;
