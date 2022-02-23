@@ -134,6 +134,15 @@
         "pages": ""
     },
     {
+        "id": "35",
+        "nama": "Bobot Nilai",
+        "parent": "17",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-balance-scale",
+        "pages": "/bobot"
+    },
+    {
         "id": "18",
         "nama": "Jadwal Kegiatan",
         "parent": "17",

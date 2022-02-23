@@ -135,5 +135,6 @@ node_modules
 public/null/
 public/template/
 public/dokumen/
+public/signature-image/
 
 # public/menu/menu.json

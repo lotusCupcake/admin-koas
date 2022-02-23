@@ -179,6 +179,13 @@ $routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Supera
 //route profile
 $routes->get('/profile/', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
 $routes->get('/profile/index', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->post('/profile/insert', 'Profile::insert_signature');
+
+//route bobot nilai
+$routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
+
 
 
 

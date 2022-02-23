@@ -159,7 +159,7 @@
 
         $.ajax({
           type: "POST",
-          url: "/profile/insert_signature",
+          url: "/profile/insert",
           data: {
             'image': signaturePad.toDataURL(),
             'rowno': $('#rowno').val()

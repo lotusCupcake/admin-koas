@@ -9,6 +9,11 @@ class PenilaianModel extends Model
     protected $table = 'penilaian';
     protected $returnType = 'object';
 
+    public function getPenilaian()
+    {
+        $builder = $this->table('penilaian');
+        return $builder;
+    }
 
     public function getFormNilai($where)
     {
