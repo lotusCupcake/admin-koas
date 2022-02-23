@@ -43,11 +43,19 @@ class Bobot extends BaseController
 
     public function savePenilaian($id)
     {
+        // dd($_POST);
         //cek jika id kosong
-
+        if ($id == null) {
+            session()->setFlashdata('danger', 'Stase Belum Dipilih!');
+            return redirect()->to('bobot');
+        }
+        // dd(count($_POST['penilaian']));
 
         //cek jika penilaian tidak ada dipilih
-
+        if (count($_POST) <= 1) {
+            session()->setFlashdata('danger', 'Penilaian Belum Dipilih!');
+            return redirect()->to('bobot');
+        }
 
         // $data = array('' => , );
         $keys = array_keys($_POST);
@@ -67,36 +75,47 @@ class Bobot extends BaseController
         );
 
         if ($this->bobotModel->insert($data)) {
-            session()->setFlashdata('success', 'Setting nilai berhasil di simpan, silahkan lanjutkan ke setting bobot!');
+            session()->setFlashdata('success', 'Setting Nilai Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
             return redirect()->to('bobot');
         }
     }
 
     public function saveBobot($id)
     {
+        // dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
+        $total = 0;
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
                     'penilaian' => $keys[$i], 'bobot' => $values[$i],
                 );
                 array_push($json, $data);
+                $total = $total + $values[$i];
             }
-            // hitung bobot nilai
         }
+        // dd($total);
         // jika nilai belum atau lebih dari 100 maka force dan tampilkan pesan
-        $penilaian = json_encode($json);
-        $data = array(
-            'settingBobotStaseId' => $id,
-            'settingBobotKomposisiNilai' => $penilaian,
-            'settingBobotStatus' => 1,
-        );
-
-        if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
-            session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
+        if ($total < 100) {
+            session()->setFlashdata('danger', 'Total Bobot Nilai Kurang Dari 100!');
             return redirect()->to('bobot');
+        } elseif ($total > 100) {
+            session()->setFlashdata('danger', 'Total Bobot Nilai Lebih Dari 100!');
+            return redirect()->to('bobot');
+        } else {
+            $penilaian = json_encode($json);
+            $data = array(
+                'settingBobotStaseId' => $id,
+                'settingBobotKomposisiNilai' => $penilaian,
+                'settingBobotStatus' => 1,
+            );
+
+            if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
+                session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
+                return redirect()->to('bobot');
+            }
         }
     }
 }

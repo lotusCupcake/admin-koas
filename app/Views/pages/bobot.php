@@ -30,11 +30,8 @@
           </div>
         </div>
         <div class="card-body">
-          <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
-          <?php endif; ?>
-          <?php if ($validation->hasError('kegiatanNama')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kegiatanNama')]]); ?>
+          <?php if (!empty(session()->getFlashdata('danger'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -142,26 +139,30 @@ foreach ($bobot as $edit) : ?>
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Penilaian</th>
+                    <th style="width:20%" scope="col">Penilaian</th>
                     <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach (json_decode($komposisi) as $nilai) : ?>
-                    <tr>
-                      <td><?= getPenilaian(['penilaianId' => $nilai->penilaian])[0]->penilaianNamaSingkat ?></td>
-                      <?php for ($i = 5; $i <= 50; $i = $i + 5) : ?>
-                        <td>
-                          <div class="selectgroup selectgroup-pills">
-                            <label class="selectgroup-item">
-                              <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
-                              <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
-                            </label>
-                          </div>
-                        </td>
-                      <?php endfor ?>
-                    </tr>
-                  <?php endforeach ?>
+                  <?php if (!empty($komposisi)) : ?>
+                    <?php foreach (json_decode($komposisi) as $nilai) : ?>
+                      <tr>
+                        <td><?= getPenilaian(['penilaianId' => $nilai->penilaian])[0]->penilaianNamaSingkat ?></td>
+                        <?php for ($i = 5; $i <= 50; $i = $i + 5) : ?>
+                          <td>
+                            <div class="selectgroup selectgroup-pills">
+                              <label class="selectgroup-item">
+                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
+                                <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                              </label>
+                            </div>
+                          </td>
+                        <?php endfor ?>
+                      </tr>
+                    <?php endforeach ?>
+                  <?php else : ?>
+                    <?= view('layout/templateEmpty', ['jumlahSpan' => 2]); ?>
+                  <?php endif ?>
                 </tbody>
               </table>
             </div>
