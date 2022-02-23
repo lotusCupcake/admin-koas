@@ -43,11 +43,19 @@ class Bobot extends BaseController
 
     public function savePenilaian($id)
     {
+        // dd($_POST);
         //cek jika id kosong
-
+        if ($id == null) {
+            session()->setFlashdata('danger', 'Stase Belum Dipilih!');
+            return redirect()->to('bobot');
+        }
+        // dd(count($_POST['penilaian']));
 
         //cek jika penilaian tidak ada dipilih
-
+        if (count($_POST) <= 1) {
+            session()->setFlashdata('danger', 'Penilaian Belum Dipilih!');
+            return redirect()->to('bobot');
+        }
 
         // $data = array('' => , );
         $keys = array_keys($_POST);
@@ -67,7 +75,7 @@ class Bobot extends BaseController
         );
 
         if ($this->bobotModel->insert($data)) {
-            session()->setFlashdata('success', 'Setting nilai berhasil di simpan, silahkan lanjutkan ke setting bobot!');
+            session()->setFlashdata('success', 'Setting Nilai Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
             return redirect()->to('bobot');
         }
     }
