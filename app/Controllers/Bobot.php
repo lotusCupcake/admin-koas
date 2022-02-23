@@ -55,7 +55,7 @@ class Bobot extends BaseController
         $json = array();
         foreach ($_POST['penilaian'] as $i) {
             $data = array(
-                $i => 0,
+                'penilaian' => $i, 'bobot' => 0,
             );
             array_push($json, $data);
         }
@@ -68,6 +68,33 @@ class Bobot extends BaseController
 
         if ($this->bobotModel->insert($data)) {
             session()->setFlashdata('success', 'Setting nilai berhasil di simpan, silahkan lanjutkan ke setting bobot!');
+            return redirect()->to('bobot');
+        }
+    }
+
+    public function saveBobot($id)
+    {
+        $keys = array_keys($_POST);
+        $values = array_values($_POST);
+        $json = array();
+        for ($i = 0; $i < count($keys); $i++) {
+            if (is_numeric($keys[$i])) {
+                $data = array(
+                    'penilaian' => $keys[$i], 'bobot' => $values[$i],
+                );
+                array_push($json, $data);
+            }
+            // hitung bobot nilai
+        }
+        $penilaian = json_encode($json);
+        $data = array(
+            'settingBobotStaseId' => $id,
+            'settingBobotKomposisiNilai' => $penilaian,
+            'settingBobotStatus' => 1,
+        );
+
+        if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
+            session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
             return redirect()->to('bobot');
         }
     }

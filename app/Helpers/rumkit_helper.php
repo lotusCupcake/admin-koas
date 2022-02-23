@@ -33,3 +33,10 @@ function getStatus($where)
     $result = $model->getWhere($where)->getResult();
     return $result;
 }
+
+function getPenilaian($where)
+{
+    $model = new \App\Models\PenilaianModel;
+    $result = $model->getWhere($where)->getResult();
+    return $result;
+}

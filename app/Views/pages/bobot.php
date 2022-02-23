@@ -126,7 +126,8 @@
 <?php $no = 1;
 foreach ($bobot as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="settingBobot<?= $edit->staseId; ?>">
-    <div class="modal-dialog" role="document">
+    <?php $komposisi = (count(getStatus(['settingBobotStaseId' => $edit->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $edit->staseId])[0]->settingBobotKomposisiNilai : $status =  '[]' ?>
+    <div class="modal-dialog modal-xl" role="document">
       <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
@@ -141,24 +142,26 @@ foreach ($bobot as $edit) : ?>
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">No.</th>
                     <th scope="col">Penilaian</th>
-                    <th scope="col">Bobot (%)</th>
+                    <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><?= $no++; ?></td>
-                    <td></td>
-                    <td>
-                      <div class="selectgroup selectgroup-pills">
-                        <label class="selectgroup-item">
-                          <input type="radio" name="" value="" class="selectgroup-input form-control" required>
-                          <span class="selectgroup-button selectgroup-button-icon">100</span>
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
+                  <?php foreach (json_decode($komposisi) as $nilai) : ?>
+                    <tr>
+                      <td><?= getPenilaian(['penilaianId' => $nilai->penilaian])[0]->penilaianNamaSingkat ?></td>
+                      <?php for ($i = 5; $i <= 50; $i = $i + 5) : ?>
+                        <td>
+                          <div class="selectgroup selectgroup-pills">
+                            <label class="selectgroup-item">
+                              <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
+                              <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                            </label>
+                          </div>
+                        </td>
+                      <?php endfor ?>
+                    </tr>
+                  <?php endforeach ?>
                 </tbody>
               </table>
             </div>

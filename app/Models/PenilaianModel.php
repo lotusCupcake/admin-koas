@@ -13,7 +13,7 @@ class PenilaianModel extends Model
     {
         $builder = $this->table('penilaian');
         $builder->orderBy('penilaianOrder', 'ASC');
-        $builder->whereNotIn('penilaianId', [8, 10, 15, 9]);
+        $builder->whereNotIn('penilaianId', [8, 10, 15, 9, 12]);
         return $builder;
     }
 
