@@ -59,7 +59,7 @@
   </style>
 </head>
 
-<body onload="announcement('<?= getUserId(user()->id)->name ?>')">
+<body onload="announcement('<?= getUserId(user()->id)->name ?>','<?= getPopup(['email' => user()->email])[0]->email ?>')">
   <div id="app">
     <div class="main-wrapper">
 
@@ -102,16 +102,16 @@
 
   <!-- label dokumen -->
   <script>
-    function announcement(role) {
-      if (role == 'Superadmin') {
+    function announcement(role, $stat) {
+      if (role == 'Superadmin' && $stat == '0') {
         $('#announcementSuperadmin').modal('show');
-      } else if (role == 'Admin Prodi') {
+      } else if (role == 'Admin Prodi' && $stat == '0') {
         $('#announcementAdmin').modal('show');
-      } else if (role == 'General User') {
+      } else if (role == 'General User' && $stat == '0') {
         $('#announcement').modal('show');
-      } else if (role == 'Dosen') {
+      } else if (role == 'Dosen' && $stat == '0') {
         $('#announcementDosen').modal('show');
-      } else {
+      } else if (role == 'Koordik' && $stat == '0') {
         $('#announcementKoordik').modal('show');
       }
     }

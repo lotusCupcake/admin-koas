@@ -29,9 +29,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p>
@@ -42,10 +40,13 @@
         <li>Wajib mengisi jadwal mahasiswa (jika belum)</li>
         </ul>"]]); ?>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
-        <button type="button" class="btn btn-primary">Baiklah</button>
-      </div>
+      <form action="/home/savepopup" method="post">
+        <input type="hidden" name="email" value="<?= user()->email ?>">
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
+          <button type="submit" class="btn btn-primary">Baiklah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -55,9 +56,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p>
@@ -68,10 +66,13 @@
         <li>Wajib mengisi jadwal mahasiswa (jika belum)</li>
         </ul>"]]); ?>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
-        <button type="button" class="btn btn-primary">Baiklah</button>
-      </div>
+      <form action="/home/savepopup" method="post">
+        <input type="hidden" name="email" value="<?= user()->email ?>">
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
+          <button type="submit" class="btn btn-primary">Baiklah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -81,17 +82,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p><ul><li>Mengisi tanda tangan pada menu profile</li></ul>"]]); ?>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
-        <button type="button" class="btn btn-primary">Baiklah</button>
-      </div>
+      <form action="/home/savepopup" method="post">
+        <input type="hidden" name="email" value="<?= user()->email ?>">
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
+          <button type="submit" class="btn btn-primary">Baiklah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -101,17 +103,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p><ul><li>Mengisi tanda tangan pada menu profile</li></ul>"]]); ?>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
-        <button type="button" class="btn btn-primary">Baiklah</button>
-      </div>
+      <form action="/home/savepopup" method="post">
+        <input type="hidden" name="email" value="<?= user()->email ?>">
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
+          <button type="submit" class="btn btn-primary">Baiklah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -121,17 +124,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, silahkan hubungi administrator untuk mempromosikan akun kamu."]]); ?>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
-        <button type="button" class="btn btn-primary">Baiklah</button>
-      </div>
+      <form action="/home/savepopup" method="post">
+        <input type="hidden" name="email" value="<?= user()->email ?>">
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ingati nanti</button>
+          <button type="submit" class="btn btn-primary">Baiklah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 
 // route home
 $routes->get('/home/(:any)', 'Home::index');
+$routes->post('/home/savepopup', 'Home::savePopup');
 
 // route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
