@@ -185,6 +185,7 @@ $routes->post('/profile/insert', 'Profile::insert_signature');
 $routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
+$routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
 
 
 
