@@ -1,5 +1,4 @@
-[
-    {
+[{
         "id": "1",
         "nama": "Home",
         "parent": "0",
@@ -133,6 +132,15 @@
         "status": true,
         "icon": "",
         "pages": ""
+    },
+    {
+        "id": "32",
+        "nama": "Bobot Nilai",
+        "parent": "17",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-balance-scale",
+        "pages": "/bobot"
     },
     {
         "id": "18",
