@@ -59,7 +59,7 @@
   </style>
 </head>
 
-<body>
+<body onload="announcement(<?= getUser(user()->id)->group_id ?>)">
   <div id="app">
     <div class="main-wrapper">
 
@@ -102,6 +102,20 @@
 
   <!-- label dokumen -->
   <script>
+    function announcement(id) {
+      if (id == 1) {
+        $('#announcementSuperadmin').modal('show');
+      } else if (id == 2) {
+        $('#announcementAdmin').modal('show');
+      } else if (id == 3) {
+        $('#announcement').modal('show');
+      } else if (id == 4) {
+        $('#announcementDosen').modal('show');
+      } else {
+        $('#announcementKoordik').modal('show');
+      }
+    }
+
     function labelDokumen() {
       const dokumen = document.querySelector('#customFile');
       const dokumenLabel = document.querySelector('.custom-file-label');
