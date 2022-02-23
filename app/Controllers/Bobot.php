@@ -82,7 +82,6 @@ class Bobot extends BaseController
 
     public function saveBobot($id)
     {
-        // dd($_POST);
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
@@ -96,8 +95,6 @@ class Bobot extends BaseController
                 $total = $total + $values[$i];
             }
         }
-        // dd($total);
-        // jika nilai belum atau lebih dari 100 maka force dan tampilkan pesan
         if ($total < 100) {
             session()->setFlashdata('danger', 'Total Bobot Nilai Kurang Dari 100!');
             return redirect()->to('bobot');
