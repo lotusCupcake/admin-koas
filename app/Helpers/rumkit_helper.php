@@ -26,3 +26,10 @@ function getUserId($id)
     $result = $model->getSpecificUser(['users.id' => $id])->getResult()[0];
     return $result;
 }
+
+function getStatus($where)
+{
+    $model = new \App\Models\BobotModel;
+    $result = $model->getWhere($where)->getResult();
+    return $result;
+}
