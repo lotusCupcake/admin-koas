@@ -19,7 +19,7 @@
         <?php csrf_field() ?>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <select class="form-control" name="rumahSakitIdNilai">
+            <select class="form-control" name="rumahSakitIdAbsen">
               <option value="" selected="selected">Pilih Rumah Sakit</option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
@@ -27,8 +27,13 @@
             </select>
           </div>
           <div class="form-group col-md-3">
-            <select class="form-control" name="staseIdNilai">
+            <select class="form-control" name="staseIdAbsen">
               <option value="">Pilih Stase</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <select class="form-control" name="kelompokIdAbsen">
+              <option value="">Pilih Kelompok</option>
             </select>
           </div>
           <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">

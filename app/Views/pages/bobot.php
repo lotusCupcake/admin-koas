@@ -11,7 +11,8 @@
       <h1><?= $title; ?></h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-        <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
+        <div class="breadcrumb-item"><a href="/bobot"><?= $breadcrumb[1]; ?></a></div>
+        <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
       </div>
     </div>
     <div class="section-body">
@@ -32,6 +33,9 @@
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('danger'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
+          <?php endif; ?>
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -57,7 +61,7 @@
                         <?php elseif ($status == 0) : ?>
                           <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Bobot</button>
                         <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Setting Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#setUlangBobot<?= $row->staseId; ?>><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
                       </td>
                     </tr>

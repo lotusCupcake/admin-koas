@@ -29,7 +29,7 @@ class Bobot extends BaseController
         $data = [
             'title' => "Bobot Nilai",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Setting', 'Bobot Nilai'],
+            'breadcrumb' => ['Master', 'Data', 'Bobot Nilai'],
             'bobot' => $bobot->paginate($this->numberPage, 'bobot'),
             'penilaian' => $this->penilaianModel->getPenilaian()->get()->getResult(),
             'pager' => $this->staseModel->pager,
@@ -43,21 +43,16 @@ class Bobot extends BaseController
 
     public function savePenilaian($id)
     {
-        // dd($_POST);
-        //cek jika id kosong
         if ($id == null) {
             session()->setFlashdata('danger', 'Stase Belum Dipilih!');
             return redirect()->to('bobot');
         }
-        // dd(count($_POST['penilaian']));
 
-        //cek jika penilaian tidak ada dipilih
         if (count($_POST) <= 1) {
             session()->setFlashdata('danger', 'Penilaian Belum Dipilih!');
             return redirect()->to('bobot');
         }
 
-        // $data = array('' => , );
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
