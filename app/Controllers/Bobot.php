@@ -86,6 +86,7 @@ class Bobot extends BaseController
             }
             // hitung bobot nilai
         }
+        // jika nilai belum atau lebih dari 100 maka force dan tampilkan pesan
         $penilaian = json_encode($json);
         $data = array(
             'settingBobotStaseId' => $id,
