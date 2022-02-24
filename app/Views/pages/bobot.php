@@ -11,7 +11,8 @@
       <h1><?= $title; ?></h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-        <div class="breadcrumb-item active"><?= $breadcrumb[1]; ?></div>
+        <div class="breadcrumb-item"><a href="/bobot"><?= $breadcrumb[1]; ?></a></div>
+        <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
       </div>
     </div>
     <div class="section-body">
@@ -33,13 +34,16 @@
           <?php if (!empty(session()->getFlashdata('danger'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
           <?php endif; ?>
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
+          <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Stase</th>
-                  <th width="25%" style="text-align:center" scope="col">Action</th>
+                  <th width="35%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,9 +59,10 @@
                         <?php if ($status == 99) : ?>
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Setting Bobot</button>
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Penilaian</button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Bobot</button>
                         <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Setting Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
                       </td>
                     </tr>
@@ -152,7 +157,7 @@ foreach ($bobot as $edit) : ?>
                           <td>
                             <div class="selectgroup selectgroup-pills">
                               <label class="selectgroup-item">
-                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
+                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
                                 <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                               </label>
                             </div>
