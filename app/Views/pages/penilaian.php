@@ -103,7 +103,7 @@
           <form class="needs-validation" action="/penilaian/save" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="npm" value="<?= $mhs->kelompokDetNim ?>">
-            <input type="hidden" name="rumkitDetId" value="<?= $mhs->rumkitDetId ?>">
+            <input type="hidden" name="staseId" value="<?= $mhs->staseId ?>">
             <input type="hidden" name="penilaianId" value="<?= $menu->penilaianId ?>">
             <div class="modal-header">
               <h5 class="modal-title">Penilaian <strong><?= $menu->penilaianNama; ?></strong></h5>
