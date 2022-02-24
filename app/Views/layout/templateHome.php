@@ -130,8 +130,10 @@
       dokumenLabel.textContent = dokumen.files[0].name;
     }
   </script>
-
-
+  <?php $uri = current_url(true); ?>
+  <?php if ($uri->getSegment(1) == 'profile') : ?>
+    <script src="<?= base_url() ?>/js/script-signature.js"></script>
+  <?php endif ?>
 
 </body>
 
