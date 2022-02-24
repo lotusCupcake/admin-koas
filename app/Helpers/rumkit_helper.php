@@ -55,6 +55,13 @@ function getKomponenBobot($where)
     return $result;
 }
 
+function getKomponenNilaiMax($where)
+{
+    $model = new \App\Models\KomponenNilaiModel;
+    $result = ($model->getWhere($where)->getResult()[0]->komponenSkorMax != null) ? $model->getWhere($where)->getResult()[0]->komponenSkorMax : 0;
+    return $result;
+}
+
 function getNilai($idPenilaian, $npm, $stase)
 {
 
@@ -91,7 +98,7 @@ function getNilai($idPenilaian, $npm, $stase)
         $nilaiFix = 0;
         foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
             $nilai = 0;
-            $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / 100;
+            $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
             $nilaiFix = $nilaiFix + $nilai;
         }
 

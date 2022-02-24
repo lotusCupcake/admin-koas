@@ -82,7 +82,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php foreach ($dataKomp as $k) : ?>
-                        <td><?= getNilai($k->penilaian, $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?>
+                        <td><?= number_format(getNilai($k->penilaian, $mahasiswa->kelompokDetNim, $mahasiswa->staseId), 2) ?>
                         </td>
                       <?php endforeach ?>
                     </tr>
