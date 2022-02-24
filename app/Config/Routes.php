@@ -187,8 +187,11 @@ $routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prod
 $routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
 $routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
+$routes->delete('/penilaian/(:num)', 'Bobot::delete/$1');
 
-
+//route utilitas
+$routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 
 /*

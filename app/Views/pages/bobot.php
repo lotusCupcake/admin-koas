@@ -59,8 +59,8 @@
                         <?php if ($status == 99) : ?>
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Penilaian</button>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Bobot</button>
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#settingPenilaian<?= $row->settingBobotId; ?>"><i class="fas fa-marker"></i> Edit Penilaian</button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
                         <?php else : ?>
                           <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
@@ -87,7 +87,7 @@
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian di Stase <?= $tambah->staseNama ?></strong></h5>
+            <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambah->staseNama ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -124,7 +124,7 @@
 <?php endforeach ?>
 <!-- end modal tambah penilaian stase -->
 
-<!-- start modal edit penilaian stase  -->
+<!-- start modal tambah bobot  -->
 <?php $no = 1;
 foreach ($bobot as $edit) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="settingBobot<?= $edit->staseId; ?>">
@@ -134,7 +134,7 @@ foreach ($bobot as $edit) : ?>
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit <strong>Penilaian di Stase <?= $edit->staseNama ?></strong></h5>
+            <h5 class="modal-title">Tambah <strong>Bobot Penilaian Stase <?= $edit->staseNama ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -181,7 +181,35 @@ foreach ($bobot as $edit) : ?>
     </div>
   </div>
 <?php endforeach ?>
-<!-- end modal edit penilaian stase -->
+<!-- end modal tambah bobot -->
+
+<!-- start modal tambah ulang/setting penilaian  -->
+<?php foreach ($bobot as $edit) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="settingPenilaian<?= $edit->settingBobotId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $edit->staseNama; ?></strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah kamu benar ingin mengedit ulang penilaian stase <strong><?= $edit->staseNama; ?></strong>?</p>
+        </div>
+        <form action="/penilaian/<?= $edit->settingBobotId; ?>" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal tambah ulang/setting penilaian -->
 
 <?= view('layout/templateFooter'); ?>
 
