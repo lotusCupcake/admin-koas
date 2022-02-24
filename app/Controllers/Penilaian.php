@@ -84,13 +84,13 @@ class Penilaian extends BaseController
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
-                    $keys[$i] => $values[$i],
+                    'penilaian' => $keys[$i], 'nilai' => $values[$i],
                 );
                 array_push($json, $data);
             } else {
                 if ($keys[$i] === 'gr') {
                     $dataGr = array(
-                        $keys[$i] => $values[$i],
+                        'penilaian' => $keys[$i], 'nilai' => $values[$i],
                     );
                     array_push($jsonGr, $dataGr);
                 }
