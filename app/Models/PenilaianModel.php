@@ -37,4 +37,16 @@ class PenilaianModel extends Model
         $builder->orderBy('penilaian.penilaianOrder', 'ASC');
         return $builder;
     }
+
+    public function getFilterNilai($where)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('stase', 'stase.staseId =rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->where($where);
+        $builder->groupBy(['stase.staseId', 'kelompok_detail.kelompokDetNim']);
+        return $builder->get();
+    }
 }

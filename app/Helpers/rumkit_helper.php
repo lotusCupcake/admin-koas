@@ -47,3 +47,57 @@ function getPopup($where)
     $result = $model->selectCount('email')->getWhere($where)->getResult();
     return $result;
 }
+
+function getKomponenBobot($where)
+{
+    $model = new \App\Models\KomponenNilaiModel;
+    $result = ($model->getWhere($where)->getResult()[0]->komponenBobot != null) ? $model->getWhere($where)->getResult()[0]->komponenBobot : 0;
+    return $result;
+}
+
+function getNilai($idPenilaian, $npm, $stase)
+{
+
+    $model = new \App\Models\GradeModel;
+
+    if ($idPenilaian == 19) {
+        $idPenilaian = [8, 10];
+    } elseif ($idPenilaian == 20) {
+        $idPenilaian = [9, 15];
+    } else {
+        $idPenilaian = [$idPenilaian];
+    }
+
+    $result = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', $idPenilaian)->get()->getResult();
+    if (count($result) > 0) {
+        $idPenilaian = $result[0]->gradePenilaianId;
+
+        $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
+
+        if ($idPenilaian == 8 || $idPenilaian == 10) {
+            $idPenilaian = 19;
+        } elseif ($idPenilaian == 9 || $idPenilaian == 15) {
+            $idPenilaian = 20;
+        } else {
+            $idPenilaian = $idPenilaian;
+        }
+
+        foreach (json_decode($komposisi) as $komp) {
+            if ($komp->penilaian == $idPenilaian) {
+                $bobot = $komp->bobot;
+            }
+        }
+
+        $nilaiFix = 0;
+        foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
+            $nilai = 0;
+            $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / 100;
+            $nilaiFix = $nilaiFix + $nilai;
+        }
+
+        $hasil =   ($nilaiFix  * $bobot) / 100;
+    } else {
+        $hasil = 0;
+    }
+    return $hasil;
+}

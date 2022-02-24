@@ -49,7 +49,7 @@
           <?php if ($validation->hasError('staseNama')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseNama')]]); ?>
           <?php endif; ?>
-          <?php if (count($dataResult) < 1) : ?>
+          <?php if (count($dataMhs) < 1) : ?>
             <div style="padding-top:10px; padding-bottom:10px">
               <center>
                 <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
@@ -70,20 +70,21 @@
                   <tr>
                     <th style="text-align:center" scope="col">No.</th>
                     <th scope="col">Mahasiswa</th>
-                    <th scope="col">Tanggal/Waktu</th>
-                    <th scope="col">Lokasi Nilai</th>
-                    <th width="15%" style="text-align:center" scope="col">Keterangan</th>
+                    <?php foreach ($dataKomp as $komp) : ?>
+                      <th scope="col"><?= getPenilaian(['penilaian.penilaianId' => $komp->penilaian])[0]->penilaianNamaSingkat ?></th>
+                    <?php endforeach ?>
                 </thead>
                 <tbody>
                   <?php
                   $no = 1;
-                  foreach ($dataResult as $mahasiswa) : ?>
+                  foreach ($dataMhs as $mahasiswa) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
-                      <td><?= gmdate('Y-m-d H:i:s', ($mahasiswa->absensiTanggal / 1000)); ?></td>
-                      <td><?= $mahasiswa->absensiLokasi; ?></td>
-                      <td style="text-align:center"><span class="btn <?= $mahasiswa->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $mahasiswa->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $mahasiswa->absensiKeterangan; ?></span></td>
+                      <?php foreach ($dataKomp as $k) : ?>
+                        <td><?= getNilai($k->penilaian, $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?>
+                        </td>
+                      <?php endforeach ?>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
