@@ -143,6 +143,11 @@
               </div>
             </div>
             <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                  <h1>Nilai Grade : 0</h1>
+                </div>
+              </div>
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
@@ -225,7 +230,7 @@
                           <td><?= $komp->komponenNama ?></td>
                           <?php if (!$komp->komponenIsNumber) : ?>
                             <td style="padding: 10px;">
-                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
+                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control summernote-simple" style="height: 100px;"></textarea>
                             </td>
                           <?php else : ?>
                             <td style="padding: 10px;">
