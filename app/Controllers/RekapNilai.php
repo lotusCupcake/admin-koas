@@ -50,7 +50,7 @@ class RekapNilai extends BaseController
 
     public function proses()
     {
-        // dd($_POST);
+        dd($_POST);
         if (!$this->validate([
             'staseIdNilai' => [
                 'rules' => 'required',
