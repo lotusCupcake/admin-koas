@@ -251,6 +251,15 @@
         "pages": "/rekapAbsen"
     },
     {
+        "id": "31",
+        "nama": "Rekap Nilai",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-download",
+        "pages": "/rekapNilai"
+    },
+    {
         "id": "28",
         "nama": "Berita Acara Kegiatan",
         "parent": "26",
