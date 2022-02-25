@@ -215,6 +215,15 @@
         "pages": "/evaluasi"
     },
     {
+        "id": "36",
+        "nama": "Refleksi Diri",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-brain0",
+        "pages": "/refleksi"
+    },
+    {
         "id": "34",
         "nama": "Penundaan Jadwal",
         "parent": "19",

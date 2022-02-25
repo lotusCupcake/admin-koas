@@ -215,6 +215,15 @@
         "pages": "/evaluasi"
     },
     {
+        "id": "33",
+        "nama": "Refleksi Diri",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-brain0",
+        "pages": "/refleksi"
+    },
+    {
         "id": "26",
         "nama": "Administrasi",
         "parent": "0",
