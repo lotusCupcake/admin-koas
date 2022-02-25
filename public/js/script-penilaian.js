@@ -3,10 +3,9 @@ $(document).ready(function () {
   
   $('.btn-LapKasus').click(function () {
     jml = $('.LapKasus').length;
-    // console.log($('.val-LapKasus1:checked').val());
   });
 
-  $('input[type=radio]').change(function () { 
+  $('input[type=radio].r-LapKasus').change(function () { 
     var total = 0;
     
     for (let i = 1; i <= jml; i++) {
@@ -17,9 +16,13 @@ $(document).ready(function () {
       (isNaN(nilai)) ? nilai = 0 : nilai = (nilai*bobot)/skorMax;
       total = total + nilai;
     }
-    // uji ke ajax
     
-      $.ajax({
+      callGrade(total)
+    
+  });
+
+  function callGrade(total) {
+    $.ajax({
         type: "POST",
         url: "/penilaian/konversi",
         data: {
@@ -30,7 +33,6 @@ $(document).ready(function () {
           $('.grade').html('Nilai Huruf : '+response);
         }
       });
-    
-  });
+  }
   
 });
