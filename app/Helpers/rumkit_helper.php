@@ -64,7 +64,6 @@ function getKomponenNilaiMax($where)
 
 function getNilai($idPenilaian, $npm, $stase)
 {
-
     $model = new \App\Models\GradeModel;
 
     if ($idPenilaian == 19) {
@@ -83,7 +82,9 @@ function getNilai($idPenilaian, $npm, $stase)
 
         if ($idPenilaian == 8 || $idPenilaian == 10) {
             $idPenilaian = 19;
-        } elseif ($idPenilaian == 9 || $idPenilaian == 15) {
+        } elseif ($idPenilaian == 9) {
+            $idPenilaian = 20;
+        } elseif ($idPenilaian == 15) {
             $idPenilaian = 20;
         } else {
             $idPenilaian = $idPenilaian;
@@ -102,7 +103,7 @@ function getNilai($idPenilaian, $npm, $stase)
             $nilaiFix = $nilaiFix + $nilai;
         }
 
-        $hasil =   ($nilaiFix  * $bobot) / 100;
+        $hasil = ($nilaiFix  * $bobot) / 100;
     } else {
         $hasil = 0;
     }
