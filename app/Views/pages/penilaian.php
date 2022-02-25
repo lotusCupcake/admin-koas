@@ -68,7 +68,7 @@
                             <td><?= $mhs->kelompokDetNim ?></td>
                             <td><?= $mhs->kelompokDetNama ?></td>
                             <td style="text-align:center">
-                              <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
+                              <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
                             </td>
                             <td style="text-align:center">
                               <?php if ($mhs->gradeApproveStatus == 0) : ?>
@@ -145,7 +145,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-12" style="text-align:center">
-                  <h1>Nilai Grade : 0</h1>
+                  <h1 class='grade'>Nilai Huruf : 0</h1>
                 </div>
               </div>
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
@@ -169,7 +169,7 @@
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
-                        <tr>
+                        <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
@@ -177,7 +177,7 @@
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
-                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control" required>
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required>
                                   <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                 </label>
                               </div>
@@ -240,14 +240,16 @@
                         </tr>
                       <?php endforeach ?>
                     </tbody>
-                    <thead>
+                    <!-- <thead>
                       <tr>
-                        <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                        <th style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
+                                                                            ?>">Global Rating</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                        <td style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
+                                                                            ?>">
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
                             <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
@@ -258,7 +260,7 @@
                           </div>
                         </td>
                       </tr>
-                    </tbody>
+                    </tbody> -->
                   </table>
                 </div>
               <?php endif ?>

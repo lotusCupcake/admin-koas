@@ -49,4 +49,12 @@ class PenilaianModel extends Model
         $builder->groupBy(['stase.staseId', 'kelompok_detail.kelompokDetNim']);
         return $builder->get();
     }
+
+    public function getKonversi($nilai)
+    {
+        $builder = $this->db->table('konversi_nilai');
+        $builder->where('konversiNilaiSkalaMinimum <=', $nilai);
+        $builder->where('konversiNilaiSkalaMaksimum >=', $nilai);
+        return $builder->get();
+    }
 }
