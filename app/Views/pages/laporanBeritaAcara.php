@@ -112,12 +112,12 @@
     <table>
         <tr>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ka. SMF RS</strong></td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ka. SMF RS / Komkoordik</strong></td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

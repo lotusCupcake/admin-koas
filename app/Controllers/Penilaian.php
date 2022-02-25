@@ -126,4 +126,10 @@ class Penilaian extends BaseController
         session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
         return redirect()->to('penilaian');
     }
+
+    public function getPenilaian()
+    {
+        $nilai = $this->request->getVar('nilai');
+        echo $this->penilaianModel->getKonversi($nilai)->getResult()[0]->konversiNilaiGradeNama;
+    }
 }

@@ -140,6 +140,10 @@
     <script src="<?= base_url() ?>/js/script-signature.js"></script>
   <?php endif ?>
 
+  <?php if ($uri->getSegment(1) == 'penilaian') : ?>
+    <script src="<?= base_url() ?>/js/script-penilaian.js"></script>
+  <?php endif ?>
+
 </body>
 
 </html>
