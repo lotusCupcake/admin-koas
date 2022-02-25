@@ -76,15 +76,7 @@ class RekapNilai extends BaseController
             'dataKomp' => json_decode(getStatus(['setting_bobot.settingBobotStaseId' => $staseId])[0]->settingBobotKomposisiNilai),
             'dataFilter' => [$staseId, $kelompokId]
         ];
-        // // dd($rekapNilai);
-        // $rekapNilai = $this->penilaianModel->getFilterNilai($kelompokId)->getResult();
-        // foreach ($rekapNilai as $absen) {
-        //     $rumahSakit = $absen->rumahSakitShortname;
-        //     $stase = $absen->staseNama;
-        //     $kelompok = $absen->kelompokNama;
-        // }
-        // session()->setFlashdata('success', 'Nilaisi Sudah Ditemukan ,Klik Export Untuk Download!');
-        // session()->setFlashdata('success', 'Nilaisi <strong> ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit . ' </strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+        session()->setFlashdata('success', 'Nilai Sudah Ditemukan ,Klik Export Untuk Download!');
         return view('pages/rekapNilai', $data);
     }
 }
