@@ -235,7 +235,7 @@
                           <td><?= $komp->komponenNama ?></td>
                           <?php if (!$komp->komponenIsNumber) : ?>
                             <td style="padding: 10px;">
-                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control summernote-simple" style="height: 100px;"></textarea>
+                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;"></textarea>
                             </td>
                           <?php else : ?>
                             <td style="padding: 10px;">

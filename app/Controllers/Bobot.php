@@ -69,8 +69,13 @@ class Bobot extends BaseController
             'settingBobotStatus' => 0,
         );
 
+        $stase = $this->staseModel->findAll();
+        foreach ($stase as $row) {
+            $nama = $row->staseNama;
+        }
+
         if ($this->bobotModel->insert($data)) {
-            session()->setFlashdata('success', 'Setting Nilai Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
+            session()->setFlashdata('success', 'Setting Penilaian Stase' . $nama . 'Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
             return redirect()->to('bobot');
         }
     }
@@ -104,10 +109,38 @@ class Bobot extends BaseController
                 'settingBobotStatus' => 1,
             );
 
+            $stase = $this->staseModel->findAll();
+            foreach ($stase as $row) {
+                $namaStase = $row->staseNama;
+            }
+
+            $penilaian = $this->penilaianModel->findAll();
+            foreach ($penilaian as $row) {
+                $namaPenilaian = $row->penilaianNama;
+            }
+
             if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
-                session()->setFlashdata('success', 'Setting bobot berhasil di simpan dan siap digunakan!');
+                session()->setFlashdata('success', 'Setting Bobot Penilaian ' . $namaPenilaian . 'Untuk Stase ' . $namaStase . ' Berhasil Di Simpan Dan Siap Digunakan!');
                 return redirect()->to('bobot');
             }
         }
+    }
+
+    public function delete($id)
+    {
+        $stase = $this->staseModel->findAll();
+        foreach ($stase as $row) {
+            $namaStase = $row->staseNama;
+        }
+
+        $penilaian = $this->penilaianModel->findAll();
+        foreach ($penilaian as $row) {
+            $namaPenilaian = $row->penilaianNama;
+        }
+
+        if ($this->bobotModel->delete($id)) {
+            session()->setFlashdata('success', 'Berhasil Reset Penilaian ' . $namaPenilaian . ' Stase ' . $namaStase . ' !');
+        };
+        return redirect()->to('dataKegiatan');
     }
 }
