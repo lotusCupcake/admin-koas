@@ -1,25 +1,61 @@
 $(document).ready(function () {
   var jml = 0;
   
-  $('.btn-LapKasus').click(function () {
-    jml = $('.LapKasus').length;
+  $('.icon-left.btn-info').click(function () {
+    jml = 0;
+    var getClass = this.className;
+    getClass = getClass.split(' ');
+    komp = getClass[4];
+    komp = komp.split('-');
+    jml = $('.' + komp[1]).length;
+    console.log(jml);
+    console.log(komp[1]);
+    createEvent(komp[1]);
+    
   });
 
-  $('input[type=radio].r-LapKasus').change(function () { 
-    var total = 0;
-    
-    for (let i = 1; i <= jml; i++) {
-      var nilai = parseInt($('.val-LapKasus' + i + ':checked').val());
-      var bobot = parseInt($('.val-LapKasus' + i + ':checked').data('kompbobot'));
-      var skorMax = parseInt($('.val-LapKasus' + i + ':checked').data('skormax'));
-      
-      (isNaN(nilai)) ? nilai = 0 : nilai = (nilai*bobot)/skorMax;
-      total = total + nilai;
+  function createEvent(komp) {
+    if (komp=='Pretest'||komp=='Postest'||komp=='KDinasKesehatan') {
+      $("input[type=number].r-" + komp).keyup(function () { 
+        var total = 0;
+        $skor = parseInt($('.r-' + komp).val());
+        if ($skor>100 || $skor<0) {
+          alert('Nilai yang anda input diluar range 0-100');
+          $(this).val('');
+          return;
+        }
+
+        for (let i = 1; i <= jml; i++) {
+          var nilai = parseInt($('.val-'+komp + i).val());
+          var bobot = parseInt($('.val-'+komp + i).data('kompbobot'));
+          var skorMax = parseInt($('.val-'+komp+ i).data('skormax'));
+          
+          (isNaN(nilai)) ? nilai = 0 : nilai = (nilai*bobot)/skorMax;
+          total = total + nilai;
+        }
+        
+          callGrade(total)
+        
+      });
+    } else {
+      $('input[type=radio].r-'+komp).change(function () { 
+        var total = 0;
+        
+        for (let i = 1; i <= jml; i++) {
+          var nilai = parseInt($('.val-'+komp + i + ':checked').val());
+          var bobot = parseInt($('.val-'+komp + i + ':checked').data('kompbobot'));
+          var skorMax = parseInt($('.val-'+komp+ i + ':checked').data('skormax'));
+          
+          (isNaN(nilai)) ? nilai = 0 : nilai = (nilai*bobot)/skorMax;
+          total = total + nilai;
+        }
+        
+          callGrade(total)
+        
+      });
     }
-    
-      callGrade(total)
-    
-  });
+  }
+  
 
   function callGrade(total) {
     $.ajax({

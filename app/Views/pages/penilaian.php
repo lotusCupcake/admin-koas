@@ -143,12 +143,12 @@
               </div>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="col-md-12" style="text-align:center">
-                  <h1 class='grade'>Nilai Huruf : 0</h1>
-                </div>
-              </div>
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+                <div class="row">
+                  <div class="col-md-12" style="text-align:center">
+                    <h1 class='grade'>Nilai Huruf : E</h1>
+                  </div>
+                </div>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -213,6 +213,11 @@
                   </table>
                 </div>
               <?php else : ?>
+                <div class="row">
+                  <div class="col-md-12" style="text-align:center">
+                    <h1 class='grade'>Nilai Huruf : E</h1>
+                  </div>
+                </div>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -225,7 +230,7 @@
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
-                        <tr>
+                        <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php if (!$komp->komponenIsNumber) : ?>
@@ -234,7 +239,7 @@
                             </td>
                           <?php else : ?>
                             <td style="padding: 10px;">
-                              <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
+                              <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>">
                             </td>
                           <?php endif ?>
                         </tr>
@@ -242,10 +247,10 @@
                     </tbody>
                     <!-- <thead>
                       <tr>
-                        <th style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
+                        <th style=" text-align:center" scope="col" colspan="<? //= 2 + $colspan 
                                                                             ?>">Global Rating</th>
-                      </tr>
-                    </thead>
+                        </tr>
+                        </thead>
                     <tbody>
                       <tr>
                         <td style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
