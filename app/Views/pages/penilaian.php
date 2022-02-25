@@ -177,7 +177,7 @@
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
-                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required>
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required>
                                   <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                 </label>
                               </div>
