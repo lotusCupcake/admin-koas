@@ -128,19 +128,11 @@ class Bobot extends BaseController
 
     public function delete($id)
     {
-        $stase = $this->staseModel->findAll();
-        foreach ($stase as $row) {
-            $namaStase = $row->staseNama;
-        }
-
-        $penilaian = $this->penilaianModel->findAll();
-        foreach ($penilaian as $row) {
-            $namaPenilaian = $row->penilaianNama;
-        }
+        $stase = $this->staseModel->getWhere(['staseId' => $id])->getResult()[0]->staseNama;
 
         if ($this->bobotModel->delete($id)) {
-            session()->setFlashdata('success', 'Berhasil Reset Penilaian ' . $namaPenilaian . ' Stase ' . $namaStase . ' !');
+            session()->setFlashdata('success', 'Berhasil Reset Penilaian Stase ' . $stase . '!');
         };
-        return redirect()->to('dataKegiatan');
+        return redirect()->to('bobot');
     }
 }

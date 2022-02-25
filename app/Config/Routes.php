@@ -186,9 +186,9 @@ $routes->post('/profile/insert', 'Profile::insert_signature');
 //route bobot nilai
 $routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
+$routes->post('/bobot/(:num)/penilaian/save', 'Bobot::savePenilaian/$1');
 $routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
-$routes->delete('/penilaian/(:num)', 'Bobot::delete/$1');
+$routes->delete('/bobot/(:num)/delete', 'Bobot::delete/$1');
 
 //route utilitas
 $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
