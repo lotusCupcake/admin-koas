@@ -62,6 +62,7 @@
   </style>
 </head>
 
+
 <body onload="announcement('<?= getUserId(user()->id)->name ?>','<?= getPopup(['email' => user()->email])[0]->email ?>')">
   <div id="app">
     <div class="main-wrapper">
@@ -136,6 +137,10 @@
     }
   </script>
   <?php $uri = current_url(true); ?>
+  <?php if ($uri->getSegment(1) == 'bobot') : ?>
+    <script src="<?= base_url() ?>/js/script-magic.js"></script>
+  <?php endif ?>
+
   <?php if ($uri->getSegment(1) == 'profile') : ?>
     <script src="<?= base_url() ?>/js/script-signature.js"></script>
   <?php endif ?>
@@ -143,6 +148,8 @@
   <?php if ($uri->getSegment(1) == 'penilaian') : ?>
     <script src="<?= base_url() ?>/js/script-penilaian.js"></script>
   <?php endif ?>
+
+
 
 </body>
 

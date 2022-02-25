@@ -43,6 +43,7 @@ class Bobot extends BaseController
 
     public function savePenilaian($id)
     {
+        dd($_POST);
         if ($id == null) {
             session()->setFlashdata('danger', 'Stase Belum Dipilih!');
             return redirect()->to('bobot');
@@ -134,5 +135,34 @@ class Bobot extends BaseController
             session()->setFlashdata('success', 'Berhasil Reset Penilaian Stase ' . $stase . '!');
         };
         return redirect()->to('bobot');
+    }
+
+    public function getPenilaian()
+    {
+        $request = 1;
+        $name = $this->request->getVar('name');
+
+        if ($this->request->getVar('request') != null) {
+            $request = $this->request->getVar('request');
+        }
+
+        if ($request == 1) {
+            $data = array();
+            $penilaian = $this->penilaianModel->getPenilaian()->get()->getResult();
+            foreach ($penilaian as $row) {
+                $data[] = array(
+                    'id' => $row->penilaianId, 'text' => $row->penilaianNama,
+                );
+            }
+            echo json_encode($data);
+            exit;
+        }
+
+        if ($request == 2) {
+
+            $html = "<br><select class='select2_el' multiple='' name='" . $name . "[]'><option value='0'>- Search user -</option></select><br>";
+            echo $html;
+            exit;
+        }
     }
 }

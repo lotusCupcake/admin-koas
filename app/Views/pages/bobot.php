@@ -138,20 +138,20 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Select2 Multiple</label>
-              <select class="form-control select2" name="penilaian" multiple="">
-                <?php
-                foreach ($penilaian as $nilai) : ?>
-                  <option value="?= $nilai->penilaianId; ?>"><?= $nilai->penilaianNama; ?></option>
-                <?php endforeach ?>
+              <select class="select2_el" style='width: 200px;' multiple name='1[]'>
+                <option value='0'>- Search user -</option>
               </select>
+              <div id='elements'>
+
+              </div>
+            </div>
+
+            <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
+            <div class="modal-footer bg-whitesmoke br">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
           </div>
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
       </form>
     </div>
   </div>
