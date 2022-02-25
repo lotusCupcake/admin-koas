@@ -64,6 +64,7 @@ function getKomponenNilaiMax($where)
 
 function getNilai($idPenilaian, $npm, $stase)
 {
+    $tk2 = false;
     $model = new \App\Models\GradeModel;
 
     if ($idPenilaian == 19) {
@@ -75,6 +76,10 @@ function getNilai($idPenilaian, $npm, $stase)
     }
 
     $result = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', $idPenilaian)->get()->getResult();
+    if (count($result) > 1 && $idPenilaian == [9, 15]) {
+        $tk2 = true;
+    }
+
     if (count($result) > 0) {
         $idPenilaian = $result[0]->gradePenilaianId;
 
@@ -95,15 +100,53 @@ function getNilai($idPenilaian, $npm, $stase)
                 $bobot = $komp->bobot;
             }
         }
+        if ($idPenilaian != 20) {
+            $nilaiFix = 0;
+            foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
+                $nilai = 0;
+                $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
+                $nilaiFix = $nilaiFix + $nilai;
+            }
 
-        $nilaiFix = 0;
-        foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
-            $nilai = 0;
-            $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
-            $nilaiFix = $nilaiFix + $nilai;
+            $hasil = ($nilaiFix  * $bobot) / 100;
+        } else {
+            if ($tk2) {
+                //jika tutorial klinik ada 2
+                $tutsklinik1 = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', [9])->get()->getResult();
+                $tutsklinik2 = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', [15])->get()->getResult();
+
+                $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
+                $hasil = $tutsklinik1[0]->gradeNilai;
+
+                $nilaiFix = 0;
+                foreach (json_decode($tutsklinik1[0]->gradeNilai) as $kompBobot) {
+                    $nilai = 0;
+                    $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
+                    $nilaiFix = $nilaiFix + $nilai;
+                }
+                $hasilTk1 = ($nilaiFix  * $bobot) / 100;
+
+                $nilaiFix = 0;
+                foreach (json_decode($tutsklinik2[0]->gradeNilai) as $kompBobot) {
+                    $nilai = 0;
+                    $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
+                    $nilaiFix = $nilaiFix + $nilai;
+                }
+                $hasilTk2 = ($nilaiFix  * $bobot) / 100;
+
+                $hasil = ($hasilTk1 + $hasilTk2) / 2;
+            } else {
+                //jika tutorial klinik hanya 1
+                $nilaiFix = 0;
+                foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
+                    $nilai = 0;
+                    $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
+                    $nilaiFix = $nilaiFix + $nilai;
+                }
+
+                $hasil = ($nilaiFix  * $bobot) / 100;
+            }
         }
-
-        $hasil = ($nilaiFix  * $bobot) / 100;
     } else {
         $hasil = 0;
     }
