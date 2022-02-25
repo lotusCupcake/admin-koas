@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h4>Notifikasi</h4>
-                                    <p>Digunakan untuk menyiarkan notifikasi ke semua mahasiswa ataupun semua mahasiswa.</p>
+                                    <p>Digunakan untuk menyiarkan notifikasi ke salah satu mahasiswa ataupun seluruh mahasiswa.</p>
                                     <a href="/notif" class="card-cta">Go Setting <i class="fas fa-chevron-right"></i></a>
                                 </div>
                             </div>
