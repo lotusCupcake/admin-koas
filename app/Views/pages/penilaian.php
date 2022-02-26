@@ -68,7 +68,7 @@
                             <td><?= $mhs->kelompokDetNim ?></td>
                             <td><?= $mhs->kelompokDetNama ?></td>
                             <td style="text-align:center">
-                              <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
+                              <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
                             </td>
                             <td style="text-align:center">
                               <?php if ($mhs->gradeApproveStatus == 0) : ?>
@@ -103,7 +103,7 @@
           <form class="needs-validation" action="/penilaian/save" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="npm" value="<?= $mhs->kelompokDetNim ?>">
-            <input type="hidden" name="rumkitDetId" value="<?= $mhs->rumkitDetId ?>">
+            <input type="hidden" name="staseId" value="<?= $mhs->staseId ?>">
             <input type="hidden" name="penilaianId" value="<?= $menu->penilaianId ?>">
             <div class="modal-header">
               <h5 class="modal-title">Penilaian <strong><?= $menu->penilaianNama; ?></strong></h5>
@@ -144,6 +144,11 @@
             </div>
             <div class="modal-body">
               <?php if ($menu->penilaianType != 2) : $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+                <div class="row">
+                  <div class="col-md-12" style="text-align:center">
+                    <h1 class='grade'>Nilai Huruf : E</h1>
+                  </div>
+                </div>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -164,7 +169,7 @@
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
-                        <tr>
+                        <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
@@ -172,7 +177,7 @@
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
-                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value=" <?= $i ?>" class="selectgroup-input form-control" required>
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required>
                                   <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                 </label>
                               </div>
@@ -208,6 +213,11 @@
                   </table>
                 </div>
               <?php else : ?>
+                <div class="row">
+                  <div class="col-md-12" style="text-align:center">
+                    <h1 class='grade'>Nilai Huruf : E</h1>
+                  </div>
+                </div>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -220,7 +230,7 @@
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
-                        <tr>
+                        <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php if (!$komp->komponenIsNumber) : ?>
@@ -229,20 +239,22 @@
                             </td>
                           <?php else : ?>
                             <td style="padding: 10px;">
-                              <input type="number" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control">
+                              <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>">
                             </td>
                           <?php endif ?>
                         </tr>
                       <?php endforeach ?>
                     </tbody>
-                    <thead>
+                    <!-- <thead>
                       <tr>
-                        <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
-                      </tr>
-                    </thead>
+                        <th style=" text-align:center" scope="col" colspan="<? //= 2 + $colspan 
+                                                                            ?>">Global Rating</th>
+                        </tr>
+                        </thead>
                     <tbody>
                       <tr>
-                        <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                        <td style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
+                                                                            ?>">
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
                             <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
@@ -253,7 +265,7 @@
                           </div>
                         </td>
                       </tr>
-                    </tbody>
+                    </tbody> -->
                   </table>
                 </div>
               <?php endif ?>

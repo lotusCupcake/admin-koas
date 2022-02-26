@@ -2,9 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Models\PopupModel;
 
 class Home extends BaseController
 {
+    protected $popupModel;
+    public function __construct()
+    {
+        $this->popupModel = new PopupModel();
+    }
+
     public function index()
     {
         $data = [
@@ -14,5 +21,12 @@ class Home extends BaseController
             'menu' => $this->fetchMenu()
         ];
         return view('pages/home', $data);
+    }
+
+    public function savePopup()
+    {
+        $data = array('email' =>  $this->request->getVar('email'));
+        $this->popupModel->insert($data);
+        return redirect()->to('home');
     }
 }

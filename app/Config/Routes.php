@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 
 // route home
 $routes->get('/home/(:any)', 'Home::index');
+$routes->post('/home/savepopup', 'Home::savePopup');
 
 // route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
@@ -131,6 +132,7 @@ $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
 $routes->post('/penilaian/save', 'Penilaian::save');
+$routes->post('/penilaian/konversi', 'Penilaian::getPenilaian');
 
 
 // route cetak laporan
@@ -184,10 +186,14 @@ $routes->post('/profile/insert', 'Profile::insert_signature');
 //route bobot nilai
 $routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->post('/penilaian/(:num)/save', 'Bobot::savePenilaian/$1');
+$routes->post('/bobot/(:num)/penilaian/save', 'Bobot::savePenilaian/$1');
 $routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
+$routes->delete('/bobot/(:num)/delete', 'Bobot::delete/$1');
+$routes->post('/bobot/penilaian', 'Bobot::getPenilaian');
 
-
+//route utilitas
+$routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 
 /*

@@ -84,13 +84,13 @@ class Penilaian extends BaseController
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
-                    $keys[$i] => $values[$i],
+                    'penilaian' => $keys[$i], 'nilai' => $values[$i],
                 );
                 array_push($json, $data);
             } else {
                 if ($keys[$i] === 'gr') {
                     $dataGr = array(
-                        $keys[$i] => $values[$i],
+                        'penilaian' => $keys[$i], 'nilai' => $values[$i],
                     );
                     array_push($jsonGr, $dataGr);
                 }
@@ -100,7 +100,7 @@ class Penilaian extends BaseController
         $nilaiGr = json_encode($jsonGr);
 
         $dataInsert = array(
-            'gradeRumkitDetId' => $_POST['rumkitDetId'],
+            'gradeStaseId' => $_POST['staseId'],
             'gradePenilaianId' => $_POST['penilaianId'],
             'gradeNpm' => $_POST['npm'],
             'gradeNilai' => $nilai,
@@ -111,7 +111,7 @@ class Penilaian extends BaseController
 
         if (count(json_decode($nilaiGr)) > 0) {
             $dataInsertGr = array(
-                'grRumkitDetId' => $_POST['rumkitDetId'],
+                'grStaseId' => $_POST['staseId'],
                 'grPenilaianId' => $_POST['penilaianId'],
                 'grNpm' => $_POST['npm'],
                 'grResult' => $nilaiGr,
@@ -125,5 +125,11 @@ class Penilaian extends BaseController
 
         session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
         return redirect()->to('penilaian');
+    }
+
+    public function getPenilaian()
+    {
+        $nilai = $this->request->getVar('nilai');
+        echo $this->penilaianModel->getKonversi($nilai)->getResult()[0]->konversiNilaiGradeNama;
     }
 }

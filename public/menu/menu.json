@@ -62,6 +62,15 @@
         "pages": "/dataKegiatan"
     },
     {
+        "id": "35",
+        "nama": "Bobot Nilai",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-balance-scale",
+        "pages": "/bobot"
+    },
+    {
         "id": "8",
         "nama": "Rumah Sakit",
         "parent": "4",
@@ -134,15 +143,6 @@
         "pages": ""
     },
     {
-        "id": "35",
-        "nama": "Bobot Nilai",
-        "parent": "17",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-balance-scale",
-        "pages": "/bobot"
-    },
-    {
         "id": "18",
         "nama": "Jadwal Kegiatan",
         "parent": "17",
@@ -155,28 +155,10 @@
         "id": "26",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "parent",
+        "level": "child",
         "status": true,
         "icon": "fas fa-star",
-        "pages": ""
-    },
-    {
-        "id": "31",
-        "nama": "Announcement",
-        "parent": "26",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-bullhorn",
-        "pages": "/announce"
-    },
-    {
-        "id": "32",
-        "nama": "Notifikasi",
-        "parent": "26",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-bell",
-        "pages": "/notif"
+        "pages": "/utilitas"
     },
     {
         "id": "19",
@@ -231,6 +213,15 @@
         "status": true,
         "icon": "fas fa-comment-dots",
         "pages": "/evaluasi"
+    },
+    {
+        "id": "36",
+        "nama": "Refleksi Diri",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-brain",
+        "pages": "/refleksi"
     },
     {
         "id": "34",

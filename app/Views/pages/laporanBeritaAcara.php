@@ -112,12 +112,20 @@
     <table>
         <tr>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<<<<<<< HEAD
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ka. SMF RS/Koordik</strong></td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+=======
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ka. SMF RS / Komkoordik</strong></td>
+>>>>>>> 2e6d004447265d03cc769743086c783d9f2f591e
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<<<<<<< HEAD
+=======
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+>>>>>>> 2e6d004447265d03cc769743086c783d9f2f591e
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

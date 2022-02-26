@@ -62,6 +62,15 @@
         "pages": "/dataKegiatan"
     },
     {
+        "id": "32",
+        "nama": "Bobot Nilai",
+        "parent": "4",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-balance-scale",
+        "pages": "/bobot"
+    },
+    {
         "id": "8",
         "nama": "Rumah Sakit",
         "parent": "4",
@@ -134,15 +143,6 @@
         "pages": ""
     },
     {
-        "id": "32",
-        "nama": "Bobot Nilai",
-        "parent": "17",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-balance-scale",
-        "pages": "/bobot"
-    },
-    {
         "id": "18",
         "nama": "Jadwal Kegiatan",
         "parent": "17",
@@ -155,28 +155,10 @@
         "id": "24",
         "nama": "Utilitas",
         "parent": "17",
-        "level": "parent",
+        "level": "child",
         "status": true,
         "icon": "fas fa-star",
-        "pages": ""
-    },
-    {
-        "id": "29",
-        "nama": "Announcement",
-        "parent": "24",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-bullhorn",
-        "pages": "/announce"
-    },
-    {
-        "id": "30",
-        "nama": "Notifikasi",
-        "parent": "24",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-bell",
-        "pages": "/notif"
+        "pages": "/utilitas"
     },
     {
         "id": "19",
@@ -233,6 +215,15 @@
         "pages": "/evaluasi"
     },
     {
+        "id": "33",
+        "nama": "Refleksi Diri",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-brain",
+        "pages": "/refleksi"
+    },
+    {
         "id": "26",
         "nama": "Administrasi",
         "parent": "0",
@@ -249,6 +240,15 @@
         "status": true,
         "icon": "fas fa-reply",
         "pages": "/rekapAbsen"
+    },
+    {
+        "id": "31",
+        "nama": "Rekap Nilai",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-download",
+        "pages": "/rekapNilai"
     },
     {
         "id": "28",
