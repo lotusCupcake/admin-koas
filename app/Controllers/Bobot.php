@@ -43,7 +43,6 @@ class Bobot extends BaseController
 
     public function savePenilaian($id)
     {
-        dd($_POST);
         if ($id == null) {
             session()->setFlashdata('danger', 'Stase Belum Dipilih!');
             return redirect()->to('bobot');
@@ -57,17 +56,20 @@ class Bobot extends BaseController
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
-        foreach ($_POST['penilaian'] as $i) {
-            $data = array(
-                'penilaian' => $i, 'bobot' => 0,
-            );
-            array_push($json, $data);
+        for ($i = 0; $i < count($keys); $i++) {
+            if (is_numeric($keys[$i])) {
+                $data = array(
+                    'penilaian' => json_encode($values[$i]), 'bobot' => 0,
+                );
+                array_push($json, $data);
+            }
         }
+
         $penilaian = json_encode($json);
         $data = array(
             'settingBobotStaseId' => $id,
             'settingBobotKomposisiNilai' => $penilaian,
-            'settingBobotStatus' => 0,
+            'settingBobotStatus' => "0",
         );
 
         $stase = $this->staseModel->findAll();
@@ -83,18 +85,17 @@ class Bobot extends BaseController
 
     public function saveBobot($id)
     {
+
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
         $total = 0;
-        for ($i = 0; $i < count($keys); $i++) {
-            if (is_numeric($keys[$i])) {
-                $data = array(
-                    'penilaian' => $keys[$i], 'bobot' => $values[$i],
-                );
-                array_push($json, $data);
-                $total = $total + $values[$i];
-            }
+        for ($i = 1; $i < count($keys); $i++) {
+            $data = array(
+                'penilaian' => json_encode(explode(',', $keys[$i])), 'bobot' => $values[$i],
+            );
+            array_push($json, $data);
+            $total = $total + $values[$i];
         }
         if ($total < 100) {
             session()->setFlashdata('danger', 'Total Bobot Nilai Kurang Dari 100!');

@@ -59,8 +59,7 @@
                         <?php if ($status == 99) : ?>
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#settingPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Penilaian</button>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
                         <?php else : ?>
                           <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
@@ -79,15 +78,17 @@
   </section>
 </div>
 
-<!-- start modal tambah penilaian stase  -->
-<?php foreach ($bobot as $tambah) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="<?= $tambah->staseId; ?>">
-    <div class="modal-dialog" role="document">
-      <form action="/bobot/<?= $tambah->staseId; ?>/penilaian/save" method="POST">
+<!-- start modal tambah bobot  -->
+<?php $urut = 1;
+foreach ($bobot as $edit) : ?>
+  <?php $komposisi = (count(getStatus(['settingBobotStaseId' => $edit->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $edit->staseId])[0]->settingBobotKomposisiNilai : $status =  '[]' ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="pembobotan<?= $edit->staseId; ?>">
+    <div class="modal-dialog modal-xl" role="document">
+      <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambah->staseNama ?></strong></h5>
+            <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $edit->staseNama; ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -97,32 +98,44 @@
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th style="text-align:center" scope="col"></th>
-                    <th scope="col">Penilaian</th>
+                    <th style="width:20%" scope="col">Penilaian</th>
+                    <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  foreach ($penilaian as $nilai) : ?>
-                    <tr>
-                      <td style="text-align:center" scope="row"><input type="checkbox" value="<?= $nilai->penilaianId; ?>" name="penilaian[]"></td>
-                      <td><?= $nilai->penilaianNama; ?></td>
-                    </tr>
-                  <?php endforeach ?>
+                  <?php if (!empty($komposisi)) : ?>
+                    <?php foreach (json_decode($komposisi) as $nilai) : ?>
+                      <tr>
+                        <td><?= getPenilaian($nilai->penilaian)[0]->penilaianNamaSingkat ?></td>
+                        <?php for ($i = 5; $i <= 40; $i = $i + 5) : ?>
+                          <td>
+                            <div class="selectgroup selectgroup-pills">
+                              <label class="selectgroup-item">
+                                <input type="radio" name="<?= implode(",", array_map('intval', json_decode($nilai->penilaian))) ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
+                                <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                              </label>
+                            </div>
+                          </td>
+                        <?php endfor ?>
+                      </tr>
+                    <?php endforeach ?>
+                  <?php else : ?>
+                    <?= view('layout/templateEmpty', ['jumlahSpan' => 2]); ?>
+                  <?php endif ?>
                 </tbody>
               </table>
             </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 <?php endforeach ?>
-<!-- end modal tambah penilaian stase -->
+<!-- end modal tambah bobot -->
 
 <?php foreach ($bobot as $tambah) : ?>
   <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambah->staseId; ?>">
@@ -157,149 +170,8 @@
   </div>
 <?php endforeach ?>
 
-<!-- start modal tambah bobot  -->
-<?php $no = 1;
-foreach ($bobot as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="settingBobot<?= $edit->staseId; ?>">
-    <?php $komposisi = (count(getStatus(['settingBobotStaseId' => $edit->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $edit->staseId])[0]->settingBobotKomposisiNilai : $status =  '[]' ?>
-    <div class="modal-dialog modal-xl" role="document">
-      <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
-        <?= csrf_field() ?>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Bobot Penilaian Stase <?= $edit->staseNama ?></strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th style="width:20%" scope="col">Penilaian</th>
-                    <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (!empty($komposisi)) : ?>
-                    <?php foreach (json_decode($komposisi) as $nilai) : ?>
-                      <tr>
-                        <td><?= getPenilaian(['penilaianId' => $nilai->penilaian])[0]->penilaianNamaSingkat ?></td>
-                        <?php for ($i = 5; $i <= 50; $i = $i + 5) : ?>
-                          <td>
-                            <div class="selectgroup selectgroup-pills">
-                              <label class="selectgroup-item">
-                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
-                                <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
-                              </label>
-                            </div>
-                          </td>
-                        <?php endfor ?>
-                      </tr>
-                    <?php endforeach ?>
-                  <?php else : ?>
-                    <?= view('layout/templateEmpty', ['jumlahSpan' => 2]); ?>
-                  <?php endif ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-<?php endforeach ?>
-<!-- end modal tambah bobot -->
 
-<?php $no = 1;
-foreach ($bobot as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="settingBobot<?= $edit->staseId; ?>">
-    <?php $komposisi = (count(getStatus(['settingBobotStaseId' => $edit->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $edit->staseId])[0]->settingBobotKomposisiNilai : $status =  '[]' ?>
-    <div class="modal-dialog modal-xl" role="document">
-      <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
-        <?= csrf_field() ?>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Bobot Penilaian Stase <?= $edit->staseNama ?></strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th style="width:20%" scope="col">Penilaian</th>
-                    <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (!empty($komposisi)) : ?>
-                    <?php foreach (json_decode($komposisi) as $nilai) : ?>
-                      <tr>
-                        <td><?= getPenilaian(['penilaianId' => $nilai->penilaian])[0]->penilaianNamaSingkat ?></td>
-                        <?php for ($i = 5; $i <= 50; $i = $i + 5) : ?>
-                          <td>
-                            <div class="selectgroup selectgroup-pills">
-                              <label class="selectgroup-item">
-                                <input type="radio" name="<?= $nilai->penilaian ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
-                                <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
-                              </label>
-                            </div>
-                          </td>
-                        <?php endfor ?>
-                      </tr>
-                    <?php endforeach ?>
-                  <?php else : ?>
-                    <?= view('layout/templateEmpty', ['jumlahSpan' => 2]); ?>
-                  <?php endif ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-<?php endforeach ?>
 
-<!-- start modal tambah ulang/setting penilaian  -->
-<?php foreach ($bobot as $edit) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="settingPenilaian<?= $edit->staseId; ?>">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $edit->staseNama; ?></strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Apakah kamu benar ingin mengedit ulang penilaian stase <strong><?= $edit->staseNama; ?></strong>?</p>
-        </div>
-        <form action="/bobot/<?= $edit->staseId; ?>/delete" method="post">
-          <?= csrf_field(); ?>
-          <input type="hidden" name="_method" value="DELETE">
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-<?php endforeach ?>
-<!-- end modal tambah ulang/setting penilaian -->
 
 <?= view('layout/templateFooter'); ?>
 

@@ -11,7 +11,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/bobot/penilaian",
-            data: { request: 2, name: indexNama++ },
+            data: { request: 2, name: indexNama },
             success: function (response) {
 
                 // Append element

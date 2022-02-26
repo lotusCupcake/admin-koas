@@ -37,7 +37,7 @@ function getStatus($where)
 function getPenilaian($where)
 {
     $model = new \App\Models\PenilaianModel;
-    $result = $model->getWhere($where)->getResult();
+    $result = $model->select('GROUP_CONCAT(penilaianNamaSingkat SEPARATOR " / ") as penilaianNamaSingkat')->whereIn('penilaianId', array_map('intval', json_decode($where)))->get()->getResult();
     return $result;
 }
 
