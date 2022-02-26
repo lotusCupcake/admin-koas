@@ -61,7 +61,7 @@
                         <?php elseif ($status == 0) : ?>
                           <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
                         <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
                         <?php endif ?>
                       </td>
                     </tr>
@@ -138,36 +138,40 @@ foreach ($bobot as $edit) : ?>
 <!-- end modal tambah bobot -->
 
 <?php foreach ($bobot as $tambah) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambah->staseId; ?>">
-    <div class="modal-dialog" role="document">
-      <form action="/bobot/<?= $tambah->staseId; ?>/penilaian/save" method="POST">
-        <?= csrf_field() ?>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambah->staseNama ?></strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <select class="select2_el" style='width: 200px;' multiple name='1[]'>
-                <option value='0'>- Search user -</option>
-              </select>
-              <div id='elements'>
+  <?php (count(getStatus(['settingBobotStaseId' => $tambah->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $tambah->staseId])[0]->settingBobotStatus : $status = 99 ?>
+  <?php if ($status == 99) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambah->staseId; ?>">
+      <div class="modal-dialog" role="document">
+        <form action="/bobot/<?= $tambah->staseId; ?>/penilaian/save" method="POST">
+          <?= csrf_field() ?>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambah->staseNama ?></strong></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <select class="select2_el" style='width: 200px;' multiple name='1[]'>
+                  <option value='0'>- Search user -</option>
+                </select>
+                <div id='elements'>
 
+                </div>
+              </div>
+
+              <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
+              <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
               </div>
             </div>
-
-            <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
-            <div class="modal-footer bg-whitesmoke br">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
           </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
+  <?php endif ?>
 <?php endforeach ?>
 
 

@@ -195,6 +195,16 @@ $routes->post('/bobot/penilaian', 'Bobot::getPenilaian');
 $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
+//route evaluasi
+$routes->get('/evaluasi/', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/evaluasi/index', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->post('/evaluasi/proses', 'Evaluasi::proses');
+
+//route refleksi
+$routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
+$routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
+$routes->post('/refleksi/proses', 'Refleksi::proses');
+
 
 /*
  * --------------------------------------------------------------------
