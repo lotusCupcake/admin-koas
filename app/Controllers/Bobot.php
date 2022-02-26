@@ -72,17 +72,10 @@ class Bobot extends BaseController
             'settingBobotStatus' => 0,
         );
 
-<<<<<<< HEAD
         $stase = $this->staseModel->getWhere(['staseId' => $id])->getResult()[0]->staseNama;
 
         if ($this->bobotModel->insert($data)) {
             session()->setFlashdata('success', 'Setting Penilaian Stase ' . $stase . ' Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
-=======
-        $namaStase = $this->staseModel->getWhere(['staseId' => $id])->getResult()[0]->staseNama;
-
-        if ($this->bobotModel->insert($data)) {
-            session()->setFlashdata('success', 'Setting Penilaian Stase ' . $namaStase . ' Berhasil Di Simpan, Silahkan Lanjutkan Ke Setting Bobot!');
->>>>>>> 3318ee9d780d82eef8adbe7fbb2832d7696a00e3
             return redirect()->to('bobot');
         }
     }
@@ -115,17 +108,10 @@ class Bobot extends BaseController
                 'settingBobotStatus' => 1,
             );
 
-<<<<<<< HEAD
             $stase = $this->staseModel->getWhere(['staseId' => $id])->getResult()[0]->staseNama;
 
             if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
                 session()->setFlashdata('success', 'Setting Bobot Penilaian Untuk Stase ' . $stase . ' Berhasil Di Simpan Dan Siap Digunakan!');
-=======
-            $namaStase = $this->staseModel->getWhere(['staseId' => $id])->getResult()[0]->staseNama;
-
-            if ($this->bobotModel->update(getStatus(['settingBobotStaseId' => $id])[0]->settingBobotId, $data)) {
-                session()->setFlashdata('success', 'Setting Bobot Penilaian Untuk Stase ' . $namaStase . ' Berhasil Di Simpan Dan Siap Digunakan!');
->>>>>>> 3318ee9d780d82eef8adbe7fbb2832d7696a00e3
                 return redirect()->to('bobot');
             }
         }
