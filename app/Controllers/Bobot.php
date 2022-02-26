@@ -59,7 +59,7 @@ class Bobot extends BaseController
         for ($i = 0; $i < count($keys); $i++) {
             if (is_numeric($keys[$i])) {
                 $data = array(
-                    'penilaian' => json_encode($values[$i]), 'bobot' => 0,
+                    'penilaian' => json_encode($values[$i]), 'bobot' => "0",
                 );
                 array_push($json, $data);
             }
@@ -69,7 +69,7 @@ class Bobot extends BaseController
         $data = array(
             'settingBobotStaseId' => $id,
             'settingBobotKomposisiNilai' => $penilaian,
-            'settingBobotStatus' => "0",
+            'settingBobotStatus' => 0,
         );
 
         $stase = $this->staseModel->findAll();
