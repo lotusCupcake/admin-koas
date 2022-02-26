@@ -65,49 +65,61 @@ function getKomponenNilaiMax($where)
 function getNilai($idPenilaian, $npm, $stase)
 {
     $tk2 = false;
+    $bobot = 0;
     $model = new \App\Models\GradeModel;
-
-    if ($idPenilaian == 19) {
-        $idPenilaian = [8, 10];
-    } elseif ($idPenilaian == 20) {
-        $idPenilaian = [9, 15];
-    } else {
-        $idPenilaian = [$idPenilaian];
+    $penilaian = [];
+    foreach ($idPenilaian as $row) {
+        if ($row == 19) {
+            array_push($penilaian, 8);
+            array_push($penilaian, 10);
+        } elseif ($row == 20) {
+            array_push($penilaian, 9);
+            array_push($penilaian, 15);
+        } else {
+            array_push($penilaian, (int)$row);
+        }
     }
 
-    $result = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', $idPenilaian)->get()->getResult();
-    if (count($result) > 1 && $idPenilaian == [9, 15]) {
+    $hasil = json_encode($penilaian);
+
+
+    $result = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', $penilaian)->get()->getResult();
+    if (count($result) > 1 && in_array(9, $penilaian) || count($result) > 1 && in_array(15, $penilaian)) {
         $tk2 = true;
     }
 
     if (count($result) > 0) {
-        $idPenilaian = $result[0]->gradePenilaianId;
+        $penilaian = [];
+        foreach ($result as $row) {
+            array_push($penilaian, (int)$row->gradePenilaianId);
+        }
 
         $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
-
-        if ($idPenilaian == 8 || $idPenilaian == 10) {
-            $idPenilaian = 19;
-        } elseif ($idPenilaian == 9) {
-            $idPenilaian = 20;
-        } elseif ($idPenilaian == 15) {
-            $idPenilaian = 20;
-        } else {
-            $idPenilaian = $idPenilaian;
+        $idPenilaian = [];
+        foreach ($penilaian as $row) {
+            if ($row == 8 || $row == 10) {
+                array_push($idPenilaian, 19);
+            } elseif ($row == 9 || $row == 15) {
+                array_push($idPenilaian, 20);
+            } else {
+                array_push($idPenilaian, $row);
+            }
         }
 
         foreach (json_decode($komposisi) as $komp) {
-            if ($komp->penilaian == $idPenilaian) {
-                $bobot = $komp->bobot;
+            foreach (json_decode($komp->penilaian) as $cek) {
+                if ($cek == $idPenilaian[0]) {
+                    $bobot = $komp->bobot;
+                }
             }
         }
-        if ($idPenilaian != 20) {
+        if ($idPenilaian[0] != 20) {
             $nilaiFix = 0;
             foreach (json_decode($result[0]->gradeNilai) as $kompBobot) {
                 $nilai = 0;
                 $nilai =  ((int)trim($kompBobot->nilai) * (getKomponenBobot(['komponenId' => $kompBobot->penilaian]))) / getKomponenNilaiMax(['komponenId' => $kompBobot->penilaian]);
                 $nilaiFix = $nilaiFix + $nilai;
             }
-
             $hasil = ($nilaiFix  * $bobot) / 100;
         } else {
             if ($tk2) {

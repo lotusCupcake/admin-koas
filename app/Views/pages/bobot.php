@@ -165,6 +165,7 @@ foreach ($bobot as $edit) : ?>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
           </div>
+        </div>
       </form>
     </div>
   </div>

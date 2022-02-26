@@ -71,7 +71,7 @@
                     <th style="text-align:center" scope="col">No.</th>
                     <th scope="col">Mahasiswa</th>
                     <?php foreach ($dataKomp as $komp) : ?>
-                      <th scope="col"><?= getPenilaian(['penilaian.penilaianId' => $komp->penilaian])[0]->penilaianNamaSingkat ?></th>
+                      <th scope="col"><?= getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat ?></th>
                     <?php endforeach ?>
                 </thead>
                 <tbody>
@@ -82,8 +82,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php foreach ($dataKomp as $k) : ?>
-                        <td><?= getNilai($k->penilaian, $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?>
-                        </td>
+                        <td><?= getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?></td>
                       <?php endforeach ?>
                     </tr>
                   <?php endforeach ?>
