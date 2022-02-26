@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                     <div class="login-brand">
-                        <img src="<?= base_url() ?>/template/assets/img/logo-fk.webp" alt="logo" width="250">
+                        <a href="/register"><img src="<?= base_url() ?>/logo/logo-fk.webp" alt="logo" width="250"></a>
                     </div>
 
                     <div class="card card-primary">

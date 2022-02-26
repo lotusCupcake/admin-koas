@@ -4,14 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LogbookMahasiswaModel extends Model
+class KegiatanMahasiswaModel extends Model
 {
     protected $table = 'logbook';
     protected $primaryKey = 'logbookId';
     protected $allowedFields = ['logbookRumkitDetId', 'logbookDopingEmail', 'logbookNim', 'logbookTanggal', 'logbookCreateDate', 'logbookKegiatanId', 'logbookJudulDeskripsi', 'logbookDeskripsi', 'logbookIsVerify'];
     protected $returnType = 'object';
 
-    public function getLogbook($where = null)
+    public function getKegiatan($where = null)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -30,7 +30,7 @@ class LogbookMahasiswaModel extends Model
         return $builder;
     }
 
-    public function getLogbookSearch($keyword, $where = null)
+    public function getKegiatanSearch($keyword, $where = null)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -58,7 +58,7 @@ class LogbookMahasiswaModel extends Model
         return $builder;
     }
 
-    public function getMahasiswaNilai($dosenEmail)
+    public function getMahasiswaNilai($where)
     {
         $builder = $this->table('logbook');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
@@ -68,8 +68,19 @@ class LogbookMahasiswaModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
-        $builder->where(['dosen_pembimbing.dopingEmail' => $dosenEmail]);
+        $builder->join('penilaian', 'penilaian.penilaianId = kegiatan.kegiatanPenilaianId', 'LEFT');
+        $builder->join('penilaian_grade', 'penilaian_grade.gradePenilaianId = penilaian.penilaianId', 'LEFT');
+        $builder->where($where);
         $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
+        return $builder;
+    }
+
+    public function getJumlahKegiatan($where)
+    {
+        $builder = $this->table('logbook');
+        $builder->selectCount('logbook.logbookId');
+        $builder->join('users', 'users.email = logbook.logbookDopingEmail', 'LEFT');
+        $builder->where($where);
         return $builder;
     }
 }

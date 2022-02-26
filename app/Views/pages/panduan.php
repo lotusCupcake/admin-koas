@@ -8,7 +8,7 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Panduan Profesi</h1>
+      <h1>Panduan</h1>
       <div class="section-header-breadcrumb">
         <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
         <div class="breadcrumb-item"><a href="/panduan"><?= $breadcrumb[1]; ?></a></div>
@@ -24,41 +24,20 @@
         <?php endif; ?>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div class="alert alert-success alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <?php echo session()->getFlashdata('success'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('panduanNama')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('panduanNama'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('panduanNama')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('panduanFile')) : ?>
-            <div class="alert alert-danger alert-dismissible show fade">
-              <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                  <span>&times;</span>
-                </button>
-                <strong>Failed ! </strong><?= $validation->getError('panduanFile'); ?>
-              </div>
-            </div>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('panduanFile')]]); ?>
           <?php endif; ?>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Nama Panduan Profesi</th>
+                  <th scope="col">Nama Panduan</th>
                   <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
                     <th style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
@@ -69,20 +48,28 @@
                 <?php
                 $no = 1;
                 foreach ($panduan as $row) : ?>
-                  <tr>
-                    <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= $row->panduanNama; ?></td>
-                    <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
+                  <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
+                    <tr>
+                      <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->panduanNama; ?></td>
                       <td style="text-align:center"><span class="badge <?= $row->panduanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->panduanStatus == 1 ? "Berlaku" : "Tidak Berlaku"; ?></td>
-                    <?php endif; ?>
-                    <td style="text-align:center">
-                      <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
-                      <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
+                      <td style="text-align:center">
+                        <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editPanduan<?= $row->panduanId; ?>"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusPanduan<?= $row->panduanId; ?>"><i class="fas fa-trash"></i></button>
-                      <?php endif; ?>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  <?php else : ?>
+                    <?php if ($row->panduanStatus == 1) : ?>
+                      <tr>
+                        <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                        <td><?= $row->panduanNama; ?></td>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
+                        </td>
+                      </tr>
+                    <?php endif; ?>
+                  <?php endif; ?>
                 <?php endforeach ?>
               </tbody>
             </table>
@@ -100,17 +87,17 @@
       <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah<strong> Panduan Profesi</strong></h5>
+          <h5 class="modal-title">Tambah<strong> Panduan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama Panduan Profesi</label>
+            <label>Nama Panduan</label>
             <input name="panduanNama" type="text" class="form-control">
           </div>
-          <label>File Panduan Profesi</label>
+          <label>File Panduan</label>
           <div class="form-group">
             <div class="custom-file">
               <input name="panduanFile" type="file" accept="application/pdf" class="custom-file-input" id="customFile" onchange="labelDokumen()">
@@ -137,17 +124,17 @@
         <input type="hidden" name="fileLama" value="<?= $edit->panduanFile; ?>">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit<strong> Panduan Profesi</strong></h5>
+            <h5 class="modal-title">Edit<strong> Panduan</strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Nama Panduan Profesi</label>
+              <label>Nama Panduan</label>
               <input name="panduanNama" type="text" class="form-control" value="<?= $edit->panduanNama; ?>">
             </div>
-            <label>File Panduan Profesi</label>
+            <label>File Panduan</label>
             <div class="form-group">
               <div class="custom-file">
                 <input name="panduanFile" type="file" accept="application/pdf" class="custom-file-input" value="<?= $edit->panduanFile; ?>" id="customFile<?= $edit->panduanId; ?>" onchange="labelDokumenEdit(<?= $edit->panduanId; ?>)">
@@ -180,7 +167,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Panduan Profesi</strong></h5>
+          <h5 class="modal-title">Hapus<strong> Panduan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -209,7 +196,7 @@
     <div class="modal-dialog modal-xl" role="banner">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">File<strong> Panduan Profesi</strong></h5>
+          <h5 class="modal-title">File<strong> Panduan</strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

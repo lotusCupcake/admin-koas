@@ -34,8 +34,9 @@ $routes->setAutoRoute(true);
 
 // route home
 $routes->get('/home/(:any)', 'Home::index');
+$routes->post('/home/savepopup', 'Home::savePopup');
 
-// route mamajemen user
+// route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->get('/manajemenAkun/index', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
@@ -97,8 +98,10 @@ $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
+$routes->post('/jadwalKegiatan/skip', 'JadwalKegiatan::skip');
+$routes->add('/jadwalKegiatan/(:num)/aktif', 'JadwalKegiatan::aktif/$1');
 
-// route doata kegiatan
+// route data kegiatan
 $routes->get('/dataKegiatan/', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/dataKegiatan/index', 'DataKegiatan::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->post('/dataKegiatan', 'DataKegiatan::add');
@@ -112,31 +115,85 @@ $routes->post('/panduan', 'Panduan::add');
 $routes->delete('/panduan/(:num)', 'Panduan::delete/$1');
 $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 
-// route logbook
-$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
-$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
-$routes->add('/logbookMahasiswa/(:num)/setujui', 'LogbookMahasiswa::setujui/$1');
+// route kegiatan
+$routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->add('/kegiatanMahasiswa/(:num)/setujui', 'KegiatanMahasiswa::setujui/$1');
 
 // route Absensi
-$routes->get('/logbookMahasiswa/', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
-$routes->get('/logbookMahasiswa/index', 'LogbookMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 
 // route Folow Up
-$routes->get('/followUp/(:any)', 'FollowUp::index');
+$routes->get('/followUp/', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
+$routes->get('/followUp/index', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
+$routes->post('/penilaian/save', 'Penilaian::save');
+$routes->post('/penilaian/konversi', 'Penilaian::getPenilaian');
+
 
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
 
+//route announcement
+$routes->get('/Announce/', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/Announce/index', 'Announce::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/announce', 'Announce::announceAdd');
+$routes->delete('/announce/(:num)', 'Announce::announceDelete/$1');
+$routes->add('/announce/(:num)/edit', 'Announce::announceEdit/$1');
+
+//route rekap absen
+$routes->get('/rekapAbsen/', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapAbsen/index', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapAbsen/rekapAbsenStase', 'RekapAbsen::rekapAbsenStase');
+$routes->get('/rekapAbsen/rekapAbsenKelompok', 'RekapAbsen::rekapAbsenKelompok');
+$routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
+$routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
+
+// Berita Acara
+$routes->get('/beritaAcara/(:any)', 'BeritaAcara::index');
+$routes->get('/beritaAcara/kegiatan', 'BeritaAcara::kegiatan');
+$routes->get('/beritaAcara/kelompok', 'BeritaAcara::kelompok');
+$routes->get('/beritaAcara/cetak', 'BeritaAcara::cetak');
+
+//route notifikasi
+$routes->get('/notif/', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/notif/index', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/notif', 'Notif::Add');
+$routes->delete('/notif/(:num)', 'Notif::delete/$1');
+$routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
+$routes->add('/notif/send', 'Notif::send');
+
+//route rekap nilai
+$routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/rekapNilaiStase', 'RekapNilai::rekapNilaiStase');
+$routes->post('/rekapNilai/proses', 'RekapNilai::proses');
+$routes->post('/rekapNilai/cetak', 'RekapNilai::exportRekapNilai');
+
+// route tunda jadwal
+$routes->get('/jadwalSkip/', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/jadwalSkip/index', 'JadwalSkip::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+
+//route profile
+$routes->get('/profile/', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->get('/profile/index', 'Profile::index', ['filter' => 'role:Dosen,Koordik']);
+$routes->post('/profile/insert', 'Profile::insert_signature');
+
+//route bobot nilai
+$routes->get('/bobot/', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/bobot/index', 'Bobot::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->post('/bobot/(:num)/penilaian/save', 'Bobot::savePenilaian/$1');
+$routes->post('/bobot/(:num)/save', 'Bobot::saveBobot/$1');
+$routes->delete('/bobot/(:num)/delete', 'Bobot::delete/$1');
+$routes->post('/bobot/penilaian', 'Bobot::getPenilaian');
+
 //route utilitas
 $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->post('/pengumuman', 'Utilitas::pengumumanAdd');
-$routes->delete('/pengumuman/(:num)', 'Utilitas::pengumumanDelete/$1');
-$routes->add('/pengumuman/(:num)/edit', 'Utilitas::pengumumanEdit/$1');
 
 
 /*

@@ -50,12 +50,6 @@ class Stase extends BaseController
                     'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
-            // 'staseType' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'Type Form Nilai Harus Diisi!',
-            //     ]
-            // ],
         ])) {
             return redirect()->to('stase')->withInput();
         }
@@ -64,7 +58,6 @@ class Stase extends BaseController
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
             'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
-            // 'staseType' => trim($this->request->getPost('staseType')),
         );
 
         if ($this->staseModel->insert($data)) {
@@ -88,12 +81,6 @@ class Stase extends BaseController
                     'required' => 'Durasi Stase Harus Diisi!',
                 ]
             ],
-            // 'staseType' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //         'required' => 'Type Form Nilai Harus Diisi!',
-            //     ]
-            // ],
         ])) {
             return redirect()->to('stase')->withInput();
         }
@@ -102,7 +89,6 @@ class Stase extends BaseController
         $data = array(
             'staseNama' => trim($this->request->getPost('staseNama')),
             'staseJumlahWeek' => trim($this->request->getPost('staseJumlahWeek')),
-            // 'staseType' => trim($this->request->getPost('staseType')),
         );
 
         if ($this->staseModel->update($id, $data)) {

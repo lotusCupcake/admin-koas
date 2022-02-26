@@ -7,38 +7,54 @@ use CodeIgniter\Model;
 class PenilaianModel extends Model
 {
     protected $table = 'penilaian';
-    // protected $primaryKey = 'staseId';
-    // protected $allowedFields = ['staseNama', 'staseJumlahWeek', 'staseType'];
     protected $returnType = 'object';
 
-
-    public function getFormJurnalReading()
+    public function getPenilaian()
     {
         $builder = $this->table('penilaian');
-        $builder->join('kriteria_penilaian', 'kriteria_penilaian.kriteriaPenilaianId = penilaian.penilaianId', 'LEFT');
-        $builder->join('kemampuan_penilaian', 'kemampuan_penilaian.kemampuanKriteriaId = kriteria_penilaian.kriteriaId', 'LEFT');
-        $builder->join('komponen_penilaian', 'komponen_penilaian.komponenNilaiKemampuanId = kemampuan_penilaian.kemampuanNilaiId', 'LEFT');
-        $builder->where(['penilaian.penilaianId' => 1]);
+        $builder->orderBy('penilaianOrder', 'ASC');
+        $builder->whereNotIn('penilaianId', [8, 10, 15, 9, 12]);
         return $builder;
     }
 
-    public function getFormJurnalRefarat()
+    public function getFormNilai($where)
     {
         $builder = $this->table('penilaian');
-        $builder->join('kriteria_penilaian', 'kriteria_penilaian.kriteriaPenilaianId = penilaian.penilaianId', 'LEFT');
-        $builder->join('kemampuan_penilaian', 'kemampuan_penilaian.kemampuanKriteriaId = kriteria_penilaian.kriteriaId', 'LEFT');
-        $builder->join('komponen_penilaian', 'komponen_penilaian.komponenNilaiKemampuanId = kemampuan_penilaian.kemampuanNilaiId', 'LEFT');
-        $builder->where(['penilaian.penilaianId' => 2]);
+        $builder->join('penilaian_kriteria', 'penilaian_kriteria.kriteriaPenilaianId = penilaian.penilaianId', 'LEFT');
+        $builder->join('penilaian_aspek', 'penilaian_aspek.aspekKriteriaId = penilaian_kriteria.kriteriaId', 'LEFT');
+        $builder->join('penilaian_komponen', 'penilaian_komponen.komponenAspekId = penilaian_aspek.aspekId', 'LEFT');
+        $builder->where($where);
         return $builder;
     }
 
-    public function getFormJurnalRefleksiKasus()
+    public function getMenuNilai($where)
     {
         $builder = $this->table('penilaian');
-        $builder->join('kriteria_penilaian', 'kriteria_penilaian.kriteriaPenilaianId = penilaian.penilaianId', 'LEFT');
-        $builder->join('kemampuan_penilaian', 'kemampuan_penilaian.kemampuanKriteriaId = kriteria_penilaian.kriteriaId', 'LEFT');
-        $builder->join('komponen_penilaian', 'komponen_penilaian.komponenNilaiKemampuanId = kemampuan_penilaian.kemampuanNilaiId', 'LEFT');
-        $builder->where(['penilaian.penilaianId' => 3]);
+        $builder->join('kegiatan', 'kegiatan.kegiatanPenilaianId = penilaian.penilaianId', 'LEFT');
+        $builder->join('logbook', 'logbook.logbookKegiatanId = kegiatan.kegiatanId', 'LEFT');
+        $builder->where($where);
+        $builder->groupBy('penilaian.penilaianId ');
+        $builder->orderBy('penilaian.penilaianOrder', 'ASC');
         return $builder;
+    }
+
+    public function getFilterNilai($where)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('stase', 'stase.staseId =rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->where($where);
+        $builder->groupBy(['stase.staseId', 'kelompok_detail.kelompokDetNim']);
+        return $builder->get();
+    }
+
+    public function getKonversi($nilai)
+    {
+        $builder = $this->db->table('konversi_nilai');
+        $builder->where('konversiNilaiSkalaMinimum <=', $nilai);
+        $builder->where('konversiNilaiSkalaMaksimum >=', $nilai);
+        return $builder->get();
     }
 }
