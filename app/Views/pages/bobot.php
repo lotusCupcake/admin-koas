@@ -59,6 +59,7 @@
                         <?php if ($status == 99) : ?>
                           <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
                         <?php elseif ($status == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#editPenilaian<?= $row->staseId; ?>"><i class="fas fa-marker"></i> Edit Ulang Penilaian</button>
                           <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
                         <?php else : ?>
                           <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
@@ -162,6 +163,7 @@ foreach ($bobot as $edit) : ?>
               </div>
 
               <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
+              <br>
               <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
@@ -173,6 +175,35 @@ foreach ($bobot as $edit) : ?>
     </div>
   <?php endif ?>
 <?php endforeach ?>
+
+<!-- start modal edit ulang penilaian  -->
+<?php foreach ($bobot as $delete) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="editPenilaian<?= $delete->staseId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Ulang <strong><?= $delete->staseNama; ?></strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah kamu benar ingin mengedit ulang penilaian <strong><?= $delete->staseNama; ?></strong>?</p>
+          <p class="text-warning"><small>This action cannot be undone</small></p>
+        </div>
+        <form action="/bobot/<?= $delete->staseId; ?>/delete" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal edit ulang penilaian -->
 
 
 
