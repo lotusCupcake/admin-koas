@@ -41,6 +41,7 @@ function getPenilaian($where)
     return $result;
 }
 
+
 function getPopup($where)
 {
     $model = new \App\Models\PopupModel;
@@ -59,6 +60,13 @@ function getKomponenNilaiMax($where)
 {
     $model = new \App\Models\KomponenNilaiModel;
     $result = ($model->getWhere($where)->getResult()[0]->komponenSkorMax != null) ? $model->getWhere($where)->getResult()[0]->komponenSkorMax : 0;
+    return $result;
+}
+
+function getGradeExists($where)
+{
+    $model = new \App\Models\GradeModel;
+    $result = $model->getWhere($where)->getResult();
     return $result;
 }
 
@@ -105,6 +113,8 @@ function getNilai($idPenilaian, $npm, $stase)
                 array_push($idPenilaian, $row);
             }
         }
+
+        $hasil = json_encode($idPenilaian);
 
         foreach (json_decode($komposisi) as $komp) {
             foreach (json_decode($komp->penilaian) as $cek) {

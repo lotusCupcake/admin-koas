@@ -48,7 +48,7 @@
               <?php $urut = 1;
               foreach ($menuNilai as $menu) : ?>
                 <div class="tab-pane fade show <?= ($urut == 1) ? "active" : "" ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
-                  <?= view('layout/templateAlert', ['msg' => ['info', "<strong>Failed ! </strong>" . $menu->penilaianNama]]); ?>
+                  <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Perhatian ! </strong> Klik tombol nilai untuk memberi penilaian <strong>" . $menu->penilaianNama . "</strong>"]]); ?>
                   <div class="table table-responsive">
                     <table class="table table-bordered">
                       <thead>
@@ -68,13 +68,22 @@
                             <td><?= $mhs->kelompokDetNim ?></td>
                             <td><?= $mhs->kelompokDetNama ?></td>
                             <td style="text-align:center">
-                              <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i> Nilai</button>
+
+                              <?php if ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) > 0) : ?>
+                                <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-plus"></i> Edit Nilai</button>
+                              <?php elseif ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) < 1) : ?>
+                                <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i>Berikan Nilai</button>
+                              <?php else : ?>
+                                <button class="btn btn-icon icon-left btn-success" data-toggle="modal" disabled>Sudah Dinilai</button>
+                              <?php endif; ?>
                             </td>
                             <td style="text-align:center">
-                              <?php if ($mhs->gradeApproveStatus == 0) : ?>
+                              <?php if ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) < 1) : ?>
+                                <button class="btn btn-icon icon-left btn-warning" data-toggle="modal" disabled>Belum Dinilai</button>
+                              <?php elseif ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) > 0) : ?>
                                 <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiPenilaian<?= $mhs->gradeId; ?>" <?php in_groups('Koordik') ? "" : "disabled" ?>>Belum Disetujui</button>
                               <?php else : ?>
-                                <button class="btn btn-icon icon-left btn-success" <?php in_groups('Koordik') ? "" : "disabled" ?>>Disetujui</button>
+                                <button class="btn btn-icon icon-left btn-success" <?php in_groups('Koordik') ? "" : "disabled" ?> disabled>Disetujui</button>
                               <?php endif ?>
                             </td>
                           </tr>
@@ -213,11 +222,14 @@
                   </table>
                 </div>
               <?php else : ?>
-                <div class="row">
-                  <div class="col-md-12" style="text-align:center">
-                    <h1 class='grade'>Nilai Huruf : E</h1>
+                <?php $colspan = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;') - eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;') + 1 ?>
+                <?php if ($menu->penilaianId != 12) : ?>
+                  <div class="row">
+                    <div class="col-md-12" style="text-align:center">
+                      <h1 class='grade'>Nilai Huruf : E</h1>
+                    </div>
                   </div>
-                </div>
+                <?php endif ?>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -245,27 +257,26 @@
                         </tr>
                       <?php endforeach ?>
                     </tbody>
-                    <!-- <thead>
+                    <<?php if ($menu->penilaianIsGlobalRating != 0) : ?> <thead>
                       <tr>
-                        <th style=" text-align:center" scope="col" colspan="<? //= 2 + $colspan 
-                                                                            ?>">Global Rating</th>
-                        </tr>
-                        </thead>
-                    <tbody>
-                      <tr>
-                        <td style="text-align:center" scope="col" colspan="<? //= 2 + $colspan 
-                                                                            ?>">
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
-                            <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
-                            <label class="form-check-label" for="inlineradio2">Kompeten</label>
-                          </div>
-                        </td>
+                        <th style=" text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
                       </tr>
-                    </tbody> -->
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                              <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                              <label class="form-check-label" for="inlineradio2">Kompeten</label>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    <?php endif ?>
                   </table>
                 </div>
               <?php endif ?>
