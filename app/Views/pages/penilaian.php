@@ -48,7 +48,7 @@
               <?php $urut = 1;
               foreach ($menuNilai as $menu) : ?>
                 <div class="tab-pane fade show <?= ($urut == 1) ? "active" : "" ?>" id="<?= ($menu->penilaianHref) ?>" role="tabpanel" aria-labelledby="<?= ($menu->penilaianSlug) ?>">
-                  <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Perhatian ! </strong> Klik tombol nilai untuk memberi penilaian <strong>" . $menu->penilaianNama . "</strong>"]]); ?>
+                  <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Perhatian ! </strong> Klik tombol Berikan Nilai untuk memberi penilaian <strong>" . $menu->penilaianNama . "</strong>"]]); ?>
                   <div class="table table-responsive">
                     <table class="table table-bordered">
                       <thead>
@@ -63,25 +63,31 @@
                       <tbody>
                         <?php $no = 1;
                         foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) : ?>
+                          <?php if (count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) {
+                            $approve = 0;
+                          } else {
+                            $approve = getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])[0]->gradeApproveStatus;
+                            $gradeId = getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])[0]->gradeId;
+                          } ?>
                           <tr>
                             <td style="text-align:center"><?= $no++ ?></td>
                             <td><?= $mhs->kelompokDetNim ?></td>
                             <td><?= $mhs->kelompokDetNama ?></td>
                             <td style="text-align:center">
 
-                              <?php if ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) > 0) : ?>
+                              <?php if ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) > 0) : ?>
                                 <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-plus"></i> Edit Nilai</button>
-                              <?php elseif ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) < 1) : ?>
+                              <?php elseif ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) : ?>
                                 <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i>Berikan Nilai</button>
                               <?php else : ?>
                                 <button class="btn btn-icon icon-left btn-success" data-toggle="modal" disabled>Sudah Dinilai</button>
                               <?php endif; ?>
                             </td>
                             <td style="text-align:center">
-                              <?php if ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) < 1) : ?>
+                              <?php if ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) : ?>
                                 <button class="btn btn-icon icon-left btn-warning" data-toggle="modal" disabled>Belum Dinilai</button>
-                              <?php elseif ($mhs->gradeApproveStatus == 0 && count(getGradeExists(['gradeNpm' => $mhs->kelompokDetNim, 'gradePenilaianId' => $menu->penilaianId])) > 0) : ?>
-                                <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiPenilaian<?= $mhs->gradeId; ?>" <?php in_groups('Koordik') ? "" : "disabled" ?>>Belum Disetujui</button>
+                              <?php elseif ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) > 0) : ?>
+                                <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiPenilaian<?= $gradeId; ?>" <?php in_groups('Koordik') ? "" : "disabled" ?>>Belum Disetujui</button>
                               <?php else : ?>
                                 <button class="btn btn-icon icon-left btn-success" <?php in_groups('Koordik') ? "" : "disabled" ?> disabled>Disetujui</button>
                               <?php endif ?>

@@ -71,6 +71,8 @@ function getKomponenNilaiMax($where)
 
 function getGradeExists($where)
 {
+
+    $where = ['gradeNpm' => $where[0], 'gradePenilaianId' => $where[1], 'gradeStaseId' => $where[2]];
     $model = new \App\Models\GradeModel;
     $result = $model->getWhere($where)->getResult();
     return $result;
