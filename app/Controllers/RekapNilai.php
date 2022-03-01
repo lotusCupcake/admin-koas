@@ -48,11 +48,6 @@ class RekapNilai extends BaseController
         echo json_encode($callback);
     }
 
-    public function exportRekapNilai()
-    {
-        dd($_POST);
-    }
-
     public function proses()
     {
         if (!$this->validate([
@@ -73,7 +68,7 @@ class RekapNilai extends BaseController
         $data = [
             'title' => "Rekap Nilai",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Administrasi', 'Rekap Nilaisi'],
+            'breadcrumb' => ['Administrasi', 'Rekap Nilai'],
             'menu' => $this->fetchMenu(),
             'validation' => \Config\Services::validation(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),

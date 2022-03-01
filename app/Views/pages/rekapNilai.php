@@ -65,7 +65,7 @@
                     <?php foreach ($dataKomp as $komp) : ?>
                       <th scope="col"><?= getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat ?></th>
                     <?php endforeach ?>
-                    <th>Action</th>
+                    <th style="text-align:center">Action</th>
                 </thead>
                 <tbody>
                   <?php
@@ -75,15 +75,12 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php foreach ($dataKomp as $k) : ?>
-                        <td><?= getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?></td>
+                        <td style="text-align:center"><?= getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?></td>
                       <?php endforeach ?>
-                      <td>
-                        <form action="/rekapNilai/cetak" method="post">
-                          <?= csrf_field() ?>
-                          <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
-                          <input type="hidden" name="npm" value="<?= $mahasiswa->kelompokDetNim; ?>">
-                          <button class="btn btn-icon btn-primary"><i class="fas fa-print"></i> Cetak</button>
-                        </form>
+                      <td style="text-align:center">
+                        <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
+                        <input type="hidden" name="npm" value="<?= $mahasiswa->kelompokDetNim; ?>">
+                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilai<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-print"></i> Cetak</button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -96,6 +93,51 @@
     </div>
   </section>
 </div>
+
+<!-- start modal detail nilai -->
+<?php $no = 1;
+foreach ($dataMhs as $detail) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailNilai<?= $detail->kelompokDetNim; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nilai Akhir<strong> </strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Jenis Kegiatan</th>
+                  <th scope="col">Nilai</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center"><?= $no++; ?></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <form action="/rekapNilai/<?= $detail->kelompokDetNim; ?>/cetak" method="post">
+          <?= csrf_field(); ?>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Cetak</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal detail nilai -->
 
 <?= view('layout/templateFooter'); ?>
 
