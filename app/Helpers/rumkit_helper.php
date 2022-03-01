@@ -192,3 +192,17 @@ function getNilai($idPenilaian, $npm, $stase)
     }
     return $hasil;
 }
+
+function getEvaluasi($where)
+{
+    $model = new \App\Models\EvaluasiModel();
+    $result = $model->getWhere($where)->getResult();
+    return $result;
+}
+
+function getAspekEvaluasi($where)
+{
+    $model = new \App\Models\EvaluasiModel();
+    $result = $model->getAspekEvaluasi($where)->getResult();
+    return $result;
+}

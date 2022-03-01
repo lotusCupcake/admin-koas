@@ -23,4 +23,11 @@ class EvaluasiModel extends Model
         $builder->groupBy('kelompok_detail.kelompokDetNim');
         return $builder->get();
     }
+
+    public function getAspekEvaluasi($where)
+    {
+        $builder = $this->db->table('evaluasi_aspek');
+        $builder->where($where);
+        return $builder->get();
+    }
 }

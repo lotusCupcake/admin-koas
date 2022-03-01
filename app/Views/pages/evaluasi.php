@@ -63,34 +63,57 @@
             </div>
           <?php else : ?>
             <?php foreach ($dataResult as $data) : ?>
-              <table>
-                <tr>
-                  <th>Nama/NPM Mahasiswa</th>
-                  <td>: <?= $data->kelompokDetNama; ?>/<?= $data->kelompokDetNim; ?></td>
-                <tr>
-                  <th>Nama Dosen</th>
-                  <td>: <?= $data->dopingNamaLengkap; ?></td>
-                </tr>
-                <tr>
-                  <th>Stase</th>
-                  <td>: <?= $data->staseNama; ?></td>
-                </tr>
-                <tr>
-                  <th>Rumah Sakit</th>
-                  <td>: <?= $data->rumahSakitShortname; ?></td>
-                </tr>
-              </table>
-              <br>
-              <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                  <thead>
+              <div class="card">
+                <div class="card-body">
+                  <?php $keterangan = ['Sangat Kurang', 'Kurang', 'Cukup', 'Baik', 'Sangat Baik']; ?>
+                  <table>
                     <tr>
-                      <th style="text-align:center" scope="col">No.</th>
-                      <th scope="col">Aspek Nilai</th>
-                      <th scope="col">Nilai</th>
+                      <th>Nama/NPM Mahasiswa</th>
+                      <td>: <?= $data->kelompokDetNama; ?>/<?= $data->kelompokDetNim; ?></td>
+                    <tr>
+                      <th>Nama Dosen</th>
+                      <td>: <?= $data->dopingNamaLengkap; ?></td>
                     </tr>
-                  </thead>
-                </table>
+                    <tr>
+                      <th>Stase</th>
+                      <td>: <?= $data->staseNama; ?></td>
+                    </tr>
+                    <tr>
+                      <th>Rumah Sakit</th>
+                      <td>: <?= $data->rumahSakitShortname; ?></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="text-align:center" scope="col">No.</th>
+                          <th scope="col">Aspek Nilai</th>
+                          <?php foreach ($keterangan as $ket) : ?>
+                            <th style="text-align:center" scope="col"><?= $ket; ?></th>
+                          <?php endforeach ?>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $evaluasi = getEvaluasi(['evaluasi_grade.gradeEvaluasiStaseId' => $data->staseId, 'evaluasi_grade.gradeEvaluasiNpm' => $data->kelompokDetNim, 'evaluasi_grade.gradeEvaluasiDopingEmail' => $data->dopingEmail])[0]->gradeEvaluasiNilai ?>
+                        <?php $no = 1;
+                        foreach (json_decode($evaluasi) as $eval) : ?>
+                          <tr>
+                            <td style="text-align:center"><?= $no++ ?></td>
+                            <td><?= getAspekEvaluasi(['evaluasiId' => $eval->aspek])[0]->evaluasiAspek ?></td>
+                            <?php $nilai = 1;
+                            foreach ($keterangan as $ket) : ?>
+                              <td style="text-align:center" scope="col">
+                                <?= ($nilai++ == $eval->nilai) ? "<span class='fas fa-check'></span>" : "" ?>
+                              </td>
+                            <?php endforeach ?>
+                          </tr>
+                        <?php endforeach ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             <?php endforeach; ?>
           <?php endif ?>
