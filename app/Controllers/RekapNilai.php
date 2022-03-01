@@ -48,6 +48,11 @@ class RekapNilai extends BaseController
         echo json_encode($callback);
     }
 
+    public function exportRekapNilai()
+    {
+        dd($_POST);
+    }
+
     public function proses()
     {
         if (!$this->validate([

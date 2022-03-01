@@ -56,14 +56,6 @@
               </center>
             </div>
           <?php else : ?>
-            <form action="/rekapNilai/cetak" method="POST">
-              <?= csrf_field() ?>
-              <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
-              <input type="hidden" name="kelompokIdNilai" value="<?= $dataFilter[1]; ?>">
-              <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">
-                <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Print</button>
-              </div>
-            </form>
             <div class="table-responsive">
               <table class="table table-striped table-bordered">
                 <thead>
@@ -71,8 +63,9 @@
                     <th style="text-align:center" scope="col">No.</th>
                     <th scope="col">Mahasiswa</th>
                     <?php foreach ($dataKomp as $komp) : ?>
-                      <th scope="col"><?= getPenilaian(['penilaian.penilaianId' => $komp->penilaian])[0]->penilaianNamaSingkat ?></th>
+                      <th scope="col"><?= getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat ?></th>
                     <?php endforeach ?>
+                    <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
@@ -82,9 +75,16 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php foreach ($dataKomp as $k) : ?>
-                        <td><?= getNilai($k->penilaian, $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?>
-                        </td>
+                        <td><?= getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?></td>
                       <?php endforeach ?>
+                      <td>
+                        <form action="/rekapNilai/cetak" method="post">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
+                          <input type="hidden" name="npm" value="<?= $mahasiswa->kelompokDetNim; ?>">
+                          <button class="btn btn-icon btn-primary"><i class="fas fa-print"></i> Cetak</button>
+                        </form>
+                      </td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
