@@ -56,13 +56,43 @@
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
           <?php endif; ?>
           <?php if (count($dataResult) < 1) : ?>
-            <br>
-            <br>
-            <center>
-              <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
-            </center>
-            <br>
-            <br>
+            <div style="padding-top:10px; padding-bottom:10px">
+              <center>
+                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
+              </center>
+            </div>
+          <?php else : ?>
+            <?php foreach ($dataResult as $data) : ?>
+              <table>
+                <tr>
+                  <th>Nama/NPM Mahasiswa</th>
+                  <td>: <?= $data->kelompokDetNama; ?>/<?= $data->kelompokDetNim; ?></td>
+                <tr>
+                  <th>Nama Dosen</th>
+                  <td>: <?= $data->dopingNamaLengkap; ?></td>
+                </tr>
+                <tr>
+                  <th>Stase</th>
+                  <td>: <?= $data->staseNama; ?></td>
+                </tr>
+                <tr>
+                  <th>Rumah Sakit</th>
+                  <td>: <?= $data->rumahSakitShortname; ?></td>
+                </tr>
+              </table>
+              <br>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center" scope="col">No.</th>
+                      <th scope="col">Aspek Nilai</th>
+                      <th scope="col">Nilai</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            <?php endforeach; ?>
           <?php endif ?>
         </div>
       </div>

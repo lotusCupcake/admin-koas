@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Evaluasi extends BaseController
 {
-    protected $EvaluasiModel;
+    protected $evaluasiModel;
     protected $jadwalKegiatanModel;
     protected $spreadsheet;
 
@@ -34,6 +34,27 @@ class Evaluasi extends BaseController
             'dataFilter' => [null, null]
         ];
         // dd($data);
+        return view('pages/evaluasi', $data);
+    }
+
+    public function proses()
+    {
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi()->getResult();
+        // dd($dataEvaluasi);
+        $data = [
+            'title' => "Evaluasi",
+            'appName' => "Dokter Muda",
+            'breadcrumb' => ['Mahasiswa', 'Evaluasi'],
+            'evaluasi' => $this->evaluasiModel->findAll(),
+            'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
+            'validation' => \Config\Services::validation(),
+            'menu' => $this->fetchMenu(),
+            'dataResult' => $dataEvaluasi,
+            'dataFilter' => [null, null]
+        ];
+
+        // dd($data['dataResult']);
+        session()->setFlashdata('success', 'Evaluasi Sudah Ditemukan ,Klik Export Untuk Download!');
         return view('pages/evaluasi', $data);
     }
 }

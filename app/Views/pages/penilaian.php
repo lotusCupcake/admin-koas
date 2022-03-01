@@ -275,6 +275,12 @@
                             </div>
                           </td>
                         </tr>
+                        <tr>
+                          <td style="padding: 10px;" colspan="3">
+                            <label>Sanksi</label>
+                            <textarea name="sanksi" id="" class="form-control" style="height: 100px;" placeholder="Cth : Mengulang stase 100% / Mengulang…………minggu"></textarea>
+                          </td>
+                        </tr>
                       </tbody>
                     <?php endif ?>
                   </table>
