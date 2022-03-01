@@ -41,6 +41,12 @@ function getPenilaian($where)
     return $result;
 }
 
+function getKonversi($nilai)
+{
+    $model = new \App\Models\PenilaianModel;
+    return $model->getKonversi($nilai)->getResult()[0]->konversiNilaiGradeNama;
+}
+
 
 function getPopup($where)
 {
@@ -67,6 +73,16 @@ function getGradeExists($where)
 {
     $model = new \App\Models\GradeModel;
     $result = $model->getWhere($where)->getResult();
+    return $result;
+}
+
+function getNilaiGr($idPenilaian, $npm, $stase)
+{
+    $where = ['penilaian_gr.grPenilaianId' => $idPenilaian, 'penilaian_gr.grNpm' => $npm, 'penilaian_gr.grStaseId' => $stase];
+    $model = new \App\Models\GradeGrModel;
+    $nilai = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->nilai : 0;
+    $sanksi = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->sanksi : 'Tidak Ada Sanksi';
+    $result = [$nilai, $sanksi];
     return $result;
 }
 
