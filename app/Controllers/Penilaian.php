@@ -75,7 +75,8 @@ class Penilaian extends BaseController
 
     public function save()
     {
-        // dd($_POST);
+        // dd($_POST['sanksi']);
+
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
@@ -90,7 +91,7 @@ class Penilaian extends BaseController
             } else {
                 if ($keys[$i] === 'gr') {
                     $dataGr = array(
-                        'penilaian' => $keys[$i], 'nilai' => $values[$i],
+                        'penilaian' => $keys[$i], 'nilai' => $values[$i], 'sanksi' => ($_POST['sanksi'] == "") ? "Tidak Ada Sanksi" : $_POST['sanksi']
                     );
                     array_push($jsonGr, $dataGr);
                 }

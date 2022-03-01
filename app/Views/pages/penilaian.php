@@ -257,10 +257,10 @@
                         </tr>
                       <?php endforeach ?>
                     </tbody>
-                    <<?php if ($menu->penilaianIsGlobalRating != 0) : ?> <thead>
-                      <tr>
-                        <th style=" text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
-                      </tr>
+                    <?php if ($menu->penilaianIsGlobalRating != 0) : ?> <thead>
+                        <tr>
+                          <th style=" text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                        </tr>
                       </thead>
                       <tbody>
                         <tr>
