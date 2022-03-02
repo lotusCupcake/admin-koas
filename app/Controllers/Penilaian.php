@@ -89,11 +89,7 @@ class Penilaian extends BaseController
             } else {
                 if ($keys[$i] === 'gr') {
                     $dataGr = array(
-<<<<<<< HEAD
-                        'penilaian' => $keys[$i], 'nilai' => $values[$i], 'sanksi' => (!isset($_POST['sanksi'])) ? "Tidak Ada Sanksi" : $_POST['sanksi']
-=======
                         'penilaian' => $keys[$i], 'nilai' => $values[$i], 'sanksi' => (!isset($_POST['sanksi']) || $_POST['sanksi'] == "") ? "Tidak Ada Sanksi" : $_POST['sanksi']
->>>>>>> bbe473a530dbdcfe4c24f68b100b0be068830aa5
                     );
                     array_push($jsonGr, $dataGr);
                 }
