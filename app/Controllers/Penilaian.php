@@ -22,6 +22,12 @@ class Penilaian extends BaseController
     }
     public function index()
     {
+        if (in_groups('dosen')) {
+            $data = ['menuNilai' => $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll(),];
+        } elseif (in_groups('dosen')) {
+            $data = ['menuNilai' => $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll(),];
+        }
+
         $data = [
             'title' => "Penilaian",
             'appName' => "Dokter Muda",
