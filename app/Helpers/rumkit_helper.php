@@ -82,9 +82,24 @@ function getNilaiGr($idPenilaian, $npm, $stase)
 {
     $where = ['penilaian_gr.grPenilaianId' => $idPenilaian, 'penilaian_gr.grNpm' => $npm, 'penilaian_gr.grStaseId' => $stase];
     $model = new \App\Models\GradeGrModel;
-    $nilai = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->nilai : 0;
-    $sanksi = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->sanksi : 'Tidak Ada Sanksi';
+    $nilai = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->nilai : 2;
+    $sanksi = (count($model->where($where)->get()->getResult()) > 0) ? json_decode($model->where($where)->get()->getResult()[0]->grResult)[0]->sanksi : '';
     $result = [$nilai, $sanksi];
+    return $result;
+}
+
+function getNilaiExist($idPenilaian, $npm, $stase, $kompId)
+{
+    $where = ['penilaian_grade.gradePenilaianId' => $idPenilaian, 'penilaian_grade.gradeNpm' => $npm, 'penilaian_grade.gradeStaseId' => $stase];
+    $grade = new \App\Models\GradeModel;
+    $grades = ($grade->where($where)->get()->getResult() != null) ? json_decode($grade->where($where)->get()->getResult()[0]->gradeNilai) : [];
+    $nilai = null;
+    foreach ($grades as $grade) {
+        if ($grade->penilaian == $kompId) {
+            $nilai = $grade->nilai;
+        }
+    }
+    $result = $nilai;
     return $result;
 }
 

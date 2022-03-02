@@ -76,9 +76,9 @@
                             <td style="text-align:center">
 
                               <?php if ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) > 0) : ?>
-                                <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-plus"></i> Edit Nilai</button>
+                                <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="edit"><i class="fas fa-plus"></i> Edit Nilai</button>
                               <?php elseif ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) : ?>
-                                <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>"><i class="fas fa-marker"></i>Berikan Nilai</button>
+                                <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="add"><i class="fas fa-marker"></i>Berikan Nilai</button>
                               <?php else : ?>
                                 <button class="btn btn-icon icon-left btn-success" data-toggle="modal" disabled>Sudah Dinilai</button>
                               <?php endif; ?>
@@ -112,6 +112,7 @@
 <?php foreach ($menuNilai as $menu) : ?>
   <?php foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $mhs) :
     $file_header = @get_headers("https://mahasiswa.umsu.ac.id/FotoMhs/20" . substr($mhs->kelompokDetNim, 0, 2) . "/" . $mhs->kelompokDetNim . ".jpg"); ?>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="<?= $menu->penilaianTarget ?><?= $mhs->kelompokDetNim . $mhs->staseId ?>">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -176,14 +177,17 @@
                         <?php endif ?>
                       </tr>
                       <tr>
+
                         <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
                           <th style="text-align:center"><?= $i; ?></th>
                         <?php endfor ?>
+
                       </tr>
                     </thead>
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
+                        <?php $nilai = getNilaiExist($menu->penilaianId, $mhs->kelompokDetNim, $mhs->staseId, $komp->komponenId) ?>
                         <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
@@ -192,7 +196,7 @@
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
-                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required>
+                                  <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required <?= ($nilai == $i) ? "checked" : "" ?>>
                                   <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                 </label>
                               </div>
@@ -205,20 +209,21 @@
                       <?php endforeach ?>
                     </tbody>
                     <?php if ($menu->penilaianIsGlobalRating != 0) : ?>
+                      <?php $gr = getNilaiGr($menu->penilaianId, $mhs->kelompokDetNim, $mhs->staseId) ?>
                       <thead>
                         <tr>
-                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" <?= ($gr[0] == 0) ? "checked" : "" ?> required>
                               <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" <?= ($gr[0] == 1) ? "checked" : "" ?> required>
                               <label class="form-check-label" for="inlineradio2">Kompeten</label>
                             </div>
                           </td>
@@ -248,35 +253,37 @@
                     <tbody>
                       <?php $no = 1;
                       foreach (eval('return $nilai' . $menu->penilaianTarget . ';') as $komp) : ?>
+                        <?php $nilai = getNilaiExist($menu->penilaianId, $mhs->kelompokDetNim, $mhs->staseId, $komp->komponenId) ?>
                         <tr class="<?= $menu->penilaianTarget ?>">
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php if (!$komp->komponenIsNumber) : ?>
                             <td style="padding: 10px;">
-                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;" required></textarea>
+                              <textarea name="<?= $komp->komponenId ?>" id="" class="form-control" style="height: 100px;" required><?= $nilai ?></textarea>
                             </td>
                           <?php else : ?>
                             <td style="padding: 10px;">
-                              <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>">
+                              <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" value="<?= $nilai ?>">
                             </td>
                           <?php endif ?>
                         </tr>
                       <?php endforeach ?>
                     </tbody>
                     <?php if ($menu->penilaianIsGlobalRating != 0) : ?> <thead>
+                        <?php $gr = getNilaiGr($menu->penilaianId, $mhs->kelompokDetNim, $mhs->staseId) ?>
                         <tr>
-                          <th style=" text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
+                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" required>
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" <?= ($gr[0] == 0) ? "checked" : "" ?> required>
                               <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" required>
+                              <input class="form-check-input" name="gr" type="radio" id="inlineradio2" value="1" <?= ($gr[0] == 1) ? "checked" : "" ?> required>
                               <label class="form-check-label" for="inlineradio2">Kompeten</label>
                             </div>
                           </td>
@@ -284,7 +291,7 @@
                         <tr>
                           <td style="padding: 10px;" colspan="3">
                             <label>Sanksi</label>
-                            <textarea name="sanksi" id="" class="form-control" style="height: 100px;" placeholder="Cth : Mengulang stase 100% / Mengulang…………minggu"></textarea>
+                            <textarea name="sanksi" id="" class="form-control" style="height: 100px;" placeholder="Cth : Mengulang stase 100% / Mengulang…………minggu"><?= $gr[1] ?></textarea>
                           </td>
                         </tr>
                       </tbody>

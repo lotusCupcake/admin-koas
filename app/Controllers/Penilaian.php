@@ -75,8 +75,6 @@ class Penilaian extends BaseController
 
     public function save()
     {
-        // dd($_POST['sanksi']);
-
         $keys = array_keys($_POST);
         $values = array_values($_POST);
         $json = array();
@@ -91,7 +89,11 @@ class Penilaian extends BaseController
             } else {
                 if ($keys[$i] === 'gr') {
                     $dataGr = array(
+<<<<<<< HEAD
                         'penilaian' => $keys[$i], 'nilai' => $values[$i], 'sanksi' => (!isset($_POST['sanksi'])) ? "Tidak Ada Sanksi" : $_POST['sanksi']
+=======
+                        'penilaian' => $keys[$i], 'nilai' => $values[$i], 'sanksi' => (!isset($_POST['sanksi']) || $_POST['sanksi'] == "") ? "Tidak Ada Sanksi" : $_POST['sanksi']
+>>>>>>> bbe473a530dbdcfe4c24f68b100b0be068830aa5
                     );
                     array_push($jsonGr, $dataGr);
                 }
@@ -100,31 +102,60 @@ class Penilaian extends BaseController
         $nilai = json_encode($json);
         $nilaiGr = json_encode($jsonGr);
 
-        $dataInsert = array(
-            'gradeStaseId' => $_POST['staseId'],
-            'gradePenilaianId' => $_POST['penilaianId'],
-            'gradeNpm' => $_POST['npm'],
-            'gradeNilai' => $nilai,
-            'gradeCreatedBy' => user()->email,
-            'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
-        );
-        $this->gradeModel->insert($dataInsert);
-
-        if (count(json_decode($nilaiGr)) > 0) {
-            $dataInsertGr = array(
-                'grStaseId' => $_POST['staseId'],
-                'grPenilaianId' => $_POST['penilaianId'],
-                'grNpm' => $_POST['npm'],
-                'grResult' => $nilaiGr,
-                'grCreatedBy' => user()->email,
-                'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+        $cek = $this->gradeModel->getWhere(['gradeNpm' => $_POST['npm'], 'gradePenilaianId' => $_POST['penilaianId'], 'gradeStaseId' => $_POST['staseId']])->getResult();
+        $id = ($cek == null) ? 0 : $cek[0]->gradeId;
+        if ($cek == null) {
+            $dataInsert = array(
+                'gradeStaseId' => $_POST['staseId'],
+                'gradePenilaianId' => $_POST['penilaianId'],
+                'gradeNpm' => $_POST['npm'],
+                'gradeNilai' => $nilai,
+                'gradeCreatedBy' => user()->email,
+                'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
             );
+            $this->gradeModel->insert($dataInsert);
 
-            $this->gradeGrModel->insert($dataInsertGr);
+            if (count(json_decode($nilaiGr)) > 0) {
+                $dataInsertGr = array(
+                    'grStaseId' => $_POST['staseId'],
+                    'grPenilaianId' => $_POST['penilaianId'],
+                    'grNpm' => $_POST['npm'],
+                    'grResult' => $nilaiGr,
+                    'grCreatedBy' => user()->email,
+                    'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                );
+
+                $this->gradeGrModel->insert($dataInsertGr);
+            }
+            session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
+        } else {
+            $dataInsert = array(
+                'gradeStaseId' => $_POST['staseId'],
+                'gradePenilaianId' => $_POST['penilaianId'],
+                'gradeNpm' => $_POST['npm'],
+                'gradeNilai' => $nilai,
+                'gradeCreatedBy' => user()->email,
+                'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+            );
+            $this->gradeModel->update($id, $dataInsert);
+
+            if (count(json_decode($nilaiGr)) > 0) {
+                $dataInsertGr = array(
+                    'grStaseId' => $_POST['staseId'],
+                    'grPenilaianId' => $_POST['penilaianId'],
+                    'grNpm' => $_POST['npm'],
+                    'grResult' => $nilaiGr,
+                    'grCreatedBy' => user()->email,
+                    'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                );
+
+                $this->gradeGrModel->update($id, $dataInsertGr);
+            }
+            session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Diupdate!');
         }
 
 
-        session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
+
         return redirect()->to('penilaian');
     }
 
