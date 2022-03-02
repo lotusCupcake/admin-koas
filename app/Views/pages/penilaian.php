@@ -56,6 +56,7 @@
                           <th style="text-align:center" scope="col">No.</th>
                           <th scope="col">Nim</th>
                           <th scope="col">Nama Lengkap</th>
+                          <th scope="col">Doping Email</th>
                           <th style="text-align:center" scope="col">Action</th>
                           <th style="text-align:center" scope="col">Status</th>
                         </tr>
@@ -73,6 +74,7 @@
                             <td style="text-align:center"><?= $no++ ?></td>
                             <td><?= $mhs->kelompokDetNim ?></td>
                             <td><?= $mhs->kelompokDetNama ?></td>
+                            <td><?= $mhs->dopingEmail ?></td>
                             <td style="text-align:center">
 
                               <?php if ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) > 0) : ?>
