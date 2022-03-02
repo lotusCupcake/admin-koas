@@ -62,6 +62,9 @@
               </center>
             </div>
           <?php else : ?>
+            <div class="buttons">
+              <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Cetak</button>
+            </div>
             <?php foreach ($dataResult as $data) : ?>
               <div class="card">
                 <div class="card-body">
@@ -83,9 +86,6 @@
                       <td>: <?= $data->rumahSakitShortname; ?></td>
                     </tr>
                   </table>
-                  <div style="display: inline-block; margin-left: 1400px;" class="buttons">
-                    <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Cetak</button>
-                  </div>
                   <br>
                   <div class="table-responsive">
                     <table class="table table-striped table-bordered">
