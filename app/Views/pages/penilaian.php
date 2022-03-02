@@ -192,7 +192,7 @@
                           <td style="text-align:center"><?= $no++ ?></td>
                           <td><?= $komp->komponenNama ?></td>
                           <?php for ($i = eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMin;'); $i <= eval('return $nilai' . $menu->penilaianTarget . '[0]->komponenSkorMax;'); $i++) : ?>
-                            <td>
+                            <td style="text-align:center">
                               <div class="selectgroup selectgroup-pills">
                                 <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                 <label class="selectgroup-item">
@@ -212,12 +212,12 @@
                       <?php $gr = getNilaiGr($menu->penilaianId, $mhs->kelompokDetNim, $mhs->staseId) ?>
                       <thead>
                         <tr>
-                          <th style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">Global Rating </th>
+                          <th style="text-align:center" scope="col" colspan="<?= 3 + $colspan ?>">Global Rating </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td style="text-align:center" scope="col" colspan="<?= 2 + $colspan ?>">
+                          <td style="text-align:center" scope="col" colspan="<?= 3 + $colspan ?>">
                             <div class="form-check form-check-inline">
                               <input class="form-check-input" name="gr" type="radio" id="inlineradio1" value="0" <?= ($gr[0] == 0) ? "checked" : "" ?> required>
                               <label class="form-check-label" for="inlineradio1">Tidak Kompeten</label>
