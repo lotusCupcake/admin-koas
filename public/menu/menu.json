@@ -201,7 +201,7 @@
         "nama": "Penilaian",
         "parent": "19",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-marker",
         "pages": "/penilaian"
     },

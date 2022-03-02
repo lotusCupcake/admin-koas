@@ -32,11 +32,10 @@ class Penilaian extends BaseController
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
         ];
-        if (in_groups('Dosen_Pembimbing')) {
+        if (in_groups('Dosen')) {
             $init = $this->initDataDosen();
             $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll();
         } elseif (in_groups('Koordik')) {
-
             $rs = getUser(user()->id)->dopingRumkitId;
             $init = $this->initDataKoordik($rs);
             $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->findAll();
@@ -135,6 +134,7 @@ class Penilaian extends BaseController
             'nilaiKPuskesmas' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 18])->findAll(),
             'menu' => $this->fetchMenu()
         ];
+        // dd($data);
         return $data;
     }
 
@@ -224,5 +224,19 @@ class Penilaian extends BaseController
     {
         $nilai = $this->request->getVar('nilai');
         echo $this->penilaianModel->getKonversi($nilai)->getResult()[0]->konversiNilaiGradeNama;
+    }
+
+    public function setujui($id)
+    {
+        // dd($_POST);
+        $data = array(
+            'gradeApproveStatus' => ('1'),
+            'gradeApproveBy' => trim($this->request->getPost('gradeApproveBy')),
+        );
+
+        if ($this->gradeModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Penilaian Mahasiswa Sudah Disetujui!');
+            return redirect()->to('penilaian');
+        }
     }
 }

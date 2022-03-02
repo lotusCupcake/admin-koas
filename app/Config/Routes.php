@@ -133,7 +133,7 @@ $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
 $routes->post('/penilaian/save', 'Penilaian::save');
 $routes->post('/penilaian/konversi', 'Penilaian::getPenilaian');
-
+$routes->add('/penilaian/(:num)/setujui', 'Penilaian::setujui/$1');
 
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
