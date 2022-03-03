@@ -201,9 +201,9 @@ $routes->get('/evaluasi/proses', 'Evaluasi::proses', ['filter' => 'role:Superadm
 // $routes->post('/evaluasi/proses', 'Evaluasi::proses');
 
 //route refleksi
-$routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
-$routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
-$routes->post('/refleksi/proses', 'Refleksi::proses');
+$routes->get('/refleksi/', 'Refleksi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/refleksi/proses', 'Refleksi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+// $routes->post('/refleksi/proses', 'Refleksi::proses');
 
 
 /*

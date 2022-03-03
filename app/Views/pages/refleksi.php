@@ -56,14 +56,38 @@
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
           <?php endif; ?>
           <?php if (count($dataResult) < 1) : ?>
-            <br>
-            <br>
-            <center>
-              <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
-            </center>
-            <br>
-            <br>
-          <?php endif ?>
+            <div style="padding-top:10px; padding-bottom:10px">
+              <center>
+                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
+              </center>
+            </div>
+          <?php else : ?>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th style="text-align:center" scope="col">No.</th>
+                    <th scope="col">Kompetensi</th>
+                    <th scope="col">Tujuan Pembelajaran</th>
+                    <th scope="col">Nilai</th>
+                    <th scope="col">Interpretasi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no = 1;
+                  foreach ($dataResult as $data) : ?>
+                    <tr>
+                      <td style="text-align:center"><?= $no++; ?></td>
+                      <td scope="col"><?= $data->kompetensiNama; ?></td>
+                      <td scope="col"><?= $data->tujuanPembelajaran; ?></td>
+                      <td scope="col"></td>
+                      <td scope="col"></td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>

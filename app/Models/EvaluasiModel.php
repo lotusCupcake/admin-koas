@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class EvaluasiModel extends Model
 {
     protected $table = 'evaluasi_grade';
-    protected $primaryKey = 'gradeId';
+    protected $primaryKey = 'gradeEvaluasiId';
     protected $allowedFields = ['gradeEvaluasiNpm', 'gradeEvaluasiDopingEmail', 'gradeEvaluasiNilai'];
     protected $returnType = 'object';
 
@@ -20,7 +20,6 @@ class EvaluasiModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = evaluasi_grade.gradeEvaluasiDopingEmail', 'LEFT');
-        $builder->groupBy('kelompok_detail.kelompokDetNim');
         return $builder->get();
     }
 
