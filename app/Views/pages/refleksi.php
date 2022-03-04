@@ -94,13 +94,15 @@
                         <?php $gradeRefleksi = getRefleksi(['refleksi_grade.gradeRefleksiStaseId' => $reflek->staseId, 'refleksi_grade.gradeRefleksiNpm' => $reflek->kelompokDetNim])[0]->gradeRefleksiNilai ?>
                         <?php $grade = json_decode($gradeRefleksi) ?>
                         <?php $no = 1;
+                        $total = 0;
                         foreach ($kompetensi as $data) : ?>
                           <tr>
                             <td style="text-align:center"><?= $no++; ?></td>
                             <td scope="col"><?= $data->kompetensiNama; ?></td>
                             <td scope="col"><?= $data->tujuanPembelajaran; ?></td>
-                            <?php foreach ($grade as $gr) : ?>
-                              <?php if ($data->tujuanId == $gr->tujuan) : ?>
+                            <?php
+                            foreach ($grade as $gr) : ?>
+                              <?php if ($data->tujuanId == $gr->tujuan) : $total = $total + $gr->nilai ?>
                                 <td scope="col"><?= $gr->nilai; ?></td>
                               <?php endif ?>
                             <?php endforeach ?>
@@ -109,8 +111,13 @@
                         <?php endforeach; ?>
                         <tr>
                           <td style="text-align:center" colspan="3"><strong>Total</strong></td>
-                          <td></td>
-                          <td></td>
+                          <td><strong><?= $total; ?></td>
+                          <td><strong>1-34</strong>= sangat buruk<br>
+                            <strong>35-68</strong>= buruk<br>
+                            <strong>69-102</strong>= cukup<br>
+                            <strong>103-136</strong>= baik<br>
+                            <strong>137-170 </strong>= sangat baik
+                          </td>
                         </tr>
                       </tbody>
                     </table>
