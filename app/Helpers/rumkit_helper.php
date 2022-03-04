@@ -228,10 +228,3 @@ function getRefleksi($where)
     $result = $model->getWhere($where)->getResult();
     return $result;
 }
-
-function getKompetensiRefleksi($where)
-{
-    $model = new \App\Models\RefleksiModel();
-    $result = $model->getKompetensiRefleksi($where)->getResult();
-    return $result;
-}

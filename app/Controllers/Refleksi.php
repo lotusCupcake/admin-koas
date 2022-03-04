@@ -39,6 +39,7 @@ class Refleksi extends BaseController
 
     public function proses()
     {
+        $where = null;
         $data = [
             'title' => "Refleksi",
             'appName' => "Dokter Muda",
@@ -47,7 +48,8 @@ class Refleksi extends BaseController
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
-            'dataResult' => $this->refleksiModel->getKompetensi()->getResult(),
+            'kompetensi' => $this->refleksiModel->getKompetensi($where)->getResult(),
+            'refleksi' => $this->refleksiModel->getFilterRefleksi()->getResult(),
             'dataFilter' => [null, null]
         ];
 

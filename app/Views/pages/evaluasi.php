@@ -33,7 +33,7 @@
           </div>
           <div class="form-group col-md-3">
             <select class="form-control" name="kelompokIdAbsen">
-              <option value="">Pilih Kelompok</option>
+              <option value="">Pilih Dosen Pembimbing</option>
             </select>
           </div>
           <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">

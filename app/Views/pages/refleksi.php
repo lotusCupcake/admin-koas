@@ -33,7 +33,7 @@
           </div>
           <div class="form-group col-md-3">
             <select class="form-control" name="kelompokIdAbsen">
-              <option value="">Pilih Kelompok</option>
+              <option value="">Pilih Mahasiswa</option>
             </select>
           </div>
           <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">
@@ -55,38 +55,69 @@
           <?php if ($validation->hasError('kelompokIdAbsen')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
           <?php endif; ?>
-          <?php if (count($dataResult) < 1) : ?>
+          <?php if (count($refleksi) < 1) : ?>
             <div style="padding-top:10px; padding-bottom:10px">
               <center>
                 <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
               </center>
             </div>
           <?php else : ?>
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th style="text-align:center" scope="col">No.</th>
-                    <th scope="col">Kompetensi</th>
-                    <th scope="col">Tujuan Pembelajaran</th>
-                    <th scope="col">Nilai</th>
-                    <th scope="col">Interpretasi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $no = 1;
-                  foreach ($dataResult as $data) : ?>
+            <?php foreach ($refleksi as $reflek) : ?>
+              <div class="card">
+                <div class="card-body">
+                  <table>
                     <tr>
-                      <td style="text-align:center"><?= $no++; ?></td>
-                      <td scope="col"><?= $data->kompetensiNama; ?></td>
-                      <td scope="col"><?= $data->tujuanPembelajaran; ?></td>
-                      <td scope="col"></td>
-                      <td scope="col"></td>
+                      <th>Nama/NPM Mahasiswa</th>
+                      <td>: <?= $reflek->kelompokDetNama; ?>/<?= $reflek->kelompokDetNim; ?></td>
                     </tr>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
-            </div>
+                    <tr>
+                      <th>Stase</th>
+                      <td>: <?= $reflek->staseNama; ?></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <p><strong>Keterangan Nilai:</strong><br>
+                    <strong>1</strong> = Sangat Buruk; <strong>2</strong> = Buruk; <strong>3</strong> = Cukup; <strong>4</strong> = Baik; <strong>5</strong> = Sangat Baik
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="text-align:center" scope="col">No.</th>
+                          <th scope="col">Kompetensi</th>
+                          <th scope="col">Tujuan Pembelajaran</th>
+                          <th scope="col">Nilai</th>
+                          <th scope="col">Interpretasi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $gradeRefleksi = getRefleksi(['refleksi_grade.gradeRefleksiStaseId' => $reflek->staseId, 'refleksi_grade.gradeRefleksiNpm' => $reflek->kelompokDetNim])[0]->gradeRefleksiNilai ?>
+                        <?php $grade = json_decode($gradeRefleksi) ?>
+                        <?php $no = 1;
+                        foreach ($kompetensi as $data) : ?>
+                          <tr>
+                            <td style="text-align:center"><?= $no++; ?></td>
+                            <td scope="col"><?= $data->kompetensiNama; ?></td>
+                            <td scope="col"><?= $data->tujuanPembelajaran; ?></td>
+                            <?php foreach ($grade as $gr) : ?>
+                              <?php if ($data->tujuanId == $gr->tujuan) : ?>
+                                <td scope="col"><?= $gr->nilai; ?></td>
+                              <?php endif ?>
+                            <?php endforeach ?>
+                            <td scope="col"></td>
+                          </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                          <td style="text-align:center" colspan="3"><strong>Total</strong></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
           <?php endif; ?>
         </div>
       </div>
