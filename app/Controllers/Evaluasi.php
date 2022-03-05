@@ -36,6 +36,31 @@ class Evaluasi extends BaseController
         return view('pages/evaluasi', $data);
     }
 
+    public function evaluasiStase()
+    {
+        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
+        $staseEvaluasi = $this->evaluasiModel->evaluasiStase($rumahSakitEvaluasi);
+        $lists = "<option value=''>Pilih Stase</option>";
+        foreach ($staseEvaluasi->getResult() as $data) {
+            $lists .= "<option value='" . $data->staseId . "'>" . $data->staseNama . "</option>";
+        }
+        $callback = array('list_stase_evaluasi' => $lists);
+        echo json_encode($callback);
+    }
+
+    public function evaluasiDoping()
+    {
+        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
+        $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasi = $this->evaluasiModel->evaluasiDoping($rumahSakitEvaluasi, $staseEvaluasi);
+        $lists = "<option value=''>Pilih Dosen Pembimbing</option>";
+        foreach ($dopingEvaluasi->getResult() as $data) {
+            $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
+        }
+        $callback = array('list_doping_evaluasi' => $lists);
+        echo json_encode($callback);
+    }
+
     public function proses()
     {
         if (!$this->validate([

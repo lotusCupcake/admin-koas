@@ -199,6 +199,9 @@ $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin
 $routes->get('/evaluasi/', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->get('/evaluasi/index', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->post('/evaluasi/proses', 'Evaluasi::proses');
+$routes->get('/evaluasi/evaluasiStase', 'Evaluasi::evaluasiStase');
+$routes->get('/evaluasi/evaluasiDoping', 'Evaluasi::evaluasiDoping');
+
 
 //route refleksi
 $routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
