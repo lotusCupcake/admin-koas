@@ -3,18 +3,27 @@
 namespace App\Controllers;
 
 use App\Models\EvaluasiModel;
+use App\Models\DosenPembimbingModel;
+use App\Models\DataRumahSakitModel;
 use App\Models\JadwalKegiatanModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use App\Models\StaseModel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Evaluasi extends BaseController
 {
     protected $evaluasiModel;
+    protected $dataRumahSakitModel;
+    protected $dosenPembimbingModel;
+    protected $staseModel;
     protected $jadwalKegiatanModel;
     protected $spreadsheet;
 
     public function __construct()
     {
+        $this->staseModel = new StaseModel();
+        $this->dataRumahSakitModel = new DataRumahSakitModel();
+        $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->spreadsheet = new Spreadsheet();
         $this->evaluasiModel = new EvaluasiModel();
@@ -31,7 +40,7 @@ class Evaluasi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'dataResult' => [],
-            'dataFilter' => [null, null]
+            'dataFilter' => [null, null, null]
         ];
         return view('pages/evaluasi', $data);
     }
@@ -63,6 +72,7 @@ class Evaluasi extends BaseController
 
     public function proses()
     {
+        // dd($_POST);
         if (!$this->validate([
             'rumahSakitEvaluasi' => [
                 'rules' => 'required',
@@ -86,7 +96,11 @@ class Evaluasi extends BaseController
             return redirect()->to('rekapNilai')->withInput();
         }
 
-        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi()->getResult();
+        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
+        $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
+
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
         $data = [
             'title' => "Evaluasi",
             'appName' => "Dokter Muda",
@@ -96,9 +110,14 @@ class Evaluasi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'dataResult' => $dataEvaluasi,
-            'dataFilter' => [null, null]
+            'dataFilter' => [$rumahSakitEvaluasi, $staseEvaluasi, $dopingEvaluasi]
         ];
-        session()->setFlashdata('success', 'Evaluasi Sudah Ditemukan ,Klik Export Untuk Download!');
+
+        $doping = $this->dosenPembimbingModel->getWhere(['dopingEmail' => $dopingEvaluasi])->getResult()[0]->dopingNamaLengkap;
+        $stase = $this->staseModel->getWhere(['staseId' => $staseEvaluasi])->getResult()[0]->staseNama;
+        $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitEvaluasi])->getResult()[0]->rumahSakitShortname;
+
+        session()->setFlashdata('success', 'Evaluasi <strong>' . $doping . '</strong> Untuk Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
         return view('pages/evaluasi', $data);
     }
 }

@@ -11,7 +11,7 @@ class EvaluasiModel extends Model
     protected $allowedFields = ['gradeEvaluasiNpm', 'gradeEvaluasiDopingEmail', 'gradeEvaluasiNilai'];
     protected $returnType = 'object';
 
-    public function getFilterEvaluasi()
+    public function getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)
     {
         $builder = $this->table('evaluasi_grade');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = evaluasi_grade.gradeEvaluasiNpm', 'LEFT');
@@ -20,6 +20,12 @@ class EvaluasiModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = evaluasi_grade.gradeEvaluasiDopingEmail', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
+                'dosen_pembimbing.dopingEmail' => $dopingEvaluasi
+            ]
+        );
         return $builder->get();
     }
 
