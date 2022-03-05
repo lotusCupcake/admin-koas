@@ -30,7 +30,7 @@ class Refleksi extends BaseController
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
-            'dataResult' => [],
+            'refleksi' => [],
             'dataFilter' => [null, null]
         ];
         // dd($data);
