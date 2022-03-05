@@ -25,7 +25,7 @@ class Refleksi extends BaseController
         $data = [
             'title' => "Refleksi",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Mahasiswa', 'Refleksi'],
+            'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
             'refleksi' => $this->refleksiModel->findAll(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
@@ -39,16 +39,32 @@ class Refleksi extends BaseController
 
     public function proses()
     {
-        $where = null;
+        if (!$this->validate([
+            'staseRefleksi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'kelompokRefleksi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelompok Harus Dipilih!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('rekapNilai')->withInput();
+        }
+
         $data = [
             'title' => "Refleksi",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Mahasiswa', 'Refleksi'],
+            'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
             'refleksi' => $this->refleksiModel->findAll(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
-            'kompetensi' => $this->refleksiModel->getKompetensi($where)->getResult(),
+            'kompetensi' => $this->refleksiModel->getKompetensi()->getResult(),
             'refleksi' => $this->refleksiModel->getFilterRefleksi()->getResult(),
             'dataFilter' => [null, null]
         ];

@@ -22,13 +22,10 @@ class RefleksiModel extends Model
         return $builder->get();
     }
 
-    public function getKompetensi($where = null)
+    public function getKompetensi()
     {
         $builder = $this->db->table('refleksi_kompetensi');
         $builder->join('refleksi_tujuan', 'refleksi_tujuan.tujuanKompetensiId = refleksi_kompetensi.kompetensiId', 'LEFT');
-        if ($where) {
-            $builder->where($where);
-        }
         return $builder->get();
     }
 }

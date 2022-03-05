@@ -19,21 +19,13 @@
         <?php csrf_field() ?>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <select class="form-control" name="rumahSakitIdAbsen">
-              <option value="" selected="selected">Pilih Rumah Sakit</option>
-              <?php foreach ($dataRumahSakit as $row) : ?>
-                <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <select class="form-control" name="staseIdAbsen">
+            <select class="form-control" name="staseRefleksi">
               <option value="">Pilih Stase</option>
             </select>
           </div>
           <div class="form-group col-md-3">
-            <select class="form-control" name="kelompokIdAbsen">
-              <option value="">Pilih Mahasiswa</option>
+            <select class="form-control" name="kelompokRefleksi">
+              <option value="">Pilih Kelompok</option>
             </select>
           </div>
           <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">
@@ -46,14 +38,11 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('rumahSakitIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('rumahSakitIdAbsen')]]); ?>
+          <?php if ($validation->hasError('staseRefleksi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseRefleksi')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('staseIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseIdAbsen')]]); ?>
-          <?php endif; ?>
-          <?php if ($validation->hasError('kelompokIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
+          <?php if ($validation->hasError('mahasiswaRefleksi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('mahasiswaRefleksi')]]); ?>
           <?php endif; ?>
           <?php if (count($refleksi) < 1) : ?>
             <div style="padding-top:10px; padding-bottom:10px">

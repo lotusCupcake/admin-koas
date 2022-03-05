@@ -33,14 +33,35 @@ class Evaluasi extends BaseController
             'dataResult' => [],
             'dataFilter' => [null, null]
         ];
-        // dd($data);
         return view('pages/evaluasi', $data);
     }
 
     public function proses()
     {
+        if (!$this->validate([
+            'rumahSakitEvaluasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
+            'staseEvaluasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'dopingEvaluasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Dosen Pembimbing Harus Dipilih!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('rekapNilai')->withInput();
+        }
+
         $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi()->getResult();
-        // dd($dataEvaluasi);
         $data = [
             'title' => "Evaluasi",
             'appName' => "Dokter Muda",
@@ -52,8 +73,6 @@ class Evaluasi extends BaseController
             'dataResult' => $dataEvaluasi,
             'dataFilter' => [null, null]
         ];
-
-        // dd($data['dataResult']);
         session()->setFlashdata('success', 'Evaluasi Sudah Ditemukan ,Klik Export Untuk Download!');
         return view('pages/evaluasi', $data);
     }

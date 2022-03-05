@@ -196,14 +196,14 @@ $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admi
 $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 //route evaluasi
-$routes->get('/evaluasi/', 'Evaluasi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-$routes->get('/evaluasi/proses', 'Evaluasi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-// $routes->post('/evaluasi/proses', 'Evaluasi::proses');
+$routes->get('/evaluasi/', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/evaluasi/index', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->post('/evaluasi/proses', 'Evaluasi::proses');
 
 //route refleksi
-$routes->get('/refleksi/', 'Refleksi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-$routes->get('/refleksi/proses', 'Refleksi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-// $routes->post('/refleksi/proses', 'Refleksi::proses');
+$routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->post('/refleksi/proses', 'Refleksi::proses');
 
 
 /*
