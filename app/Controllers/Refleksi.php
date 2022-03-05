@@ -23,7 +23,7 @@ class Refleksi extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Refleksi",
+            'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
             'refleksi' => $this->refleksiModel->findAll(),
@@ -57,7 +57,7 @@ class Refleksi extends BaseController
         }
 
         $data = [
-            'title' => "Refleksi",
+            'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
             'refleksi' => $this->refleksiModel->findAll(),
