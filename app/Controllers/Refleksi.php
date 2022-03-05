@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\RefleksiModel;
+use App\Models\StaseModel;
+use App\Models\DataKelompokModel;
 use App\Models\JadwalKegiatanModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -10,12 +12,16 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Refleksi extends BaseController
 {
     protected $RefleksiModel;
+    protected $staseModel;
+    protected $dataKelompokModel;
     protected $jadwalKegiatanModel;
     protected $spreadsheet;
 
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
+        $this->staseModel = new StaseModel();
+        $this->dataKelompokModel = new DataKelompokModel();
         $this->spreadsheet = new Spreadsheet();
         $this->refleksiModel = new RefleksiModel();
     }
@@ -43,7 +49,7 @@ class Refleksi extends BaseController
         $kelompokRefleksi = $this->refleksiModel->refleksiKelompok($staseRefleksi);
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompokRefleksi->getResult() as $data) {
-            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>";
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . " - TA." . $data->kelompokTahunAkademik .  "</option>";
         }
         $callback = array('list_kelompok_refleksi' => $lists);
         echo json_encode($callback);
@@ -68,6 +74,10 @@ class Refleksi extends BaseController
             return redirect()->to('rekapNilai')->withInput();
         }
 
+        $staseRefleksi = trim($this->request->getPost('staseRefleksi'));
+        $kelompokRefleksi = trim($this->request->getPost('kelompokRefleksi'));
+        $refleksi = $this->refleksiModel->getFilterRefleksi($staseRefleksi, $kelompokRefleksi)->getResult();
+
         $data = [
             'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
@@ -77,12 +87,20 @@ class Refleksi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'kompetensi' => $this->refleksiModel->getKompetensi()->getResult(),
-            'refleksi' => $this->refleksiModel->getFilterRefleksi()->getResult(),
-            'dataFilter' => [null, null]
+            'refleksi' => $refleksi,
+            'dataFilter' => [$staseRefleksi, $kelompokRefleksi]
         ];
 
-        // dd($data['dataResult']);
-        session()->setFlashdata('success', 'Refleksi Diri Sudah Ditemukan ,Klik Export Untuk Download!');
+        $stase = $this->staseModel->getWhere(['staseId' => $staseRefleksi])->getResult()[0]->staseNama;
+        $kelompok = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokRefleksi])->getResult()[0]->kelompokNama;
+        $tahunAkademik = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokRefleksi])->getResult()[0]->kelompokTahunAkademik;
+
+        if ($refleksi == null) {
+            session()->setFlashdata('danger', 'Refleksi Diri <strong>' . $kelompok . '- TA.' . $tahunAkademik .  '</strong> Di Stase <strong>' . $stase . '</strong> Belum Ada ,Coba Lagi Nanti!');
+        } else {
+            session()->setFlashdata('success', 'Refleksi Diri <strong>' . $kelompok . '- TA.' . $tahunAkademik .  '</strong> Di Stase <strong>' . $stase . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+        }
+
         return view('pages/refleksi', $data);
     }
 }

@@ -11,14 +11,20 @@ class RefleksiModel extends Model
     protected $allowedFields = ['gradeRefleksiNpm', 'gradeRefleksiKompetensiId', 'gradeRefleksiNilai'];
     protected $returnType = 'object';
 
-    public function getFilterRefleksi()
+    public function getFilterRefleksi($staseRefleksi, $kelompokRefleksi)
     {
         $builder = $this->table('refleksi_grade');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = refleksi_grade.gradeRefleksiNpm', 'LEFT');
-        $builder->join('jadwal', 'jadwal.jadwalId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetStaseId' => $staseRefleksi,
+                'jadwal.jadwalKelompokId' => $kelompokRefleksi
+            ]
+        );
         return $builder->get();
     }
 

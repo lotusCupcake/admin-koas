@@ -41,6 +41,9 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
+          <?php if (!empty(session()->getFlashdata('danger'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
+          <?php endif; ?>
           <?php if ($validation->hasError('staseRefleksi')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseRefleksi')]]); ?>
           <?php endif; ?>
@@ -54,6 +57,9 @@
               </center>
             </div>
           <?php else : ?>
+            <div class="buttons">
+              <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
+            </div>
             <?php foreach ($refleksi as $reflek) : ?>
               <div class="card">
                 <div class="card-body">

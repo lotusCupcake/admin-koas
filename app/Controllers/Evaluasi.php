@@ -117,7 +117,12 @@ class Evaluasi extends BaseController
         $stase = $this->staseModel->getWhere(['staseId' => $staseEvaluasi])->getResult()[0]->staseNama;
         $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitEvaluasi])->getResult()[0]->rumahSakitShortname;
 
-        session()->setFlashdata('success', 'Evaluasi <strong>' . $doping . '</strong> Untuk Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+        if ($dataEvaluasi == null) {
+            session()->setFlashdata('danger', 'Evaluasi <strong>' . $doping . '</strong> Untuk Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Belum Ada ,Coba Lagi Nanti!');
+        } else {
+            session()->setFlashdata('success', 'Evaluasi <strong>' . $doping . '</strong> Untuk Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+        }
+
         return view('pages/evaluasi', $data);
     }
 }
