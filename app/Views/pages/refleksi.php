@@ -21,6 +21,9 @@
           <div class="form-group col-md-3">
             <select class="form-control" name="staseRefleksi">
               <option value="">Pilih Stase</option>
+              <?php foreach ($dataStase as $row) : ?>
+                <option value="<?= $row->staseId; ?>"><?= $row->staseNama; ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
           <div class="form-group col-md-3">
