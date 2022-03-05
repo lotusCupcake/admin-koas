@@ -207,6 +207,7 @@ $routes->get('/evaluasi/evaluasiDoping', 'Evaluasi::evaluasiDoping');
 $routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->post('/refleksi/proses', 'Refleksi::proses');
+$routes->get('/refleksi/refleksiKelompok', 'Refleksi::refleksiKelompok');
 
 
 /*

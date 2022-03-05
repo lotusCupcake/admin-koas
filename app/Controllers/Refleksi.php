@@ -37,6 +37,18 @@ class Refleksi extends BaseController
         return view('pages/refleksi', $data);
     }
 
+    public function refleksiKelompok()
+    {
+        $staseRefleksi = trim($this->request->getPost('staseRefleksi'));
+        $kelompokRefleksi = $this->refleksiModel->refleksiKelompok($staseRefleksi);
+        $lists = "<option value=''>Pilih Kelompok</option>";
+        foreach ($kelompokRefleksi->getResult() as $data) {
+            $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>";
+        }
+        $callback = array('list_kelompok_refleksi' => $lists);
+        echo json_encode($callback);
+    }
+
     public function proses()
     {
         if (!$this->validate([

@@ -44,8 +44,8 @@
           <?php if ($validation->hasError('staseRefleksi')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseRefleksi')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('mahasiswaRefleksi')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('mahasiswaRefleksi')]]); ?>
+          <?php if ($validation->hasError('kelompokRefleksi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokRefleksi')]]); ?>
           <?php endif; ?>
           <?php if (count($refleksi) < 1) : ?>
             <div style="padding-top:10px; padding-bottom:10px">

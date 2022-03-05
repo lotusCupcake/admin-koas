@@ -28,4 +28,19 @@ class RefleksiModel extends Model
         $builder->join('refleksi_tujuan', 'refleksi_tujuan.tujuanKompetensiId = refleksi_kompetensi.kompetensiId', 'LEFT');
         return $builder->get();
     }
+
+    public function refleksiKelompok($staseRefleksi)
+    {
+        $builder = $this->db->table('jadwal');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
+        $builder->where(
+            [
+                'rumkit_detail.rumkitDetStaseId' => $staseRefleksi,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ]
+        );
+        $builder->groupBy('kelompok.kelompokId');
+        return $builder->get();
+    }
 }
