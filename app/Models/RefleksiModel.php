@@ -25,6 +25,7 @@ class RefleksiModel extends Model
                 'jadwal.jadwalKelompokId' => $kelompokRefleksi
             ]
         );
+        $builder->groupBy('refleksi_grade.gradeRefleksiNpm');
         return $builder->get();
     }
 
