@@ -8,8 +8,10 @@ class StaseModel extends Model
 {
     protected $table = 'stase';
     protected $primaryKey = 'staseId';
-    protected $allowedFields = ['staseNama', 'staseJumlahWeek'];
+    protected $allowedFields = ['staseNama', 'staseJumlahWeek', 'deleted_at'];
     protected $returnType = 'object';
+    protected $useSoftDeletes = 'true';
+
 
 
     public function getStase($fil = null)

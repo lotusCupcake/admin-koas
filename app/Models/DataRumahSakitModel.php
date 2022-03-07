@@ -8,7 +8,8 @@ class DataRumahSakitModel extends Model
 {
     protected $table = 'rumkit';
     protected $primaryKey = 'rumahSakitId';
-    protected $allowedFields = ['rumahSakitNama', 'rumahSakitShortname', 'rumahSakitAlamat', 'rumahSakitTelp', 'rumahSakitLatLong', 'rumahSakitWarna', 'rumahSakitEmail', 'rumahSakitId'];
+    protected $allowedFields = ['rumahSakitNama', 'rumahSakitShortname', 'rumahSakitAlamat', 'rumahSakitTelp', 'rumahSakitLatLong', 'rumahSakitWarna', 'rumahSakitEmail', 'rumahSakitId', 'deleted_at'];
+    protected $useSoftDeletes = 'true';
     protected $returnType = 'object';
 
     public function getSpecificRs($where)

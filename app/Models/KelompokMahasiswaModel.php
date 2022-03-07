@@ -8,8 +8,10 @@ class KelompokMahasiswaModel extends Model
 {
     protected $table = 'kelompok_detail';
     protected $primaryKey = 'kelompokDetId';
-    protected $allowedFields = ['kelompokDetKelompokId', 'kelompokDetNim', 'kelompokDetNama'];
+    protected $allowedFields = ['kelompokDetKelompokId', 'kelompokDetNim', 'kelompokDetNama', 'deleted_at'];
     protected $returnType = 'object';
+    protected $useSoftDeletes = 'true';
+
 
     public function dataExist($where)
     {
