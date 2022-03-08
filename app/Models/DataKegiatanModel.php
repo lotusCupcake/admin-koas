@@ -8,8 +8,12 @@ class DataKegiatanModel extends Model
 {
     protected $table = 'kegiatan';
     protected $primaryKey = 'kegiatanId';
-    protected $allowedFields = ['kegiatanNama', 'kegiatanStatus', 'deleted_at'];
+    protected $allowedFields = ['kegiatanNama', 'kegiatanStatus', 'kegiatanCreatedAt', 'kegiatanUpdatedAt', 'kegiatanDeletedAt'];
     protected $useSoftDeletes = 'true';
+    protected $useTimestamps = 'true';
+    protected $createdField = 'kegiatanCreatedAt';
+    protected $updatedField = 'kegiatanUpdatedAt';
+    protected $deletedField = 'kegiatanDeletedAt';
     protected $returnType = 'object';
 
     public function getKegiatan()

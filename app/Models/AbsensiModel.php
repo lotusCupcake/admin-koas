@@ -8,7 +8,7 @@ class AbsensiModel extends Model
 {
     protected $table = 'absensi';
     protected $primaryKey = 'absensiId';
-    protected $allowedFields = ['absensiNim', 'absensiTanggal', 'absensiKeterangan', 'absensiLatLong', 'absensiLokasi'];
+    protected $allowedFields = ['absensiNim', 'absensiTanggal', 'absensiKeterangan', 'absensiLatLong', 'absensiLokasi', 'absensiTahunAkademik'];
     protected $returnType = 'object';
 
     public function absensiPaginate()

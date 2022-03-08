@@ -8,9 +8,13 @@ class DataKelompokModel extends Model
 {
     protected $table = 'kelompok';
     protected $primaryKey = 'kelompokId';
-    protected $allowedFields = ['kelompokNama', 'kelompokTahunAkademik', 'deleted_at'];
+    protected $allowedFields = ['kelompokNama', 'kelompokTahunAkademik', 'kelompokCreatedAt', 'kelompokUpdatedAt', 'kelompokDeletedAt'];
     protected $returnType = 'object';
+    protected $useTimestamps = 'true';
     protected $useSoftDeletes = 'true';
+    protected $createdField = 'kelompokCreatedAt';
+    protected $updatedField = 'kelompokUpdatedAt';
+    protected $deletedField = 'kelompokDeletedAt';
 
 
     public function getDataKelompok()

@@ -169,6 +169,7 @@ class JadwalKegiatan extends BaseController
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
             'jadwalJumlahWeek' => $jlhweek,
+            'jadwalTahunAkademik' => getTahunAkademik(),
         );
 
         if ($this->jadwalKegiatanModel->insert($data)) {

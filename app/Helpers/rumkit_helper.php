@@ -228,3 +228,16 @@ function getRefleksi($where)
     $result = $model->getWhere($where)->getResult();
     return $result;
 }
+
+function getTahunAkademik()
+{
+    $curl = service('curlrequest');
+    $response = $curl->request("GET", "https://api.umsu.ac.id/koas/tahunAkademik", [
+        "headers" => [
+            "Accept" => "application/json"
+        ],
+
+    ]);
+
+    return json_decode($response->getBody())->data;
+}

@@ -8,7 +8,7 @@ class KegiatanMahasiswaModel extends Model
 {
     protected $table = 'logbook';
     protected $primaryKey = 'logbookId';
-    protected $allowedFields = ['logbookRumkitDetId', 'logbookDopingEmail', 'logbookNim', 'logbookTanggal', 'logbookCreateDate', 'logbookKegiatanId', 'logbookJudulDeskripsi', 'logbookDeskripsi', 'logbookIsVerify'];
+    protected $allowedFields = ['logbookRumkitDetId', 'logbookDopingEmail', 'logbookNim', 'logbookTanggal', 'logbookCreateDate', 'logbookKegiatanId', 'logbookJudulDeskripsi', 'logbookDeskripsi', 'logbookIsVerify', 'logbookTahunAkademik'];
     protected $returnType = 'object';
 
     public function getKegiatan($where = null)
