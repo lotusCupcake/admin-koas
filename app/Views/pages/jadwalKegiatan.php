@@ -24,7 +24,7 @@
           <div class="card-header-form col-md-4">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Rumah Sakit/Stase/Kelompok" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Tahun Akademik/Rumah Sakit/Stase/Kelompok" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class=" input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -34,7 +34,6 @@
         </div>
         <div class="card-body">
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <!-- simpan -->
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
           <?php if ($validation->hasError('jumlahWeek')) : ?>
@@ -60,6 +59,7 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Tahun Akademik</th>
                   <th scope="col">Tanggal Mulai/Akhir</th>
                   <th scope="col">Jam Operasional</th>
                   <th scope="col">Rumah Sakit</th>
@@ -74,6 +74,7 @@
                   foreach ($jadwalKegiatan as $row_jadwal) : ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row_jadwal->jadwalTahunAkademik; ?></td>
                       <td><a href="#!">
                           <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId; ?>" class="text-primary"><?= gmdate('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= gmdate('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
                           </span></a>

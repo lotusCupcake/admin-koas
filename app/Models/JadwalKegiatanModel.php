@@ -8,7 +8,7 @@ class JadwalKegiatanModel extends Model
 {
     protected $table = 'jadwal';
     protected $primaryKey = 'jadwalId';
-    protected $allowedFields = ['jadwalRumkitDetId', 'jadwalKelompokId', 'jadwalJamMasuk', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalJamKeluar', 'jadwalJumlahWeek'];
+    protected $allowedFields = ['jadwalRumkitDetId', 'jadwalTahunAkademik', 'jadwalKelompokId', 'jadwalJamMasuk', 'jadwalTanggalMulai', 'jadwalTanggalSelesai', 'jadwalJamKeluar', 'jadwalJumlahWeek'];
     protected $returnType = 'object';
 
     public function show_Jadwal_Kegiatan($where = null)
@@ -37,12 +37,14 @@ class JadwalKegiatanModel extends Model
             $builder->where($where)->like('kelompok.kelompokNama', $keyword);
             $builder->orWhere($where)->like('stase.staseNama', $keyword);
             $builder->orWhere($where)->like('rumkit.rumahSakitNama', $keyword);
+            $builder->orWhere($where)->like('jadwal.jadwalTahunAkademik', $keyword);
         } else {
             $builder->like('kelompok.kelompokNama', $keyword);
             $builder->orLike('stase.staseNama', $keyword);
             $builder->orLike('rumkit.rumahSakitNama', $keyword);
+            $builder->orLike('jadwal.jadwalTahunAkademik', $keyword);
         }
-
+        $builder->groupBy(['stase.staseId', 'kelompok.kelompokId']);
         $builder->orderBy('jadwal.jadwalId', 'DESC');
         return $builder;
     }

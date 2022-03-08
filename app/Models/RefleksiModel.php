@@ -8,7 +8,7 @@ class RefleksiModel extends Model
 {
     protected $table = 'refleksi_grade';
     protected $primaryKey = 'gradeRefleksiId';
-    protected $allowedFields = ['gradeRefleksiNpm', 'gradeRefleksiKompetensiId', 'gradeRefleksiNilai'];
+    protected $allowedFields = ['gradeRefleksiNpm', 'gradeTahunAkademik', 'gradeRefleksiKompetensiId', 'gradeRefleksiNilai'];
     protected $returnType = 'object';
 
     public function getFilterRefleksi($staseRefleksi, $kelompokRefleksi)

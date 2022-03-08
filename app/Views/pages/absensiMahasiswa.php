@@ -21,7 +21,7 @@
                     <div class="card-header-form col-md-4">
                         <form action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Nama/NPM/Keterangan" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                                <input type="text" class="form-control" placeholder="Search Tahun Akademik/Nama/NPM/Keterangan" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
@@ -35,6 +35,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:center" scope="col">No.</th>
+                                    <th width="15%" scope="col">Tahun Akademik</th>
                                     <th scope="col">Mahasiswa</th>
                                     <th scope="col">Tanggal/Waktu</th>
                                     <th scope="col">Lokasi Absen</th>
@@ -48,6 +49,7 @@
                                     foreach ($absensi as $row) : ?>
                                         <tr>
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                                            <td><?= $row->kelompokTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                                             <td><?= gmdate('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
                                             <td><?= $row->absensiLokasi; ?></td>
@@ -55,7 +57,7 @@
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
-                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 5]); ?>
+                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 6]); ?>
                                 <?php endif ?>
                             </tbody>
                         </table>

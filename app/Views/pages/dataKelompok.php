@@ -49,7 +49,7 @@
               <thead>
                 <tr>
                   <th width=" 10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tahun</th>
+                  <th scope="col">Tahun Akademik</th>
                   <th scope="col">Nama Kelompok Mahasiswa</th>
                   <th scope="col">Jumlah Partisipan</th>
                   <th width="20%" style="text-align:center" scope="col">Action</th>

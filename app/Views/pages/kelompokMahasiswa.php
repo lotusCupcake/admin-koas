@@ -22,7 +22,7 @@
           <div class="card-header-form col-md-4">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Tahun/Kelompok/Nama/NPM" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Tahun Akademik/Kelompok/Nama/NPM" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -49,7 +49,7 @@
               <thead>
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Tahun</th>
+                  <th scope="col">Tahun Akademik</th>
                   <th scope="col">Kelompok Mahasiswa</th>
                   <th scope="col">Nama/NPM Mahasiswa</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
