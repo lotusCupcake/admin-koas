@@ -49,7 +49,7 @@
                                     foreach ($absensi as $row) : ?>
                                         <tr>
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                                            <td><?= $row->kelompokTahunAkademik; ?></td>
+                                            <td><?= $row->absensiTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                                             <td><?= gmdate('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
                                             <td><?= $row->absensiLokasi; ?></td>
