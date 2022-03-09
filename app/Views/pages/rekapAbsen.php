@@ -46,6 +46,9 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
+          <?php if (!empty(session()->getFlashdata('danger'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
+          <?php endif; ?>
           <?php if ($validation->hasError('rumahSakitIdAbsen')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('rumahSakitIdAbsen')]]); ?>
           <?php endif; ?>
@@ -56,20 +59,18 @@
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
           <?php endif; ?>
           <?php if (count($dataResult) < 1) : ?>
-            <br>
-            <br>
-            <center>
-              <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
-            </center>
-            <br>
-            <br>
+            <div style="padding-top:10px; padding-bottom:10px">
+              <center>
+                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_5xuxt5wv.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
+              </center>
+            </div>
           <?php else : ?>
             <form action="/rekapAbsen/cetak" method="POST">
               <?= csrf_field() ?>
               <input type="hidden" name="staseIdAbsen" value="<?= $dataFilter[0]; ?>">
               <input type="hidden" name="kelompokIdAbsen" value="<?= $dataFilter[1]; ?>">
               <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">
-                <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Print</button>
+                <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
               </div>
             </form>
             <div class="table-responsive">

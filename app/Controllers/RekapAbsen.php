@@ -3,17 +3,26 @@
 namespace App\Controllers;
 
 use App\Models\JadwalKegiatanModel;
+use App\Models\DataKelompokModel;
+use App\Models\StaseModel;
+use App\Models\DataRumahSakitModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RekapAbsen extends BaseController
 {
     protected $jadwalKegiatanModel;
+    protected $dataKelompokModel;
+    protected $staseModel;
+    protected $dataRumahSakitModel;
     protected $spreadsheet;
 
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
+        $this->dataKelompokModel = new DataKelompokModel();
+        $this->staseModel = new StaseModel();
+        $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->spreadsheet = new Spreadsheet();
     }
 
@@ -94,12 +103,13 @@ class RekapAbsen extends BaseController
         ])) {
             return redirect()->to('rekapAbsen')->withInput();
         }
+
+        $rumahSakitId = trim($this->request->getPost('rumahSakitIdAbsen'));
         $staseId = trim($this->request->getPost('staseIdAbsen'));
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
 
         $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($staseId, $kelompokId)->getResult();
         $mahasiswa = $this->jadwalKegiatanModel->getMahasiswa(['kelompok.kelompokId' => $kelompokId])->getResult();
-        // dd($mahasiswa);
 
         $data = [
             'title' => "Rekap Absensi",
@@ -115,13 +125,17 @@ class RekapAbsen extends BaseController
             'maxDate' => date("Y-m-d", maxDateKelByDetail($kelompokId, $staseId) / 1000),
         ];
 
-        foreach ($rekapAbsen as $absen) {
-            $rumahSakit = $absen->rumahSakitShortname;
-            $stase = $absen->staseNama;
-            $kelompok = $absen->kelompokNama;
+        $stase = $this->staseModel->getWhere(['staseId' => $staseId])->getResult()[0]->staseNama;
+        $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitId])->getResult()[0]->rumahSakitShortname;
+        $kelompok = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokId])->getResult()[0]->kelompokNama;
+        $tahunAkademik = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokId])->getResult()[0]->kelompokTahunAkademik;
+
+        if ($rekapAbsen == null) {
+            session()->setFlashdata('danger', 'Absensi <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Belum Ada ,Coba Lagi Nanti!');
+        } else {
+            session()->setFlashdata('success', 'Absensi <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
         }
-        // session()->setFlashdata('success', 'Absensi Sudah Ditemukan ,Klik Export Untuk Download!');
-        session()->setFlashdata('success', 'Absensi <strong> ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit . ' </strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+
         return view('pages/rekapAbsen', $data);
     }
 

@@ -221,3 +221,23 @@ function getAspekEvaluasi($where)
     $result = $model->getAspekEvaluasi($where)->getResult();
     return $result;
 }
+
+function getRefleksi($where)
+{
+    $model = new \App\Models\RefleksiModel();
+    $result = $model->getWhere($where)->getResult();
+    return $result;
+}
+
+function getTahunAkademik()
+{
+    $curl = service('curlrequest');
+    $response = $curl->request("GET", "https://api.umsu.ac.id/koas/tahunAkademik", [
+        "headers" => [
+            "Accept" => "application/json"
+        ],
+
+    ]);
+
+    return json_decode($response->getBody())->data;
+}

@@ -80,7 +80,7 @@
                       <td style="text-align:center">
                         <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
                         <input type="hidden" name="npm" value="<?= $mahasiswa->kelompokDetNim; ?>">
-                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilai<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-print"></i> Cetak</button>
+                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilai<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-print"></i> Export</button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -167,7 +167,7 @@
           <input type="hidden" name="nim" value="<?= $detail->kelompokDetNim ?>">
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Cetak</button>
+            <button type="submit" class="btn btn-primary">Export</button>
           </div>
         </form>
       </div>

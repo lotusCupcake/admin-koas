@@ -21,7 +21,7 @@
           <div class="card-header-form col-md-5">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Nama/NPM/Rumah Sakit/Stase/Dosen" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Tahun Akademik/Nama/NPM/Rumah Sakit/Stase/Dosen" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -38,12 +38,13 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th scope="col">Minggu ke / Tanggal</th>
-                  <th scope="col">Mahasiswa</th>
-                  <th width="20%" scope="col">Rumah Sakit</th>
-                  <th scope="col">Kasus</th>
+                  <th width="15%" scope="col">Tahun Akademik</th>
+                  <th width="15%" scope="col">Minggu ke / Tanggal</th>
+                  <th width="15%" scope="col">Mahasiswa</th>
+                  <th width="10%" scope="col">Rumah Sakit</th>
+                  <th width="10%" scope="col">Kasus</th>
                   <th width="20%" scope="col">Dosen Pembimbing</th>
-                  <th width="15%" style="text-align:center" scope="col">Status</th>
+                  <th width="25%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +54,7 @@
                   foreach ($followUp as $row) : $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->followUpTglPeriksa / 1000)) ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td><?= $row->followUpTahunAkademik; ?></td>
                       <td><sup><strong><?= $mingguke; ?></strong></sup> / <sub><?= gmdate("d-m-Y", ($row->followUpTglPeriksa / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
@@ -68,7 +70,7 @@
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <?= view('layout/templateEmpty', ['jumlahSpan' => 7]); ?>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
                 <?php endif ?>
               </tbody>
             </table>

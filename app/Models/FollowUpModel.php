@@ -8,7 +8,7 @@ class FollowUpModel extends Model
 {
     protected $table = 'follow_up';
     protected $primaryKey = 'followUpId';
-    protected $allowedFields = ['followUpRumkitDetId', 'followUpDopingEmail', 'followUpNim', 'followUpKasusSOAP', 'followUpTglPeriksa', 'followUpCreateDate', 'followUpVerify'];
+    protected $allowedFields = ['followUpRumkitDetId', 'followUpTahunAkademik', 'followUpDopingEmail', 'followUpNim', 'followUpKasusSOAP', 'followUpTglPeriksa', 'followUpCreateDate', 'followUpVerify'];
     protected $returnType = 'object';
 
     public function getFollowUp($where = null)
@@ -41,12 +41,14 @@ class FollowUpModel extends Model
             $builder->orWhere($where)->like('kelompok_detail.kelompokDetNim', $keyword);
             $builder->orWhere($where)->like('stase.staseNama', $keyword);
             $builder->orWhere($where)->like('dosen_pembimbing.dopingNamaLengkap', $keyword);
+            $builder->orWhere($where)->like('follow_up.followUpTahunAkademik', $keyword);
         } else {
             $builder->like('kelompok_detail.kelompokDetNim', $keyword);
             $builder->orLike('kelompok_detail.kelompokDetNama', $keyword);
             $builder->orLike('stase.staseNama', $keyword);
             $builder->orLike('rumkit.rumahSakitNama', $keyword);
             $builder->orLike('dosen_pembimbing.dopingNamaLengkap', $keyword);
+            $builder->orLike('follow_up.followUpTahunAkademik', $keyword);
         }
         $builder->orderBy('follow_up.followUpId', 'DESC');
         return $builder;

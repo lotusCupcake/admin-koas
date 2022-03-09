@@ -102,11 +102,11 @@ class Panduan extends BaseController
 
     public function delete($id)
     {
-        // cari gambar 
-        $panduan = $this->panduanModel->find($id);
+        //     // cari gambar 
+        //     $panduan = $this->panduanModel->find($id);
 
-        //hapus gambar
-        unlink('dokumen/' . $panduan->panduanFile);
+        //     //hapus gambar
+        //     unlink('dokumen/' . $panduan->panduanFile);
 
         if ($this->panduanModel->delete($id)) {
             session()->setFlashdata('success', 'Panduan Profesi Berhasil Dihapus!');

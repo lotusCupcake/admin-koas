@@ -32,11 +32,10 @@ class Penilaian extends BaseController
             'penilaian' => $this->penilaianModel->findAll(),
             'validation' => \Config\Services::validation(),
         ];
-        if (in_groups('Dosen_Pembimbing')) {
+        if (in_groups('Dosen')) {
             $init = $this->initDataDosen();
             $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll();
         } elseif (in_groups('Koordik')) {
-
             $rs = getUser(user()->id)->dopingRumkitId;
             $init = $this->initDataKoordik($rs);
             $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->findAll();
@@ -164,7 +163,9 @@ class Penilaian extends BaseController
         $nilaiGr = json_encode($jsonGr);
 
         $cek = $this->gradeModel->getWhere(['gradeNpm' => $_POST['npm'], 'gradePenilaianId' => $_POST['penilaianId'], 'gradeStaseId' => $_POST['staseId']])->getResult();
+        $cekGr = $this->gradeGrModel->getWhere(['grNpm' => $_POST['npm'], 'grPenilaianId' => $_POST['penilaianId'], 'grStaseId' => $_POST['staseId']])->getResult();
         $id = ($cek == null) ? 0 : $cek[0]->gradeId;
+        $idGr = ($cekGr == null) ? 0 : $cekGr[0]->grId;
         if ($cek == null) {
             $dataInsert = array(
                 'gradeStaseId' => $_POST['staseId'],
@@ -173,6 +174,7 @@ class Penilaian extends BaseController
                 'gradeNilai' => $nilai,
                 'gradeCreatedBy' => user()->email,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                'gradeTahunAkademik' => getTahunAkademik()
             );
             $this->gradeModel->insert($dataInsert);
 
@@ -184,6 +186,8 @@ class Penilaian extends BaseController
                     'grResult' => $nilaiGr,
                     'grCreatedBy' => user()->email,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                    'grTahunAkademik' => getTahunAkademik()
+
                 );
 
                 $this->gradeGrModel->insert($dataInsertGr);
@@ -197,6 +201,7 @@ class Penilaian extends BaseController
                 'gradeNilai' => $nilai,
                 'gradeCreatedBy' => user()->email,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                'gradeTahunAkademik' => getTahunAkademik()
             );
             $this->gradeModel->update($id, $dataInsert);
 
@@ -208,9 +213,10 @@ class Penilaian extends BaseController
                     'grResult' => $nilaiGr,
                     'grCreatedBy' => user()->email,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
+                    'grTahunAkademik' => getTahunAkademik()
                 );
 
-                $this->gradeGrModel->update($id, $dataInsertGr);
+                $this->gradeGrModel->update($idGr, $dataInsertGr);
             }
             session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Diupdate!');
         }
@@ -224,5 +230,19 @@ class Penilaian extends BaseController
     {
         $nilai = $this->request->getVar('nilai');
         echo $this->penilaianModel->getKonversi($nilai)->getResult()[0]->konversiNilaiGradeNama;
+    }
+
+    public function setujui($id)
+    {
+        // dd($_POST);
+        $data = array(
+            'gradeApproveStatus' => ('1'),
+            'gradeApproveBy' => trim($this->request->getPost('gradeApproveBy')),
+        );
+
+        if ($this->gradeModel->update($id, $data)) {
+            session()->setFlashdata('success', 'Penilaian Mahasiswa Sudah Disetujui!');
+            return redirect()->to('penilaian');
+        }
     }
 }

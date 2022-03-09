@@ -11,6 +11,7 @@ class KelompokMahasiswaModel extends Model
     protected $allowedFields = ['kelompokDetKelompokId', 'kelompokDetNim', 'kelompokDetNama'];
     protected $returnType = 'object';
 
+
     public function dataExist($where)
     {
         $builder = $this->db->table('kelompok_detail');

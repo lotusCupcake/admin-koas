@@ -201,7 +201,7 @@
         "nama": "Penilaian",
         "parent": "19",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-marker",
         "pages": "/penilaian"
     },
@@ -222,6 +222,15 @@
         "status": true,
         "icon": "fas fa-brain",
         "pages": "/refleksi"
+    },
+    {
+        "id": "34",
+        "nama": "Penundaan Jadwal",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-clock",
+        "pages": "/jadwalSkip"
     },
     {
         "id": "26",

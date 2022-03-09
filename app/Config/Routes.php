@@ -133,7 +133,7 @@ $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
 $routes->post('/penilaian/save', 'Penilaian::save');
 $routes->post('/penilaian/konversi', 'Penilaian::getPenilaian');
-
+$routes->add('/penilaian/(:num)/setujui', 'Penilaian::setujui/$1');
 
 // route cetak laporan
 $routes->get('/report/(:any)', 'Report::index/$1');
@@ -196,14 +196,18 @@ $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admi
 $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 //route evaluasi
-$routes->get('/evaluasi/', 'Evaluasi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-$routes->get('/evaluasi/proses', 'Evaluasi::proses', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
-// $routes->post('/evaluasi/proses', 'Evaluasi::proses');
+$routes->get('/evaluasi/', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/evaluasi/index', 'Evaluasi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->post('/evaluasi/proses', 'Evaluasi::proses');
+$routes->get('/evaluasi/evaluasiStase', 'Evaluasi::evaluasiStase');
+$routes->get('/evaluasi/evaluasiDoping', 'Evaluasi::evaluasiDoping');
+
 
 //route refleksi
-$routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
-$routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koo']);
+$routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->post('/refleksi/proses', 'Refleksi::proses');
+$routes->get('/refleksi/refleksiKelompok', 'Refleksi::refleksiKelompok');
 
 
 /*

@@ -19,7 +19,7 @@
         <?php csrf_field() ?>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <select class="form-control" name="rumahSakitIdAbsen">
+            <select class="form-control" name="rumahSakitEvaluasi">
               <option value="" selected="selected">Pilih Rumah Sakit</option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
@@ -27,13 +27,13 @@
             </select>
           </div>
           <div class="form-group col-md-3">
-            <select class="form-control" name="staseIdAbsen">
+            <select class="form-control" name="staseEvaluasi">
               <option value="">Pilih Stase</option>
             </select>
           </div>
           <div class="form-group col-md-3">
-            <select class="form-control" name="kelompokIdAbsen">
-              <option value="">Pilih Kelompok</option>
+            <select class="form-control" name="dopingEvaluasi">
+              <option value="">Pilih Dosen Pembimbing</option>
             </select>
           </div>
           <div style="display: inline-block; margin-top: 4px; margin-left: 5px;" class="buttons">
@@ -46,14 +46,17 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('rumahSakitIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('rumahSakitIdAbsen')]]); ?>
+          <?php if (!empty(session()->getFlashdata('danger'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('staseIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseIdAbsen')]]); ?>
+          <?php if ($validation->hasError('rumahSakitEvaluasi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('rumahSakitEvaluasi')]]); ?>
           <?php endif; ?>
-          <?php if ($validation->hasError('kelompokIdAbsen')) : ?>
-            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('kelompokIdAbsen')]]); ?>
+          <?php if ($validation->hasError('staseEvaluasi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('staseEvaluasi')]]); ?>
+          <?php endif; ?>
+          <?php if ($validation->hasError('dopingEvaluasi')) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('dopingEvaluasi')]]); ?>
           <?php endif; ?>
           <?php if (count($dataResult) < 1) : ?>
             <div style="padding-top:10px; padding-bottom:10px">
@@ -62,6 +65,9 @@
               </center>
             </div>
           <?php else : ?>
+            <div class="buttons">
+              <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
+            </div>
             <?php foreach ($dataResult as $data) : ?>
               <div class="card">
                 <div class="card-body">

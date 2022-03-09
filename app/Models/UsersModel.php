@@ -10,6 +10,9 @@ class UsersModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash', 'status', 'status_message', 'active', 'force_pass_reset', 'created_at', 'created_update', 'deleted_at'];
     protected $returnType = 'object';
+    protected $useSoftDeletes = 'true';
+
+
 
     public function getUser()
     {
