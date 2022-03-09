@@ -39,7 +39,7 @@ class StaseRumahSakit extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        dd($data);
+        // dd($data);
         return view('pages/staseRumahSakit', $data);
     }
 
