@@ -124,7 +124,7 @@ function getNilai($idPenilaian, $npm, $stase)
     $hasil = json_encode($penilaian);
 
 
-    $result = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', $penilaian)->get()->getResult();
+    $result = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', $penilaian)->get()->getResult();
     if (count($result) > 1 && in_array(9, $penilaian) || count($result) > 1 && in_array(15, $penilaian)) {
         $tk2 = true;
     }
@@ -167,8 +167,8 @@ function getNilai($idPenilaian, $npm, $stase)
         } else {
             if ($tk2) {
                 //jika tutorial klinik ada 2
-                $tutsklinik1 = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', [9])->get()->getResult();
-                $tutsklinik2 = $model->where(['gradeNpm' => $npm])->whereIn('gradePenilaianId', [15])->get()->getResult();
+                $tutsklinik1 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [9])->get()->getResult();
+                $tutsklinik2 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [15])->get()->getResult();
 
                 $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
                 $hasil = $tutsklinik1[0]->gradeNilai;
