@@ -93,6 +93,7 @@
                         <?php $grade = json_decode($gradeRefleksi) ?>
                         <?php $no = 1;
                         $total = 0;
+                        $namakom = "";
                         foreach ($kompetensi as $data) : ?>
                           <tr>
                             <td style="text-align:center"><?= $no++; ?></td>
@@ -104,7 +105,10 @@
                                 <td scope="col"><?= $gr->nilai; ?></td>
                               <?php endif ?>
                             <?php endforeach ?>
-                            <td scope="col"></td>
+                            <?php if ($namakom != $data->kompetensiNama) : ?>
+                              <td scope="col" style="text-align:center" rowspan="<?= array_count_values($interpretasi)[$data->kompetensiNama] ?>"><?= getSubtotalNilaiRefleksi(['gradeRefleksiNpm' => $reflek->kelompokDetNim, 'gradeRefleksiStaseId' => $reflek->staseId], $data->kompetensiNama)  ?></td>
+                            <?php $namakom = $data->kompetensiNama;
+                            endif ?>
                           </tr>
                         <?php endforeach; ?>
                         <tr>

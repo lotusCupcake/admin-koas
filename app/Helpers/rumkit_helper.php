@@ -241,3 +241,21 @@ function getTahunAkademik()
 
     return json_decode($response->getBody())->data;
 }
+
+function getSubtotalNilaiRefleksi($where, $komp)
+{
+    $model = new \App\Models\RefleksiModel();
+    $data = $model->getKompetensi()->getResult();
+    $nilaiRefleksi = getRefleksi($where)[0]->gradeRefleksiNilai;
+    $subtotal = 0;
+    foreach ($data as $tujuan) {
+        if ($komp == $tujuan->kompetensiNama) {
+            foreach (json_decode($nilaiRefleksi) as $nilai) {
+                if ($nilai->tujuan == $tujuan->tujuanId) {
+                    $subtotal += $nilai->nilai;
+                }
+            }
+        }
+    }
+    return $subtotal;
+}

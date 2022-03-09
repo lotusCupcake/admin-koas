@@ -37,6 +37,8 @@ class Refleksi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'refleksi' => [],
+            'interpretasi' => [],
+            'dataKompetensi' => [],
             'dataFilter' => [null, null]
         ];
         // dd($data);
@@ -77,6 +79,10 @@ class Refleksi extends BaseController
         $staseRefleksi = trim($this->request->getPost('staseRefleksi'));
         $kelompokRefleksi = trim($this->request->getPost('kelompokRefleksi'));
         $refleksi = $this->refleksiModel->getFilterRefleksi($staseRefleksi, $kelompokRefleksi)->getResult();
+        $namaKomp = [];
+        foreach ($this->refleksiModel->getKompetensi()->getResult() as $komp) {
+            array_push($namaKomp, $komp->kompetensiNama);
+        }
 
         $data = [
             'title' => "Refleksi Diri",
@@ -87,7 +93,9 @@ class Refleksi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'kompetensi' => $this->refleksiModel->getKompetensi()->getResult(),
+            'interpretasi' => $namaKomp,
             'refleksi' => $refleksi,
+            'dataKompetensi' => array_unique($namaKomp),
             'dataFilter' => [$staseRefleksi, $kelompokRefleksi]
         ];
 

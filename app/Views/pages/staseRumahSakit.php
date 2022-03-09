@@ -65,7 +65,7 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($dataRumahSakit->findAll() as $row) : ?>
+                foreach ($dataRumahSakit as $row) : ?>
                   <tr>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $no++ ?></strong></td>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $row->rumahSakitNama ?></strong></td>

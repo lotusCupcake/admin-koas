@@ -33,13 +33,13 @@ class StaseRumahSakit extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Master', 'Penugasan', 'Stase Di RS'],
             'staseRumahSakit' => $this->staseRumahSakitModel->getStaseRS()->getResult(),
-            'dataRumahSakit' => $this->dataRumahSakitModel,
+            'dataRumahSakit' => $this->dataRumahSakitModel->findAll(),
             'dataBagian' => $this->staseModel,
             'dataNamaRs' => $namars,
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data);
+        dd($data);
         return view('pages/staseRumahSakit', $data);
     }
 
