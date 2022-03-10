@@ -97,7 +97,7 @@
           </div>
           <div class="form-group">
             <label>Penerima</label>
-            <select name="notifPenerima" class="form-control select2">
+            <select name="notifPenerima[]" class="form-control select2" multiple="">
               <option value="999">Semua Pengguna</option>
               <?php foreach ($oneSignal as $row) : ?>
                 <option value="<?= $row->oneSignalNpm; ?>"><?= $row->oneSignalNpm; ?></option>
