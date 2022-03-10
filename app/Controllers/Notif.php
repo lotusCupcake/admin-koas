@@ -105,18 +105,17 @@ class Notif extends BaseController
 
     public function send()
     {
-        // dd($_POST);
+        $userDikirim = [];
         $penerima = $this->request->getVar('notifPenerima');
         $playerId = $this->oneSignalModel->getPlayerId($penerima);
         foreach ($playerId->get()->getResult() as $oneSignal) {
             $sendPlayerId = $oneSignal->oneSignalPlayerId;
         }
-
-        // dd($sendPlayerId);
         if ($this->request->getVar('notifPenerima') == '999') {
             sendNotificationBulk(['title' => $this->request->getVar('notifJudul'), 'message' => $this->request->getVar('notifIsi')]);
         } else {
-            sendNotification(['title' => $this->request->getVar('notifJudul'), 'user' => $sendPlayerId, 'message' => $this->request->getVar('notifIsi')]);
+            array_push($userDikirim, $sendPlayerId);
+            sendNotification(['title' => $this->request->getVar('notifJudul'), 'user' => $userDikirim, 'message' => $this->request->getVar('notifIsi')]);
         }
         session()->setFlashdata('success', 'Notifikasi Berhasil Dikirim!');
         return redirect()->to('notif');

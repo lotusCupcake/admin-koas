@@ -231,7 +231,6 @@ class JadwalKegiatan extends BaseController
 
     public function skip()
     {
-        dd($_POST);
         if (!$this->validate([
             'skipTanggalAwal' => [
                 'rules' => 'required',
@@ -278,10 +277,11 @@ class JadwalKegiatan extends BaseController
             'skipHariKe' => $skipHariKe,
             'skipSisaHari' => $skipSisaHari
         );
-
+        $userDikirim = [];
         if ($this->jadwalSkipModel->insert($data)) {
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Penundaan Jadwal ', 'message' => 'Jadwal Kegiatan kamu ditunda mulai tanggal ' . $this->request->getVar('skipTanggalAwal') . ' sampai tanggal ' . $this->request->getVar('skipTanggalAkhir')]);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Penundaan Jadwal ', 'message' => 'Jadwal Kegiatan kamu ditunda mulai tanggal ' . $this->request->getVar('skipTanggalAwal') . ' sampai tanggal ' . $this->request->getVar('skipTanggalAkhir')]);
             }
             session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
             return redirect()->to('jadwalKegiatan');
@@ -290,6 +290,7 @@ class JadwalKegiatan extends BaseController
 
     public function aktif($id)
     {
+        $userDikirim = [];
         $skipTanggalAktifKembali = (int)strtotime($this->request->getPost('skipTanggalAktifKembali'));
         $data = array(
             'skipTanggalAktifKembali' => $skipTanggalAktifKembali * 1000,
@@ -297,7 +298,8 @@ class JadwalKegiatan extends BaseController
 
         if ($this->jadwalSkipModel->update($id, $data)) {
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Jadwal Aktif Kembali', 'message' => 'Jadwal Kegiatan kamu aktif kembali pada tanggal ' . $this->request->getVar('skipTanggalAktifKembali')]);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Jadwal Aktif Kembali', 'message' => 'Jadwal Kegiatan kamu aktif kembali pada tanggal ' . $this->request->getVar('skipTanggalAktifKembali')]);
             }
             session()->setFlashdata('success', 'Tanggal Aktif Kembali Berhasil Disetting!');
             return redirect()->to('jadwalKegiatan');

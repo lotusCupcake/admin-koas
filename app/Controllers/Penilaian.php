@@ -236,6 +236,7 @@ class Penilaian extends BaseController
 
     public function setujui($id)
     {
+        $userDikirim = [];
         $data = array(
             'gradeApproveStatus' => ('1'),
             'gradeApproveBy' => trim($this->request->getPost('gradeApproveBy')),
@@ -243,7 +244,8 @@ class Penilaian extends BaseController
 
         if ($this->gradeModel->update($id, $data)) {
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Penilaian Kegiatan', 'message' => 'Ada Kegiatan kamu yang sudah dinilai']);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Penilaian Kegiatan', 'message' => 'Ada Kegiatan kamu yang sudah dinilai']);
             }
             session()->setFlashdata('success', 'Penilaian Mahasiswa Sudah Disetujui!');
             return redirect()->to('penilaian');
