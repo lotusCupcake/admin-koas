@@ -57,11 +57,19 @@
                       <td><?= $row->staseNama; ?></td>
                       <td style="text-align:center">
                         <?php if ($status == 99) : ?>
-                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Penilaian</button>
-                        <?php elseif ($status == 0) : ?>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Tambahkan Bobot</button>
-                        <?php else : ?>
-                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#settingBobot<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Nilai</button>
+                          <button class="btn btn-icon icon-left btn-danger disabled" data-toggle="modal" data-target="#tambahBobot<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Bobot</button>
+                          <button class="btn btn-icon icon-left btn-success disabled" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                        <?php endif ?>
+                        <?php if ($status == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#tambahBobot<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Bobot</button>
+                          <button class="btn btn-icon icon-left btn-info disabled" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Nilai</button>
+                          <button class="btn btn-icon icon-left btn-success disabled" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                        <?php endif ?>
+                        <?php if ($status <> 99 and $status <> 0) : ?>
+                          <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#pembobotan<?= $row->staseId; ?>"><i class=" fas fa-check"></i> Tersedia</button>
+                          <button class="btn btn-icon icon-left btn-info disabled" data-toggle="modal" data-target="#tambahPenilaian<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Nilai</button>
+                          <button class="btn btn-icon icon-left btn-danger disabled" data-toggle="modal" data-target="#tambahBobot<?= $row->staseId; ?>"><i class="fas fa-plus"></i> Add Bobot</button>
                         <?php endif ?>
                       </td>
                     </tr>
@@ -78,17 +86,50 @@
   </section>
 </div>
 
-<!-- start modal tambah bobot  -->
-<?php $urut = 1;
-foreach ($bobot as $edit) : ?>
-  <?php $komposisi = (count(getStatus(['settingBobotStaseId' => $edit->staseId])) > 0) ? $status = getStatus(['settingBobotStaseId' => $edit->staseId])[0]->settingBobotKomposisiNilai : $status =  '[]' ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="pembobotan<?= $edit->staseId; ?>">
-    <div class="modal-dialog modal-xl" role="document">
-      <form action="/bobot/<?= $edit->staseId; ?>/save" method="POST">
+<?php foreach ($bobot as $tambahPenilaian) : ?>
+  <!-- start modal tambah bobot  -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambahPenilaian->staseId; ?>">
+    <div class="modal-dialog" role="document">
+      <form action="/bobot/<?= $tambahPenilaian->staseId; ?>/penilaian/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $edit->staseNama; ?></strong></h5>
+            <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambahPenilaian->staseNama ?></strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <select class="select2_el" style='width: 200px;' multiple name='1[]'>
+                <option value='0'>- Search user -</option>
+              </select>
+              <div id='elements'>
+
+              </div>
+            </div>
+
+            <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
+            <div class="modal-footer bg-whitesmoke br">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <!-- end modal tambah bobot -->
+<?php endforeach ?>
+
+<!-- start modal Tambah Bobot -->
+<?php foreach ($bobot as $tambahBobot) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="tambahBobot<?= $tambahBobot->staseId; ?>">
+    <div class="modal-dialog modal-xl" role="document">
+      <form action="/bobot/<?= $tambahBobot->staseId; ?>/save" method="POST">
+        <?= csrf_field() ?>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $tambahBobot->staseNama; ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -135,43 +176,64 @@ foreach ($bobot as $edit) : ?>
     </div>
   </div>
 <?php endforeach ?>
-<!-- end modal tambah bobot -->
+<!-- start modal Tambah Bobot -->
 
-<?php foreach ($bobot as $tambah) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="tambahPenilaian<?= $tambah->staseId; ?>">
-    <div class="modal-dialog" role="document">
-      <form action="/bobot/<?= $tambah->staseId; ?>/penilaian/save" method="POST">
+<!-- start modal pembobotan -->
+<?php foreach ($bobot as $pembobotan) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="pembobotan<?= $pembobotan->staseId; ?>">
+    <div class="modal-dialog modal-xl" role="document">
+      <form action="/bobot/<?= $pembobotan->staseId; ?>/save" method="POST">
         <?= csrf_field() ?>
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah <strong>Penilaian Stase <?= $tambah->staseNama ?></strong></h5>
+            <h5 class="modal-title">Edit <strong>Penilaian Stase <?= $pembobotan->staseNama; ?></strong></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
-              <select class="select2_el" style='width: 200px;' multiple name='1[]'>
-                <option value='0'>- Search user -</option>
-              </select>
-              <div id='elements'>
-
-              </div>
-            </div>
-
-            <a href="#!" class="btn btn-icon btn-primary btn-block" id="btn_add"><span class="fa fa-plus"></span> Tambah Penilaian</a>
-            <div class="modal-footer bg-whitesmoke br">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width:20%" scope="col">Penilaian</th>
+                    <th scope="col" colspan="20" style="text-align:center">Bobot (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($komposisi)) : ?>
+                    <?php foreach (json_decode($komposisi) as $nilai) : ?>
+                      <tr>
+                        <td><?= getPenilaian($nilai->penilaian)[0]->penilaianNamaSingkat ?></td>
+                        <?php for ($i = 5; $i <= 40; $i = $i + 5) : ?>
+                          <td>
+                            <div class="selectgroup selectgroup-pills">
+                              <label class="selectgroup-item">
+                                <input type="radio" name="<?= implode(",", array_map('intval', json_decode($nilai->penilaian))) ?>" value="<?= $i ?>" class="selectgroup-input form-control" required <?= ($nilai->bobot == $i) ? 'checked' : '' ?>>
+                                <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
+                              </label>
+                            </div>
+                          </td>
+                        <?php endfor ?>
+                      </tr>
+                    <?php endforeach ?>
+                  <?php else : ?>
+                    <?= view('layout/templateEmpty', ['jumlahSpan' => 2]); ?>
+                  <?php endif ?>
+                </tbody>
+              </table>
             </div>
           </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
 <?php endforeach ?>
-
-
-
+<!-- start modal pembobotan -->
 
 <?= view('layout/templateFooter'); ?>
 
