@@ -83,7 +83,6 @@ class Refleksi extends BaseController
         foreach ($this->refleksiModel->getKompetensi()->getResult() as $komp) {
             array_push($namaKomp, $komp->kompetensiNama);
         }
-
         $data = [
             'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",

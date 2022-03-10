@@ -21,7 +21,7 @@ class RefleksiModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->where(
             [
-                'rumkit_detail.rumkitDetStaseId' => $staseRefleksi,
+                'refleksi_grade.gradeRefleksiStaseId' => $staseRefleksi,
                 'jadwal.jadwalKelompokId' => $kelompokRefleksi
             ]
         );

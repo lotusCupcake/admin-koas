@@ -22,8 +22,8 @@ class EvaluasiModel extends Model
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = evaluasi_grade.gradeEvaluasiDopingEmail', 'LEFT');
         $builder->where(
             [
-                'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
-                'dosen_pembimbing.dopingEmail' => $dopingEvaluasi
+                'evaluasi_grade.gradeEvaluasiStaseId' => $staseEvaluasi,
+                'evaluasi_grade.gradeEvaluasiDopingEmail' => $dopingEvaluasi
             ]
         );
         return $builder->get();
