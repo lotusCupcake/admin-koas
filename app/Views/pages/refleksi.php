@@ -85,6 +85,7 @@
                           <th scope="col">Kompetensi</th>
                           <th scope="col">Tujuan Pembelajaran</th>
                           <th scope="col">Nilai</th>
+                          <th scope="col">Jumlah</th>
                           <th scope="col">Interpretasi</th>
                         </tr>
                       </thead>
@@ -96,24 +97,53 @@
                         $namakom = "";
                         foreach ($kompetensi as $data) : ?>
                           <tr>
-                            <td style="text-align:center"><?= $no++; ?></td>
-                            <td scope="col"><?= $data->kompetensiNama; ?></td>
+                            <?php if ($namakom != $data->kompetensiNama) :  ?>
+                              <td style="text-align:center" rowspan="<?= array_count_values($interpretasi)[$data->kompetensiNama] ?>"><?= $no++; ?></td>
+                              <td scope="col" rowspan="<?= array_count_values($interpretasi)[$data->kompetensiNama] ?>"><?= $data->kompetensiNama; ?></td>
+                            <?php endif; ?>
                             <td scope="col"><?= $data->tujuanPembelajaran; ?></td>
-                            <?php
-                            foreach ($grade as $gr) : ?>
+                            <?php foreach ($grade as $gr) : ?>
                               <?php if ($data->tujuanId == $gr->tujuan) : $total = $total + $gr->nilai ?>
-                                <td scope="col"><?= $gr->nilai; ?></td>
+                                <td style="text-align:center" scope="col"><?= $gr->nilai; ?></td>
                               <?php endif ?>
                             <?php endforeach ?>
-                            <?php if ($namakom != $data->kompetensiNama) : ?>
+                            <?php if ($namakom != $data->kompetensiNama) :  ?>
                               <td scope="col" style="text-align:center" rowspan="<?= array_count_values($interpretasi)[$data->kompetensiNama] ?>"><?= getSubtotalNilaiRefleksi(['gradeRefleksiNpm' => $reflek->kelompokDetNim, 'gradeRefleksiStaseId' => $reflek->staseId], $data->kompetensiNama)  ?></td>
+                              <td scope="col" rowspan="<?= array_count_values($interpretasi)[$data->kompetensiNama] ?>">
+                                <?php if (array_count_values($interpretasi)[$data->kompetensiNama] == 3) : ?>
+                                  <strong>1-3</strong>= sangat buruk<br>
+                                  <strong>4-6</strong>= buruk<br>
+                                  <strong>7-9</strong>= cukup<br>
+                                  <strong>10-12</strong>= baik<br>
+                                  <strong>13-15</strong>= sangat baik
+                                <?php elseif (array_count_values($interpretasi)[$data->kompetensiNama] == 4) : ?>
+                                  <strong>1-4</strong>= sangat buruk<br>
+                                  <strong>5-8</strong>= buruk<br>
+                                  <strong>9-12</strong>= cukup<br>
+                                  <strong>13-16</strong>= baik<br>
+                                  <strong>17-20</strong>= sangat baik
+                                <?php elseif (array_count_values($interpretasi)[$data->kompetensiNama] == 6) : ?>
+                                  <strong>1-6</strong>= sangat buruk<br>
+                                  <strong>7-12</strong>= buruk<br>
+                                  <strong>13-18</strong>= cukup<br>
+                                  <strong>19-24</strong>= baik<br>
+                                  <strong>25-30</strong>= sangat baik
+                                <?php else : ?>
+                                  <strong>1-7</strong>= sangat buruk<br>
+                                  <strong>8-14</strong>= buruk<br>
+                                  <strong>15-12</strong>= cukup<br>
+                                  <strong>22-28</strong>= baik<br>
+                                  <strong>29-35</strong>= sangat baik
+                                <?php endif; ?>
+                              </td>
                             <?php $namakom = $data->kompetensiNama;
                             endif ?>
                           </tr>
                         <?php endforeach; ?>
                         <tr>
                           <td style="text-align:center" colspan="3"><strong>Total</strong></td>
-                          <td><strong><?= $total; ?></td>
+                          <td></td>
+                          <td style="text-align:center"><strong><?= $total; ?></td>
                           <td><strong>1-34</strong>= sangat buruk<br>
                             <strong>35-68</strong>= buruk<br>
                             <strong>69-102</strong>= cukup<br>
