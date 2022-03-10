@@ -141,8 +141,7 @@
                           </tr>
                         <?php endforeach; ?>
                         <tr>
-                          <td style="text-align:center" colspan="3"><strong>Total</strong></td>
-                          <td></td>
+                          <td style="text-align:center" colspan="4"><strong>Total</strong></td>
                           <td style="text-align:center"><strong><?= $total; ?></td>
                           <td><strong>1-34</strong>= sangat buruk<br>
                             <strong>35-68</strong>= buruk<br>
