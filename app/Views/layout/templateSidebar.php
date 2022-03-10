@@ -33,6 +33,31 @@
                 <div class="time text-primary"><?= jumlahKegiatan(); ?> Kegiatan</div>
               </div>
             </a>
+            <?php //if (in_groups('Koordik')) : 
+            ?>
+            <!-- <a href="/penilaian" class="dropdown-item">
+                <div class="dropdown-item-icon bg-primary text-white">
+                  <i class="fas fa-marker"></i>
+                </div>
+                <div class="dropdown-item-desc">
+                  Jumlah Penilaian yang belum kamu verifikasi
+                  <div class="time text-primary"><?php // count(jumlahPenilaian()); 
+                                                  ?> Penilaian</div>
+                </div>
+              </a>
+            <?php //endif; 
+            ?>
+            <a href="/penilaian" class="dropdown-item">
+              <div class="dropdown-item-icon bg-<?php // (in_groups('Koordik')) ? "info" : "primary" 
+                                                ?> text-white">
+                <i class="fas fa-marker"></i>
+              </div>
+              <div class="dropdown-item-desc">
+                Jumlah Penilaian kamu yang sudah di verifikasi
+                <div class="time text-primary"><?php // jumlahKegiatan(); 
+                                                ?> Penilaian</div>
+              </div>
+            </a> -->
           </div>
         </div>
       </li>

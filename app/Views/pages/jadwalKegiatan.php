@@ -216,7 +216,9 @@
                     <th style="text-align:center" scope="col">No.</th>
                     <th scope="col">Nama/NPM Mahasiswa</th>
                     <th width="40%" scope="col">Tanggal Mulai/Akhir</th>
-                    <th style="text-align:center" scope="col">Action</th>
+                    <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                      <th style="text-align:center" scope="col">Action</th>
+                    <?php endif; ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -228,13 +230,15 @@
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                         <td><?= gmdate('d-m-Y', ($row->jadwalDetailTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row->jadwalDetailTanggalSelesai / 1000)); ?></td>
-                        <td style="text-align:center">
-                          <?php if ($row->skipNpm == null && $row->skipTanggalAktifKembali == null || $row->skipNpm != null && $row->skipTanggalAktifKembali != null) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#skipJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-pause"></i></button>
-                          <?php else : ?>
-                            <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#aktifJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-check"></i></button>
-                          <?php endif; ?>
-                        </td>
+                        <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                          <td style="text-align:center">
+                            <?php if ($row->skipNpm == null && $row->skipTanggalAktifKembali == null || $row->skipNpm != null && $row->skipTanggalAktifKembali != null) : ?>
+                              <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#skipJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-pause"></i></button>
+                            <?php else : ?>
+                              <button class="btn btn-icon icon-left btn-success" data-toggle="modal" data-target="#aktifJadwal<?= $row->jadwalDetailId; ?>"><i class="fas fa-check"></i></button>
+                            <?php endif; ?>
+                          </td>
+                        <?php endif; ?>
                       </tr>
                     <?php endif ?>
                   <?php endforeach ?>
@@ -268,6 +272,7 @@
           <div class="modal-body">
             <input type="hidden" name="skipJadwalDetailId" value="<?= $row->jadwalDetailId; ?>">
             <input type="hidden" name="skipNpm" value="<?= $row->jadwalDetailNpm; ?>">
+            <input type="hidden" value="<?= ($row->oneSignalPlayerId) == null ? null : $row->oneSignalPlayerId; ?>" name="playerId">
             <div class="form-group">
               <label>Tanggal Awal</label>
               <div class="input-group">
@@ -314,6 +319,7 @@
     <div class="modal-dialog" role="document">
       <form action="/jadwalKegiatan/<?= $row->skipId; ?>/aktif" method="POST">
         <?= csrf_field() ?>
+        <input type="hidden" value="<?= ($row->oneSignalPlayerId) == null ? null : $row->oneSignalPlayerId; ?>" name="playerId">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Aktif <strong>Jadwal Kegiatan</strong></h5>

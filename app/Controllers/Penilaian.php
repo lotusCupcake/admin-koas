@@ -42,6 +42,8 @@ class Penilaian extends BaseController
         }
         $data = array_merge($init, $data);
         return view('pages/penilaian', $data);
+
+        dd($this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->findAll());
     }
 
     function initDataKoordik($rs)
@@ -234,13 +236,15 @@ class Penilaian extends BaseController
 
     public function setujui($id)
     {
-        // dd($_POST);
         $data = array(
             'gradeApproveStatus' => ('1'),
             'gradeApproveBy' => trim($this->request->getPost('gradeApproveBy')),
         );
 
         if ($this->gradeModel->update($id, $data)) {
+            if ($this->request->getVar('playerId') != null) {
+                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Penilaian Kegiatan', 'message' => 'Ada Kegiatan kamu yang sudah dinilai']);
+            }
             session()->setFlashdata('success', 'Penilaian Mahasiswa Sudah Disetujui!');
             return redirect()->to('penilaian');
         }

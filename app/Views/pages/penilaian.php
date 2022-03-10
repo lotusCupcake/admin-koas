@@ -331,6 +331,7 @@ foreach ($menuNilai as $menu) : ?>
       <div class="modal-dialog" role="document">
         <form action="/penilaian/<?= $gradeId; ?>/setujui" method="POST">
           <?= csrf_field() ?>
+          <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
           <input type="hidden" value="<?= user()->email ?>" name="gradeApproveBy">
           <div class="modal-content">
             <div class="modal-header">

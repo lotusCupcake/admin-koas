@@ -21,7 +21,6 @@ class FollowUp extends BaseController
         $keyword = $this->request->getVar('keyword');
         if (in_groups('Koordik')) {
             $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
-            // dd($rs);
             if ($keyword) {
                 $followUp = $this->followUpModel->getFollowUpSearch($keyword, ['dosen_pembimbing.dopingRumkitId' => $rs]);
             } else {
@@ -51,13 +50,11 @@ class FollowUp extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['jumlahFollowUp']);
         return view('pages/followUp', $data);
     }
 
     public function setujui($id)
     {
-        // dd($_POST);
         $data = array(
             'followUpVerify' => ('1'),
         );

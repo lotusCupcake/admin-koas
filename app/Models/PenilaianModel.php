@@ -39,6 +39,10 @@ class PenilaianModel extends Model
         return $builder;
     }
 
+    public function getJumlahVerifikasi($where)
+    {
+    }
+
     public function getFilterNilai($where)
     {
         $builder = $this->db->table('jadwal');

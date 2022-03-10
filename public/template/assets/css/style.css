@@ -2832,7 +2832,7 @@ a.dropdown-item.active {
 }
 
 .dropdown-list .dropdown-list-content {
-    height: 300px;
+    height: 500px;
     overflow: hidden;
 }
 

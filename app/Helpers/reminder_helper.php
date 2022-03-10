@@ -22,3 +22,13 @@ function jumlahKegiatan()
         'logbook.logbookIsVerify' => 0
     ])->get()->getResult()[0]->logbookId;
 }
+
+function jumlahPenilaian()
+{
+    $usersModel = new App\Models\UsersModel;
+    $penilaian = new App\Models\PenilaianModel;
+    $id = user()->id;
+    $rs = $usersModel->getProfile(['users.id' => $id])->getResult()[0]->dopingRumkitId;
+
+    return $penilaian->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->get()->getResult();
+}
