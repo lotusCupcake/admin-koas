@@ -59,4 +59,18 @@ class KelompokMahasiswaModel extends Model
         $query = $builder->get();
         return $query;
     }
+
+    public function getPlayer($where)
+    {
+        $builder = $this->table('kelompok_detail');
+        $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('one_signal', 'one_signal.oneSignalNpm = kelompok_detail.kelompokDetNim', 'LEFT');
+        $builder->where(
+            [
+                'kelompok.kelompokId' => $where,
+            ]
+        );
+        $query = $builder->get();
+        return $query;
+    }
 }

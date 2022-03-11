@@ -7,10 +7,12 @@ use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 use App\Models\DosenPembimbingModel;
 use App\Models\JadwalSkipModel;
+use App\Models\KegiatanMahasiswaModel;
 
 class JadwalKegiatan extends BaseController
 {
     protected $kelompokMahasiswaModel;
+    protected $kegiatanMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
     protected $jadwalSkipModel;
@@ -18,6 +20,7 @@ class JadwalKegiatan extends BaseController
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
+        $this->kegiatanMahasiswaModel = new KegiatanMahasiswaModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
@@ -158,6 +161,12 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
+
+        $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompokId'))->getResult();
+        $player = [];
+        foreach ($penerima as $rowPenerima) {
+            array_push($player, $rowPenerima->oneSignalPlayerId);
+        }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
 
@@ -173,6 +182,9 @@ class JadwalKegiatan extends BaseController
         );
 
         if ($this->jadwalKegiatanModel->insert($data)) {
+            if ($player != null) {;
+                sendNotification(['user' => $player, 'title' => 'Jadwal Kegiatan', 'message' => 'Jadwal Kegiatan telah ditugaskan kepada kamu, terhitung mulai tanggal ' . $this->request->getVar('tanggalAwal') . ' selama ' . $this->request->getVar('jumlahWeek') . ' minggu. Selengkapnya cek di aplikasi!']);
+            }
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');
             return redirect()->to('jadwalKegiatan');
         }
@@ -208,7 +220,11 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-
+        $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompok'))->getResult();
+        $player = [];
+        foreach ($penerima as $rowPenerima) {
+            array_push($player, $rowPenerima->oneSignalPlayerId);
+        }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
 
@@ -224,6 +240,9 @@ class JadwalKegiatan extends BaseController
 
 
         if ($this->jadwalKegiatanModel->update($id, $data)) {
+            if ($player != null) {;
+                sendNotification(['user' => $player, 'title' => 'Jadwal Kegiatan', 'message' => 'Ada perubahan di Jadwal kamu. Selengkapnya cek di aplikasi!']);
+            }
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
             return redirect()->to('jadwalKegiatan');
         }
