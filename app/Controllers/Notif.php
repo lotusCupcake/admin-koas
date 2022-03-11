@@ -50,11 +50,10 @@ class Notif extends BaseController
             return redirect()->to('notif')->withInput();
         }
 
-        // dd($_POST);
         $data = array(
             'notifJudul' => trim($this->request->getPost('notifJudul')),
             'notifIsi' => trim($this->request->getPost('notifIsi')),
-            'notifPenerima' => trim($this->request->getPost('notifPenerima')),
+            'notifPenerima' => trim($this->request->getPost(['notifPenerima'])), //false
         );
 
         if ($this->notifModel->insert($data)) {
