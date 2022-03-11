@@ -111,6 +111,7 @@
       <form action="/followUp/<?= $setujui->followUpId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
         <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
+        <input type="hidden" value="<?= $setujui->dopingNamaLengkap; ?>" name="followUpDoping">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Kasus<strong> Yang Ditangani</strong></h5>

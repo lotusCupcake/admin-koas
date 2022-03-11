@@ -259,3 +259,10 @@ function getSubtotalNilaiRefleksi($where, $komp)
     }
     return $subtotal;
 }
+
+function getPenerimaNotif($where)
+{
+    $model = new \App\Models\KelompokMahasiswaModel();
+    $result = $model->select('GROUP_CONCAT(kelompokDetNama SEPARATOR ", ") as namaMahasiswa')->whereIn('kelompokDetNim', array_map('intval', json_decode($where)))->get()->getResult();
+    return $result;
+}

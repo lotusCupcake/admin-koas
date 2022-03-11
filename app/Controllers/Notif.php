@@ -23,16 +23,16 @@ class Notif extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Setting', 'Utilitas', 'Notifikasi'],
             'notif' => $this->notifModel->getNotifikasi()->get()->getResult(),
-            'oneSignal' => $this->oneSignalModel->findAll(),
+            'oneSignal' => $this->oneSignalModel->getUserOneSignal()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data['oneSignal']);
         return view('pages/notif', $data);
     }
 
     public function add()
     {
+
         if (!$this->validate([
             'notifJudul' => [
                 'rules' => 'required',
@@ -49,12 +49,21 @@ class Notif extends BaseController
         ])) {
             return redirect()->to('notif')->withInput();
         }
-
-        $data = array(
-            'notifJudul' => trim($this->request->getPost('notifJudul')),
-            'notifIsi' => trim($this->request->getPost('notifIsi')),
-            'notifPenerima' => trim($this->request->getPost(['notifPenerima'])), //false
-        );
+        if ($this->request->getVar('rencana') == null) {
+            $penerima = $this->request->getPost('notifPenerima');
+            $data = array(
+                'notifJudul' => trim($this->request->getPost('notifJudul')),
+                'notifIsi' => trim($this->request->getPost('notifIsi')),
+                'notifPenerima' => json_encode(["999"]),
+            );
+        } else {
+            $penerima = $this->request->getPost('notifPenerima');
+            $data = array(
+                'notifJudul' => trim($this->request->getPost('notifJudul')),
+                'notifIsi' => trim($this->request->getPost('notifIsi')),
+                'notifPenerima' => json_encode($penerima),
+            );
+        }
 
         if ($this->notifModel->insert($data)) {
             session()->setFlashdata('success', 'Data Notifikasi Berhasil Ditambah!');
@@ -81,11 +90,12 @@ class Notif extends BaseController
             return redirect()->to('notif')->withInput();
         }
 
-        // dd($_POST);
+        $penerima = $this->request->getPost('notifPenerima');
+        // dd($penerima);
         $data = array(
             'notifJudul' => trim($this->request->getPost('notifJudul')),
             'notifIsi' => trim($this->request->getPost('notifIsi')),
-            'notifPenerima' => trim($this->request->getPost('notifPenerima')),
+            'notifPenerima' => json_encode($penerima),
         );
 
         if ($this->notifModel->update($id, $data)) {
@@ -102,19 +112,18 @@ class Notif extends BaseController
         return redirect()->to('notif');
     }
 
-    public function send()
+    public function send($id)
     {
-        $userDikirim = [];
-        $penerima = $this->request->getVar('notifPenerima');
-        $playerId = $this->oneSignalModel->getPlayerId($penerima);
-        foreach ($playerId->get()->getResult() as $oneSignal) {
-            $sendPlayerId = $oneSignal->oneSignalPlayerId;
-        }
-        if ($this->request->getVar('notifPenerima') == '999') {
+        $data = $this->notifModel->where(['notifId' => $id])->findAll();
+        if (json_decode($data[0]->notifPenerima) == ["999"]) {
             sendNotificationBulk(['title' => $this->request->getVar('notifJudul'), 'message' => $this->request->getVar('notifIsi')]);
         } else {
-            array_push($userDikirim, $sendPlayerId);
-            sendNotification(['title' => $this->request->getVar('notifJudul'), 'user' => $userDikirim, 'message' => $this->request->getVar('notifIsi')]);
+            $playerId = $this->oneSignalModel->getPlayerId(json_decode($data[0]->notifPenerima))->getResult();
+            $sendPlayerId = [];
+            foreach ($playerId as $oneSignal) {
+                array_push($sendPlayerId, $oneSignal->oneSignalPlayerId);
+            }
+            sendNotification(['title' => $data[0]->notifJudul, 'user' => $sendPlayerId, 'message' => $data[0]->notifIsi]);
         }
         session()->setFlashdata('success', 'Notifikasi Berhasil Dikirim!');
         return redirect()->to('notif');

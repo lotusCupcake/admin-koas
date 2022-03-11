@@ -14,8 +14,6 @@ class NotifModel extends Model
     public function getNotifikasi()
     {
         $builder = $this->table('notifikasi');
-        $builder->select('*');
-        $builder->join('one_signal', 'one_signal.oneSignalNpm = notifikasi.notifPenerima', 'LEFT');
         $builder->orderBy('notifikasi.notifId', 'DESC');
         return $builder;
     }

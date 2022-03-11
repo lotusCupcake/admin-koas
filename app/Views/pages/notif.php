@@ -52,7 +52,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->notifJudul; ?></td>
                       <td><?= $row->notifIsi; ?></td>
-                      <td><?= ($row->notifPenerima) == 999 ? 'Semua Pengguna' : $row->notifPenerima; ?></td>
+                      <td><?= (json_decode($row->notifPenerima) == ["999"]) ? "Semua Pengguna" : getPenerimaNotif($row->notifPenerima)[0]->namaMahasiswa; ?></td>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#kirimNotifikasi<?= $row->notifId; ?>"><i class="fas fa-paper-plane"></i></button>
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editNotifikasi<?= $row->notifId; ?>"><i class="fas fa-edit"></i></button>
@@ -96,13 +96,23 @@
             <textarea class="form-control" style="height: 72px;" name="notifIsi"></textarea>
           </div>
           <div class="form-group">
-            <label>Penerima</label>
-            <select name="notifPenerima[]" class="form-control select2" multiple="">
-              <option value="999">Semua Pengguna</option>
-              <?php foreach ($oneSignal as $row) : ?>
-                <option value="<?= $row->oneSignalNpm; ?>"><?= $row->oneSignalNpm; ?></option>
-              <?php endforeach; ?>
-            </select>
+            <div class="control-label">Rencana Pengiriman</div>
+            <label style="display: inline-block; padding-left: 0 !important;" class="custom-switch mt-2">
+              <input type="checkbox" name="rencana" checked class="rencana custom-switch-input">
+              <span class="custom-switch-indicator"></span>
+            </label>
+            <span style="display: inline-block; margin-top: 0 !important;" class="custom-switch-description">(Semua Pengguna/Pengguna Tertentu)</span>
+          </div>
+          <div class="mahasiswa">
+            <div class="form-group">
+              <label>Penerima</label>
+              <select name="notifPenerima[]" class="form-control select2" multiple="">
+                <!-- <option value="999">Semua Pengguna</option> -->
+                <?php foreach ($oneSignal as $row) : ?>
+                  <option value="<?= $row->oneSignalNpm; ?>"><?= $row->kelompokDetNama; ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -141,10 +151,10 @@
             </div>
             <div class="form-group">
               <label>Penerima</label>
-              <select name="notifPenerima" class="form-control select2">
-                <option value="999" <?= ($edit->notifPenerima == "999") ? "selected" : " " ?>>Semua Pengguna</option>
+              <select name="notifPenerima[]" class="form-control select2 penerima" penerima='<?= $edit->notifPenerima ?>' multiple="">
+                <option value="999" <?= ($edit->notifPenerima == ["999"] || $edit->notifPenerima == 999) ? "selected" : " " ?>>Semua Pengguna</option>
                 <?php foreach ($oneSignal as $row) : ?>
-                  <option value="<?= $row->oneSignalNpm; ?>" <?= ($row->oneSignalNpm == $edit->notifPenerima) ? "selected" : " " ?>><?= $row->oneSignalNpm; ?></option>
+                  <option value="<?= $row->oneSignalNpm; ?>" <?= ($row->oneSignalNpm == json_decode($edit->notifPenerima)) ? "selected" : " " ?>><?= $row->kelompokDetNama; ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -201,14 +211,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Apakah kamu benar ingin mengirim notifikasi<strong> <?= $send->notifJudul; ?></strong> ke <strong> <?= ($send->notifPenerima == 999) ? "Semua Pengguna" : $send->notifPenerima; ?></strong>?</p>
+          <p>Apakah kamu benar ingin mengirim notifikasi<strong> <?= $send->notifJudul; ?></strong> ke <strong> <?= (json_decode($send->notifPenerima) == ["999"]) ? "Semua Pengguna" : getPenerimaNotif($send->notifPenerima)[0]->namaMahasiswa; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/notif/send" method="post">
+        <form action="/notif/<?= $send->notifId; ?>/send" method="post">
           <?= csrf_field(); ?>
-          <input type="hidden" value="<?= $send->notifJudul; ?>" name="notifJudul">
-          <input type="hidden" value="<?= $send->notifIsi; ?>" name="notifIsi">
-          <input type="hidden" value="<?= $send->notifPenerima; ?>" name="notifPenerima">
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Send</button>

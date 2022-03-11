@@ -14,7 +14,14 @@ class OneSignalModel extends Model
     public function getPlayerId($penerima)
     {
         $builder = $this->table('one_signal');
-        $builder->where('one_signal.oneSignalNpm', $penerima);
-        return $builder;
+        $builder->whereIn('one_signal.oneSignalNpm', $penerima);
+        return $builder->get();
+    }
+
+    public function getUserOneSignal()
+    {
+        $builder = $this->table('one_signal');
+        $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim=one_signal.oneSignalNpm', 'left');
+        return $builder->get();
     }
 }

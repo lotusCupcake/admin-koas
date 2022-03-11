@@ -9,6 +9,25 @@ $('.timepicker').timepicker({
 // Load librari/plugin jquery nya 
 $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
 
+    $.each($(".select2.penerima"), function() {
+        var selectedValues = new Array();
+        selectedValues[0] = "1908320001";
+        selectedValues[1] = "1908320079";
+        // console.log(JSON.parse($(this).data('penerima')));
+        // alert(JSON.parse($(this).attr('penerima')).map(String));
+        $(this).select2({ multiple: true, });
+        $(this).val(JSON.parse($(this).attr('penerima')).map(String)).trigger('change');
+
+    });
+
+    $('.rencana').change(function() {
+        if ($(this).is(':checked')) {
+            $('.mahasiswa').show();
+        } else {
+            $('.mahasiswa').hide();
+        }
+    });
+
     // Proses Untuk Menampilkan Data Stase di Menu Add
     $("#loading").hide();
     $('[name="rumahSakitId"]').change(function() { // Ketika user mengganti atau memilih data Rumah Sakit
@@ -328,4 +347,6 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
             }
         });
     });
+
+
 });

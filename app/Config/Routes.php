@@ -121,8 +121,8 @@ $routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' =
 $routes->add('/kegiatanMahasiswa/(:num)/setujui', 'KegiatanMahasiswa::setujui/$1');
 
 // route Absensi
-$routes->get('/absensi/', 'Absensi::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
-$routes->get('/absensi/index', 'Absensi::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/absensi/', 'Absensi::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/absensi/index', 'Absensi::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 // route Folow Up
 $routes->get('/followUp/', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
@@ -165,7 +165,7 @@ $routes->get('/notif/index', 'Notif::index', ['filter' => 'role:Superadmin,Admin
 $routes->post('/notif', 'Notif::Add');
 $routes->delete('/notif/(:num)', 'Notif::delete/$1');
 $routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
-$routes->add('/notif/send', 'Notif::send');
+$routes->add('/notif/(:num)/send', 'Notif::send/$1');
 
 //route rekap nilai
 $routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);

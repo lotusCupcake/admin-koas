@@ -114,6 +114,9 @@
     <div class="modal-dialog" role="document">
       <form action="/kegiatanMahasiswa/<?= $setujui->logbookId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
+        <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
+        <input type="hidden" value="<?= $setujui->kegiatanNama; ?>" name="kegiatan">
+        <input type="hidden" value="<?= $setujui->dopingNamaLengkap; ?>" name="dopingKegiatan">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Kegiatan<strong> Mahasiswa</strong></h5>

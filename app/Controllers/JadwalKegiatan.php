@@ -163,6 +163,7 @@ class JadwalKegiatan extends BaseController
         }
 
         $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompokId'))->getResult();
+        dd($penerima);
         $player = [];
         foreach ($penerima as $rowPenerima) {
             array_push($player, $rowPenerima->oneSignalPlayerId);

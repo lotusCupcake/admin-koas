@@ -58,10 +58,11 @@ class FollowUp extends BaseController
         $data = array(
             'followUpVerify' => ('1'),
         );
-
+        $userDikirim = [];
         if ($this->followUpModel->update($id, $data)) {
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Verifikasi Follow Up', 'message' => 'Ada Follow Up kamu yang sudah disetujui']);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Verifikasi Follow Up', 'message' => 'Follow Up kamu yang sudah disetujui oleh ' . $this->request->getVar('followUpDoping')]);
             }
             session()->setFlashdata('success', 'Follow Up Mahasiswa Sudah Disetujui!');
             return redirect()->to('followUp');

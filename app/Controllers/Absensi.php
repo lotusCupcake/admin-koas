@@ -21,19 +21,10 @@ class Absensi extends BaseController
     {
         $currentPage = $this->request->getVar('page_absensi') ? $this->request->getVar('page_absensi') : 1;
         $keyword = $this->request->getVar('keyword');
-        if (in_groups('Koordik')) {
-            $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
-            if ($keyword) {
-                $absen = $this->absensiModel->getAbsensiKoordikSearch($keyword, ['dosen_pembimbing.dopingRumkitId' => $rs]);
-            } else {
-                $absen = $this->absensiModel->getAbsensiKoordik(['dosen_pembimbing.dopingRumkitId' => $rs]);
-            };
+        if ($keyword) {
+            $absen = $this->absensiModel->searchAbsensi($keyword);
         } else {
-            if ($keyword) {
-                $absen = $this->absensiModel->searchAbsensi($keyword);
-            } else {
-                $absen = $this->absensiModel->absensiPaginate();
-            }
+            $absen = $this->absensiModel->absensiPaginate();
         }
 
         $data = [
@@ -47,7 +38,6 @@ class Absensi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
         return view('pages/absensiMahasiswa', $data);
     }
 }
