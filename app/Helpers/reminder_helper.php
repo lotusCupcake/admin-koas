@@ -23,12 +23,20 @@ function jumlahKegiatan()
     ])->get()->getResult()[0]->logbookId;
 }
 
-function jumlahPenilaian()
+function getPenilaianRs()
 {
     $usersModel = new App\Models\UsersModel;
-    $penilaian = new App\Models\PenilaianModel;
-    $id = user()->id;
-    $rs = $usersModel->getProfile(['users.id' => $id])->getResult()[0]->dopingRumkitId;
+    $penilaian = new App\Models\GradeModel();
+    $rs = $usersModel->getProfile(['users.id' => user()->id])->getResult()[0]->dopingRumkitId;
 
-    return $penilaian->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->get()->getResult();
+    return $penilaian->getPenilaianVerifikasi(['dosen_pembimbing.dopingRumkitId ' => $rs, 'penilaian_grade.gradeApproveStatus ' => 0])->get()->getResult();
+}
+
+function getPenilaianDosen()
+{
+    $usersModel = new App\Models\UsersModel;
+    $penilaian = new App\Models\GradeModel();
+    $email = $usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->email;
+
+    return $penilaian->getPenilaianVerifikasi(['dosen_pembimbing.dopingEmail ' => $email, 'penilaian_grade.gradeApproveStatus ' => 0])->get()->getResult();
 }
