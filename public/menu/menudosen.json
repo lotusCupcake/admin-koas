@@ -1,5 +1,4 @@
-[
-    {
+[{
         "id": "1",
         "nama": "Home",
         "parent": "0",
@@ -88,15 +87,6 @@
         "status": true,
         "icon": "fas fa-marker",
         "pages": "/penilaian"
-    },
-    {
-        "id": "24",
-        "nama": "Evaluasi",
-        "parent": "19",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-comment-dots",
-        "pages": "/evaluasi"
     },
     {
         "id": "25",

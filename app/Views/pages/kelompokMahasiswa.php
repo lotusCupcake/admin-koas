@@ -31,16 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="alert alert-primary alert-has-icon alert-dismissible show fade">
-            <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-            <div class="alert-body">
-              <button class="close" data-dismiss="alert">
-                <span>&times;</span>
-              </button>
-              <div class="alert-title">Tips</div>
-              Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>
-            </div>
-          </div>
+          <?= view('layout/templateAlertIcon', ['msg' => ['primary', 'Tips', 'Untuk edit dan menambahkan mahasiswa ke dalam kelompok bisa melalui halaman <strong>Kelompok</strong> atau klik <a href="/dataKelompok">disini.</a>']]); ?>
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
