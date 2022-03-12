@@ -32,7 +32,8 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>.<br>Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini:']]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
           <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
           <li>Mengisi data stase (jika belum)</li>
@@ -62,7 +63,8 @@
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>.<br>Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini:']]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
           <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
           <li>Mengisi data stase (jika belum)</li>
@@ -93,9 +95,10 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>.<br>Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini:']]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
-          <li>Membuat tanda tangan pada menu profile</li>
+          <li>Membuat tanda tangan digital pada menu profile</li>
         </ul>
         <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
         <ul>
@@ -124,9 +127,10 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>.<br>Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini:']]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
-          <li>Membuat tanda tangan pada menu profile</li>
+          <li>Membuat tanda tangan digital pada menu profile</li>
         </ul>
         <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
         <ul>
@@ -153,7 +157,8 @@
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
 
       </div>
-      <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>. Silahkan hubungi administrator untuk mempromosikan akun kamu']]); ?>
+      <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+      <p>Silahkan hubungi administrator untuk mempromosikan akun Kamu</p>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
         <div class="modal-footer bg-whitesmoke br">

@@ -67,7 +67,7 @@ class KegiatanMahasiswa extends BaseController
             $userDikirim = [];
             if ($this->request->getVar('playerId') != null) {
                 array_push($userDikirim, $this->request->getVar('playerId'));
-                sendNotification(['user' => $userDikirim, 'title' => 'Verifikasi Kegiatan', 'message' => 'Kegiatan ' . $this->request->getVar('kegiatan') . ' kamu yang sudah disetujui oleh ' . $this->request->getVar('dopingKegiatan')]);
+                sendNotification(['user' => $userDikirim, 'title' => 'Verifikasi Kegiatan', 'message' => 'Kegiatan ' . $this->request->getVar('kegiatan') . ' kamu sudah disetujui oleh ' . $this->request->getVar('dopingKegiatan')]);
             }
             session()->setFlashdata('success', 'Kegiatan Mahasiswa Sudah Disetujui!');
             return redirect()->to('kegiatanMahasiswa');
