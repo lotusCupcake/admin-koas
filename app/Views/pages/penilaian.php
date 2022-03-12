@@ -54,7 +54,7 @@
                       <thead>
                         <tr>
                           <th style="text-align:center" scope="col">No.</th>
-                          <th scope="col">Nim</th>
+                          <th scope="col">NPM</th>
                           <th scope="col">Nama Lengkap</th>
                           <?php if (in_groups('Koordik')) : ?>
                             <th scope="col">Dosen Pembimbing</th>
