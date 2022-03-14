@@ -65,7 +65,7 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($dataRumahSakit->findAll() as $row) : ?>
+                foreach ($dataRumahSakit as $row) : ?>
                   <tr>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $no++ ?></strong></td>
                     <td rowspan="<?= array_count_values($dataNamaRs)[$row->rumahSakitNama] ?>"><strong><?= $row->rumahSakitNama ?></strong></td>
@@ -119,7 +119,7 @@
             <label>Rumah Sakit</label>
             <select name="detRumkit" class="form-control select2">
               <option value="">--Select--</option>
-              <?php foreach ($dataRumahSakit->findAll() as $row) : ?>
+              <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>
               <?php endforeach; ?>
             </select>
@@ -169,7 +169,7 @@
             <div class="form-group">
               <label>Rumah Sakit</label>
               <select name="detRumkit" class="form-control select2">
-                <?php foreach ($dataRumahSakit->findAll() as $row) : ?>
+                <?php foreach ($dataRumahSakit as $row) : ?>
                   <option value="<?= $row->rumahSakitId; ?>" <?php if ($row->rumahSakitId == $edit->rumkitDetRumkitId) echo "selected" ?>><?= $row->rumahSakitNama; ?></option>
                 <?php endforeach; ?>
               </select>

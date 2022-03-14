@@ -24,7 +24,6 @@ class KegiatanMahasiswa extends BaseController
 
         if (in_groups('Koordik')) {
             $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
-            // dd($rs);
             if ($keyword) {
                 $kegiatan = $this->kegiatanMahasiswaModel->getKegiatanSearch($keyword, ['dosen_pembimbing.dopingRumkitId' => $rs]);
             } else {
@@ -32,12 +31,10 @@ class KegiatanMahasiswa extends BaseController
             };
         } else {
             $usr = $this->usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->name;
-            // dd($usr);
             $where = null;
             if ($usr == 'Dosen') {
                 $where = array('dosen_pembimbing.dopingEmail' => user()->email);
             }
-            // dd($where = array('dosen_pembimbing.dopingEmail' => user()->email));
             if ($keyword) {
                 $kegiatan = $this->kegiatanMahasiswaModel->getKegiatanSearch($keyword, $where);
             } else {
@@ -57,19 +54,20 @@ class KegiatanMahasiswa extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['kegiatan']);
         return view('pages/kegiatanMahasiswa', $data);
     }
 
     public function setujui($id)
     {
         $data = array(
-            'kegiatanIsVerify' => ('1'),
+            'logbookIsVerify' => ('1'),
         );
 
         if ($this->kegiatanMahasiswaModel->update($id, $data)) {
+            $userDikirim = [];
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Verifikasi Kegiatan', 'message' => 'Ada kegiatan kamu yang sudah disetujui']);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Verifikasi Kegiatan', 'message' => 'Kegiatan ' . $this->request->getVar('kegiatan') . ' kamu yang sudah disetujui oleh ' . $this->request->getVar('dopingKegiatan')]);
             }
             session()->setFlashdata('success', 'Kegiatan Mahasiswa Sudah Disetujui!');
             return redirect()->to('kegiatanMahasiswa');

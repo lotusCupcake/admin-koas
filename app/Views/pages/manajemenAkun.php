@@ -136,7 +136,7 @@
 
 <!-- start modal hapus  -->
 <?php foreach ($akun as $delete) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->id; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->user_id; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -149,7 +149,7 @@
           <p>Apakah kamu benar ingin menghapus data akun <strong><?= $delete->email; ?></strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/manajemenAkun/<?= $delete->id; ?>" method="post">
+        <form action="/manajemenAkun/<?= $delete->user_id; ?>" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
           <div class="modal-footer bg-whitesmoke br">

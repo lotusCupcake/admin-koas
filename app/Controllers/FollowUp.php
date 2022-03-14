@@ -21,7 +21,6 @@ class FollowUp extends BaseController
         $keyword = $this->request->getVar('keyword');
         if (in_groups('Koordik')) {
             $rs = $this->dosenPembimbingModel->getSpecificDosen(['dopingEmail' => user()->email])->get()->getResult()[0]->dopingRumkitId;
-            // dd($rs);
             if ($keyword) {
                 $followUp = $this->followUpModel->getFollowUpSearch($keyword, ['dosen_pembimbing.dopingRumkitId' => $rs]);
             } else {
@@ -51,20 +50,19 @@ class FollowUp extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu()
         ];
-        // dd($data['jumlahFollowUp']);
         return view('pages/followUp', $data);
     }
 
     public function setujui($id)
     {
-        // dd($_POST);
         $data = array(
             'followUpVerify' => ('1'),
         );
-
+        $userDikirim = [];
         if ($this->followUpModel->update($id, $data)) {
             if ($this->request->getVar('playerId') != null) {
-                sendNotification(['user' => $this->request->getVar('playerId'), 'title' => 'Verifikasi Follow Up', 'message' => 'Ada Follow Up kamu yang sudah disetujui']);
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Verifikasi Follow Up', 'message' => 'Follow Up kamu yang sudah disetujui oleh ' . $this->request->getVar('followUpDoping')]);
             }
             session()->setFlashdata('success', 'Follow Up Mahasiswa Sudah Disetujui!');
             return redirect()->to('followUp');

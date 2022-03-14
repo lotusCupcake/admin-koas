@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\AbsensiModel;
+use App\Models\UsersModel;
+use App\Models\DosenPembimbingModel;
 
 class Absensi extends BaseController
 {
@@ -11,6 +13,8 @@ class Absensi extends BaseController
     public function __construct()
     {
         $this->absensiModel = new AbsensiModel();
+        $this->dosenPembimbingModel = new DosenPembimbingModel();
+        $this->usersModel = new UsersModel();
     }
 
     public function index()
@@ -34,7 +38,6 @@ class Absensi extends BaseController
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
         ];
-        // dd($data);
         return view('pages/absensiMahasiswa', $data);
     }
 }

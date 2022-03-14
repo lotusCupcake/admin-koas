@@ -72,6 +72,7 @@ function initNotificationBulk($message = '', $title = '')
 
 function sendNotification($data)
 {
+
     $title = $data['title'];
     $user = $data['user'];
     $message = $data['message'];
@@ -81,6 +82,7 @@ function sendNotification($data)
 
     $data = json_decode($response, true);
     if (isset($data['errors'][0])) {
+        dd($data);
         return $data["errors"][0];
     } else {
         return 'Success..!';

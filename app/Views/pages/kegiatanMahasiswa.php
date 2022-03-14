@@ -21,7 +21,7 @@
           <div class="card-header-form col-md-6">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Nama/NPM/Rumah Sakit/Stase/Kegiatan/Dosen" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                <input type="text" class="form-control" placeholder="Search Tahun Akademik/Nama/NPM/Rumah Sakit/Stase/Kegiatan/Dosen" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
                 <div class=" input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
@@ -38,12 +38,13 @@
               <thead>
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
-                  <th width="15%"scope="col">Minggu ke / Tanggal</th>
-                  <th scope="col">Mahasiswa</th>
+                  <th width="15%" scope="col">Tahun Akademik</th>
+                  <th width="15%" scope="col">Minggu ke / Tanggal</th>
+                  <th width="15%" scope="col">Mahasiswa</th>
                   <th width="20%" scope="col">Rumah Sakit</th>
                   <th scope="col">Kegiatan</th>
                   <th scope="col">Topik</th>
-                  <th width="20%" scope="col">Dosen Pembimbing</th>
+                  <th width="15%" scope="col">Dosen Pembimbing</th>
                   <th width="20%" style="text-align:center" scope="col">Status</th>
                 </tr>
               </thead>
@@ -56,23 +57,24 @@
                   ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                      <td scope="row"><?= $row->logbookTahunAkademik; ?></td>
                       <td><sup><strong><?= $mingguke; ?></sup></strong> / <sub><?= gmdate("d-m-Y", ($row->logbookTanggal / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
                       <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiKegiatan<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
-                        <td style="text-align:center">
-                          <?php if ($row->logbookIsVerify == 0) : ?>
-                            <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiKegiatan<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
-                          <?php else : ?>
-                            <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
-                          <?php endif ?>
-                        </td>
+                      <td style="text-align:center">
+                        <?php if ($row->logbookIsVerify == 0) : ?>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#setujuiKegiatan<?= $row->logbookId; ?>" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Belum Disetujui</button>
+                        <?php else : ?>
+                          <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
+                        <?php endif ?>
+                      </td>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
-                  <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
+                  <?= view('layout/templateEmpty', ['jumlahSpan' => 9]); ?>
                 <?php endif ?>
               </tbody>
             </table>
@@ -112,6 +114,9 @@
     <div class="modal-dialog" role="document">
       <form action="/kegiatanMahasiswa/<?= $setujui->logbookId; ?>/setujui" method="POST">
         <?= csrf_field() ?>
+        <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
+        <input type="hidden" value="<?= $setujui->kegiatanNama; ?>" name="kegiatan">
+        <input type="hidden" value="<?= $setujui->dopingNamaLengkap; ?>" name="dopingKegiatan">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Kegiatan<strong> Mahasiswa</strong></h5>

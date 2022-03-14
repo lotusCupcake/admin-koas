@@ -32,10 +32,15 @@ class PenilaianModel extends Model
         $builder = $this->table('penilaian');
         $builder->join('kegiatan', 'kegiatan.kegiatanPenilaianId = penilaian.penilaianId', 'LEFT');
         $builder->join('logbook', 'logbook.logbookKegiatanId = kegiatan.kegiatanId', 'LEFT');
+        $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
         $builder->where($where);
         $builder->groupBy('penilaian.penilaianId ');
         $builder->orderBy('penilaian.penilaianOrder', 'ASC');
         return $builder;
+    }
+
+    public function getJumlahVerifikasi($where)
+    {
     }
 
     public function getFilterNilai($where)

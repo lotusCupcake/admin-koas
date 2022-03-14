@@ -7,10 +7,12 @@ use App\Models\JadwalKegiatanModel;
 use App\Models\DataRumahSakitModel;
 use App\Models\DosenPembimbingModel;
 use App\Models\JadwalSkipModel;
+use App\Models\KegiatanMahasiswaModel;
 
 class JadwalKegiatan extends BaseController
 {
     protected $kelompokMahasiswaModel;
+    protected $kegiatanMahasiswaModel;
     protected $jadwalKegiatanModel;
     protected $DataRumahSakitModel;
     protected $jadwalSkipModel;
@@ -18,6 +20,7 @@ class JadwalKegiatan extends BaseController
     public function __construct()
     {
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
+        $this->kegiatanMahasiswaModel = new KegiatanMahasiswaModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->dosenPembimbingModel = new DosenPembimbingModel();
         $this->kelompokMahasiswaModel = new KelompokMahasiswaModel();
@@ -158,6 +161,13 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
+
+        $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompokId'))->getResult();
+        dd($penerima);
+        $player = [];
+        foreach ($penerima as $rowPenerima) {
+            array_push($player, $rowPenerima->oneSignalPlayerId);
+        }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
 
@@ -169,9 +179,13 @@ class JadwalKegiatan extends BaseController
             'jadwalJamMasuk' => $this->request->getPost('jamMasuk'),
             'jadwalJamKeluar' => $this->request->getPost('jamKeluar'),
             'jadwalJumlahWeek' => $jlhweek,
+            'jadwalTahunAkademik' => getTahunAkademik(),
         );
 
         if ($this->jadwalKegiatanModel->insert($data)) {
+            if ($player != null) {;
+                sendNotification(['user' => $player, 'title' => 'Jadwal Kegiatan', 'message' => 'Jadwal Kegiatan telah ditugaskan kepada kamu, terhitung mulai tanggal ' . $this->request->getVar('tanggalAwal') . ' selama ' . $this->request->getVar('jumlahWeek') . ' minggu. Selengkapnya cek di aplikasi!']);
+            }
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');
             return redirect()->to('jadwalKegiatan');
         }
@@ -207,7 +221,11 @@ class JadwalKegiatan extends BaseController
         ])) {
             return redirect()->to('jadwalKegiatan')->withInput();
         }
-
+        $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompok'))->getResult();
+        $player = [];
+        foreach ($penerima as $rowPenerima) {
+            array_push($player, $rowPenerima->oneSignalPlayerId);
+        }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
 
@@ -223,6 +241,9 @@ class JadwalKegiatan extends BaseController
 
 
         if ($this->jadwalKegiatanModel->update($id, $data)) {
+            if ($player != null) {;
+                sendNotification(['user' => $player, 'title' => 'Jadwal Kegiatan', 'message' => 'Ada perubahan di Jadwal kamu. Selengkapnya cek di aplikasi!']);
+            }
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Diupdate!');
             return redirect()->to('jadwalKegiatan');
         }
@@ -276,8 +297,12 @@ class JadwalKegiatan extends BaseController
             'skipHariKe' => $skipHariKe,
             'skipSisaHari' => $skipSisaHari
         );
-
+        $userDikirim = [];
         if ($this->jadwalSkipModel->insert($data)) {
+            if ($this->request->getVar('playerId') != null) {
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Penundaan Jadwal ', 'message' => 'Jadwal Kegiatan kamu ditunda mulai tanggal ' . $this->request->getVar('skipTanggalAwal') . ' sampai tanggal ' . $this->request->getVar('skipTanggalAkhir')]);
+            }
             session()->setFlashdata('success', 'Jadwal Kegiatan Berhasil Ditunda!');
             return redirect()->to('jadwalKegiatan');
         }
@@ -285,12 +310,17 @@ class JadwalKegiatan extends BaseController
 
     public function aktif($id)
     {
+        $userDikirim = [];
         $skipTanggalAktifKembali = (int)strtotime($this->request->getPost('skipTanggalAktifKembali'));
         $data = array(
             'skipTanggalAktifKembali' => $skipTanggalAktifKembali * 1000,
         );
 
         if ($this->jadwalSkipModel->update($id, $data)) {
+            if ($this->request->getVar('playerId') != null) {
+                array_push($userDikirim, $this->request->getVar('playerId'));
+                sendNotification(['user' => $userDikirim, 'title' => 'Jadwal Aktif Kembali', 'message' => 'Jadwal Kegiatan kamu aktif kembali pada tanggal ' . $this->request->getVar('skipTanggalAktifKembali')]);
+            }
             session()->setFlashdata('success', 'Tanggal Aktif Kembali Berhasil Disetting!');
             return redirect()->to('jadwalKegiatan');
         }
