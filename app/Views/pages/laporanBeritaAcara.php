@@ -18,6 +18,10 @@
 </head>
 
 <body>
+    <br>
+    <br>
+    <br>
+    <br>
     <h3 align="center"> BERITA ACARA</h3>
     <h3 align="center">KEGIATAN KEPANITERAAN KLINIK</h3>
     <p></p>
@@ -43,7 +47,7 @@
         <tr>
             <td width="150px">Topik/Judul</td>
             <td>:</td>
-            <td>&nbsp; .........................................</td>
+            <td>&nbsp; <?= $dataInit[0]->logbookJudulDeskripsi; ?></td>
         </tr>
         <tr>
             <td>Hari/Tanggal</td>
@@ -99,6 +103,7 @@
         <br>
         <br>
         <tr>
+            <!-- <td><img src="public/signature-image/622c083fb1abd.png" width="150px" height="120px" /></td> -->
             <td>(...........................................)</td>
         </tr>
     </table>
@@ -111,18 +116,40 @@
     <br>
     <table>
         <tr>
+            <!-- <td align="center">&nbsp;&nbsp;</td> -->
+            <td align="center"><strong>Ka. SMF RS / Komkoordik</strong></td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ka. SMF RS / Komkoordik</strong></td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center"><strong>Wakil Dekan I/Ka. Prodi Profesi</strong></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <!-- <td align="center">&nbsp;&nbsp;</td> -->
+            <td>(...........................................)</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Wakil Dekan I/Ka. Prodi Profesi</strong></td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>(...........................................)</td>
         </tr>
     </table>
 </body>

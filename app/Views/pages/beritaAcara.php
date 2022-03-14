@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="section-body">
-            <form action="/beritaAcara/cetak" method="POST">
+            <form action="/beritaAcara/cetak" method="POST" target="_blank">
                 <?php csrf_field() ?>
                 <div class="form-row">
 
