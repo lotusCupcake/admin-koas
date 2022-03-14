@@ -21,9 +21,13 @@
           <div class="form-group col-md-3">
             <select class="form-control" name="rumahSakitIdAbsen">
               <option value="" selected="selected">Pilih Rumah Sakit</option>
-              <?php foreach ($dataRumahSakit as $row) : ?>
-                <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
-              <?php endforeach; ?>
+              <?php if (in_groups('Koordik')) : ?>
+                <option value="<?= getRs()[0]->dopingRumkitId; ?>"><?= getRs()[0]->rumahSakitShortname; ?></option>
+              <?php elseif (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                <?php foreach ($dataRumahSakit as $row) : ?>
+                  <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
+                <?php endforeach; ?>
+              <?php endif ?>
             </select>
           </div>
           <div class="form-group col-md-3">
@@ -151,7 +155,7 @@
               </tbody>
               <thead>
                 <tr>
-                  <th colspan="3" style="text-align:center">Sanki</th>
+                  <th colspan="3" style="text-align:center">Sanksi</th>
                 </tr>
               </thead>
               <tbody>
