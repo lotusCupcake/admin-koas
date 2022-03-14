@@ -154,7 +154,7 @@
 
 <!-- start modal detail mahasiswa di depan-->
 <?php foreach ($jadwalKegiatan as $detail) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="detail<?= $detail->kelompokId; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="detail<?= $detail->jadwalId; ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -538,7 +538,7 @@
 <!-- start modal hapus  -->
 <?php foreach ($jadwalKegiatan as $hapus) : ?>
   <?php foreach (getDetailJadwalKelStase($hapus->jadwalKelompokId, $hapus->staseId) as $hapus_jadwal) : ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="hapusJadwalKegiatan<?php echo $hapus_jadwal->jadwalId; ?>">
+    <div class="modal fade" tabindex="-1" role="dialog" id="hapusJadwalKegiatan<?= $hapus_jadwal->jadwalId; ?>">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -547,14 +547,18 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <p>Apakah kamu ingin menghapus jadwal kegiatan <?php echo $hapus_jadwal->kelompokNama; ?>?</p>
-            <p class="text-warning"><small>This action cannot be undone</small></p>
-          </div>
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="button" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+          <form action="/jadwalKegiatan/<?= $hapus_jadwal->jadwalId; ?>" method="post">
+            <?= csrf_field(); ?>
+            <input type="hidden" name="_method" value="DELETE">
+            <div class="modal-body">
+              <p>Apakah kamu ingin menghapus jadwal kegiatan <?= $hapus_jadwal->kelompokNama; ?>?</p>
+              <p class="text-warning"><small>This action cannot be undone</small></p>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
