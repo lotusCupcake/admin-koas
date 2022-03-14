@@ -36,6 +36,7 @@ class DataKelompok extends BaseController
             'numberPage' => $this->numberPage,
             'mahasiswaProfesi' => $this->getMahasiswa(),
             'validation' => \Config\Services::validation(),
+            'tahunAkademik' => getTahunAkademik(),
             'menu' => $this->fetchMenu()
         ];
         return view('pages/dataKelompok', $data);
@@ -62,17 +63,10 @@ class DataKelompok extends BaseController
                     'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
-            'kelompokTahunAkademik' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Tahun Harus Dipilih!',
-                ]
-            ],
         ])) {
             return redirect()->to('dataKelompok')->withInput();
         }
 
-        // dd($_POST);
         $data = array(
             'kelompokNama' => trim($this->request->getPost('kelompokNama')),
             'kelompokTahunAkademik' => trim($this->request->getPost('kelompokTahunAkademik')),
@@ -86,7 +80,6 @@ class DataKelompok extends BaseController
 
     public function tambahPartisipan()
     {
-        // dd($_POST);
         if (!$this->validate([
             'mahasiswa' => [
                 'rules' => 'required',
@@ -98,8 +91,6 @@ class DataKelompok extends BaseController
             return redirect()->to('dataKelompok')->withInput();
         }
 
-
-        // // dd($_POST);
         $listMhs = $this->request->getPost('mahasiswa');
         foreach ($listMhs as $dt) {
             $jumlah = $this->kelompokMahasiswaModel->dataExist([
@@ -128,17 +119,10 @@ class DataKelompok extends BaseController
                     'required' => 'Nama Kelompok Mahasiswa Harus Diisi!',
                 ]
             ],
-            'kelompokTahunAkademik' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Tahun Harus Dipilih!',
-                ]
-            ],
         ])) {
             return redirect()->to('dataKelompok')->withInput();
         }
 
-        // dd($_POST);
         $data = array(
             'kelompokNama' => trim($this->request->getPost('kelompokNama')),
             'kelompokTahunAkademik' => trim($this->request->getPost('kelompokTahunAkademik')),

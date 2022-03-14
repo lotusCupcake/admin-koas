@@ -39,6 +39,9 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <?= view('layout/templateAlert', ['msg' => ['success', session()->getFlashdata('success')]]); ?>
           <?php endif; ?>
+          <?php if (!empty(session()->getFlashdata('danger'))) : ?>
+            <?= view('layout/templateAlert', ['msg' => ['danger', session()->getFlashdata('danger')]]); ?>
+          <?php endif; ?>
           <?php if ($validation->hasError('dopingNamaLengkap')) : ?>
             <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Failed ! </strong>" . $validation->getError('dopingNamaLengkap')]]); ?>
           <?php endif; ?>
@@ -143,6 +146,7 @@
           </div>
           <div class="form-group">
             <label>Email</label>
+            <p class="text-warning"><small>Pastikan email yang digunakan aktif</small></p>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -245,7 +249,7 @@
                     <i class="fas fa-envelope"></i>
                   </div>
                 </div>
-                <input name="dopingEmail" type="text" class="form-control" value="<?= $edit->dopingEmail; ?>" disabled>
+                <input name="dopingEmail" type="text" class="form-control" value="<?= $edit->dopingEmail; ?>" readonly>
               </div>
             </div>
             <div class="form-group">
