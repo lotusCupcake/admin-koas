@@ -86,14 +86,4 @@ class ManajemenAkun extends BaseController
             }
         }
     }
-
-    public function delete($id)
-    {
-        if ($this->usersModel->delete($id)) {
-            if ($this->authGroupsUsersModel->delete($id)) {
-                session()->setFlashdata('success', 'Data Akun Berhasil Dihapus !');
-                return redirect()->to('manajemenAkun');
-            }
-        }
-    }
 }

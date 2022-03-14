@@ -100,13 +100,8 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Tahun</label>
-            <select name="kelompokTahunAkademik" class="form-control select2">
-              <option value="">--Select--</option>
-              <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
-                <option value="<?= $i ?>"><?= $i ?></option>
-              <?php endfor ?>
-            </select>
+            <label>Tahun Akademik</label>
+            <input name="kelompokTahunAkademik" value="<?= $tahunAkademik ?>" type=" text" class="form-control" readonly>
           </div>
           <div class="form-group">
             <label>Nama Kelompok Mahasiswa</label>
@@ -138,12 +133,8 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label>Tahun</label>
-              <select name="kelompokTahunAkademik" class="form-control select2">
-                <?php for ($i = date("Y"); $i >= 2016; $i--) : ?>
-                  <option value="<?= $i ?>" <?php if ($i == $edit->kelompokTahunAkademik) echo " selected" ?>><?= $i ?></option>
-                <?php endfor ?>
-              </select>
+              <label>Tahun Akademik</label>
+              <input name="kelompokTahunAkademik" value="<?= $tahunAkademik ?>" type=" text" class="form-control" readonly>
             </div>
             <div class="form-group">
               <label>Nama Kelompok Mahasiswa</label>

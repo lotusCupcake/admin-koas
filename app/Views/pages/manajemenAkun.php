@@ -67,7 +67,6 @@
                       <td style="text-align:center"><span class="badge <?= $user->active == 1 ? "badge-success" : "badge-danger"; ?>"><?= $user->active == 1 ? "Aktif" : "Tidak Aktif"; ?></span></td>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editAkun<?= $user->user_id; ?>"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusAkun<?= $user->user_id; ?>"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -133,35 +132,6 @@
   </div>
 <?php endforeach ?>
 <!-- end modal Edit -->
-
-<!-- start modal hapus  -->
-<?php foreach ($akun as $delete) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="hapusAkun<?= $delete->user_id; ?>">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Hapus<strong> Data Akun</strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Apakah kamu benar ingin menghapus data akun <strong><?= $delete->email; ?></strong>?</p>
-          <p class="text-warning"><small>This action cannot be undone</small></p>
-        </div>
-        <form action="/manajemenAkun/<?= $delete->user_id; ?>" method="post">
-          <?= csrf_field(); ?>
-          <input type="hidden" name="_method" value="DELETE">
-          <div class="modal-footer bg-whitesmoke br">
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-<?php endforeach ?>
-<!-- end modal hapus -->
 
 <?= view('layout/templateFooter'); ?>
 

@@ -85,16 +85,16 @@
                               <?php elseif ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) : ?>
                                 <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" <?= (in_groups('Koordik') && $mhs->dopingEmail != user()->email) ? "disabled" : "" ?> data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="add"><i class="fas fa-marker"></i><?= (in_groups('Koordik') && $mhs->dopingEmail != user()->email) ? "Nilai Dikunci" : "Berikan Nilai" ?></button>
                               <?php else : ?>
-                                <button class="btn btn-icon icon-left btn-success" data-toggle="modal">Sudah Dinilai</button>
+                                <button class="btn btn-icon icon-left btn-success" disabled data-toggle="modal">Sudah Dinilai</button>
                               <?php endif; ?>
                             </td>
                             <td style="text-align:center">
                               <?php if ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) < 1) : ?>
-                                <button class="btn btn-icon icon-left btn-warning" data-toggle="modal">Belum Dinilai</button>
+                                <button class="btn btn-icon icon-left btn-warning" disabled data-toggle="modal">Belum Dinilai</button>
                               <?php elseif ($approve == 0 && count(getGradeExists([$mhs->kelompokDetNim, $menu->penilaianId, $mhs->staseId])) > 0) : ?>
                                 <button class="btn btn-icon icon-left btn-danger" <?= in_groups('Koordik') ? "" : "disabled" ?> data-toggle="modal" data-target="#setujuiPenilaian<?= $gradeId; ?>"><?= in_groups('Koordik') ? "Belum Disetujui" : "Menunggu Disetujui" ?></button>
                               <?php else : ?>
-                                <button class="btn btn-icon icon-left btn-success">Disetujui</button>
+                                <button class="btn btn-icon icon-left btn-success" disabled>Disetujui</button>
                               <?php endif ?>
                             </td>
                           </tr>
@@ -296,7 +296,7 @@
                         <tr>
                           <td style="padding: 10px;" colspan="3">
                             <label>Sanksi</label>
-                            <textarea name="sanksi" id="" class="form-control" style="height: 100px;" placeholder="Cth : Mengulang stase 100% / Mengulang…………minggu"><?= $gr[1] ?></textarea>
+                            <textarea name="sanksi" id="" class="form-control" style="height: 100px;" placeholder="Cth : Mengulang stase 100% / Mengulang…………minggu"></textarea>
                           </td>
                         </tr>
                       </tbody>
@@ -321,37 +321,39 @@
 <?php
 foreach ($menuNilai as $menu) : ?>
   <?php foreach (eval('return $mhs' . $menu->penilaianTarget . ';') as $setujui) : ?>
-    <?php if (count(getGradeExists([$setujui->kelompokDetNim, $menu->penilaianId, $setujui->staseId])) < 1) {
-      $approve = 0;
-    } else {
+    <?php if (count(getGradeExists([$setujui->kelompokDetNim, $menu->penilaianId, $setujui->staseId])) < 1) : ?>
+      <?php $approve = 0; ?>
+    <?php else : ?>
+      <?php
       $approve = getGradeExists([$setujui->kelompokDetNim, $menu->penilaianId, $setujui->staseId])[0]->gradeApproveStatus;
       $gradeId = getGradeExists([$setujui->kelompokDetNim, $menu->penilaianId, $setujui->staseId])[0]->gradeId;
-    } ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="setujuiPenilaian<?= $gradeId; ?>">">
-      <div class="modal-dialog" role="document">
-        <form action="/penilaian/<?= $gradeId; ?>/setujui" method="POST">
-          <?= csrf_field() ?>
-          <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
-          <input type="hidden" value="<?= user()->email ?>" name="gradeApproveBy">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Penilaian<strong> <?= $menu->penilaianNama; ?></strong></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      ?>
+      <div class="modal fade" tabindex="-1" role="dialog" id="setujuiPenilaian<?= $gradeId; ?>">">
+        <div class="modal-dialog" role="document">
+          <form action="/penilaian/<?= $gradeId; ?>/setujui" method="POST">
+            <?= csrf_field() ?>
+            <input type="hidden" value="<?= ($setujui->oneSignalPlayerId) == null ? null : $setujui->oneSignalPlayerId; ?>" name="playerId">
+            <input type="hidden" value="<?= user()->email ?>" name="gradeApproveBy">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Penilaian<strong> <?= $menu->penilaianNama; ?></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah kamu yakin untuk menyetujui penilaian <strong><?= $setujui->kelompokDetNama ?>(<?= $setujui->kelompokDetNim ?>)</strong>?</p>
+                <p class="text-warning"><small>Jika penilaian sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Verified</button>
+              </div>
             </div>
-            <div class="modal-body">
-              <p>Apakah kamu yakin untuk menyetujui penilaian <strong><?= $setujui->kelompokDetNama ?>(<?= $setujui->kelompokDetNim ?>)</strong>?</p>
-              <p class="text-warning"><small>Jika penilaian sudah disetujui, maka tidak akan bisa diubah lagi!</small></p>
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Verified</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    <?php endif ?>
   <?php endforeach ?>
 <?php endforeach ?>
 <!-- end modal setujui -->

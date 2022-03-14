@@ -39,7 +39,6 @@ $routes->post('/home/savepopup', 'Home::savePopup');
 // route manajemen user
 $routes->get('/manajemenAkun/', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
 $routes->get('/manajemenAkun/index', 'ManajemenAkun::index', ['filter' => 'role:Superadmin']);
-$routes->delete('/manajemenAkun/(:num)', 'ManajemenAkun::delete/$1');
 $routes->add('/manajemenAkun/(:num)/edit', 'ManajemenAkun::edit/$1');
 
 // route maintenance
@@ -97,6 +96,7 @@ $routes->get('/jadwalKegiatan/stase', 'JadwalKegiatan::stase');
 $routes->get('/jadwalKegiatan/kelompok', 'JadwalKegiatan::kelompok');
 $routes->post('/jadwalKegiatan', 'JadwalKegiatan::add');
 $routes->add('/jadwalKegiatan/(:num)/edit', 'JadwalKegiatan::edit/$1');
+$routes->delete('/dataKelompok/(:num)', 'JadwalKegiatan::delete/$1');
 $routes->delete('/jadwalKegiatan/(:num)', 'JadwalKegiatan::delete/$1');
 $routes->post('/jadwalKegiatan/skip', 'JadwalKegiatan::skip');
 $routes->add('/jadwalKegiatan/(:num)/aktif', 'JadwalKegiatan::aktif/$1');

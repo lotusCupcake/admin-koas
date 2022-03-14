@@ -35,6 +35,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:center" scope="col">No.</th>
+                                    <th scope="col">Tahun Akademik</th>
                                     <th scope="col">Nama/NPM Mahasiswa</th>
                                     <th scope="col">Tanggal Awal</th>
                                     <th scope="col">Tanggal Akhir</th>
@@ -51,6 +52,7 @@
                                     foreach ($jadwalSkip as $row) : ?>
                                         <tr>
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                                            <td><?= $row->jadwalTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                                             <td><?= gmdate('d-m-Y', ($row->skipTanggalAwal / 1000)); ?></td>
                                             <td><?= gmdate('d-m-Y', ($row->skipTanggalAkhir / 1000)); ?></td>

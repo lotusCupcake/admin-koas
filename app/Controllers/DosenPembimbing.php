@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\DosenPembimbingModel;
 use App\Models\DataRumahSakitModel;
 use Myth\Auth\Entities\User;
+use PhpParser\Node\Stmt\Echo_;
 
 class DosenPembimbing extends BaseController
 {
@@ -72,17 +73,19 @@ class DosenPembimbing extends BaseController
 
     public function add()
     {
+        $email = $this->request->getPost('dopingEmail');
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            session()->setFlashdata('danger', 'Email Bukan Merupakan Email Yang Aktif!');
+            dd(print "berhasil");
+            return redirect()->to('dosenPembimbing')->withInput();
+        }
+        dd(print "tidak berhasil");
         if (!$this->validate([
             'dopingNamaLengkap' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Dan Gelar Harus Diisi!',
-                ]
-            ],
-            'dopingEmail' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Email Harus Diisi!',
                 ]
             ],
             'dopingNoHandphone' => [

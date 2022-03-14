@@ -32,13 +32,18 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
-        <li>Wajib engisi semua data rumah sakit (jika belum)</li>
-        <li>Wajib mengisi bobot nilai sesuai stase (jika belum)</li>
-        <li>Wajib mengisi menambahkan kelompok mahasiswa (jika belum)</li>
-        <li>Wajib mengisi jadwal mahasiswa (jika belum)</li>
-        </ul>"]]); ?>
+          <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
+          <li>Mengisi data stase (jika belum)</li>
+          <li>Mengisi data kegiatan (jika belum)</li>
+          <li>Mengisi bobot nilai sesuai stase (jika belum)</li>
+          <li>Mengisi data rumah sakit (jika belum)</li>
+          <li>Mengisi data stase pada rumah sakit (jika belum)</li>
+          <li>Membuat kelompok mahasiswa untuk penjadwalan (jika belum)</li>
+          <li>Membuat jadwal kegiatan (jika belum)</li>
+        </ul>
       </div>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
@@ -58,13 +63,18 @@
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
         <ul>
-        <li>Wajib engisi semua data rumah sakit (jika belum)</li>
-        <li>Wajib mengisi bobot nilai sesuai stase (jika belum)</li>
-        <li>Wajib mengisi menambahkan kelompok mahasiswa (jika belum)</li>
-        <li>Wajib mengisi jadwal mahasiswa (jika belum)</li>
-        </ul>"]]); ?>
+          <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
+          <li>Mengisi data stase (jika belum)</li>
+          <li>Mengisi data kegiatan (jika belum)</li>
+          <li>Mengisi bobot nilai sesuai stase (jika belum)</li>
+          <li>Mengisi data rumah sakit (jika belum)</li>
+          <li>Mengisi data stase pada rumah sakit (jika belum)</li>
+          <li>Membuat kelompok mahasiswa untuk penjadwalan (jika belum)</li>
+          <li>Membuat jadwal kegiatan (jika belum)</li>
+        </ul>
       </div>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
@@ -85,7 +95,18 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p><ul><li>Mengisi tanda tangan pada menu profile</li></ul>"]]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <ul>
+          <li>Membuat tanda tangan digital pada menu profile</li>
+        </ul>
+        <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
+        <ul>
+          <li>Memverifikasi follow up dan kegiatan mahasiswa (jika dosen)</li>
+          <li>Menilai kegiatan mahasiswa (jika dosen)</li>
+          <li>Memverifikasi penilaian yang dibuat oleh dosen</li>
+          <li>Membuat berita acara kegiatan (jika dosen)</li>
+        </ul>
       </div>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
@@ -106,7 +127,17 @@
 
       </div>
       <div class="modal-body">
-        <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, Berikut adalah hal yang wajib kamu lakukan pertama kali menggunakan aplikasi ini.<p></p><ul><li>Mengisi tanda tangan pada menu profile</li></ul>"]]); ?>
+        <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <ul>
+          <li>Membuat tanda tangan digital pada menu profile</li>
+        </ul>
+        <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
+        <ul>
+          <li>Memverifikasi follow up dan kegiatan mahasiswa</li>
+          <li>Menilai kegiatan mahasiswa</li>
+          <li>Membuat berita acara kegiatan</li>
+        </ul>
       </div>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
@@ -126,9 +157,8 @@
         <h5 class="modal-title">Selamat Datang di<strong> Aplikasi Dr. Muda UMSU</strong></h5>
 
       </div>
-      <div class="modal-body">
-        <?= view('layout/templateAlert', ['msg' => ['danger', "<strong>Pemberitahuan ! </strong> Role akun Kamu adalah <strong>" . getUserId(user()->id)->name . "</strong>, silahkan hubungi administrator untuk mempromosikan akun kamu."]]); ?>
-      </div>
+      <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
+      <p>Silahkan hubungi administrator untuk mempromosikan akun Kamu</p>
       <form action="/home/savepopup" method="post">
         <input type="hidden" name="email" value="<?= user()->email ?>">
         <div class="modal-footer bg-whitesmoke br">

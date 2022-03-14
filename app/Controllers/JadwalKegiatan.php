@@ -163,7 +163,6 @@ class JadwalKegiatan extends BaseController
         }
 
         $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompokId'))->getResult();
-        dd($penerima);
         $player = [];
         foreach ($penerima as $rowPenerima) {
             array_push($player, $rowPenerima->oneSignalPlayerId);
@@ -324,5 +323,13 @@ class JadwalKegiatan extends BaseController
             session()->setFlashdata('success', 'Tanggal Aktif Kembali Berhasil Disetting!');
             return redirect()->to('jadwalKegiatan');
         }
+    }
+
+    public function delete($id)
+    {
+        if ($this->jadwalKegiatanModel->delete($id)) {
+            session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Dihapus!');
+        };
+        return redirect()->to('jadwalKegiatan');
     }
 }
