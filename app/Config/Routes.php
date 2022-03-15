@@ -146,8 +146,8 @@ $routes->delete('/announce/(:num)', 'Announce::announceDelete/$1');
 $routes->add('/announce/(:num)/edit', 'Announce::announceEdit/$1');
 
 //route rekap absen
-$routes->get('/rekapAbsen/', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->get('/rekapAbsen/index', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapAbsen/', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
+$routes->get('/rekapAbsen/index', 'RekapAbsen::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->get('/rekapAbsen/rekapAbsenStase', 'RekapAbsen::rekapAbsenStase');
 $routes->get('/rekapAbsen/rekapAbsenKelompok', 'RekapAbsen::rekapAbsenKelompok');
 $routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
@@ -168,8 +168,8 @@ $routes->add('/notif/(:num)/edit', 'Notif::edit/$1');
 $routes->add('/notif/(:num)/send', 'Notif::send/$1');
 
 //route rekap nilai
-$routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
-$routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi']);
+$routes->get('/rekapNilai/', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
+$routes->get('/rekapNilai/index', 'RekapNilai::index', ['filter' => 'role:Superadmin,Admin Prodi, Koordik']);
 $routes->get('/rekapNilai/rekapNilaiStase', 'RekapNilai::rekapNilaiStase');
 $routes->post('/rekapNilai/proses', 'RekapNilai::proses');
 $routes->post('/rekapNilai/(:num)/cetak', 'RekapNilai::exportRekapNilai/$1');
