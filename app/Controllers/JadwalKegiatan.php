@@ -74,6 +74,7 @@ class JadwalKegiatan extends BaseController
                 'menu' => $this->fetchMenu(),
             ];
         }
+        // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);
     }

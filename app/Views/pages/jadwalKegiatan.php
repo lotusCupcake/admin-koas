@@ -76,7 +76,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTahunAkademik; ?></td>
                       <td><a href="#!">
-                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId; ?>" class="text-primary"><?= gmdate('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= gmdate('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
+                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId . $row_jadwal->staseId; ?>" class="text-primary"><?= gmdate('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= gmdate('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
                           </span></a>
                       </td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
@@ -99,7 +99,7 @@
 
 <!-- start modal detail rumah sakit -->
 <?php foreach ($jadwalKegiatan as $detail) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="detailRumahSakit<?= $detail->kelompokId; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailRumahSakit<?= $detail->kelompokId . $detail->staseId; ?>">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
