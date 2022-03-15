@@ -208,8 +208,17 @@ $routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin
 $routes->post('/refleksi/proses', 'Refleksi::proses');
 $routes->get('/refleksi/refleksiKelompok', 'Refleksi::refleksiKelompok');
 
-//route tutor
+//route panduan
 $routes->get('/tutor/(:any)', 'Tutor::index');
+
+// route panduan admin
+$routes->get('/tutorAdmin/(:any)', 'TutorAdmin::index');
+
+// route panduan koordik
+$routes->get('/tutorKoordik/(:any)', 'TutorKoordik::index');
+
+// route panduan dosen
+$routes->get('/tutorAdmin/(:any)', 'TutorDosen::index');
 
 
 /*
