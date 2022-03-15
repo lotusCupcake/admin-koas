@@ -10,9 +10,6 @@ $('.timepicker').timepicker({
 $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
 
     $.each($(".select2.penerima"), function() {
-        var selectedValues = new Array();
-        selectedValues[0] = "1908320001";
-        selectedValues[1] = "1908320079";
         // console.log(JSON.parse($(this).data('penerima')));
         // alert(JSON.parse($(this).attr('penerima')).map(String));
         $(this).select2({ multiple: true, });
@@ -36,7 +33,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
         $("#loading").show(); // Tampilkan loadingnya
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "jadwalKegiatan/stase", // Isi dengan url/path file php yang dituju
+            url: "/jadwalKegiatan/stase", // Isi dengan url/path file php yang dituju
             data: {
                 rumahSakitId: $('[name="rumahSakitId"]').val()
             }, // data yang akan dikirim ke file yang dituju
@@ -66,7 +63,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
         $("#loading").show(); // Tampilkan loadingnya
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "jadwalKegiatan/kelompok", // Isi dengan url/path file php yang dituju
+            url: "/jadwalKegiatan/kelompok", // Isi dengan url/path file php yang dituju
             data: {
                 staseId: $('[name="staseId"]').val()
             }, // data yang akan dikirim ke file yang dituju
@@ -96,7 +93,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
         $("#loading").show(); // Tampilkan loadingnya
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "jadwalKegiatan/stase", // Isi dengan url/path file php yang dituju
+            url: "/jadwalKegiatan/stase", // Isi dengan url/path file php yang dituju
             data: {
                 rumahSakitId: $('[name="rumahSakit"]').val()
             }, // data yang akan dikirim ke file yang dituju
@@ -126,7 +123,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
 
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "jadwalKegiatan/kelompok", // Isi dengan url/path file php yang dituju
+            url: "/jadwalKegiatan/kelompok", // Isi dengan url/path file php yang dituju
             data: {
                 staseId: $('[name="stase"]').val()
 
@@ -178,7 +175,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
         });
     });
 
-    // Proses Untuk Menampilkan Data Kelompok di Menu Add
+    // Proses Untuk Menampilkan Data Kelompok di Menu Rekap Absen
     $("#loading").hide();
     $('[name="staseIdAbsen"]').change(function() { // Ketika user mengganti atau memilih data Rumah Sakit
         $("#kelompokIdAbsen").hide(); // Sembunyikan dulu combobox Stase nya
@@ -212,10 +209,10 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
     $('[name="staseBeritaAcara"]').change(function() { // Ketika user mengganti atau memilih data Rumah Sakit
         $("#kegiatanId").hide(); // Sembunyikan dulu combobox Stase nya
         $("#loading").show(); // Tampilkan loadingnya
-
+        console.log('stase dipilih');
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "beritaAcara/kegiatan", // Isi dengan url/path file php yang dituju
+            url: "/beritaAcara/kegiatan", // Isi dengan url/path file php yang dituju
             data: {
                 staseBeritaAcara: $('[name="staseBeritaAcara"]').val()
             }, // data yang akan dikirim ke file yang dituju
@@ -234,6 +231,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
             }
         });
+
     });
 
     // Proses Untuk Menampilkan Data Kelompok di Menu Berita Acara
@@ -244,7 +242,7 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
 
         $.ajax({
             type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "beritaAcara/kelompok", // Isi dengan url/path file php yang dituju
+            url: "/beritaAcara/kelompok", // Isi dengan url/path file php yang dituju
             data: {
                 staseBeritaAcara: $('[name="staseBeritaAcara"]').val(),
                 kegiatanId: $('[name="kegiatanId"]').val()
