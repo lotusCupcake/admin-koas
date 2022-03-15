@@ -266,3 +266,10 @@ function getPenerimaNotif($where)
     $result = $model->select('GROUP_CONCAT(kelompokDetNama SEPARATOR ", ") as namaMahasiswa')->whereIn('kelompokDetNim', array_map('intval', json_decode($where)))->get()->getResult();
     return $result;
 }
+
+function getRs()
+{
+    $usersModel = new App\Models\UsersModel;
+    $rs = $usersModel->getProfile(['users.id' => user()->id])->getResult();
+    return $rs;
+}
