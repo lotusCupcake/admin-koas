@@ -49,12 +49,18 @@ class RekapNilai extends BaseController
     {
         $rumahSakitId = $this->request->getPost('rumahSakitId');
         $staseRumkit = $this->jadwalKegiatanModel->rekapNilaiStase($rumahSakitId);
-        $lists = "<option value=''>Pilih Stase</option>";
-        foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
+        $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitId])->getResult()[0]->rumahSakitShortname;
+        if ($staseRumkit == null) {
+            session()->setFlashdata('danger', 'Nilai Kelompok Di Rumah Sakit <strong>' . $rumahSakit . '</strong> Belum Ada ,Coba Lagi Nanti!');
+            return view('pages/rekapNilai');
+        } else {
+            $lists = "<option value=''>Pilih Stase</option>";
+            foreach ($staseRumkit->getResult() as $data) {
+                $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
+            }
+            $callback = array('list_stase_rumkit' => $lists);
+            echo json_encode($callback);
         }
-        $callback = array('list_stase_rumkit' => $lists);
-        echo json_encode($callback);
     }
 
     public function exportRekapNilai($stase)

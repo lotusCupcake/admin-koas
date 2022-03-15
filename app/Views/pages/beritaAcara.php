@@ -15,12 +15,12 @@
             </div>
         </div>
         <div class="section-body">
-            <form action="/beritaAcara/cetak" method="POST">
+            <form action="/beritaAcara/cetak" method="POST" target="_blank">
                 <?php csrf_field() ?>
                 <div class="form-row">
 
                     <div class="form-group col-md-3">
-                        <select class="form-control" name="staseBeritaAcara">
+                        <select class="form-control select2" name="staseBeritaAcara">
                             <option value="" selected="selected">Pilih Stase</option>
                             <?php foreach ($stase as $row) : ?>
                                 <option value="<?= $row->logbookRumkitDetId; ?>"><?= $row->staseNama; ?></option>
@@ -29,13 +29,13 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <select class="form-control" name="kegiatanId">
+                        <select class="form-control select2" name="kegiatanId">
                             <option value="" selected="selected">Pilih Kegiatan</option>
                         </select>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <select class="form-control" name="kelompokBeritaAcara">
+                        <select class="form-control select2" name="kelompokBeritaAcara">
                             <option value="">Pilih Kelompok</option>
                         </select>
                     </div>
