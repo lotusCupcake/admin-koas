@@ -197,15 +197,6 @@
         "pages": "/kegiatanMahasiswa"
     },
     {
-        "id": "25",
-        "nama": "Penilaian",
-        "parent": "19",
-        "level": "child",
-        "status": false,
-        "icon": "fas fa-marker",
-        "pages": "/penilaian"
-    },
-    {
         "id": "27",
         "nama": "Evaluasi",
         "parent": "19",
@@ -258,15 +249,6 @@
         "status": true,
         "icon": "fas fa-file-download",
         "pages": "/rekapNilai"
-    },
-    {
-        "id": "30",
-        "nama": "Berita Acara Kegiatan",
-        "parent": "28",
-        "level": "child",
-        "status": true,
-        "icon": "fas fa-envelope",
-        "pages": "/beritaAcara"
     },
     {
         "id": "23",

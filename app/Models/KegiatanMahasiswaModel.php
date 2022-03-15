@@ -85,4 +85,14 @@ class KegiatanMahasiswaModel extends Model
         $builder->where($where);
         return $builder;
     }
+
+    public function jumlahKegiatanNilai($where)
+    {
+        $builder = $this->table('logbook');
+        $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
+        $builder->join('penilaian', 'penilaian.penilaianId = kegiatan.kegiatanPenilaianId', 'LEFT');
+        $builder->join('penilaian_grade', 'penilaian_grade.gradePenilaianId = penilaian.penilaianId', 'LEFT');
+        $builder->where($where);
+        return $builder;
+    }
 }

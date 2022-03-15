@@ -33,10 +33,19 @@
                 <div class="time text-primary"><?= jumlahKegiatan(); ?> Kegiatan</div>
               </div>
             </a>
+            <a href="/penilaian" class="dropdown-item">
+              <div class="dropdown-item-icon bg-primary text-white">
+                <i class="fas fa-book-medical"></i>
+              </div>
+              <div class="dropdown-item-desc">
+                Jumlah Kegiatan yang belum kamu Nilai
+                <div class="time text-primary"><?= count(jumlahKegiatanNilai()); ?> Kegiatan</div>
+              </div>
+            </a>
             <?php if (in_groups('Koordik')) :
             ?>
               <a href="/penilaian" class="dropdown-item">
-                <div class="dropdown-item-icon bg-primary text-white">
+                <div class="dropdown-item-icon bg-info text-white">
                   <i class="fas fa-marker"></i>
                 </div>
                 <div class="dropdown-item-desc">
@@ -47,7 +56,7 @@
             <?php endif;
             ?>
             <a href="/penilaian" class="dropdown-item">
-              <div class="dropdown-item-icon bg-<?= (in_groups('Koordik')) ? "info" : "primary" ?> text-white">
+              <div class="dropdown-item-icon bg-<?= (in_groups('Koordik')) ? "primary" : "info" ?> text-white">
                 <i class="fas fa-marker"></i>
               </div>
               <div class="dropdown-item-desc">
