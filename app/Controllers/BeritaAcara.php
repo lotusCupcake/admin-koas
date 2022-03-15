@@ -42,8 +42,9 @@ class BeritaAcara extends BaseController
         foreach ($kegiatanBerita->getResult() as $data) {
             $lists .= "<option value='" . $data->kegiatanId . "'>" . $data->kegiatanNama . "</option>"; // Tambahkan tag option ke variabel $lists
         }
-        $callback = array('list_kegiatan_beritaAcara' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        // $callback = array('list_kegiatan_beritaAcara' => $lists, 'binik' => ['binik kedua', 'binik ketiga']); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
+        // echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        echo $lists;
     }
 
     public function kelompok()

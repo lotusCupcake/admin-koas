@@ -251,6 +251,24 @@
         "pages": "/rekapNilai"
     },
     {
+        "id": "37",
+        "nama": "User Manual",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "38",
+        "nama": "Panduan Penggunaan",
+        "parent": "37",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-chalkboard-teacher",
+        "pages": "/tutor"
+    },
+    {
         "id": "23",
         "nama": "User",
         "parent": "0",

@@ -87,7 +87,7 @@ class Refleksi extends BaseController
             'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
-            'refleksi' => $this->refleksiModel->findAll(),
+            // 'refleksi' => $this->refleksiModel->findAll(),
             'dataStase' => $this->jadwalKegiatanModel->getStase()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),

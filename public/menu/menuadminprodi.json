@@ -264,7 +264,7 @@
         "nama": "Panduan Penggunaan",
         "parent": "35",
         "level": "child",
-        "status": false,
+        "status": true,
         "icon": "fas fa-chalkboard-teacher",
         "pages": "/tutor"
     }

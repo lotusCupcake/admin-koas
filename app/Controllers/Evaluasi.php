@@ -35,7 +35,6 @@ class Evaluasi extends BaseController
             'title' => "Evaluasi",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Evaluasi'],
-            'evaluasi' => $this->evaluasiModel->findAll(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
@@ -61,10 +60,31 @@ class Evaluasi extends BaseController
     {
         $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
-        $dopingEvaluasi = $this->evaluasiModel->evaluasiDoping($rumahSakitEvaluasi, $staseEvaluasi);
+
+        if (in_groups("Dosen")) {
+            $where = [
+                'dosen_pembimbing.dopingEmail' => user()->email,
+                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitEvaluasi,
+                'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ];
+        } else {
+            $where = [
+                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitEvaluasi,
+                'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
+                'rumkit_detail.rumkitDetStatus' => 1
+            ];
+        }
+        $dopingEvaluasi = $this->evaluasiModel->evaluasiDoping($where);
         $lists = "<option value=''>Pilih Dosen Pembimbing</option>";
         foreach ($dopingEvaluasi->getResult() as $data) {
-            $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
+            if (in_groups("Dosen")) {
+                $lists .= "<option value='" . user()->email . "'>" . getUser(user()->id)->dopingNamaLengkap . "</option>";
+            } else {
+                if ($dopingEvaluasi->getResult()[0]->dopingNamaLengkap != null) {
+                    $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
+                }
+            }
         }
         $callback = array('list_doping_evaluasi' => $lists);
         echo json_encode($callback);
@@ -105,7 +125,6 @@ class Evaluasi extends BaseController
             'title' => "Evaluasi",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Evaluasi'],
-            'evaluasi' => $this->evaluasiModel->findAll(),
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),

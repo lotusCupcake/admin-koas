@@ -89,6 +89,15 @@
         "pages": "/penilaian"
     },
     {
+        "id": "29",
+        "nama": "Evaluasi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-comment-dots",
+        "pages": "/evaluasi"
+    },
+    {
         "id": "25",
         "nama": "Administrasi",
         "parent": "0",
@@ -120,7 +129,7 @@
         "nama": "Panduan Penggunaan",
         "parent": "27",
         "level": "child",
-        "status": false,
+        "status": true,
         "icon": "fas fa-chalkboard-teacher",
         "pages": "/tutor"
     }
