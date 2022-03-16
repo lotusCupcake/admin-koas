@@ -14,16 +14,14 @@ saveButton = document.getElementById("save2"),
     }
 signaturePad = new SignaturePad(canvas);
 
-clearButton.addEventListener("click", function(event) {
+clearButton.addEventListener("click", function (event) {
     signaturePad.clear();
 });
-saveButton.addEventListener("click", function(event) {
+saveButton.addEventListener("click", function (event) {
 
     if (signaturePad.isEmpty()) {
-        $('#myModal').modal('show');
+        $('#signature').modal('show');
     } else {
-
-
         var id = $('[name="sessionId"]').val();
         $.ajax({
             type: "POST",
@@ -33,8 +31,9 @@ saveButton.addEventListener("click", function(event) {
                 'rowno': $('#rowno').val(),
                 'id': id
             },
-            success: function(datas1) {
+            success: function (datas1) {
                 console.log(datas1);
+                $('#signature').modal('hide');
                 signaturePad.clear();
                 $('.previewsign').html(datas1);
             }
