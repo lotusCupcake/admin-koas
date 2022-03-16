@@ -77,10 +77,10 @@ class DosenPembimbing extends BaseController
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             session()->setFlashdata('danger', 'Email Bukan Merupakan Email Yang Aktif!');
-            dd(print "berhasil");
+            // dd(print "berhasil");
             return redirect()->to('dosenPembimbing')->withInput();
         }
-        dd(print "tidak berhasil");
+        // dd(print "tidak berhasil");
         if (!$this->validate([
             'dopingNamaLengkap' => [
                 'rules' => 'required',
