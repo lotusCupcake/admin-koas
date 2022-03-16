@@ -188,40 +188,6 @@ $(document).ready(function () { // Ketika halaman sudah siap (sudah selesai di l
         });
     });
 
-    // Proses Untuk Menampilkan Data Kegiatan di Menu Berita Acara
-    $('[name="staseBeritaAcara"]').change(function () { // Ketika user mengganti atau memilih data Rumah Sakit
-        // Tampilkan loadingnya
-        $.ajax({
-            method: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "/beritaAcara/kegiatan", // Isi dengan url/path file php yang dituju
-            data: {
-                staseBeritaAcara: $('[name="staseBeritaAcara"]').val()
-            },
-            success: function (response) { // Ketika proses pengiriman berhasil
-                // console.log(response.list_kelompok);
-                // Sembunyikan loadingnya
-                $('[name="kegiatanId"]').html(response).show();
-            }
-        });
-
-    });
-
-    // Proses Untuk Menampilkan Data Kelompok di Menu Berita Acara
-    $('[name="kegiatanId"]').change(function () {
-        $.ajax({
-            method: "POST",
-            url: "/beritaAcara/kelompok",
-            data: {
-                staseBeritaAcara: $('[name="staseBeritaAcara"]').val(),
-                kegiatanId: $('[name="kegiatanId"]').val(),
-            },
-            success: function (response) {
-
-                $('[name="kelompokBeritaAcara"]').html(response.list_kelompok_beritaAcara).show();
-            },
-        });
-    });
-
     //menampilkan stase di evaluasi
 
     $('[name="rumahSakitEvaluasi"]').change(function () {
