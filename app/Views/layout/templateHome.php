@@ -147,19 +147,7 @@
   <?php if ($uri->getSegment(1) == 'penilaian') : ?>
     <script src="<?= base_url() ?>/js/script-penilaian.js"></script>
   <?php endif ?>
-
-  <?php if ($uri->getSegment(1) != 'beritaAcara') : ?>
-    <script src="<?= base_url() ?>/js/script.js"></script>
-  <?php endif ?>
-
-  <?php if ($uri->getSegment(1) == 'beritaAcara') : ?>
-    <script src="<?= base_url() ?>/js/script_berita_acara.js"></script>
-  <?php endif ?>
-
-
-
-
-
+  <script src="<?= base_url() ?>/js/script.js"></script>
 </body>
 
 </html>

@@ -109,14 +109,18 @@
                     Setelah proses koas berjalan, selanjutnya Kamu harus:
                   </p>
                   <ul>
-                    <li>Memverifikasi follow up dan kegiatan mahasiswa (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Menilai kegiatan mahasiswa (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Memverifikasi penilaian yang dibuat oleh dosen. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Memverifikasi follow up dan kegiatan mahasiswa (jika dosen). <a href="https://youtu.be/bzNf3nfWthc" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melakukan penilaian kegiatan mahasiswa (jika dosen). <a href="https://youtu.be/UzC8XbIniq0" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Memverifikasi penilaian yang dibuat oleh dosen. <a href="https://youtu.be/WGoE1RG5w-k" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                     <li>Membuat berita acara kegiatan (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Merekap Absensi Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melihat Evaluasi Mahasiswa Terhadap Dosen . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melihat Refleksi Diri Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Merekap Nilai Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
                   </ul>
                 </div>
                 <div class="modal-footer">
-                  <a href="tutor" type="button" class="btn btn-icon icon-left btn-primary"><i class="fas fa-chalkboard-teacher"></i>Tutorial Video Lengkap</a>
+                  <a href="/tutor" type="button" class="btn btn-icon icon-left btn-primary"><i class="fas fa-chalkboard-teacher"></i>Tutorial Video Lengkap</a>
                 </div>
               </div>
             <?php else : ?>
@@ -133,8 +137,8 @@
                     Setelah proses koas berjalan, selanjutnya Kamu harus:
                   </p>
                   <ul>
-                    <li>Memverifikasi follow up dan kegiatan mahasiswa. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Menilai kegiatan mahasiswa. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Memverifikasi follow up dan kegiatan mahasiswa. <a href="https://youtu.be/bzNf3nfWthc" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melakukan penilaian kegiatan mahasiswa. <a href="https://youtu.be/UzC8XbIniq0" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                     <li>Membuat berita acara kegiatan. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
                   </ul>
                 </div>
