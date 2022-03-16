@@ -183,7 +183,7 @@ class JadwalKegiatan extends BaseController
         );
 
         if ($this->jadwalKegiatanModel->insert($data)) {
-            if ($player != []) {;
+            if ($player != null) {;
                 sendNotification(['user' => $player, 'title' => 'Jadwal Kegiatan', 'message' => 'Jadwal Kegiatan telah ditugaskan kepada kamu, terhitung mulai tanggal ' . $this->request->getVar('tanggalAwal') . ' selama ' . $this->request->getVar('jumlahWeek') . ' minggu. Selengkapnya cek di aplikasi!']);
             }
             session()->setFlashdata('success', 'Data Jadwal Kegiatan Berhasil Ditambah !');

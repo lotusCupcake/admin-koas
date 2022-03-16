@@ -64,7 +64,7 @@ class KelompokMahasiswaModel extends Model
     {
         $builder = $this->table('kelompok_detail');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
-        $builder->join('one_signal', 'one_signal.oneSignalNpm = kelompok_detail.kelompokDetNim', 'LEFT');
+        $builder->join('one_signal', 'one_signal.oneSignalNpm = kelompok_detail.kelompokDetNim', 'INNER');
         $builder->where(
             [
                 'kelompok.kelompokId' => $where,
