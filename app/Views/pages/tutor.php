@@ -21,12 +21,12 @@
                         <div class="col-lg-12">
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
-                                    <i class="fas fa-bullhorn"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="card-body">
                                     <h4>Panduan Admin</h4>
                                     <p>Berupa kumpulan video tutorial untuk admin yang berkaitan dengan panduan penggunaan aplikasi .</p>
-                                    <a href="/tutorAdmin" class="card-cta">Go Watching <i class="fas fa-chevron-right"></i></a>
+                                    <a href="/maintenance" class="card-cta">Go Watching <i class="fas fa-chevron-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="col-lg-12">
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
-                                    <i class="fas fa-bullhorn"></i>
+                                    <i class="fas fa-user-tie"></i>
                                 </div>
                                 <div class="card-body">
                                     <h4>Panduan Koordik</h4>
@@ -49,7 +49,7 @@
                         <div class="col-lg-12">
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
-                                    <i class="fas fa-bullhorn"></i>
+                                    <i class="fas fa-user-md"></i>
                                 </div>
                                 <div class="card-body">
                                     <h4>Panduan Dosen</h4>

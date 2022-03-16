@@ -201,7 +201,7 @@
         "nama": "Evaluasi",
         "parent": "19",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-comment-dots",
         "pages": "/evaluasi"
     },
@@ -210,7 +210,7 @@
         "nama": "Refleksi Diri",
         "parent": "19",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-brain",
         "pages": "/refleksi"
     },
@@ -237,7 +237,7 @@
         "nama": "Rekap Absensi",
         "parent": "26",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-reply",
         "pages": "/rekapAbsen"
     },
@@ -246,7 +246,7 @@
         "nama": "Rekap Nilai",
         "parent": "26",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-file-download",
         "pages": "/rekapNilai"
     },

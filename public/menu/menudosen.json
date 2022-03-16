@@ -93,7 +93,7 @@
         "nama": "Evaluasi",
         "parent": "19",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-comment-dots",
         "pages": "/evaluasi"
     },
@@ -111,9 +111,9 @@
         "nama": "Berita Acara Kegiatan",
         "parent": "25",
         "level": "child",
-        "status": true,
+        "status": false,
         "icon": "fas fa-envelope",
-        "pages": "/beritaAcara"
+        "pages": "/lapBeritaAcara"
     },
     {
         "id": "27",
