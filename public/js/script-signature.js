@@ -1,40 +1,43 @@
 var wrapper = document.getElementById("signature-pad"),
-      canvas = wrapper.querySelector("canvas"),
-      signaturePad;
+    canvas = wrapper.querySelector("canvas"),
+    signaturePad;
 
-    clearButton = document.getElementById("clear");
-    saveButton = document.getElementById("save2"),
+clearButton = document.getElementById("clear");
+saveButton = document.getElementById("save2"),
 
-      function resizeCanvas() {
+    function resizeCanvas() {
 
         var ratio = window.devicePixelRatio || 1;
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         canvas.getContext("2d").scale(ratio, ratio);
-      }
-    signaturePad = new SignaturePad(canvas);
+    }
+signaturePad = new SignaturePad(canvas);
 
-    clearButton.addEventListener("click", function(event) {
-      signaturePad.clear();
-    });
-    saveButton.addEventListener("click", function(event) {
+clearButton.addEventListener("click", function(event) {
+    signaturePad.clear();
+});
+saveButton.addEventListener("click", function(event) {
 
-      if (signaturePad.isEmpty()) {
+    if (signaturePad.isEmpty()) {
         $('#myModal').modal('show');
-      } else {
+    } else {
 
+
+        var id = $('[name="sessionId"]').val();
         $.ajax({
-          type: "POST",
-          url: "/profile/insert",
-          data: {
-            'image': signaturePad.toDataURL(),
-            'rowno': $('#rowno').val()
-          },
-          success: function(datas1) {
-            console.log(datas1);
-            signaturePad.clear();
-            $('.previewsign').html(datas1);
-          }
+            type: "POST",
+            url: "/profile/insert",
+            data: {
+                'image': signaturePad.toDataURL(),
+                'rowno': $('#rowno').val(),
+                'id': id
+            },
+            success: function(datas1) {
+                console.log(datas1);
+                signaturePad.clear();
+                $('.previewsign').html(datas1);
+            }
         });
-      }
-    });
+    }
+});
