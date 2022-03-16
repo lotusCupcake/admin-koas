@@ -154,10 +154,10 @@ $routes->post('/rekapAbsen/proses', 'RekapAbsen::proses');
 $routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
 
 // Berita Acara
-$routes->get('/beritaAcara/(:any)', 'BeritaAcara::index');
-$routes->get('/beritaAcara/kegiatan', 'BeritaAcara::kegiatan');
-$routes->get('/beritaAcara/kelompok', 'BeritaAcara::kelompok');
-$routes->get('/beritaAcara/cetak', 'BeritaAcara::cetak');
+$routes->get('/lapBeritaAcara/', 'LapBeritaAcara::index');
+$routes->post('/lapBeritaAcara/kegiatan', 'LapBeritaAcara::kegiatan');
+$routes->post('/lapBeritaAcara/kelompok', 'LapBeritaAcara::kelompok');
+$routes->post('/lapBeritaAcara/cetak', 'LapBeritaAcara::cetak');
 
 //route notifikasi
 $routes->get('/notif/', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);

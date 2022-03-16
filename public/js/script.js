@@ -204,54 +204,6 @@ $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di lo
         });
     });
 
-    // Proses Untuk Menampilkan Data Kegiatan di Menu Berita Acara
-    $('[name="staseBeritaAcara"]').change(function() { // Ketika user mengganti atau memilih data Rumah Sakit
-        // Tampilkan loadingnya
-        $.ajax({
-            method: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "/beritaAcara/kegiatan", // Isi dengan url/path file php yang dituju
-            data: {
-                staseBeritaAcara: $('[name="staseBeritaAcara"]').val()
-            },
-            success: function(response) { // Ketika proses pengiriman berhasil
-                // console.log(response.list_kelompok);
-                $("#loading").hide(); // Sembunyikan loadingnya
-                $('[name="kegiatanId"]').html(response).show();
-            }
-        });
-
-    });
-
-    // Proses Untuk Menampilkan Data Kelompok di Menu Berita Acara
-    $("#loading").hide();
-    $('[name="kegiatanId"]').change(function() { // Ketika user mengganti atau memilih data Rumah Sakit
-        $("#kelompokBeritaAcara").hide(); // Sembunyikan dulu combobox Stase nya
-        $("#loading").show(); // Tampilkan loadingnya
-
-        $.ajax({
-            type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "/beritaAcara/kelompok", // Isi dengan url/path file php yang dituju
-            data: {
-                staseBeritaAcara: $('[name="staseBeritaAcara"]').val(),
-                kegiatanId: $('[name="kegiatanId"]').val()
-            }, // data yang akan dikirim ke file yang dituju
-            dataType: "json",
-            beforeSend: function(e) {
-                if (e && e.overrideMimeType) {
-                    e.overrideMimeType("application/json;charset=UTF-8");
-                }
-            },
-            success: function(response) { // Ketika proses pengiriman berhasil
-                // console.log(response.list_kelompok);
-                $("#loading").hide(); // Sembunyikan loadingnya
-                $('[name="kelompokBeritaAcara"]').html(response.list_kelompok_beritaAcara).show();
-            },
-            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
-                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-            }
-        });
-    });
-
     //menampilkan stase di evaluasi
     $("#loading").hide();
     $('[name="rumahSakitEvaluasi"]').change(function() {

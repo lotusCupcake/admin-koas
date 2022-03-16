@@ -64,6 +64,7 @@
 
 
 <body onload="announcement('<?= getUserId(user()->id)->name ?>','<?= getPopup(['email' => user()->email])[0]->email ?>')">
+
   <div id="app">
     <div class="main-wrapper">
 
@@ -71,9 +72,10 @@
 
     </div>
   </div>
-
+  <input type="hidden" name="sessionEmail" value="<?= user()->email ?>">
   <!-- General JS Scripts -->
   <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/moment/min/moment.min.js"></script>
@@ -148,13 +150,12 @@
     <script src="<?= base_url() ?>/js/script-penilaian.js"></script>
   <?php endif ?>
 
-  <?php if ($uri->getSegment(1) != 'beritaAcara') : ?>
-    <script src="<?= base_url() ?>/js/script.js"></script>
-  <?php endif ?>
-
-  <?php if ($uri->getSegment(1) == 'beritaAcara') : ?>
+  <?php if ($uri->getSegment(1) == 'lapBeritaAcara') : ?>
     <script src="<?= base_url() ?>/js/script_berita_acara.js"></script>
   <?php endif ?>
+
+  <script src="<?= base_url() ?>/js/script.js"></script>
+
 
 
 
