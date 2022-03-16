@@ -410,7 +410,7 @@
 
           <div class="form-group">
             <label>Rumah Sakit</label>
-            <select class="form-control" name="rumahSakitId">
+            <select class="form-control select2" name="rumahSakitId">
               <option value="" selected="selected">Pilih Rumah Sakit</option>
               <?php foreach ($dataRumahSakit as $row) : ?>
                 <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitNama; ?></option>

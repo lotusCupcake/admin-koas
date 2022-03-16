@@ -78,6 +78,7 @@ class JadwalKegiatanModel extends Model
         $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
+        $builder->where('kelompok.kelompokDeletedAt', NULL);
         $builder->groupBy('kelompok.kelompokId');
         $kelompok = $builder->get();
         return $kelompok;
