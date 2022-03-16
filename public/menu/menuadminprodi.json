@@ -197,15 +197,6 @@
         "pages": "/kegiatanMahasiswa"
     },
     {
-        "id": "23",
-        "nama": "Penilaian",
-        "parent": "19",
-        "level": "child",
-        "status": false,
-        "icon": "fas fa-marker",
-        "pages": "/penilaian"
-    },
-    {
         "id": "25",
         "nama": "Evaluasi",
         "parent": "19",
@@ -260,12 +251,21 @@
         "pages": "/rekapNilai"
     },
     {
-        "id": "28",
-        "nama": "Berita Acara Kegiatan",
-        "parent": "26",
+        "id": "35",
+        "nama": "User Manual",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "36",
+        "nama": "Panduan Penggunaan",
+        "parent": "35",
         "level": "child",
         "status": true,
-        "icon": "fas fa-envelope",
-        "pages": "/beritaAcara"
+        "icon": "fas fa-chalkboard-teacher",
+        "pages": "/tutor"
     }
 ]

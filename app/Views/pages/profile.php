@@ -45,7 +45,7 @@
     <?php else : ?>
       <div class="section-body">
         <div class="row mt-4">
-          <div class="col-12 col-md-12">
+          <div class="col-12 col-md-6">
             <div class="card profile-widget">
               <div class="profile-widget-header">
                 <img alt="image" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
@@ -61,33 +61,88 @@
                 </div>
               </div>
               <div class="profile-widget-description">
-                <div class="profile-widget-name text-primary"><?= getUser(user()->id)->dopingNamaLengkap; ?><div class="text-muted d-inline font-weight-normal">
-                    <div class="slash"></div><?= getUser(user()->id)->dopingEmail; ?>
-                    <div class="slash"></div><?= getUser(user()->id)->username; ?>
+                <div class="profile-widget-name text-primary"><?= getUser(user()->id)->dopingNamaLengkap; ?></div>
+                <div class="row">
+                  <div class="form-group col-md-6 col-12">
+                    <label>Email</label>
+                    <input type="text" class="form-control" value="<?= getUser(user()->id)->dopingEmail; ?>">
+                  </div>
+                  <div class="form-group col-md-6 col-12">
+                    <label>Username</label>
+                    <input type="text" class="form-control" value="<?= getUser(user()->id)->username; ?>">
                   </div>
                 </div>
-                <table>
-                  <tr>
-                    <th>No. Handphone</th>
-                    <td>: <?= getUser(user()->id)->dopingNoHandphone; ?></td>
-                  <tr>
-                    <th>Alamat</th>
-                    <td>: <?= getUser(user()->id)->dopingAlamat; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Status</th>
-                    <td>: <?= (getUser(user()->id)->active = 1) ? "Aktif" : "Tidak Aktif"; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Reset Password Terakhir</th>
-                    <td>: <?= (getUser(user()->id)->reset_at == null) ? "-" : getUser(user()->id)->reset_at; ?></td>
-                  </tr>
-                </table>
+                <div class="row">
+                  <div class="form-group col-md-7 col-12">
+                    <label>Alamat</label>
+                    <input type="email" class="form-control" value="<?= getUser(user()->id)->dopingAlamat; ?>">
+                  </div>
+                  <div class="form-group col-md-5 col-12">
+                    <label>Phone</label>
+                    <input type="tel" class="form-control" value="<?= getUser(user()->id)->dopingNoHandphone; ?>">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" form-group col-md-12 col-12">
+                    <label>Reset password terakhir</label>
+                    <p><?= (getUser(user()->id)->reset_at == null) ? 'Belum Pernah Direset' : 'getUser(user()->id)->reset_at'; ?></p>
+                  </div>
+                </div>
               </div>
               <div class="card-footer text-center">
                 <a href="#!" class="btn btn-primary mt-3" data-toggle="modal" data-target="#ubahPassword">Ubah Password</a>
               </div>
             </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <?php if (in_groups('Koordik')) : ?>
+              <h2 class="section-title">Quick User Manual</h2>
+              <p class="section-lead">
+                Karna Kamu adalah <strong>Koordik</strong>, dibawah ini adalah hal wajib Kamu lakukan
+              </p>
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4>Koordik</h4>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Setelah proses koas berjalan, selanjutnya Kamu harus:
+                  </p>
+                  <ul>
+                    <li>Memverifikasi follow up dan kegiatan mahasiswa (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Menilai kegiatan mahasiswa (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Memverifikasi penilaian yang dibuat oleh dosen. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Membuat berita acara kegiatan (jika dosen). <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <a href="tutor" type="button" class="btn btn-icon icon-left btn-primary"><i class="fas fa-chalkboard-teacher"></i>Tutorial Video Lengkap</a>
+                </div>
+              </div>
+            <?php else : ?>
+              <h2 class="section-title">Quick User Manual</h2>
+              <p class="section-lead">
+                Karna Kamu adalah <strong>Dosen</strong>, dibawah ini adalah hal wajib Kamu lakukan
+              </p>
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4>Dosen</h4>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Setelah proses koas berjalan, selanjutnya Kamu harus:
+                  </p>
+                  <ul>
+                    <li>Memverifikasi follow up dan kegiatan mahasiswa. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Menilai kegiatan mahasiswa. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Membuat berita acara kegiatan. <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <a href="/tutor" type="button" class="btn btn-icon icon-left btn-primary"><i class="fas fa-chalkboard-teacher"></i>Tutorial Video Lengkap</a>
+                </div>
+              </div>
+            <?php endif ?>
           </div>
         </div>
       </div>

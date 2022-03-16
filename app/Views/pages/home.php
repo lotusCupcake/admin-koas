@@ -33,7 +33,7 @@
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
-        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali saat menggunakan aplikasi ini:</p>
         <ul>
           <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
           <li>Mengisi data stase (jika belum)</li>
@@ -64,7 +64,7 @@
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
-        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali saat menggunakan aplikasi ini:</p>
         <ul>
           <li>Mengisi data panduan untuk keperluan aplikasi mobile (jika belum)</li>
           <li>Mengisi data stase (jika belum)</li>
@@ -96,9 +96,9 @@
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
-        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali saat menggunakan aplikasi ini:</p>
         <ul>
-          <li>Membuat tanda tangan digital pada menu profile</li>
+          <li>Membuat tanda tangan digital pada menu profile. <a href="/profile" class="text-primary">klik disini</a></li>
         </ul>
         <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
         <ul>
@@ -128,9 +128,9 @@
       </div>
       <div class="modal-body">
         <?= view('layout/templateAlertIcon', ['msg' => ['info', 'Pemberitahuan!', ' Role akun Kamu adalah <strong>' . getUserId(user()->id)->name . '</strong>']]); ?>
-        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali menggunakan aplikasi ini:</p>
+        <p>Berikut adalah hal yang wajib Kamu lakukan pertama kali saat menggunakan aplikasi ini:</p>
         <ul>
-          <li>Membuat tanda tangan digital pada menu profile</li>
+          <li>Membuat tanda tangan digital pada menu profile. <a href="/profile" class="text-primary">klik disini</a></li>
         </ul>
         <p>Setelah proses koas berjalan, selanjutnya Kamu harus:</p>
         <ul>

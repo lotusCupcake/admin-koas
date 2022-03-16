@@ -27,7 +27,7 @@ class BeritaAcaraModel extends Model
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
-        $builder->where(['logbook.logbookDopingEmail' => user()->email, 'logbook.logbookIsVerify' => 1, 'logbook.logbookRumkitDetId' => $staseBeritaAcara]);
+        $builder->where(['logbook.logbookDopingEmail' => user()->email, 'kegiatan.kegiatanBeritaAcara' => 1, 'logbook.logbookIsVerify' => 1, 'logbook.logbookRumkitDetId' => $staseBeritaAcara]);
         $builder->groupBy(['stase.staseId']);
         $kegiatanBerita = $builder->get();
         return $kegiatanBerita;

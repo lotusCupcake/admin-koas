@@ -89,6 +89,15 @@
         "pages": "/penilaian"
     },
     {
+        "id": "29",
+        "nama": "Evaluasi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-comment-dots",
+        "pages": "/evaluasi"
+    },
+    {
         "id": "25",
         "nama": "Administrasi",
         "parent": "0",
@@ -105,5 +114,23 @@
         "status": true,
         "icon": "fas fa-envelope",
         "pages": "/beritaAcara"
+    },
+    {
+        "id": "27",
+        "nama": "User Manual",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "28",
+        "nama": "Panduan Penggunaan",
+        "parent": "27",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-chalkboard-teacher",
+        "pages": "/tutor"
     }
 ]

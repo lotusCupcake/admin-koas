@@ -108,6 +108,24 @@
     },
     {
         "id": "25",
+        "nama": "Evaluasi",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-comment-dots",
+        "pages": "/evaluasi"
+    },
+    {
+        "id": "33",
+        "nama": "Refleksi Diri",
+        "parent": "19",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-brain",
+        "pages": "/refleksi"
+    },
+    {
+        "id": "26",
         "nama": "Administrasi",
         "parent": "0",
         "level": "title",
@@ -116,12 +134,48 @@
         "pages": ""
     },
     {
-        "id": "26",
+        "id": "28",
+        "nama": "Rekap Absensi",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-reply",
+        "pages": "/rekapAbsen"
+    },
+    {
+        "id": "29",
+        "nama": "Rekap Nilai",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-file-download",
+        "pages": "/rekapNilai"
+    },
+    {
+        "id": "27",
         "nama": "Berita Acara Kegiatan",
-        "parent": "25",
+        "parent": "26",
         "level": "child",
         "status": true,
         "icon": "fas fa-envelope",
-        "pages": "/beritaAcara"
+        "pages": "/beritaAcara2"
+    },
+    {
+        "id": "30",
+        "nama": "User Manual",
+        "parent": "0",
+        "level": "title",
+        "status": true,
+        "icon": "",
+        "pages": ""
+    },
+    {
+        "id": "31",
+        "nama": "Panduan Penggunaan",
+        "parent": "30",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-chalkboard-teacher",
+        "pages": "/tutor"
     }
 ]

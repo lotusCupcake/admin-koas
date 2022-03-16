@@ -76,6 +76,7 @@
                   <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                     <th scope="col">Status</th>
                   <?php endif; ?>
+                  <th width="10%" scope="col">Tanda Tangan</th>
                   <th width="15%" style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
@@ -94,6 +95,11 @@
                       <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                         <td><?= $row->type; ?></td>
                       <?php endif; ?>
+                      <?php if ($row->dopingSignature == null) : ?>
+                        <td>Tidak Ada</td>
+                      <?php else : ?>
+                        <td><a href="#!"><span data-toggle="modal" data-toggle="modal" data-target="#tandaTanganDoping<?= $row->dopingId; ?>" class="text-primary">Lihat disini</span></a></td>
+                      <?php endif ?>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusDosenPembimbing<?= $row->dopingId; ?>"><i class="fas fa-trash"></i></button>
@@ -114,6 +120,25 @@
     </div>
   </section>
 </div>
+
+<!-- start modal tanda tangan -->
+<?php foreach ($dosenPembimbing as $signature) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="tandaTanganDoping<?= $signature->dopingId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="<?= base_url() ?>/signature-image/<?= $signature->dopingSignature; ?>" class="img-fluid" alt="Responsive image">
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal tanda tangan -->
 
 <!-- start modal tambah  -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahDosenPembimbing">

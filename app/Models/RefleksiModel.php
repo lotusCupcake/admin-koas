@@ -25,6 +25,9 @@ class RefleksiModel extends Model
                 'jadwal.jadwalKelompokId' => $kelompokRefleksi
             ]
         );
+        if (in_groups('Koordik')) {
+            $builder->where(['rumkit.rumahSakitId' => getRs()[0]->dopingRumkitId]);
+        }
         $builder->groupBy('refleksi_grade.gradeRefleksiNpm');
         return $builder->get();
     }

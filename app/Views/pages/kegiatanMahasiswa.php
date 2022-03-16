@@ -62,7 +62,7 @@
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><?= $row->kegiatanNama; ?></td>
-                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiKegiatan<?= $row->logbookId; ?>"><span class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></td>
+                      <td><a href="#!"><span data-toggle="modal" data-target="#deskripsiKegiatan<?= $row->logbookId; ?>" class="text-primary"><?= $row->logbookJudulDeskripsi; ?></span></a></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
                       <td style="text-align:center">
                         <?php if ($row->logbookIsVerify == 0) : ?>
