@@ -2,18 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Models\BeritaAcaraModel;
+use App\Models\LapBeritaAcaraModel;
 use App\Models\KelompokMahasiswaModel;
-use \Mpdf\Mpdf;
 
-class BeritaAcara extends BaseController
+class LapBeritaAcara extends BaseController
 {
-    protected $beritaAcaraModel;
+    protected $lapBeritaAcaraModel;
     protected $kelompokModel;
 
     public function __construct()
     {
-        $this->beritaAcaraModel = new BeritaAcaraModel();
+        $this->lapBeritaAcaraModel = new LapBeritaAcaraModel();
         $this->kelompokModel = new KelompokMahasiswaModel();
     }
 
@@ -24,42 +23,37 @@ class BeritaAcara extends BaseController
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Administrasi', 'Berita Acara'],
             'menu' => $this->fetchMenu(),
-            'stase' => $this->beritaAcaraModel->getStase()->get()->getResult(),
-            // 'kegiatan' => $this->beritaAcaraModel->getKegiatanMhs()->get()->getResult()
+            'stase' => $this->lapBeritaAcaraModel->getStase()->get()->getResult(),
 
         ];
-        // dd(user()->email);
         return view('pages/beritaAcara', $data);
     }
 
     public function kegiatan()
     {
         $staseBeritaAcara = $this->request->getPost('staseBeritaAcara');
-        $kegiatanBerita = $this->beritaAcaraModel->getKegiatanMhs($staseBeritaAcara);
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
+        $email = $this->request->getPost('email');
+        $kegiatanBerita = $this->lapBeritaAcaraModel->getKegiatanMhs($staseBeritaAcara, $email);
         $lists = "<option value=''>Pilih Kegiatan</option>";
         foreach ($kegiatanBerita->getResult() as $data) {
             $lists .= "<option value='" . $data->kegiatanId . "'>" . $data->kegiatanNama . "</option>"; // Tambahkan tag option ke variabel $lists
         }
-        // $callback = array('list_kegiatan_beritaAcara' => $lists, 'binik' => ['binik kedua', 'binik ketiga']); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        // echo json_encode($callback); // konversi variabel $callback menjadi JSON
-        echo $lists;
+        $callback = array('list_kegiatan' => $lists);
+        echo json_encode($callback);
     }
 
     public function kelompok()
     {
-        $staseBeritaAcara = $this->request->getPost('staseBeritaAcara');
-        $kegiatanId = $this->request->getPost('kegiatanId');
-        $kelompokBerita = $this->beritaAcaraModel->getKelompokBerita($staseBeritaAcara, $kegiatanId);
-        // Buat variabel untuk menampung tag-tag option nya
-        // Set defaultnya dengan tag option Pilih
+        $stase = $this->request->getPost('stase');
+        $kegiatan = $this->request->getPost('kegiatan');
+        $email = $this->request->getPost('email');
+        $kelompokBerita = $this->lapBeritaAcaraModel->getKelompokBerita($stase, $kegiatan, $email);
         $lists = "<option value=''>Pilih Kelompok</option>";
         foreach ($kelompokBerita->getResult() as $data) {
             $lists .= "<option value='" . $data->kelompokId . "'>" . $data->kelompokNama . "</option>"; // Tambahkan tag option ke variabel $lists
         }
-        $callback = array('list_kelompok_beritaAcara' => $lists); // Masukan Variabel Lists Tadi Ke Dalam Array $callback dengan index array : list_jurusan
-        echo json_encode($callback); // konversi variabel $callback menjadi JSON
+        $callback = array('list_kelompok' => $lists);
+        echo json_encode($callback);
     }
 
     public function cetak()
@@ -75,15 +69,12 @@ class BeritaAcara extends BaseController
             'logbookIsVerify' => 1
         );
 
-        $cetakBeritaAcara = $this->beritaAcaraModel->getCetakBerita($paramsCetak)->getResult();
+        $cetakBeritaAcara = $this->lapBeritaAcaraModel->getCetakBerita($paramsCetak)->getResult();
         $dataCetak = array(
             'dataInit' => $cetakBeritaAcara,
             'dataMahasiswa' => $this->kelompokModel->dataKelompok(['kelompokDetKelompokId' => $kelompokBeritaAcara])->getResult(),
         );
-
-        // dd($cetakBeritaAcara);
-        $mpdf = new Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
-        // $mpdf->margin_header(['pad']);
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
         $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
         return redirect()->to($mpdf->Output('laporan_Berita_Acara.pdf', 'I'));
     }
