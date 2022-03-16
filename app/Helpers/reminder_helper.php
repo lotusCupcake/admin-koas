@@ -71,3 +71,19 @@ function getPenilaianDosen()
     ]);
     return $penilaian->getPenilaianVerifikasi(['dosen_pembimbing.dopingEmail ' => $email, 'penilaian_grade.gradeApproveStatus ' => 1, 'penilaian_grade.gradeTahunAkademik' => json_decode($response->getBody())->data])->get()->getResult();
 }
+
+function jumlahKegiatanNilai()
+{
+    $usersModel = new App\Models\UsersModel;
+    $kegiatan = new App\Models\KegiatanMahasiswaModel();
+    $email = $usersModel->getSpecificUser(['users.email' => user()->email])->getResult()[0]->email;
+
+    $curl = service('curlrequest');
+    $response = $curl->request("GET", "https://api.umsu.ac.id/koas/tahunAkademik", [
+        "headers" => [
+            "Accept" => "application/json"
+        ],
+
+    ]);
+    return $kegiatan->jumlahKegiatanNilai(['logbook.logbookDopingEmail ' => $email, 'penilaian_grade.gradeNilai ' => null, 'logbook.logbookTahunAkademik' => json_decode($response->getBody())->data])->get()->getResult();
+}

@@ -20,7 +20,7 @@
                 <div class="form-row">
 
                     <div class="form-group col-md-3">
-                        <select class="form-control select2" name="staseBeritaAcara">
+                        <select class="form-control" name="staseBeritaAcara" id="stase">
                             <option value="" selected="selected">Pilih Stase</option>
                             <?php foreach ($stase as $row) : ?>
                                 <option value="<?= $row->logbookRumkitDetId; ?>"><?= $row->staseNama; ?></option>
@@ -29,13 +29,13 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <select class="form-control select2" name="kegiatanId">
+                        <select class="form-control" name="kegiatanId" id="kegiatan">
                             <option value="" selected="selected">Pilih Kegiatan</option>
                         </select>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <select class="form-control select2" name="kelompokBeritaAcara">
+                        <select class="form-control" name="kelompokBeritaAcara" id="kelompok">
                             <option value="">Pilih Kelompok</option>
                         </select>
                     </div>

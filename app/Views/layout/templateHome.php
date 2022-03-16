@@ -102,7 +102,6 @@
 
   <!-- Page Specific JS File -->
   <script src="<?= base_url() ?>/template/assets/js/page/forms-advanced-forms.js"></script>
-  <script src="<?= base_url() ?>/js/script.js"></script>
   <script type="text/javascript" src="<?= base_url() ?>/js/signature-pad.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
 
@@ -148,6 +147,16 @@
   <?php if ($uri->getSegment(1) == 'penilaian') : ?>
     <script src="<?= base_url() ?>/js/script-penilaian.js"></script>
   <?php endif ?>
+
+  <?php if ($uri->getSegment(1) != 'beritaAcara') : ?>
+    <script src="<?= base_url() ?>/js/script.js"></script>
+  <?php endif ?>
+
+  <?php if ($uri->getSegment(1) == 'beritaAcara') : ?>
+    <script src="<?= base_url() ?>/js/script_berita_acara.js"></script>
+  <?php endif ?>
+
+
 
 
 

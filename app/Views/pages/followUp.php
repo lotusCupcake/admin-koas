@@ -58,7 +58,7 @@
                       <td><sup><strong><?= $mingguke; ?></strong></sup> / <sub><?= gmdate("d-m-Y", ($row->followUpTglPeriksa / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
-                      <td style="cursor: pointer;" data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>"><span class="text-primary">Klik Untuk Lihat</span></td>
+                      <td><a href="#!"><span data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>" class="text-primary">Klik Untuk Lihat</span></a></td>
                       <td><?= $row->dopingNamaLengkap; ?></td>
                       <td style="text-align:center">
                         <?php if ($row->followUpVerify == 0) : ?>

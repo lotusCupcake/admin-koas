@@ -158,7 +158,7 @@
         "level": "child",
         "status": true,
         "icon": "fas fa-envelope",
-        "pages": "/beritaAcara"
+        "pages": "/beritaAcara2"
     },
     {
         "id": "30",
@@ -174,7 +174,7 @@
         "nama": "Panduan Penggunaan",
         "parent": "30",
         "level": "child",
-        "status": false,
+        "status": true,
         "icon": "fas fa-chalkboard-teacher",
         "pages": "/tutor"
     }

@@ -23,7 +23,7 @@
               <option value="" selected="selected">Pilih Rumah Sakit</option>
               <?php if (in_groups('Koordik')) : ?>
                 <option value="<?= getRs()[0]->dopingRumkitId; ?>"><?= getRs()[0]->rumahSakitShortname; ?></option>
-              <?php elseif (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+              <?php elseif (in_groups(['Superadmin', 'Admin Prodi', 'Dosen'])) : ?>
                 <?php foreach ($dataRumahSakit as $row) : ?>
                   <option value="<?= $row->rumahSakitId; ?>"><?= $row->rumahSakitShortname; ?></option>
                 <?php endforeach; ?>

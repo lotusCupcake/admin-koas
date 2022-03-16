@@ -53,7 +53,7 @@ class EvaluasiModel extends Model
         return $staseRumkit;
     }
 
-    public function evaluasiDoping($rumahSakitEvaluasi, $staseEvaluasi)
+    public function evaluasiDoping($where)
     {
         $builder = $this->db->table('jadwal');
         $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
@@ -61,13 +61,7 @@ class EvaluasiModel extends Model
         $builder->join('dosen_pembimbing ', 'dosen_pembimbing.dopingEmail = logbook.logbookDopingEmail', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where(
-            [
-                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitEvaluasi,
-                'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
-                'rumkit_detail.rumkitDetStatus' => 1
-            ]
-        );
+        $builder->where($where);
         $builder->groupBy('logbook.logbookDopingEmail');
         $staseEvaluasi = $builder->get();
         return $staseEvaluasi;
