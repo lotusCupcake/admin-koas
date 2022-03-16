@@ -27,6 +27,7 @@ class Profile extends BaseController
 
     public function insert_signature()
     {
+        $idUser = $this->request->getVar('id');
         $img = $this->request->getVar('image');
         $img = str_replace('data:image/png;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -35,8 +36,8 @@ class Profile extends BaseController
         file_put_contents($file, $data);
         $image = str_replace('./signature-image/', '', $file);
 
-        $id = getUser(user()->id)->dopingId;
-        $fileLama = getUser(user()->id)->dopingSignature;
+        $id = getUser($idUser)->dopingId;
+        $fileLama = getUser($idUser)->dopingSignature;
         if ($fileLama != null) {
             unlink('signature-image/' . $fileLama);
         }
