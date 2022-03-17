@@ -74,7 +74,6 @@ class JadwalKegiatan extends BaseController
                 'menu' => $this->fetchMenu(),
             ];
         }
-        // dd($data['jadwalKegiatan']);
 
         return view('pages/jadwalKegiatan', $data);
     }
@@ -166,7 +165,9 @@ class JadwalKegiatan extends BaseController
         $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompokId'))->getResult();
         $player = [];
         foreach ($penerima as $rowPenerima) {
-            array_push($player, $rowPenerima->oneSignalPlayerId);
+            if ($rowPenerima->oneSignalPlayerId != null) {
+                array_push($player, $rowPenerima->oneSignalPlayerId);
+            }
         }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
@@ -224,7 +225,9 @@ class JadwalKegiatan extends BaseController
         $penerima = $this->kelompokMahasiswaModel->getPlayer($this->request->getVar('kelompok'))->getResult();
         $player = [];
         foreach ($penerima as $rowPenerima) {
-            array_push($player, $rowPenerima->oneSignalPlayerId);
+            if ($rowPenerima->oneSignalPlayerId != null) {
+                array_push($player, $rowPenerima->oneSignalPlayerId);
+            }
         }
         $jlhweek = $this->request->getPost('jumlahWeek');
         $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;

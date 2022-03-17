@@ -55,7 +55,7 @@ class KelompokMahasiswaModel extends Model
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = jadwal_detail.jadwalDetailNpm', 'LEFT');
         $builder->join('one_signal', 'one_signal.oneSignalNpm = kelompok_detail.kelompokDetNim', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
-        $builder->join('jadwal_skip', 'jadwal_skip.skipJadwalDetailId = jadwal_detail.jadwalDetailId ', 'LEFT');
+        $builder->join('jadwal_skip', 'jadwal_skip.skipJadwalDetailId = jadwal_detail.jadwalDetailId', 'LEFT');
         $query = $builder->get();
         return $query;
     }
