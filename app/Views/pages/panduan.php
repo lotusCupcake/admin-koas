@@ -38,6 +38,9 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Panduan</th>
+                  <?php if (in_groups(['Admin Prodi', 'Koordik', 'Superadmin'])) : ?>
+                    <th scope="col">Ditujukan Untuk</th>
+                  <?php endif; ?>
                   <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
                     <th style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
@@ -52,6 +55,7 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->panduanNama; ?></td>
+                      <td><?= $row->panduanPeruntukan == 'semua' ? ('Semua') : ($row->panduanPeruntukan == 'dosen' ? ('Dosen') : ('Mahasiswa')) ?></td>
                       <td style="text-align:center"><span class="badge <?= $row->panduanStatus == 1 ? "badge-success" : "badge-danger"; ?>"><?= $row->panduanStatus == 1 ? "Berlaku" : "Tidak Berlaku"; ?></td>
                       <td style="text-align:center">
                         <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
@@ -59,8 +63,19 @@
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusPanduan<?= $row->panduanId; ?>"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
-                  <?php else : ?>
+                  <?php elseif (in_groups('Koordik')) : ?>
                     <?php if ($row->panduanStatus == 1) : ?>
+                      <tr>
+                        <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                        <td><?= $row->panduanNama; ?></td>
+                        <td><?= $row->panduanPeruntukan == 'semua' ? ('Semua') : ($row->panduanPeruntukan == 'dosen' ? ('Dosen') : ('Mahasiswa')) ?></td>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
+                        </td>
+                      </tr>
+                    <?php endif; ?>
+                  <?php else : ?>
+                    <?php if ($row->panduanStatus == 1 && $row->panduanPeruntukan == 'dosen' || $row->panduanPeruntukan == 'semua') : ?>
                       <tr>
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->panduanNama; ?></td>
@@ -97,12 +112,20 @@
             <label>Nama Panduan</label>
             <input name="panduanNama" type="text" class="form-control">
           </div>
-          <label>File Panduan</label>
           <div class="form-group">
+            <label>File Panduan</label>
             <div class="custom-file">
               <input name="panduanFile" type="file" accept="application/pdf" class="custom-file-input" id="customFile" onchange="labelDokumen()">
               <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
+          </div>
+          <div class="form-group">
+            <label>Ditujukan Untuk</label>
+            <select class="form-control select2" name="panduanPeruntukan">
+              <option value="semua">Semua</option>
+              <option value="dosen">Dosen</option>
+              <option value="mahasiswa">Mahasiswa</option>
+            </select>
           </div>
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -148,6 +171,14 @@
                 <span class="custom-switch-indicator"></span>
               </label>
               <span style="display: inline-block; margin-top: 0 !important;" class="custom-switch-description">(Berlaku/Tidak Berlaku)</span>
+            </div>
+            <div class="form-group">
+              <label>Ditujukan Untuk</label>
+              <select class="form-control select2" name="panduanPeruntukan">
+                <option value="semua" <?= ($edit->panduanPeruntukan == "semua") ? "selected" : "" ?>>Semua</option>
+                <option value="dosen" <?= ($edit->panduanPeruntukan == "dosen") ? "selected" : "" ?>>Dosen</option>
+                <option value="mahasiswa" <?= ($edit->panduanPeruntukan == "mahasiswa") ? "selected" : "" ?>>Mahasiswa</option>
+              </select>
             </div>
             <div class="modal-footer bg-whitesmoke br">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
