@@ -38,8 +38,10 @@
                 <tr>
                   <th width="10%" style="text-align:center" scope="col">No.</th>
                   <th scope="col">Nama Panduan</th>
-                  <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
+                  <?php if (in_groups(['Admin Prodi', 'Koordik', 'Superadmin'])) : ?>
                     <th scope="col">Ditujukan Untuk</th>
+                  <?php endif; ?>
+                  <?php if (in_groups(['Admin Prodi', 'Superadmin'])) : ?>
                     <th style="text-align:center" scope="col">Status</th>
                   <?php endif; ?>
                   <th width="20%" style="text-align:center" scope="col">Action</th>
@@ -61,8 +63,19 @@
                         <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusPanduan<?= $row->panduanId; ?>"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
-                  <?php else : ?>
+                  <?php elseif (in_groups('Koordik')) : ?>
                     <?php if ($row->panduanStatus == 1) : ?>
+                      <tr>
+                        <td style="text-align:center" scope="row"><?= $no++; ?></td>
+                        <td><?= $row->panduanNama; ?></td>
+                        <td><?= $row->panduanPeruntukan == 'semua' ? ('Semua') : ($row->panduanPeruntukan == 'dosen' ? ('Dosen') : ('Mahasiswa')) ?></td>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-light" data-toggle="modal" data-target="#lihatPanduan<?= $row->panduanId; ?>"><i class="far fa-file-alt"></i></button>
+                        </td>
+                      </tr>
+                    <?php endif; ?>
+                  <?php else : ?>
+                    <?php if ($row->panduanStatus == 1 && $row->panduanPeruntukan == 'dosen') : ?>
                       <tr>
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->panduanNama; ?></td>

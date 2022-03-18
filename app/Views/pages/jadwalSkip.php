@@ -63,7 +63,7 @@
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
-                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 8]); ?>
+                                    <?= view('layout/templateEmpty', ['jumlahSpan' => 9]); ?>
                                 <?php endif ?>
                             </tbody>
                         </table>
