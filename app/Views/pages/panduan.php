@@ -75,7 +75,7 @@
                       </tr>
                     <?php endif; ?>
                   <?php else : ?>
-                    <?php if ($row->panduanStatus == 1 && $row->panduanPeruntukan == 'dosen') : ?>
+                    <?php if ($row->panduanStatus == 1 && $row->panduanPeruntukan == 'dosen' || $row->panduanPeruntukan == 'semua') : ?>
                       <tr>
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->panduanNama; ?></td>
