@@ -128,7 +128,7 @@
                 foreach (getDetailJadwalKelStase($detail->jadwalKelompokId, $detail->staseId) as $key) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= gmdate('d-m-Y', $key->jadwalTanggalMulai / 1000); ?>/<?= gmdate('d-m-Y', $key->jadwalTanggalSelesai / 1000); ?></td>
+                    <td><?= gmdate('d-m-Y', $key->jadwalTanggalMulai / 1000); ?> s/d <?= gmdate('d-m-Y', $key->jadwalTanggalSelesai / 1000); ?></td>
                     <td><?= $key->rumahSakitShortname ?></td>
                     <td><a href="#!"><span data-toggle="modal" data-target="#detailMahasiswa<?= $key->jadwalId; ?>" class="text-primary"><?= $key->kelompokNama ?></a></td>
                     <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
