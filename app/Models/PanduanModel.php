@@ -8,7 +8,7 @@ class PanduanModel extends Model
 {
     protected $table = 'panduan';
     protected $primaryKey = 'panduanId';
-    protected $allowedFields = ['panduanNama', 'panduanFile', 'panduanStatus', 'panduanCreatedAt', 'panduanUpdatedAt', 'panduanDeletedAt'];
+    protected $allowedFields = ['panduanNama', 'panduanFile', 'panduanStatus', 'panduanPeruntukan', 'panduanCreatedAt', 'panduanUpdatedAt', 'panduanDeletedAt'];
     protected $returnType = 'object';
     protected $useSoftDeletes = 'true';
     protected $useTimestamps = 'true';

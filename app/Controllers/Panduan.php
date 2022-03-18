@@ -53,7 +53,8 @@ class Panduan extends BaseController
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
             'panduanFile' => $namaDokumen,
-            'panduanStatus' => ('1')
+            'panduanStatus' => ('1'),
+            'panduanPeruntukan' => trim($this->request->getPost('panduanPeruntukan'))
         );
 
         // non aktifkan semua status file ketika file yang akan diupload mempunyai status aktif
@@ -91,7 +92,8 @@ class Panduan extends BaseController
         $data = array(
             'panduanNama' => trim($this->request->getPost('panduanNama')),
             'panduanFile' => $namaDokumen,
-            'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1
+            'panduanStatus' => trim($this->request->getPost('panduanStatus')) == null ? 0 : 1,
+            'panduanPeruntukan' => trim($this->request->getPost('panduanPeruntukan'))
         );
 
         if ($this->panduanModel->update($id, $data)) {
