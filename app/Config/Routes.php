@@ -159,6 +159,13 @@ $routes->post('/lapBeritaAcara/kegiatan', 'LapBeritaAcara::kegiatan');
 $routes->post('/lapBeritaAcara/kelompok', 'LapBeritaAcara::kelompok');
 $routes->post('/lapBeritaAcara/cetak', 'LapBeritaAcara::cetak');
 
+// Berita Skip Kegiatan
+$routes->get('/lapBeritaSkipKegiatan/', 'LapBeritaSkipKegiatan::index');
+$routes->post('/lapBeritaSkipKegiatan/kegiatan', 'LapBeritaSkipKegiatan::kegiatan');
+$routes->post('/lapBeritaSkipKegiatan/kelompok', 'LapBeritaSkipKegiatan::kelompok');
+$routes->post('/lapBeritaSkipKegiatan/cetak', 'LapBeritaSkipKegiatan::cetak');
+
+
 //route notifikasi
 $routes->get('/notif/', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 $routes->get('/notif/index', 'Notif::index', ['filter' => 'role:Superadmin,Admin Prodi']);

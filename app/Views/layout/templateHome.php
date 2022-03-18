@@ -154,6 +154,10 @@
     <script src="<?= base_url() ?>/js/script_berita_acara.js"></script>
   <?php endif ?>
 
+  <?php if ($uri->getSegment(1) == 'lapBeritaSkipKegiatan') : ?>
+    <script src="<?= base_url() ?>/js/script_berita_acara.js"></script>
+  <?php endif ?>
+
   <script src="<?= base_url() ?>/js/script.js"></script>
 
 

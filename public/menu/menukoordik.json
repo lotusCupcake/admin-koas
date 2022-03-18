@@ -153,15 +153,33 @@
     },
     {
         "id": "27",
-        "nama": "Berita Acara Kegiatan",
+        "nama": "Berita Acara",
         "parent": "26",
+        "level": "parent",
+        "status": true,
+        "icon": "fas fa-envelope-square",
+        "pages": ""
+    },
+    {
+        "id": "30",
+        "nama": "Acara Kegiatan",
+        "parent": "27",
         "level": "child",
         "status": true,
         "icon": "fas fa-envelope",
         "pages": "/lapBeritaAcara"
     },
     {
-        "id": "30",
+        "id": "31",
+        "nama": "Skip Kegiatan",
+        "parent": "27",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-envelope-open",
+        "pages": "/lapBeritaSkipKegiatan"
+    },
+    {
+        "id": "32",
         "nama": "User Manual",
         "parent": "0",
         "level": "title",
@@ -170,9 +188,9 @@
         "pages": ""
     },
     {
-        "id": "31",
+        "id": "33",
         "nama": "Panduan Penggunaan",
-        "parent": "30",
+        "parent": "32",
         "level": "child",
         "status": true,
         "icon": "fas fa-chalkboard-teacher",
