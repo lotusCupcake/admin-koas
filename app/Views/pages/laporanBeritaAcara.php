@@ -10,14 +10,25 @@
         table.mhs th {
             border: 1px solid black;
         }
-
         table.mhs td {
             border: 1px solid black;
-        }
+        }/*
+        .satu {
+	   font-size: 12px;
+	   }
+	   .dua {
+	   font-size: 20px;
+	   }
+	   .tiga {
+	   font-size: 8px;
+	   }*/
     </style>
 </head>
 
 <body>
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <br>
@@ -93,99 +104,57 @@
         ?>
     </table>
     <br><br>
-    <table align="right">
+    <table width="100%">
         <tr>
-            <td><strong>Pembimbing (Preceptor)</strong></td>
+            <td width="40%"></td>
+            <td width="20%"></td>
+            <td width="40%" align="center">
+            	<strong>Pembimbing (Preceptor)</strong>
+            	<br><img  class="my-image-signature" src="https://koas.umsu.ac.id/signature-image/<?= $dataInit[0]->dopingSignature; ?>" width="200px" /><br>
+            	( <?= $dataInit[0]->dopingNamaLengkap ?>)
+            </td>
         </tr>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <tr>
-            <td><img src="<?= base_url() ?>/signature-image/622c56a329b83.png" width="150px" height="120px" /></td>
-            <td>(...........................................)</td>
+            <td></td>
+            <td align="center"><br><br>Mengetahui,<br><br><br></td>
+            <td></td>
         </tr>
-    </table>
-    <br><br>
-    <table align="center">
         <tr>
-            <td>Mengetahui,</td>
-        </tr>
-    </table>
-    <br>
-    <table>
-        <tr>
-            <!-- <td align="center">&nbsp;&nbsp;</td> -->
-            <td align="center"><strong>Ka. SMF RS / Komkoordik</strong></td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center"><strong>Wakil Dekan I/Ka. Prodi Profesi</strong></td>
+            <td align="center"><strong>Ka. SMF RS / Komkoordik</strong><br><br><br><br><br><br>
+            (...........................................)
+        	</td>
+            <td></td>
+            <td align="center"><strong>Wakil Dekan I/Ka. Prodi Profesi</strong><br><br><br><br><br><br>
+            (...........................................)</td>
         </tr>
     </table>
-
-    <br>
-    <br>
-    <br>
     <br>
     <br>
     <table>
-        <tr>
-            <!-- <td align="center">&nbsp;&nbsp;</td> -->
-            <td>(...........................................)</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>(...........................................)</td>
-        </tr>
+    	<tr>
+    		<td colspan="2" style="font-size: 12px;">Pertinggal :</td>
+    	</tr>
+    	<tr><td>-</td>
+    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;FK UMSU</td>
+    	</tr>
+    	<tr><td>-</td>
+    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;SMF RS Pendidikan</td>
+    	</tr>
+    	<tr><td>-</td>
+    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;Diklat/Komkordik RS Pendidikan</td>
+    	</tr>
     </table>
-    <br>
-    <br>
-    <br>
     <table>
-        <tr>
-            <td>Pertinggal:</td>
-        </tr>
-        <ul>
-            <tr>
-                <td>
-                    <li>FK UMSU</li>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <li>SMF RS Pendidikan</li>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <li>Diklat/Komkoordik RS Pendidikan</li>
-                </td>
-            </tr>
-        </ul>
-        <br>
-        <tr>
-            <td>Keterangan:</td>
-        </tr>
-        <tr>
-            <td>Tanda tangan dapat menggunakan foto tanda-tangan/tertanda</td>
-        </tr>
+    	<tr>
+    		<td style="font-size: 12px;">Keterangan :</td>
+    	</tr>
+    	<tr>
+    		<td style="font-size: 11px;">Tanda tangan dapat menggunakan foto tanda-tangan/tertanda</td>
+    	</tr>
+    	
     </table>
+    
+    
 </body>
 
 </html>
