@@ -132,10 +132,17 @@
                     <td><?= $key->rumahSakitShortname ?></td>
                     <td><a href="#!"><span data-toggle="modal" data-target="#detailMahasiswa<?= $key->jadwalId; ?>" class="text-primary"><?= $key->kelompokNama ?></a></td>
                     <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
-                      <td style="text-align:center">
-                        <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $key->jadwalId; ?>"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $key->jadwalId; ?>"><i class="fas fa-trash"></i></button>
-                      </td>
+                      <?php if (strtotime(date('d-m-Y')) < $key->jadwalTanggalMulai / 1000) : ?>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#editJadwalKegiatan<?= $key->jadwalId; ?>"><i class="fas fa-edit"></i></button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusJadwalKegiatan<?= $key->jadwalId; ?>"><i class="fas fa-trash"></i></button>
+                        </td>
+                      <?php else : ?>
+                        <td style="text-align:center">
+                          <button class="btn btn-icon icon-left btn-info" disabled><i class="fas fa-edit"></i></button>
+                          <button class="btn btn-icon icon-left btn-danger" disabled><i class="fas fa-trash"></i></button>
+                        </td>
+                      <?php endif; ?>
                     <?php endif; ?>
                   </tr>
                 <?php endforeach ?>

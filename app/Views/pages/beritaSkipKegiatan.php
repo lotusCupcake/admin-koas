@@ -11,12 +11,12 @@
             <h1><?= $title; ?></h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item"><a href="/home"><?= $breadcrumb[0]; ?></a></div>
-                <div class="breadcrumb-item"><a href="/lapBeritaAcara"><?= $breadcrumb[1]; ?></a></div>
+                <div class="breadcrumb-item"><a href="/lapBeritaSkipKegiatan"><?= $breadcrumb[1]; ?></a></div>
                 <div class="breadcrumb-item active"><?= $breadcrumb[2]; ?></div>
             </div>
         </div>
         <div class="section-body">
-            <form action="/lapBeritaAcara/cetak" method="POST" target="_blank">
+            <form action="/lapBeritaSkipKegiatan/cetak" method="POST" target="_blank">
                 <?php csrf_field() ?>
                 <div class="form-row">
 
