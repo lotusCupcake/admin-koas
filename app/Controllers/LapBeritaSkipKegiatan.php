@@ -7,7 +7,7 @@ use App\Models\KelompokMahasiswaModel;
 use App\Models\DataKegiatanModel;
 use App\Models\DataKelompokModel;
 
-class LapBeritaAcara extends BaseController
+class LapBeritaSkipKegiatan extends BaseController
 {
     protected $lapBeritaAcaraModel;
     protected $kelompokModel;
@@ -25,14 +25,14 @@ class LapBeritaAcara extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Jadwal Normal",
+            'title' => "Jadwal Tertunda",
             'appName' => "Dokter Muda",
-            'breadcrumb' => ['Administrasi', 'Berita Acara Kegiatan', 'Jadwal Normal'],
+            'breadcrumb' => ['Administrasi', 'Berita Acara Kegiatan', 'Jadwal Tertunda'],
             'menu' => $this->fetchMenu(),
             'stase' => $this->lapBeritaAcaraModel->getStase()->get()->getResult(),
 
         ];
-        return view('pages/beritaAcara', $data);
+        return view('pages/beritaSkipKegiatan', $data);
     }
 
     public function kegiatan()
@@ -79,7 +79,7 @@ class LapBeritaAcara extends BaseController
             'logbookIsVerify' => 1
         );
 
-        $cetakBeritaAcara = $this->lapBeritaAcaraModel->getCetakBerita($paramsCetak, $staseBeritaAcara)->getResult();
+        $cetakBeritaAcara = $this->lapBeritaAcaraModel->getCetakBerita_JadwalSkip($paramsCetak, $staseBeritaAcara)->getResult();
         foreach ($cetakBeritaAcara as $row_berita_acara) {
             array_push($nim, $row_berita_acara->logbookNim);
         }
@@ -90,10 +90,10 @@ class LapBeritaAcara extends BaseController
             );
             $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
             $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
-            return redirect()->to($mpdf->Output('laporan_Berita_Acara.pdf', 'I'));
+            return redirect()->to($mpdf->Output('laporan_Berita_Skip_Kegiatan.pdf', 'I'));
         } else {
             session()->setFlashdata('danger', 'Berita Acara <strong>' . $kelompok . ' - TA.' . $tahunAkademik . '</strong> Untuk Kegiatan <strong>' . $kegiatan . '</strong> Masih Kosong!');
-            return redirect()->to('lapBeritaAcara');
+            return redirect()->to('lapBeritaSkipKegiatan');
         }
     }
 }

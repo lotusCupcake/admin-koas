@@ -102,6 +102,8 @@
         <br>
         <br>
         <br>
+        <br>
+        <br>
         <tr>
             <!-- <td><img src="public/signature-image/622c083fb1abd.png" width="150px" height="120px" /></td> -->
             <td>(...........................................)</td>
@@ -150,6 +152,38 @@
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>(...........................................)</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td>Pertinggal:</td>
+        </tr>
+        <ul>
+            <tr>
+                <td>
+                    <li>FK UMSU</li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li>SMF RS Pendidikan</li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li>Diklat/Komkoordik RS Pendidikan</li>
+                </td>
+            </tr>
+        </ul>
+        <br>
+        <tr>
+            <td>Keterangan:</td>
+        </tr>
+        <tr>
+            <td>Tanda tangan dapat menggunakan foto tanda-tangan/tertanda</td>
         </tr>
     </table>
 </body>

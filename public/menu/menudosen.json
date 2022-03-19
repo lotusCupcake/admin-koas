@@ -110,13 +110,32 @@
         "id": "26",
         "nama": "Berita Acara Kegiatan",
         "parent": "25",
-        "level": "child",
+        "level": "parent",
         "status": true,
         "icon": "fas fa-envelope",
-        "pages": "/lapBeritaAcara"
+        "pages": ""
     },
     {
         "id": "27",
+        "nama": "Jadwal Normal",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-calendar-plus",
+        "pages": "/lapBeritaAcara"
+    },
+    {
+        "id": "28",
+        "nama": "Jadwal Tertunda",
+        "parent": "26",
+        "level": "child",
+        "status": true,
+        "icon": "fas fa-user-clock",
+        "pages": "/lapBeritaSkipKegiatan"
+    },
+
+    {
+        "id": "29",
         "nama": "User Manual",
         "parent": "0",
         "level": "title",
@@ -125,9 +144,9 @@
         "pages": ""
     },
     {
-        "id": "28",
+        "id": "30",
         "nama": "Panduan Penggunaan",
-        "parent": "27",
+        "parent": "29",
         "level": "child",
         "status": true,
         "icon": "fas fa-chalkboard-teacher",
