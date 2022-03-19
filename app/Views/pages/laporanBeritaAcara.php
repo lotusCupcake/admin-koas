@@ -105,7 +105,7 @@
         <br>
         <br>
         <tr>
-            <!-- <td><img src="public/signature-image/622c083fb1abd.png" width="150px" height="120px" /></td> -->
+            <td><img src="<?= base_url() ?>/signature-image/622c56a329b83.png" width="150px" height="120px" /></td>
             <td>(...........................................)</td>
         </tr>
     </table>
