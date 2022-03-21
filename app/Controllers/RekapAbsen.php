@@ -166,7 +166,7 @@ class RekapAbsen extends BaseController
             $this->spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $row, $no++)
                 ->setCellValue('B' . $row, $absen->kelompokDetNama . " (" . $absen->kelompokDetNim . ")")
-                ->setCellValue('C' . $row, gmdate('Y-m-d H:i:s', ($absen->absensiTanggal / 1000)))
+                ->setCellValue('C' . $row, date('Y-m-d H:i:s', ($absen->absensiTanggal / 1000)))
                 ->setCellValue('D' . $row, $absen->absensiLokasi)
                 ->setCellValue('E' . $row, $absen->absensiKeterangan);
             $row++;

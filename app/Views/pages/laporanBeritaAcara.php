@@ -10,9 +10,12 @@
         table.mhs th {
             border: 1px solid black;
         }
+
         table.mhs td {
             border: 1px solid black;
-        }/*
+        }
+
+        /*
         .satu {
 	   font-size: 12px;
 	   }
@@ -63,12 +66,12 @@
         <tr>
             <td>Hari/Tanggal</td>
             <td>:</td>
-            <td>&nbsp; <?= gmdate('D / d-m-Y', $dataInit[0]->logbookTanggal / 1000); ?></td>
+            <td>&nbsp; <?= date('D / d-m-Y', $dataInit[0]->logbookTanggal / 1000); ?></td>
         </tr>
         <tr>
             <td>Waktu</td>
             <td>:</td>
-            <td>&nbsp; <?= gmdate('H:i:s', $dataInit[0]->logbookTanggal / 1000); ?> WIB</td>
+            <td>&nbsp; <?= date('H:i:s', $dataInit[0]->logbookTanggal / 1000); ?> WIB</td>
         </tr>
         <tr>
             <td>Tempat</td>
@@ -109,9 +112,9 @@
             <td width="40%"></td>
             <td width="20%"></td>
             <td width="40%" align="center">
-            	<strong>Pembimbing (Preceptor)</strong>
-            	<br><img  class="my-image-signature" src="https://koas.umsu.ac.id/signature-image/<?= $dataInit[0]->dopingSignature; ?>" width="200px" /><br>
-            	( <?= $dataInit[0]->dopingNamaLengkap ?>)
+                <strong>Pembimbing (Preceptor)</strong>
+                <br><img class="my-image-signature" src="https://koas.umsu.ac.id/signature-image/<?= $dataInit[0]->dopingSignature; ?>" width="200px" /><br>
+                ( <?= $dataInit[0]->dopingNamaLengkap ?>)
             </td>
         </tr>
         <tr>
@@ -121,40 +124,43 @@
         </tr>
         <tr>
             <td align="center"><strong>Ka. SMF RS / Komkoordik</strong><br><br><br><br><br><br>
-            (...........................................)
-        	</td>
+                (...........................................)
+            </td>
             <td></td>
             <td align="center"><strong>Wakil Dekan I/Ka. Prodi Profesi</strong><br><br><br><br><br><br>
-            (...........................................)</td>
+                (...........................................)</td>
         </tr>
     </table>
     <br>
     <br>
     <table>
-    	<tr>
-    		<td colspan="2" style="font-size: 12px;">Pertinggal :</td>
-    	</tr>
-    	<tr><td>-</td>
-    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;FK UMSU</td>
-    	</tr>
-    	<tr><td>-</td>
-    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;SMF RS Pendidikan</td>
-    	</tr>
-    	<tr><td>-</td>
-    		<td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;Diklat/Komkordik RS Pendidikan</td>
-    	</tr>
+        <tr>
+            <td colspan="2" style="font-size: 12px;">Pertinggal :</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;FK UMSU</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;SMF RS Pendidikan</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td style="font-size: 11px;">&nbsp;&nbsp;&nbsp;Diklat/Komkordik RS Pendidikan</td>
+        </tr>
     </table>
     <table>
-    	<tr>
-    		<td style="font-size: 12px;">Keterangan :</td>
-    	</tr>
-    	<tr>
-    		<td style="font-size: 11px;">Tanda tangan dapat menggunakan foto tanda-tangan/tertanda</td>
-    	</tr>
-    	
+        <tr>
+            <td style="font-size: 12px;">Keterangan :</td>
+        </tr>
+        <tr>
+            <td style="font-size: 11px;">Tanda tangan dapat menggunakan foto tanda-tangan/tertanda</td>
+        </tr>
+
     </table>
-    
-    
+
+
 </body>
 
 </html>

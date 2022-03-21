@@ -54,12 +54,12 @@
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
                                             <td><?= $row->jadwalTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                                            <td><?= gmdate('d-m-Y', ($row->skipTanggalAwal / 1000)); ?></td>
-                                            <td><?= gmdate('d-m-Y', ($row->skipTanggalAkhir / 1000)); ?></td>
+                                            <td><?= date('d-m-Y', ($row->skipTanggalAwal / 1000)); ?></td>
+                                            <td><?= date('d-m-Y', ($row->skipTanggalAkhir / 1000)); ?></td>
                                             <td><?= $row->skipAlasan; ?></td>
                                             <td>Ke <?= $row->skipHariKe; ?></td>
                                             <td><?= $row->skipSisaHari; ?> Hari</td>
-                                            <td><?= $row->skipTanggalAktifKembali == null ? 'Jadwal Belum Diaktifkan' : gmdate('d-m-Y', ($row->skipTanggalAktifKembali / 1000)); ?></td>
+                                            <td><?= $row->skipTanggalAktifKembali == null ? 'Jadwal Belum Diaktifkan' : date('d-m-Y', ($row->skipTanggalAktifKembali / 1000)); ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 <?php else : ?>
