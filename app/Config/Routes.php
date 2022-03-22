@@ -119,6 +119,7 @@ $routes->add('/panduan/(:num)/edit', 'Panduan::edit/$1');
 $routes->get('/kegiatanMahasiswa/', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->get('/kegiatanMahasiswa/index', 'KegiatanMahasiswa::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/kegiatanMahasiswa/(:num)/setujui', 'KegiatanMahasiswa::setujui/$1');
+$routes->delete('/kegiatanMahasiswa/(:num)/delete', 'KegiatanMahasiswa::delete/$1');
 
 // route Absensi
 $routes->get('/absensi/', 'Absensi::index', ['filter' => 'role:Superadmin,Admin Prodi']);
@@ -128,6 +129,7 @@ $routes->get('/absensi/index', 'Absensi::index', ['filter' => 'role:Superadmin,A
 $routes->get('/followUp/', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->get('/followUp/index', 'FollowUp::index', ['filter' => 'role:Superadmin,Admin Prodi,Dosen,Koordik']);
 $routes->add('/followUp/(:num)/setujui', 'FollowUp::setujui/$1');
+$routes->delete('/followUp/(:num)/delete', 'FollowUp::delete/$1');
 
 // route penilaian
 $routes->get('/penilaian/(:any)', 'Penilaian::index');
