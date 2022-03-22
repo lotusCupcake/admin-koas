@@ -68,4 +68,12 @@ class FollowUp extends BaseController
             return redirect()->to('followUp');
         }
     }
+
+    public function delete($id)
+    {
+        if ($this->followUpModel->delete($id)) {
+            session()->setFlashdata('success', 'Follow Up Mahasiswa Berhasil Dihapus!');
+        };
+        return redirect()->to('followUp');
+    }
 }

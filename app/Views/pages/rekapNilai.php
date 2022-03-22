@@ -79,7 +79,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
                       <?php foreach ($dataKomp as $k) : ?>
-                        <td style="text-align:center"><?= getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId) ?></td>
+                        <td style="text-align:center"><?= number_format(getNilai(json_decode($k->penilaian), $mahasiswa->kelompokDetNim, $mahasiswa->staseId), 2) ?></td>
                       <?php endforeach ?>
                       <td style="text-align:center">
                         <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
@@ -116,7 +116,7 @@
                 <tr>
                   <th style="text-align:center" scope="col">No.</th>
                   <th scope="col">Jenis Kegiatan</th>
-                  <th scope="col">Nilai Akhir</th>
+                  <th scope="col">Nilai Akhir (Bobot X Nilai)</th>
                 </tr>
               </thead>
               <tbody>
@@ -127,7 +127,7 @@
                   <tr>
                     <td style="text-align:center"><?= $no++; ?></td>
                     <td><?= getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat ?></td>
-                    <td><?= getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId) ?></td>
+                    <td><?= number_format(getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId), 2) ?></td>
                   </tr>
                 <?php endforeach ?>
 

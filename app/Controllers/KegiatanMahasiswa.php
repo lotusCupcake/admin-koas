@@ -73,4 +73,12 @@ class KegiatanMahasiswa extends BaseController
             return redirect()->to('kegiatanMahasiswa');
         }
     }
+
+    public function delete($id)
+    {
+        if ($this->kegiatanMahasiswaModel->delete($id)) {
+            session()->setFlashdata('success', 'Kegiatan Mahasiswa Berhasil Dihapus!');
+        };
+        return redirect()->to('kegiatanMahasiswa');
+    }
 }

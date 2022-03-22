@@ -46,6 +46,7 @@
                   <th scope="col">Topik</th>
                   <th width="15%" scope="col">Dosen Pembimbing</th>
                   <th width="20%" style="text-align:center" scope="col">Status</th>
+                  <th style="text-align:center" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,6 +72,11 @@
                           <button class="btn btn-icon icon-left btn-success" <?= ($row->dopingEmail == user()->email) ? "" : "disabled" ?>>Disetujui</button>
                         <?php endif ?>
                       </td>
+                      <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                        <td>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKegiatan<?= $row->logbookId; ?>"><i class="fas fa-trash"></i></button>
+                        </td>
+                      <?php endif ?>
                     </tr>
                   <?php endforeach ?>
                 <?php else : ?>
@@ -138,6 +144,35 @@
   </div>
 <?php endforeach ?>
 <!-- end modal setujui -->
+
+<!-- start modal hapus -->
+<?php foreach ($kegiatan as $delete) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="hapusKegiatan<?= $delete->logbookId; ?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Hapus Data <strong>Kegiatan</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah kamu benar ingin menghapus data kegiatan <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong>?</p>
+          <p class="text-warning"><small>This action cannot be undone</small></p>
+        </div>
+        <form action="/kegiatanMahasiswa/<?= $delete->kegiatanId; ?>/delete" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal hapus -->
 
 <?= view('layout/templateFooter'); ?>
 

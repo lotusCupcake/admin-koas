@@ -38,6 +38,7 @@
                                     <th width="15%" scope="col">Tahun Akademik</th>
                                     <th scope="col">Mahasiswa</th>
                                     <th scope="col">Tanggal/Waktu</th>
+                                    <th scope="col">Koordinat Absen</th>
                                     <th scope="col">Lokasi Absen</th>
                                     <th width="15%" style="text-align:center" scope="col">Keterangan</th>
                                 </tr>
@@ -52,6 +53,7 @@
                                             <td><?= $row->absensiTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                                             <td><?= date('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
+                                            <td><?= $row->absensiLatLong; ?></td>
                                             <td><?= $row->absensiLokasi; ?></td>
                                             <td style="text-align:center"><span class="btn <?= $row->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $row->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $row->absensiKeterangan; ?></span></td>
                                         </tr>
