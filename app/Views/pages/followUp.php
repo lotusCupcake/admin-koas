@@ -70,7 +70,7 @@
                       </td>
                       <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                         <td>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusFollowUp<?= $row->followUpId; ?>"><i class="fas fa-trash"></i></button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusFollowUp<?= $row->followUpId; ?>" <?= ($row->followUpVerify == 1) ? 'disabled' : '' ?>><i class="fas fa-trash"></i></button>
                         </td>
                       <?php endif ?>
                     </tr>
