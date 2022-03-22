@@ -216,7 +216,7 @@ class JadwalKegiatanModel extends Model
                 'kelompok.kelompokId' => $kelompokId
             ]
         );
-        $builder->groupBy(['absensi.absensiKeterangan', "from_unixtime(absensi.absensiTanggal / 1000, '%Y %D %M')"]);
+        $builder->groupBy(['absensi.absensiNim', 'absensi.absensiKeterangan', "from_unixtime(absensi.absensiTanggal / 1000, '%Y %D %M')"]);
         $kelompok = $builder->get();
         return $kelompok;
     }

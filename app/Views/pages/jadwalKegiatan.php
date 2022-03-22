@@ -76,7 +76,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTahunAkademik; ?></td>
                       <td><a href="#!">
-                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId . $row_jadwal->staseId; ?>" class="text-primary"><?= gmdate('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= gmdate('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
+                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId . $row_jadwal->staseId; ?>" class="text-primary"><?= date('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= date('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
                           </span></a>
                       </td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>
@@ -128,7 +128,7 @@
                 foreach (getDetailJadwalKelStase($detail->jadwalKelompokId, $detail->staseId) as $key) : ?>
                   <tr>
                     <td style="text-align:center" scope="row"><?= $no++; ?></td>
-                    <td><?= gmdate('d-m-Y', $key->jadwalTanggalMulai / 1000); ?> s/d <?= gmdate('d-m-Y', $key->jadwalTanggalSelesai / 1000); ?></td>
+                    <td><?= date('d-m-Y', $key->jadwalTanggalMulai / 1000); ?> s/d <?= date('d-m-Y', $key->jadwalTanggalSelesai / 1000); ?></td>
                     <td><?= $key->rumahSakitShortname ?></td>
                     <td><a href="#!"><span data-toggle="modal" data-target="#detailMahasiswa<?= $key->jadwalId; ?>" class="text-primary"><?= $key->kelompokNama ?></a></td>
                     <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
@@ -236,7 +236,7 @@
                       <tr>
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                        <td><?= gmdate('d-m-Y', ($row->jadwalDetailTanggalMulai / 1000)); ?> s/d <?= gmdate('d-m-Y', ($row->jadwalDetailTanggalSelesai / 1000)); ?></td>
+                        <td><?= date('d-m-Y', ($row->jadwalDetailTanggalMulai / 1000)); ?> s/d <?= date('d-m-Y', ($row->jadwalDetailTanggalSelesai / 1000)); ?></td>
                         <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                           <td style="text-align:center">
                             <?php if ($row->skipNpm == null && $row->skipTanggalAktifKembali == null || $row->skipNpm != null && $row->skipTanggalAktifKembali != null) : ?>
@@ -471,7 +471,7 @@
                       <i class="fas fa-calendar"></i>
                     </div>
                   </div>
-                  <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?= gmdate('Y-m-d', ($stase->jadwalTanggalMulai / 1000)); ?>">
+                  <input type="text" class="form-control datepicker" name="tanggalAwal" value="<?= date('Y-m-d', ($stase->jadwalTanggalMulai / 1000)); ?>">
                 </div>
               </div>
 

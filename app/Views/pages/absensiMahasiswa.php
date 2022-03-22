@@ -51,7 +51,7 @@
                                             <td style="text-align:center" scope="row"><?= $no++; ?></td>
                                             <td><?= $row->absensiTahunAkademik; ?></td>
                                             <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
-                                            <td><?= gmdate('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
+                                            <td><?= date('d-m-Y H:i:s', ($row->absensiTanggal / 1000)); ?></td>
                                             <td><?= $row->absensiLokasi; ?></td>
                                             <td style="text-align:center"><span class="btn <?= $row->absensiKeterangan == 'masuk' ? "btn-info btn-icon icon-left" : "btn-warning btn-icon icon-left"; ?>"><i class="<?= $row->absensiKeterangan == 'masuk' ? "fas fa-sign-in-alt" : "fas fa-sign-out-alt"; ?>"></i><?= $row->absensiKeterangan; ?></span></td>
                                         </tr>

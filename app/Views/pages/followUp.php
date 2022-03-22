@@ -55,7 +55,7 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->followUpTahunAkademik; ?></td>
-                      <td><sup><strong><?= $mingguke; ?></strong></sup> / <sub><?= gmdate("d-m-Y", ($row->followUpTglPeriksa / 1000)); ?></sub></td>
+                      <td><sup><strong><?= $mingguke; ?></strong></sup> / <sub><?= date("d-m-Y", ($row->followUpTglPeriksa / 1000)); ?></sub></td>
                       <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>
                       <td><?= $row->rumahSakitShortname; ?> / <?= $row->staseNama; ?></td>
                       <td><a href="#!"><span data-toggle="modal" data-target="#deskripsiFollowUp<?= $row->followUpId; ?>" class="text-primary">Klik Untuk Lihat</span></a></td>
