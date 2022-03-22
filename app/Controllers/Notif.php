@@ -116,7 +116,7 @@ class Notif extends BaseController
     {
         $data = $this->notifModel->where(['notifId' => $id])->findAll();
         if (json_decode($data[0]->notifPenerima) == ["999"]) {
-            sendNotificationBulk(['title' => $this->request->getVar('notifJudul'), 'message' => $this->request->getVar('notifIsi')]);
+            sendNotificationBulk(['title' => $data[0]->notifJudul, 'message' => $data[0]->notifIsi]);
         } else {
             $playerId = $this->oneSignalModel->getPlayerId(json_decode($data[0]->notifPenerima))->getResult();
             $sendPlayerId = [];
