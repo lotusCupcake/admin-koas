@@ -74,7 +74,7 @@
                       </td>
                       <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
                         <td>
-                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKegiatan<?= $row->logbookId; ?>"><i class="fas fa-trash"></i></button>
+                          <button class="btn btn-icon icon-left btn-danger" data-toggle="modal" data-target="#hapusKegiatan<?= $row->logbookId; ?>" <?= ($row->logbookIsVerify == 1) ? 'disabled' : '' ?>><i class="fas fa-trash"></i></button>
                         </td>
                       <?php endif ?>
                     </tr>
