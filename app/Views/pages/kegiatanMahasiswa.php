@@ -160,7 +160,7 @@
           <p>Apakah kamu benar ingin menghapus data kegiatan <strong><?= $delete->kelompokDetNama; ?> (<?= $delete->kelompokDetNim; ?>)</strong>?</p>
           <p class="text-warning"><small>This action cannot be undone</small></p>
         </div>
-        <form action="/kegiatanMahasiswa/<?= $delete->kegiatanId; ?>/delete" method="post">
+        <form action="/kegiatanMahasiswa/<?= $delete->logbookId; ?>/delete" method="post">
           <?= csrf_field(); ?>
           <input type="hidden" name="_method" value="DELETE">
           <div class="modal-footer bg-whitesmoke br">
