@@ -157,19 +157,41 @@ class RekapAbsen extends BaseController
         $this->spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $row, 'No.')
             ->setCellValue('B' . $row, 'Mahasiswa')
-            ->setCellValue('C' . $row, 'Tanggal/Waktu')
-            ->setCellValue('D' . $row, 'Lokasi Absen')
-            ->setCellValue('E' . $row, 'Keterangan')->getStyle("A2:E2")->getFont()->setBold(true);
+            ->setCellValue('C' . $row, 'Presensi Lengkap')
+            ->setCellValue('D' . $row, 'Presensi Sekali')
+            ->setCellValue('E' . $row, 'Absen')->getStyle("A2:E2")->getFont()->setBold(true);
         $row++;
         $no = 1;
-        foreach ($rekapAbsen as $absen) {
+        $mn2 = date("Y-m-d", minDateKelByDetail($kelompokId, $jadwalRumkitDetId) / 1000);
+        $mx2 = date("Y-m-d", maxDateKelByDetail($kelompokId, $jadwalRumkitDetId) / 1000);
+        $mahasiswa = $this->jadwalKegiatanModel->getMahasiswa(['kelompok.kelompokId' => $kelompokId])->getResult();
+        $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
+        foreach ($mahasiswa as $mhs) {
+            $jumlah = 0;
+            $hadir = 0;
+            $Absen1 = 0;
+            while (strtotime($mn2) <= strtotime($mx2)) {
+                $jumlah++;
+                if (jumlahPresensi($rekapAbsen, $mhs->kelompokDetNim, $mn2)[1] == 2) {
+                    $hadir++;
+                } else {
+                    $hadir = $hadir;
+                };
+                if (jumlahPresensi($rekapAbsen, $mhs->kelompokDetNim, $mn2)[1] == 1) {
+                    $Absen1++;
+                } else {
+                    $Absen1 = $Absen1;
+                }
+                $mn2 = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn2)));
+            }
             $this->spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $row, $no++)
-                ->setCellValue('B' . $row, $absen->kelompokDetNama . " (" . $absen->kelompokDetNim . ")")
-                ->setCellValue('C' . $row, date('Y-m-d H:i:s', ($absen->absensiTanggal / 1000)))
-                ->setCellValue('D' . $row, $absen->absensiLokasi)
-                ->setCellValue('E' . $row, $absen->absensiKeterangan);
+                ->setCellValue('B' . $row, $mhs->kelompokDetNama . " (" . $mhs->kelompokDetNim . ")")
+                ->setCellValue('C' . $row, "(" . $hadir . "/" . $jumlah . ")")
+                ->setCellValue('D' . $row, "(" . $Absen1 . "/" . $jumlah . ")")
+                ->setCellValue('E' . $row, "(" . ($jumlah - ($hadir + $Absen1)) . "/" . $jumlah . ")");
             $row++;
+            $mn2 = date("Y-m-d", minDateKelByDetail($kelompokId, $jadwalRumkitDetId) / 1000);
         }
         $writer = new Xlsx($this->spreadsheet);
 
@@ -180,13 +202,11 @@ class RekapAbsen extends BaseController
             $kelompok = $absen->kelompokNama;
         }
 
-        $fileName = 'Rekap Absensi ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit;
+        $fileName = 'Rekap Absensi Kelompok ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit;
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
         header('Cache-Control: max-age=0');
-
-        // session()->setFlashdata('success', 'Berhasil Export Data Tunggakan !');
         $writer->save('php://output');
     }
 }

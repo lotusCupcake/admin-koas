@@ -90,6 +90,10 @@
                       <th><sup><?= date("d", strtotime($mn)) ?></sup>/<sub><?= date("m", strtotime($mn)) ?></sub></th>
                     <?php $mn = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn)));
                     endwhile ?>
+                    <th scope="col">Presensi Lengkap</th>
+                    <th scope="col">Presensi Sekali</th>
+                    <th scope="col">Absen</th>
+
                 </thead>
                 <tbody>
                   <?php
@@ -100,10 +104,18 @@
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $mahasiswa->kelompokDetNama; ?> (<?= $mahasiswa->kelompokDetNim; ?>)</td>
-                      <?php while (strtotime($mn2) <= strtotime($mx2)) : ?>
-                        <td class="<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2) ?>"></td>
+                      <?php $jumlah = 0;
+                      $hadir = 0;
+                      $Absen1 = 0;
+                      while (strtotime($mn2) <= strtotime($mx2)) : $jumlah++; ?>
+                        <td class="<?= jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2)[0] ?>"></td>
+                        <?php (jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2)[1] == 2) ? $hadir++ : $hadir = $hadir ?>
+                        <?php (jumlahPresensi($dataResult, $mahasiswa->kelompokDetNim, $mn2)[1] == 1) ? $Absen1++ : $Absen1 = $Absen1 ?>
                       <?php $mn2 = date("Y-m-d", (int)strtotime("+1 day", strtotime($mn2)));
                       endwhile ?>
+                      <td>(<?= $hadir; ?>/<?= $jumlah; ?>)</td>
+                      <td>(<?= $Absen1; ?>/<?= $jumlah; ?>)</td>
+                      <td>(<?= $jumlah - ($hadir + $Absen1); ?>/<?= $jumlah; ?>)</td>
                     </tr>
                   <?php $mn2 = $minDate;
                   endforeach ?>

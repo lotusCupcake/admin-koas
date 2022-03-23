@@ -154,10 +154,10 @@ function jumlahPresensi(array $data, String $npm, String $tgl)
     }
 
     if ($jumlah == 2) {
-        return 'bg-success';
+        return ['bg-success', $jumlah];
     } else if ($jumlah == 1) {
-        return 'bg-warning';
+        return ['bg-warning', $jumlah];
     } else {
-        return 'bg-danger';
+        return ['bg-danger', $jumlah];
     }
 }
