@@ -115,63 +115,49 @@ class Refleksi extends BaseController
         $staseRefleksi = trim($this->request->getPost('staseRefleksi'));
         $kelompokRefleksi = trim($this->request->getPost('kelompokRefleksi'));
         $refleksi = $this->refleksiModel->getFilterRefleksi($staseRefleksi, $kelompokRefleksi)->getResult();
-        // dd($refleksi);
-        foreach ($refleksi as $reflek) {
-            $stase = $reflek->staseNama;
-            $kelompok = $reflek->kelompokNama;
-        }
+        $stase = $refleksi[0]->staseNama;
+        $kelompok = $refleksi[0]->kelompokNama;
 
-        //sampai sini
+        $this->spreadsheet = new Spreadsheet();
         $default = 1;
         $konten = 0;
         foreach ($refleksi as $mhs) {
             $konten = $default + $konten;
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $prd)->mergeCells("A" . $konten . ":" . "I" . $konten)->getStyle("A" . $konten . ":" . "I" . $konten)->getFont()->setBold(true);
+            $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $mhs->kelompokDetNama . ' (' . $mhs->kelompokDetNim . ')')->mergeCells("A" . $konten . ":" . "D" . $konten)->getStyle("A" . $konten . ":" . "D" . $konten)->getFont()->setBold(true);
             $konten = $konten + 1;
-            $spreadsheet->setActiveSheetIndex(0)
+            $this->spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $konten, 'No.')
-                ->setCellValue('B' . $konten, 'No Register')
-                ->setCellValue('C' . $konten, 'NPM')
-                ->setCellValue('D' . $konten, 'Nama Lengkap')
-                ->setCellValue('E' . $konten, 'Nama Prodi')
-                ->setCellValue('F' . $konten, 'Angkatan')
-                ->setCellValue('G' . $konten, 'Nama Biaya')
-                ->setCellValue('H' . $konten, 'Tahap')
-                ->setCellValue('I' . $konten, 'Nominal')->getStyle("A" . $konten . ":" . "I" . $konten)->getFont()->setBold(true);
+                ->setCellValue('B' . $konten, 'Kompetensi')
+                ->setCellValue('C' . $konten, 'Tujuan Pembelajaran	')
+                ->setCellValue('D' . $konten, 'Nilai')->getStyle("A" . $konten . ":" . "D" . $konten)->getFont()->setBold(true);
 
             $konten = $konten + 1;
             $total = 0;
             $no = 1;
-            foreach (json_decode($response->getBody())->data as $data) {
-                if ($data->NOMINAL != 0) {
-                    if ($prd == $data->NAMA_PRODI) {
-                        $total = $total + $data->NOMINAL;
-                        $spreadsheet->setActiveSheetIndex(0)
-                            ->setCellValue('A' . $konten, $no++)
-                            ->setCellValue('B' . $konten, $data->NO_REGISTER)
-                            ->setCellValue('C' . $konten, $data->Npm)
-                            ->setCellValue('D' . $konten, $data->NAMA_LENGKAP)
-                            ->setCellValue('E' . $konten, $data->NAMA_PRODI)
-                            ->setCellValue('F' . $konten, $data->ANGKATAN)
-                            ->setCellValue('G' . $konten, $data->NAMA_BIAYA)
-                            ->setCellValue('H' . $konten, $data->TAHAP)
-                            ->setCellValue('I' . $konten, number_to_currency($data->NOMINAL, 'IDR'))->getStyle("A" . $konten . ":" . "H" . $konten);
-                        $konten++;
+            $gradeRefleksi = getRefleksi(['refleksi_grade.gradeRefleksiStaseId' => $mhs->staseId, 'refleksi_grade.gradeRefleksiNpm' => $mhs->kelompokDetNim])[0]->gradeRefleksiNilai;
+            $grade = json_decode($gradeRefleksi);
+            foreach ($this->refleksiModel->getKompetensi()->getResult() as $data) {
+                $this->spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $konten, $no++)
+                    ->setCellValue('B' . $konten, $data->kompetensiNama)->getStyle("A" . $konten . ":" . "B" . $konten);
+                $this->spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('C' . $konten, $data->tujuanPembelajaran)->getStyle("C" . $konten);
+                foreach ($grade as $gr) {
+                    if ($data->tujuanId == $gr->tujuan) {
+                        $total = $total + $gr->nilai;
+                        $this->spreadsheet->setActiveSheetIndex(0)
+                            ->setCellValue('D' . $konten, $gr->nilai)->getStyle("D" . $konten);
                     }
                 }
+                $konten++;
             }
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, 'Total Amount')->mergeCells("A" . $konten . ":" . "H" . $konten)->getStyle("A" . $konten . ":" . "H" . $konten)->getFont()->setBold(true);
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . $konten, number_to_currency($total, 'IDR'))->getStyle('I' . $konten)->getFont()->setBold(true);
+            $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, 'Total')->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $this->spreadsheet->setActiveSheetIndex(0)->getStyle("A" . $konten . ":" . "C" . $konten)->getAlignment()->setHorizontal('center');
+            $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . $konten, $total)->getStyle('D' . $konten)->getFont()->setBold(true);
             $konten = $konten + 1;
         }
 
         $writer = new Xlsx($this->spreadsheet);
-
-        $refleksi = $this->refleksiModel->getFilterRefleksi($staseRefleksi, $kelompokRefleksi)->getResult();
-        foreach ($refleksi as $reflek) {
-            $stase = $reflek->staseNama;
-            $kelompok = $reflek->kelompokNama;
-        }
 
         $fileName = 'Refleksi Diri Kelompok ' . $kelompok . ' Stase ' . $stase;
 
