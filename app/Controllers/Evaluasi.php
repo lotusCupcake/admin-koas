@@ -144,4 +144,47 @@ class Evaluasi extends BaseController
 
         return view('pages/evaluasi', $data);
     }
+
+    public function exportEvaluasi()
+    {
+        $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
+        $rumahSakit = $dataEvaluasi[0]->rumahSakitNama;
+        $stase = $dataEvaluasi[0]->staseNama;
+        $doping = $dataEvaluasi[0]->dopingNamaLengkap;
+
+        $spreadsheet = new Spreadsheet();
+
+        $default = 1;
+        $konten = 0;
+        foreach ($dataEvaluasi as $data) {
+            $konten = $default + $konten;
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $data->kelompokDetNama . ' (' . $data->kelompokDetNim . ')')->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $konten = $konten + 1;
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $konten, 'No.')
+                ->setCellValue('B' . $konten, 'Aspek Nilai')
+                ->setCellValue('C' . $konten, 'Nilai')->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+
+            $konten = $konten + 1;
+            $no = 1;
+            $evaluasi = getEvaluasi(['evaluasi_grade.gradeEvaluasiStaseId' => $data->staseId, 'evaluasi_grade.gradeEvaluasiNpm' => $data->kelompokDetNim, 'evaluasi_grade.gradeEvaluasiDopingEmail' => $data->dopingEmail])[0]->gradeEvaluasiNilai;
+            foreach (json_decode($evaluasi) as $eval) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $konten, $no++)
+                    ->setCellValue('B' . $konten, getAspekEvaluasi(['evaluasiId' => $eval->aspek])[0]->evaluasiAspek)
+                    ->setCellValue('C' . $konten, $eval->nilai)->getStyle("A" . $konten . ":" . "C" . $konten);
+                $konten++;
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Evaluasi ' . $doping . ' - ' . $rumahSakit . ' - ' . $stase;
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
 }

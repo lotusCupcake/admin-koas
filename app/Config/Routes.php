@@ -209,7 +209,7 @@ $routes->get('/evaluasi/(:any)', 'Evaluasi::index');
 $routes->post('/evaluasi/proses', 'Evaluasi::proses');
 $routes->post('/evaluasi/evaluasiStase', 'Evaluasi::evaluasiStase');
 $routes->post('/evaluasi/evaluasiDoping', 'Evaluasi::evaluasiDoping');
-
+$routes->post('/evaluasi/cetak', 'Evaluasi::exportEvaluasi');
 
 //route refleksi
 $routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);

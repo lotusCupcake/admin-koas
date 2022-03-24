@@ -117,6 +117,7 @@ class Refleksi extends BaseController
         $refleksi = $this->refleksiModel->getFilterRefleksi($staseRefleksi, $kelompokRefleksi)->getResult();
         $stase = $refleksi[0]->staseNama;
         $kelompok = $refleksi[0]->kelompokNama;
+        $tahunAkademik = $refleksi[0]->gradeRefleksiTahunAkademik;
 
         $this->spreadsheet = new Spreadsheet();
         $default = 1;
@@ -159,7 +160,7 @@ class Refleksi extends BaseController
 
         $writer = new Xlsx($this->spreadsheet);
 
-        $fileName = 'Refleksi Diri Kelompok ' . $kelompok . ' Stase ' . $stase;
+        $fileName = 'Refleksi Diri Kelompok ' . $kelompok . ' ' . $tahunAkademik . ' - ' . $stase;
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');

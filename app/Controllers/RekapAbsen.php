@@ -145,14 +145,13 @@ class RekapAbsen extends BaseController
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
 
         $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
-        foreach ($rekapAbsen as $absen) {
-            $rumahSakit = $absen->rumahSakitShortname;
-            $stase = $absen->staseNama;
-            $kelompok = $absen->kelompokNama;
-        }
+        $rumahSakit = $rekapAbsen[0]->rumahSakitShortname;
+        $stase = $rekapAbsen[0]->staseNama;
+        $kelompok = $rekapAbsen[0]->kelompokNama;
+        $tahunAkademik = $rekapAbsen[0]->absensiTahunAkademik;
 
         $row = 1;
-        $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, 'Rekap Absensi ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit)->mergeCells("A" . $row . ":E" . $row)->getStyle("A" . $row . ":E" . $row)->getFont()->setBold(true);
+        $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $row, 'Rekap Absensi ' . $kelompok . ' ' . $tahunAkademik . ' Di ' . $rumahSakit . ' Stase ' . $stase)->mergeCells("A" . $row . ":E" . $row)->getStyle("A" . $row . ":E" . $row)->getFont()->setBold(true);
         $row++;
         $this->spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $row, 'No.')
@@ -195,14 +194,7 @@ class RekapAbsen extends BaseController
         }
         $writer = new Xlsx($this->spreadsheet);
 
-        $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($jadwalRumkitDetId, $kelompokId)->getResult();
-        foreach ($rekapAbsen as $absen) {
-            $rumahSakit = $absen->rumahSakitShortname;
-            $stase = $absen->staseNama;
-            $kelompok = $absen->kelompokNama;
-        }
-
-        $fileName = 'Rekap Absensi Kelompok ' . $kelompok . ' Stase ' . $stase . ' Di ' . $rumahSakit;
+        $fileName = 'Rekap Absensi Kelompok ' . $kelompok . ' ' . $tahunAkademik . ' - ' . $rumahSakit . ' - ' . $stase;
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');

@@ -70,8 +70,8 @@
                 <div class="card-body">
                   <table>
                     <tr>
-                      <th>Nama/NPM Mahasiswa</th>
-                      <td>: <?= $reflek->kelompokDetNama; ?>/<?= $reflek->kelompokDetNim; ?></td>
+                      <th>Mahasiswa</th>
+                      <td>: <?= $reflek->kelompokDetNama; ?> (<?= $reflek->kelompokDetNim; ?>)</td>
                     </tr>
                     <tr>
                       <th>Stase</th>
