@@ -63,11 +63,6 @@ class RekapNilai extends BaseController
         }
     }
 
-    public function exportRekapNilai($stase)
-    {
-        dd($_POST);
-    }
-
     public function proses()
     {
         if (!$this->validate([
@@ -110,5 +105,71 @@ class RekapNilai extends BaseController
             session()->setFlashdata('success', 'Nilai <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
         }
         return view('pages/rekapNilai', $data);
+    }
+
+    public function exportRekapNilai($mhs)
+    {
+        $dataMhs = $this->penilaianModel->getFilterNilai(['kelompok.kelompokId' => $this->request->getPost('kelompokId'), 'stase.staseId' => $this->request->getPost('staseId'), 'kelompok_detail.kelompokDetNim' => $mhs])->getResult();
+        foreach ($dataMhs as $mahasiswa) {
+            $mhsNama = $mahasiswa->kelompokDetNama;
+            $mhsNpm = $mahasiswa->kelompokDetNim;
+        }
+        $stase = $this->staseModel->getWhere(['staseId' => $this->request->getPost('staseId')])->getResult()[0]->staseNama;
+        $tahunAkademik = $this->dataKelompokModel->getWhere(['kelompokId' => $this->request->getPost('kelompokId')])->getResult()[0]->kelompokTahunAkademik;
+
+        $spreadsheet = new Spreadsheet();
+
+        $default = 1;
+        $konten = 0;
+        $konten = $default + $konten;
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $mhsNama . ' ( ' . $mhsNpm . ')' . ' - ' . $stase . ' - ' . $tahunAkademik)->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+        $konten++;
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A' . $konten, 'No.')
+            ->setCellValue('B' . $konten, 'Jenis Kegiatan')
+            ->setCellValue('C' . $konten, 'Nilai Akhir (Bobot X Nilai)')->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+
+        $konten++;
+        $nilaiAkhir = 0;
+        $dataKomp = json_decode(getStatus(['setting_bobot.settingBobotStaseId' => $this->request->getPost('staseId')])[0]->settingBobotKomposisiNilai);
+        $no = 1;
+        foreach ($dataMhs as $detail) {
+            foreach ($dataKomp as $komp) {
+                $nilaiAkhir += getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId);
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $konten, $no++)
+                    ->setCellValue('B' . $konten, getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat)
+                    ->setCellValue('C' . $konten, number_format(getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId), 2))->getStyle("A" . $konten . ":" . "C" . $konten);
+                $konten++;
+            }
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, 'Total')->mergeCells("A" . $konten . ":" . "B" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $spreadsheet->setActiveSheetIndex(0)->getStyle("A" . $konten . ":" . "C" . $konten)->getAlignment()->setHorizontal('center');
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $konten, $nilaiAkhir . ' / ' . getKonversi($nilaiAkhir))->getStyle('C' . $konten)->getFont()->setBold(true);
+            $konten++;
+
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $konten, $no++)
+                ->setCellValue('B' . $konten, "Attitude/" . getPenilaian("[\"12\"]")[0]->penilaianNamaSingkat)
+                ->setCellValue('C' . $konten, (getNilaiGr(12, $detail->kelompokDetNim, $detail->staseId)[0] < 1) ? 'Unsufficient' : 'Sufficient')->getStyle("A" . $konten . ":" . "B" . $konten);
+            $spreadsheet->setActiveSheetIndex(0)->getStyle("C" . $konten)->getAlignment()->setHorizontal('center');
+            $konten++;
+
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, 'Sanksi')->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $spreadsheet->setActiveSheetIndex(0)->getStyle("A" . $konten . ":" . "C" . $konten)->getAlignment()->setHorizontal('center');
+            $konten++;
+
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, getNilaiGr(12, $detail->kelompokDetNim, $detail->staseId)[1])->mergeCells("A" . $konten . ":" . "C" . $konten);
+            $spreadsheet->setActiveSheetIndex(0)->getStyle("A" . $konten . ":" . "C" . $konten)->getAlignment()->setHorizontal('center');
+            // $konten++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Nilai Akhir ' . $mhsNama . ' ( ' . $mhsNpm . ')' . ' - ' . $stase . ' - ' . $tahunAkademik;
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
     }
 }

@@ -57,9 +57,14 @@
               </center>
             </div>
           <?php else : ?>
-            <div class="buttons">
-              <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
-            </div>
+            <form action="/refleksi/cetak" method="POST">
+              <?= csrf_field() ?>
+              <input type="hidden" name="staseRefleksi" value="<?= $dataFilter[0]; ?>">
+              <input type="hidden" name="kelompokRefleksi" value="<?= $dataFilter[1]; ?>">
+              <div class="buttons">
+                <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
+              </div>
+            </form>
             <?php foreach ($refleksi as $reflek) : ?>
               <div class="card">
                 <div class="card-body">

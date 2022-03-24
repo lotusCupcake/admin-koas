@@ -16,6 +16,7 @@ class RefleksiModel extends Model
         $builder = $this->table('refleksi_grade');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = refleksi_grade.gradeRefleksiNpm', 'LEFT');
         $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->join('kelompok', 'kelompok.kelompokId = jadwal.jadwalKelompokId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');

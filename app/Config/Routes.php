@@ -216,6 +216,7 @@ $routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admi
 $routes->get('/refleksi/index', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
 $routes->post('/refleksi/proses', 'Refleksi::proses');
 $routes->post('/refleksi/refleksiKelompok', 'Refleksi::refleksiKelompok');
+$routes->post('/refleksi/cetak', 'Refleksi::exportRefleksi');
 
 //route panduan
 $routes->get('/tutor/(:any)', 'Tutor::index');
