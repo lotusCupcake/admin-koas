@@ -162,11 +162,14 @@ class JadwalKegiatanModel extends Model
         return $builder->get();
     }
 
-    public function getStase()
+    public function getStase($where = null)
     {
         $builder = $this->table('jadwal');
         $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
+        if ($where) {
+            $builder->where($where);
+        }
         $builder->groupBy('stase.staseId');
         return $builder->get();
     }
