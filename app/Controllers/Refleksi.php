@@ -28,12 +28,16 @@ class Refleksi extends BaseController
 
     public function index()
     {
+        $where = null;
+        if (in_groups('Koordik')) {
+            $where = array('rumkit_detail.rumkitDetRumkitId' => getRs()[0]->dopingRumkitId);
+        };
         $data = [
             'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
             'refleksi' => $this->refleksiModel->findAll(),
-            'dataStase' => $this->jadwalKegiatanModel->getStase()->getResult(),
+            'dataStase' => $this->jadwalKegiatanModel->getStase($where)->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'refleksi' => [],
@@ -83,11 +87,17 @@ class Refleksi extends BaseController
         foreach ($this->refleksiModel->getKompetensi()->getResult() as $komp) {
             array_push($namaKomp, $komp->kompetensiNama);
         }
+
+
+        $where = null;
+        if (in_groups('Koordik')) {
+            $where = array('rumkit_detail.rumkitDetRumkitId' => getRs()[0]->dopingRumkitId);
+        };
         $data = [
             'title' => "Refleksi Diri",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Refleksi Diri'],
-            'dataStase' => $this->jadwalKegiatanModel->getStase()->getResult(),
+            'dataStase' => $this->jadwalKegiatanModel->getStase($where)->getResult(),
             'validation' => \Config\Services::validation(),
             'menu' => $this->fetchMenu(),
             'kompetensi' => $this->refleksiModel->getKompetensi()->getResult(),
