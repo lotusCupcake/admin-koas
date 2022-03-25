@@ -46,24 +46,28 @@ class Evaluasi extends BaseController
 
     public function evaluasiStase()
     {
-        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
-        $staseEvaluasi = $this->evaluasiModel->evaluasiStase($rumahSakitEvaluasi);
-        $lists = "<option value=''>Pilih Stase</option>";
-        foreach ($staseEvaluasi->getResult() as $data) {
-            $lists .= "<option value='" . $data->staseId . "'>" . $data->staseNama . "</option>";
+        if ($this->request->getpost('rumahSakitEvaluasi') != null) {
+            $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
+            $staseEvaluasi = $this->evaluasiModel->evaluasiStase($rumahSakitEvaluasi);
+            $lists = "<option value=''>Pilih Stase</option>";
+            foreach ($staseEvaluasi->getResult() as $data) {
+                $lists .= "<option value='" . $data->staseId . "'>" . $data->staseNama . "</option>";
+            }
+            $callback = array('list_stase_evaluasi' => $lists);
+            echo json_encode($callback);
         }
-        $callback = array('list_stase_evaluasi' => $lists);
-        echo json_encode($callback);
     }
 
     public function evaluasiDoping()
     {
         $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasiEmail = $this->request->getPost('dopingEvaluasiEmail');
+        $role = $this->request->getPost('role');
 
-        if (in_groups("Dosen")) {
+        if ($role == "Dosen") {
             $where = [
-                'dosen_pembimbing.dopingEmail' => user()->email,
+                'dosen_pembimbing.dopingEmail' => $dopingEvaluasiEmail,
                 'rumkit_detail.rumkitDetRumkitId' => $rumahSakitEvaluasi,
                 'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
                 'rumkit_detail.rumkitDetStatus' => 1
@@ -77,11 +81,11 @@ class Evaluasi extends BaseController
         }
         $dopingEvaluasi = $this->evaluasiModel->evaluasiDoping($where);
         $lists = "<option value=''>Pilih Dosen Pembimbing</option>";
-        foreach ($dopingEvaluasi->getResult() as $data) {
-            if (in_groups("Dosen")) {
-                $lists .= "<option value='" . user()->email . "'>" . getUser(user()->id)->dopingNamaLengkap . "</option>";
+        foreach ($dopingEvaluasi as $data) {
+            if ($role == "Dosen") {
+                $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
             } else {
-                if ($dopingEvaluasi->getResult()[0]->dopingNamaLengkap != null) {
+                if ($dopingEvaluasi[0]->dopingNamaLengkap != null) {
                     $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
                 }
             }
@@ -92,7 +96,6 @@ class Evaluasi extends BaseController
 
     public function proses()
     {
-        // dd($_POST);
         if (!$this->validate([
             'rumahSakitEvaluasi' => [
                 'rules' => 'required',

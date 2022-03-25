@@ -74,6 +74,7 @@
   </div>
   <input type="hidden" name="sessionEmail" value="<?= user()->email ?>">
   <input type="hidden" name="sessionId" value="<?= user()->id ?>">
+  <input type="hidden" name="sessionRole" value="<?= getUser(user()->id)->name ?>">
   <!-- General JS Scripts -->
   <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

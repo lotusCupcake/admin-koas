@@ -65,6 +65,6 @@ class EvaluasiModel extends Model
         $builder->where($where);
         $builder->groupBy('logbook.logbookDopingEmail');
         $staseEvaluasi = $builder->get();
-        return $staseEvaluasi;
+        return $staseEvaluasi->getResult();
     }
 }

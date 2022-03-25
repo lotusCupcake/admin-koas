@@ -20,7 +20,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <select class="form-control" name="rumahSakitEvaluasi">
-              <option value="" selected="selected">Pilih Rumah Sakit</option>
+              <option value="">Pilih Rumah Sakit</option>
               <?php if (in_groups('Koordik')) : ?>
                 <option value="<?= getRs()[0]->dopingRumkitId; ?>"><?= getRs()[0]->rumahSakitShortname; ?></option>
               <?php elseif (in_groups(['Superadmin', 'Admin Prodi', 'Dosen'])) : ?>
