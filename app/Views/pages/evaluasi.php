@@ -20,7 +20,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <select class="form-control" name="rumahSakitEvaluasi">
-              <option value="" selected="selected">Pilih Rumah Sakit</option>
+              <option value="">Pilih Rumah Sakit</option>
               <?php if (in_groups('Koordik')) : ?>
                 <option value="<?= getRs()[0]->dopingRumkitId; ?>"><?= getRs()[0]->rumahSakitShortname; ?></option>
               <?php elseif (in_groups(['Superadmin', 'Admin Prodi', 'Dosen'])) : ?>
@@ -69,19 +69,25 @@
               </center>
             </div>
           <?php else : ?>
-            <div class="buttons">
-              <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
-            </div>
+            <form action="/evaluasi/cetak" method="POST">
+              <?= csrf_field() ?>
+              <div class="buttons">
+                <input type="hidden" name="rumahSakitEvaluasi" value="<?= $dataFilter[0]; ?>">
+                <input type="hidden" name="staseEvaluasi" value="<?= $dataFilter[1]; ?>">
+                <input type="hidden" name="dopingEvaluasi" value="<?= $dataFilter[2]; ?>">
+                <button type="submit" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Export</button>
+              </div>
+            </form>
             <?php foreach ($dataResult as $data) : ?>
               <div class="card">
                 <div class="card-body">
                   <?php $keterangan = ['Sangat Kurang', 'Kurang', 'Cukup', 'Baik', 'Sangat Baik']; ?>
                   <table>
                     <tr>
-                      <th>Nama/NPM Mahasiswa</th>
-                      <td>: <?= $data->kelompokDetNama; ?>/<?= $data->kelompokDetNim; ?></td>
+                      <th>Mahasiswa</th>
+                      <td>: <?= $data->kelompokDetNama; ?> (<?= $data->kelompokDetNim; ?>)</td>
                     <tr>
-                      <th>Nama Dosen</th>
+                      <th>Dosen</th>
                       <td>: <?= $data->dopingNamaLengkap; ?></td>
                     </tr>
                     <tr>

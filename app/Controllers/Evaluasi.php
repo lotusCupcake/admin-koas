@@ -46,24 +46,28 @@ class Evaluasi extends BaseController
 
     public function evaluasiStase()
     {
-        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
-        $staseEvaluasi = $this->evaluasiModel->evaluasiStase($rumahSakitEvaluasi);
-        $lists = "<option value=''>Pilih Stase</option>";
-        foreach ($staseEvaluasi->getResult() as $data) {
-            $lists .= "<option value='" . $data->staseId . "'>" . $data->staseNama . "</option>";
+        if ($this->request->getpost('rumahSakitEvaluasi') != null) {
+            $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
+            $staseEvaluasi = $this->evaluasiModel->evaluasiStase($rumahSakitEvaluasi);
+            $lists = "<option value=''>Pilih Stase</option>";
+            foreach ($staseEvaluasi->getResult() as $data) {
+                $lists .= "<option value='" . $data->staseId . "'>" . $data->staseNama . "</option>";
+            }
+            $callback = array('list_stase_evaluasi' => $lists);
+            echo json_encode($callback);
         }
-        $callback = array('list_stase_evaluasi' => $lists);
-        echo json_encode($callback);
     }
 
     public function evaluasiDoping()
     {
         $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasiEmail = $this->request->getPost('dopingEvaluasiEmail');
+        $role = $this->request->getPost('role');
 
-        if (in_groups("Dosen")) {
+        if ($role == "Dosen") {
             $where = [
-                'dosen_pembimbing.dopingEmail' => user()->email,
+                'dosen_pembimbing.dopingEmail' => $dopingEvaluasiEmail,
                 'rumkit_detail.rumkitDetRumkitId' => $rumahSakitEvaluasi,
                 'rumkit_detail.rumkitDetStaseId' => $staseEvaluasi,
                 'rumkit_detail.rumkitDetStatus' => 1
@@ -77,11 +81,11 @@ class Evaluasi extends BaseController
         }
         $dopingEvaluasi = $this->evaluasiModel->evaluasiDoping($where);
         $lists = "<option value=''>Pilih Dosen Pembimbing</option>";
-        foreach ($dopingEvaluasi->getResult() as $data) {
-            if (in_groups("Dosen")) {
-                $lists .= "<option value='" . user()->email . "'>" . getUser(user()->id)->dopingNamaLengkap . "</option>";
+        foreach ($dopingEvaluasi as $data) {
+            if ($role == "Dosen") {
+                $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
             } else {
-                if ($dopingEvaluasi->getResult()[0]->dopingNamaLengkap != null) {
+                if ($dopingEvaluasi[0]->dopingNamaLengkap != null) {
                     $lists .= "<option value='" . $data->dopingEmail . "'>" . $data->dopingNamaLengkap . "</option>";
                 }
             }
@@ -92,7 +96,6 @@ class Evaluasi extends BaseController
 
     public function proses()
     {
-        // dd($_POST);
         if (!$this->validate([
             'rumahSakitEvaluasi' => [
                 'rules' => 'required',
@@ -143,5 +146,48 @@ class Evaluasi extends BaseController
         }
 
         return view('pages/evaluasi', $data);
+    }
+
+    public function exportEvaluasi()
+    {
+        $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
+        $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
+        $rumahSakit = $dataEvaluasi[0]->rumahSakitNama;
+        $stase = $dataEvaluasi[0]->staseNama;
+        $doping = $dataEvaluasi[0]->dopingNamaLengkap;
+
+        $spreadsheet = new Spreadsheet();
+
+        $default = 1;
+        $konten = 0;
+        foreach ($dataEvaluasi as $data) {
+            $konten = $default + $konten;
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $data->kelompokDetNama . ' (' . $data->kelompokDetNim . ')')->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $konten = $konten + 1;
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $konten, 'No.')
+                ->setCellValue('B' . $konten, 'Aspek Nilai')
+                ->setCellValue('C' . $konten, 'Nilai')->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+
+            $konten = $konten + 1;
+            $no = 1;
+            $evaluasi = getEvaluasi(['evaluasi_grade.gradeEvaluasiStaseId' => $data->staseId, 'evaluasi_grade.gradeEvaluasiNpm' => $data->kelompokDetNim, 'evaluasi_grade.gradeEvaluasiDopingEmail' => $data->dopingEmail])[0]->gradeEvaluasiNilai;
+            foreach (json_decode($evaluasi) as $eval) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $konten, $no++)
+                    ->setCellValue('B' . $konten, getAspekEvaluasi(['evaluasiId' => $eval->aspek])[0]->evaluasiAspek)
+                    ->setCellValue('C' . $konten, $eval->nilai)->getStyle("A" . $konten . ":" . "C" . $konten);
+                $konten++;
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Evaluasi ' . $doping . ' - ' . $rumahSakit . ' - ' . $stase;
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
     }
 }

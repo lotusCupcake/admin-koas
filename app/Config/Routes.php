@@ -205,11 +205,11 @@ $routes->get('/utilitas/', 'Utilitas::index', ['filter' => 'role:Superadmin,Admi
 $routes->get('/utilitas/index', 'Utilitas::index', ['filter' => 'role:Superadmin,Admin Prodi']);
 
 //route evaluasi
-$routes->get('/evaluasi/(:any)', 'Evaluasi::index');
+$routes->get('/evaluasi', 'Evaluasi::index');
 $routes->post('/evaluasi/proses', 'Evaluasi::proses');
 $routes->post('/evaluasi/evaluasiStase', 'Evaluasi::evaluasiStase');
 $routes->post('/evaluasi/evaluasiDoping', 'Evaluasi::evaluasiDoping');
-
+$routes->post('/evaluasi/cetak', 'Evaluasi::exportEvaluasi');
 
 //route refleksi
 $routes->get('/refleksi/', 'Refleksi::index', ['filter' => 'role:Superadmin,Admin Prodi,Koordik']);
