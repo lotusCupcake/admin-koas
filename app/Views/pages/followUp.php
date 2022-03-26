@@ -45,7 +45,9 @@
                   <th width="10%" scope="col">Kasus</th>
                   <th width="15%" scope="col">Dosen Pembimbing</th>
                   <th width="25%" style="text-align:center" scope="col">Status</th>
-                  <th style="text-align:center" scope="col">Action</th>
+                  <?php if (in_groups(['Superadmin', 'Admin Prodi'])) : ?>
+                    <th style="text-align:center" scope="col">Action</th>
+                  <?php endif ?>
                 </tr>
               </thead>
               <tbody>
