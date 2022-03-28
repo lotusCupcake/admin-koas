@@ -96,5 +96,6 @@
     </div>
     <ul class="sidebar-menu">
       <?= $menus ?>
+    </ul>
   </aside>
 </div>
