@@ -170,7 +170,7 @@ class JadwalKegiatan extends BaseController
             }
         }
         $jlhweek = $this->request->getPost('jumlahWeek');
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks -1 days") * 1000;
 
         $data = array(
             'jadwalRumkitDetId' => $this->request->getPost('staseId'),
@@ -230,7 +230,7 @@ class JadwalKegiatan extends BaseController
             }
         }
         $jlhweek = $this->request->getPost('jumlahWeek');
-        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks") * 1000;
+        $dateSelesai = strtotime($this->request->getPost('tanggalAwal') . " +" . $jlhweek . " weeks -1 days") * 1000;
 
         $data = array(
             'jadwalRumkitDetId' =>  $this->request->getPost('stase'),
