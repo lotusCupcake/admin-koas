@@ -112,11 +112,11 @@
                     <li>Memverifikasi follow up dan kegiatan mahasiswa (jika dosen). <a href="https://youtu.be/bzNf3nfWthc" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                     <li>Melakukan penilaian kegiatan mahasiswa (jika dosen). <a href="https://youtu.be/UzC8XbIniq0" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                     <li>Memverifikasi penilaian yang dibuat oleh dosen. <a href="https://youtu.be/WGoE1RG5w-k" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Membuat berita acara kegiatan (jika dosen). <a href="https://youtu.be/GCKTL7gDsXE" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Merekap Absensi Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Melihat Evaluasi Mahasiswa Terhadap Dosen . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Melihat Refleksi Diri Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Merekap Nilai Mahasiswa . <a href="#!" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Membuat berita acara kegiatan (jika dosen). <a href="https://youtu.be/GCKTL7gDsXE" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Merekap Absensi Mahasiswa . <a href="https://youtu.be/Cxf6EOscrGY" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melihat Evaluasi Mahasiswa Terhadap Dosen . <a href="https://youtu.be/ygEdpJlHEsc" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melihat Refleksi Diri Mahasiswa . <a href="https://youtu.be/LPEMk0j47gg" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Merekap Nilai Mahasiswa . <a href="https://youtu.be/h8YtWH46iwg" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                   </ul>
                 </div>
                 <div class="modal-footer">
@@ -139,7 +139,8 @@
                   <ul>
                     <li>Memverifikasi follow up dan kegiatan mahasiswa. <a href="https://youtu.be/bzNf3nfWthc" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                     <li>Melakukan penilaian kegiatan mahasiswa. <a href="https://youtu.be/UzC8XbIniq0" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
-                    <li>Membuat berita acara kegiatan. <a href="https://youtu.be/GCKTL7gDsXE" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Membuat berita acara kegiatan. <a href="https://youtu.be/GCKTL7gDsXE" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
+                    <li>Melihat Evaluasi Mahasiswa Terhadap Dosen. <a href="https://youtu.be/1hH_8AYUfh8" target="_blank" class="text-primary">klik disini untuk tutorial</a></li>
                   </ul>
                 </div>
                 <div class="modal-footer">

@@ -26,7 +26,7 @@ class EvaluasiModel extends Model
                 'evaluasi_grade.gradeEvaluasiDopingEmail' => $dopingEvaluasi
             ]
         );
-        $builder->groupBy('staseId');
+        $builder->groupBy('gradeEvaluasiNpm');
         return $builder->get();
     }
 

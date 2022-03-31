@@ -153,19 +153,20 @@ class Evaluasi extends BaseController
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
         $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
         $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
-        $rumahSakit = $dataEvaluasi[0]->rumahSakitNama;
+        // dd($dataEvaluasi);
+        $rumahSakit = $dataEvaluasi[0]->rumahSakitShortname;
         $stase = $dataEvaluasi[0]->staseNama;
         $doping = $dataEvaluasi[0]->dopingNamaLengkap;
 
-        $spreadsheet = new Spreadsheet();
+        $this->spreadsheet = new Spreadsheet();
 
         $default = 1;
         $konten = 0;
         foreach ($dataEvaluasi as $data) {
             $konten = $default + $konten;
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $data->kelompokDetNama . ' (' . $data->kelompokDetNim . ')')->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
+            $this->spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, $data->kelompokDetNama . ' (' . $data->kelompokDetNim . ') - ' . $doping)->mergeCells("A" . $konten . ":" . "C" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
             $konten = $konten + 1;
-            $spreadsheet->setActiveSheetIndex(0)
+            $this->spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $konten, 'No.')
                 ->setCellValue('B' . $konten, 'Aspek Nilai')
                 ->setCellValue('C' . $konten, 'Nilai')->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
@@ -174,7 +175,7 @@ class Evaluasi extends BaseController
             $no = 1;
             $evaluasi = getEvaluasi(['evaluasi_grade.gradeEvaluasiStaseId' => $data->staseId, 'evaluasi_grade.gradeEvaluasiNpm' => $data->kelompokDetNim, 'evaluasi_grade.gradeEvaluasiDopingEmail' => $data->dopingEmail])[0]->gradeEvaluasiNilai;
             foreach (json_decode($evaluasi) as $eval) {
-                $spreadsheet->setActiveSheetIndex(0)
+                $this->spreadsheet->setActiveSheetIndex(0)
                     ->setCellValue('A' . $konten, $no++)
                     ->setCellValue('B' . $konten, getAspekEvaluasi(['evaluasiId' => $eval->aspek])[0]->evaluasiAspek)
                     ->setCellValue('C' . $konten, $eval->nilai)->getStyle("A" . $konten . ":" . "C" . $konten);
@@ -182,8 +183,9 @@ class Evaluasi extends BaseController
             }
         }
 
-        $writer = new Xlsx($spreadsheet);
-        $fileName = 'Evaluasi ' . $doping . ' - ' . $rumahSakit . ' - ' . $stase;
+        $writer = new Xlsx($this->spreadsheet);
+
+        $fileName = 'Evaluasi Dosen Pembimbing ' . $rumahSakit . ' - ' . $stase;
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');

@@ -80,13 +80,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/berita-acara.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="https://youtu.be/GCKTL7gDsXE">Membuat Berita Acara Kegiatan</a></h2>
+                                        <h2><a href="https://youtu.be/GCKTL7gDsXE" target="_blank">Membuat Berita Acara Kegiatan</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara membuat berita acara kegiatan. </p>
                                     <div class="article-cta">
-                                        <a href="https://youtu.be/GCKTL7gDsXE" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/GCKTL7gDsXE" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
@@ -97,13 +97,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/evaluasi-dosen.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="#">Melihat Evaluasi Mahasiswa Terhadap Dosen</a></h2>
+                                        <h2><a href="https://youtu.be/1hH_8AYUfh8" target="_blank">Melihat Evaluasi Mahasiswa Terhadap Dosen</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara melihat evaluasi mahasiswa terhaadap dosen. </p>
                                     <div class="article-cta">
-                                        <a href="#" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/1hH_8AYUfh8" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
