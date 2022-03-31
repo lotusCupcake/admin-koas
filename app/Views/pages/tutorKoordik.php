@@ -61,13 +61,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/rekap-absensi.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="#">Merekap Absensi Mahasiswa</a></h2>
+                                        <h2><a href="https://youtu.be/Cxf6EOscrGY" target="_blank">Merekap Absensi Mahasiswa</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara merekap absensi. </p>
                                     <div class="article-cta">
-                                        <a href="#" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/Cxf6EOscrGY" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
@@ -80,13 +80,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/evaluasi-dosen.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="#">Melihat Evaluasi Mahasiswa Terhadap Dosen</a></h2>
+                                        <h2><a href="https://youtu.be/ygEdpJlHEsc" target="_blank">Melihat Evaluasi Mahasiswa Terhadap Dosen</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara melihat evaluasi mahasiswa terhaadap dosen. </p>
                                     <div class="article-cta">
-                                        <a href="#" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/ygEdpJlHEsc" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
@@ -97,13 +97,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/refleksi-mahasiswa.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="#">Melihat Refleksi Diri Mahasiswa</a></h2>
+                                        <h2><a href="https://youtu.be/LPEMk0j47gg" target="_blank">Melihat Refleksi Diri Mahasiswa</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara melihat refleksi diri mahasiswa. </p>
                                     <div class="article-cta">
-                                        <a href="#" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/LPEMk0j47gg" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
@@ -114,13 +114,13 @@
                                     <div class="article-image" data-background="<?= base_url() ?>/asset/rekap-penilaian.webp">
                                     </div>
                                     <div class="article-title">
-                                        <h2><a href="#">Merekap Nilai Mahasiswa</a></h2>
+                                        <h2><a href="https://youtu.be/h8YtWH46iwg" target="_blank">Merekap Nilai Mahasiswa</a></h2>
                                     </div>
                                 </div>
                                 <div class="article-details">
                                     <p>Klik tombol dibawah untuk menonton video panduan cara merekap nilai mahasiswa. </p>
                                     <div class="article-cta">
-                                        <a href="#" class="btn btn-primary">watch</a>
+                                        <a href="https://youtu.be/h8YtWH46iwg" target="_blank" class="btn btn-primary">watch</a>
                                     </div>
                                 </div>
                             </article>
