@@ -251,11 +251,12 @@
             </table>
           </div>
         </div>
-        <form action="/rekapNilai/<?= $detail->kelompokDetNim ?>/cetakPdf" method="post">
+        <form action="/rekapNilai/cetakPdf" method="post" target="_blank">
           <?= csrf_field(); ?>
           <input type="hidden" name="nim" value="<?= $detail->kelompokDetNim ?>">
           <input type="hidden" name="staseId" value="<?= $dataFilter[0]; ?>">
           <input type="hidden" name="kelompokId" value="<?= $dataFilter[1]; ?>">
+          <input type="hidden" name="rumahSakitId" value="<?= $dataFilter[2]; ?>">
           <div class="modal-footer bg-whitesmoke br">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Export</button>

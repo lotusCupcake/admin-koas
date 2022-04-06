@@ -91,7 +91,7 @@ class RekapNilai extends BaseController
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataMhs' => $dataMhs,
             'dataKomp' => json_decode(getStatus(['setting_bobot.settingBobotStaseId' => $staseId])[0]->settingBobotKomposisiNilai),
-            'dataFilter' => [$staseId, $kelompokId]
+            'dataFilter' => [$staseId, $kelompokId, $rumahSakitId]
         ];
 
         $stase = $this->staseModel->getWhere(['staseId' => $staseId])->getResult()[0]->staseNama;
@@ -171,5 +171,27 @@ class RekapNilai extends BaseController
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');
+    }
+
+    public function cetakPdf()
+    {
+        $nim = $this->request->getPost('nim');
+        $staseId = $this->request->getPost('staseId');
+        $kelompokId = $this->request->getPost('kelompokId');
+        $rumahSakitId = $this->request->getPost('rumahSakitId');
+
+        $dataMhs = $this->penilaianModel->getFilterNilai(['kelompok.kelompokId' => $this->request->getPost('kelompokId'), 'stase.staseId' => $this->request->getPost('staseId'), 'kelompok_detail.kelompokDetNim' => $nim])->getResult();
+        $stase = $this->staseModel->getWhere(['staseId' => $this->request->getPost('staseId')])->getResult();
+        $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $this->request->getPost('rumahSakitId')])->getResult();
+        $cetakNilaiAkhir = array(
+            'dataMhs' => $dataMhs,
+            'dataKomp' => json_decode(getStatus(['setting_bobot.settingBobotStaseId' => $staseId])[0]->settingBobotKomposisiNilai),
+            'dataFilter' => [$staseId, $kelompokId, $rumahSakitId],
+            'dataStase' => $stase,
+            'dataRumkit' => $rumahSakit
+        );
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4']);
+        $mpdf->WriteHTML(view('pages/laporanNilaiAkhir', $cetakNilaiAkhir));
+        return redirect()->to($mpdf->Output('laporan_Nilai_Akhir.pdf', 'I'));
     }
 }
