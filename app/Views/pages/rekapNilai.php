@@ -84,7 +84,8 @@
                       <td style="text-align:center">
                         <input type="hidden" name="staseIdNilai" value="<?= $dataFilter[0]; ?>">
                         <input type="hidden" name="npm" value="<?= $mahasiswa->kelompokDetNim; ?>">
-                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilai<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-print"></i> Export</button>
+                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilaiExcel<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-file-excel"></i> Excel</button>
+                        <button class="btn btn-icon btn-primary" data-toggle="modal" data-target="#detailNilaiPdf<?= $mahasiswa->kelompokDetNim; ?>"><i class="fas fa-file-pdf"></i> PDF</button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -98,9 +99,9 @@
   </section>
 </div>
 
-<!-- start modal detail nilai -->
+<!-- start modal detail nilai excel -->
 <?php foreach ($dataMhs as $detail) : ?>
-  <div class="modal fade" tabindex="-1" role="dialog" id="detailNilai<?= $detail->kelompokDetNim; ?>">
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailNilaiExcel<?= $detail->kelompokDetNim; ?>">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -180,7 +181,92 @@
     </div>
   </div>
 <?php endforeach ?>
-<!-- end modal detail nilai -->
+<!-- end modal detail nilai excel-->
+
+<!-- start modal detail nilai pdf -->
+<?php foreach ($dataMhs as $detail) : ?>
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailNilaiPdf<?= $detail->kelompokDetNim; ?>">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nilai Akhir<strong> </strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th style="text-align:center" scope="col">No.</th>
+                  <th scope="col">Jenis Kegiatan</th>
+                  <th scope="col">Nilai Akhir (Bobot X Nilai)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $no = 1;
+                $nilaiAkhir = 0;
+                foreach ($dataKomp as $komp) : ?>
+                  <?php $nilaiAkhir += getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId); ?>
+                  <tr>
+                    <td style="text-align:center"><?= $no++; ?></td>
+                    <td><?= getPenilaian($komp->penilaian)[0]->penilaianNamaSingkat ?></td>
+                    <td><?= number_format(getNilai(json_decode($komp->penilaian), $detail->kelompokDetNim, $detail->staseId), 2) ?></td>
+                  </tr>
+                <?php endforeach ?>
+
+              </tbody>
+              <thead>
+                <tr>
+                  <th colspan="2" style="text-align:center">Total Nilai</th>
+                  <th><?= $nilaiAkhir ?> / <?= getKonversi($nilaiAkhir) ?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center"><?= $no++; ?></td>
+                  <td><?= "Attitude/" . getPenilaian("[\"12\"]")[0]->penilaianNamaSingkat ?></td>
+                  <td>
+                    <strong>
+                      <?php if (getNilaiGr(12, $detail->kelompokDetNim, $detail->staseId)[0] < 1) : ?>
+                        <del>Sufficient</del>/Unsufficient
+                      <?php else : ?>
+                        Sufficient/<del>Unsufficient</del>
+                      <?php endif ?>
+                    </strong>
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th colspan="3" style="text-align:center">Sanksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" style="text-align:center"><?= getNilaiGr(12, $detail->kelompokDetNim, $detail->staseId)[1] ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <form action="/rekapNilai/cetakPdf" method="post" target="_blank">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="nim" value="<?= $detail->kelompokDetNim ?>">
+          <input type="hidden" name="staseId" value="<?= $dataFilter[0]; ?>">
+          <input type="hidden" name="kelompokId" value="<?= $dataFilter[1]; ?>">
+          <input type="hidden" name="rumahSakitId" value="<?= $dataFilter[2]; ?>">
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Export</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach ?>
+<!-- end modal detail nilai pdf-->
 
 <?= view('layout/templateFooter'); ?>
 
