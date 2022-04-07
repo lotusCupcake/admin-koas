@@ -39,11 +39,6 @@
             <td>:</td>
             <td>&nbsp;<?= $dataStase[0]->staseNama; ?></td>
         </tr>
-        <tr>
-            <td><strong>Rumah Sakit</strong></td>
-            <td>:</td>
-            <td>&nbsp;<?= $dataRumkit[0]->rumahSakitNama; ?></td>
-        </tr>
     </table>
     <br>
     <table class="mhs" width="100%" style="text-align:center;border-collapse: collapse">
