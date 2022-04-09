@@ -29,8 +29,8 @@ class DataKelompokModel extends Model
     {
         $builder = $this->table('kelompok');
         $builder->select('kelompok.*,(select count(*) from kelompok_detail where kelompokDetKelompokId = kelompok.kelompokId) as jumlahPartisipan');
-        $builder->like('kelompok.kelompokNama', $keyword);
-        $builder->orlike('kelompok.kelompokTahunAkademik', $keyword);
+        $builder->like('kelompok.kelompokNama', $keyword)->where('kelompok.kelompokDeletedAt', null);
+        $builder->orlike('kelompok.kelompokTahunAkademik', $keyword)->where('kelompok.kelompokDeletedAt', null);
         $builder->orderBy('kelompok.kelompokId', 'DESC');
         return $builder;
     }
