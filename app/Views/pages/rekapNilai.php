@@ -136,7 +136,7 @@
               <thead>
                 <tr>
                   <th colspan="2" style="text-align:center">Total Nilai</th>
-                  <th><?= $nilaiAkhir ?> / <?= getKonversi($nilaiAkhir) ?></th>
+                  <th><?= number_format($nilaiAkhir, 2) ?> / <?= getKonversi($nilaiAkhir) ?></th>
                 </tr>
               </thead>
               <tbody>
@@ -220,7 +220,7 @@
               <thead>
                 <tr>
                   <th colspan="2" style="text-align:center">Total Nilai</th>
-                  <th><?= $nilaiAkhir ?> / <?= getKonversi($nilaiAkhir) ?></th>
+                  <th><?= number_format($nilaiAkhir, 2) ?> / <?= getKonversi($nilaiAkhir) ?></th>
                 </tr>
               </thead>
               <tbody>

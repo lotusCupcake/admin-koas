@@ -144,7 +144,7 @@ class RekapNilai extends BaseController
             }
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $konten, 'Total')->mergeCells("A" . $konten . ":" . "B" . $konten)->getStyle("A" . $konten . ":" . "C" . $konten)->getFont()->setBold(true);
             $spreadsheet->setActiveSheetIndex(0)->getStyle("A" . $konten . ":" . "C" . $konten)->getAlignment()->setHorizontal('center');
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $konten, $nilaiAkhir . ' / ' . getKonversi($nilaiAkhir))->getStyle('C' . $konten)->getFont()->setBold(true);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $konten, number_format($nilaiAkhir, 2) . ' / ' . getKonversi($nilaiAkhir))->getStyle('C' . $konten)->getFont()->setBold(true);
             $konten++;
 
             $spreadsheet->setActiveSheetIndex(0)
