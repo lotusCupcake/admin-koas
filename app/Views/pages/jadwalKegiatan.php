@@ -232,7 +232,7 @@
                   <?php
                   $no = 1;
                   foreach ($mhsDetail as $row) : ?>
-                    <?php if ($row->jadwalDetailJadwalId == $stase->jadwalId) : ?>
+                    <?php if ($row->jadwalDetailJadwalId == $stase->jadwalId && $row->kelompokId == $detail->jadwalKelompokId) : ?>
                       <tr>
                         <td style="text-align:center" scope="row"><?= $no++; ?></td>
                         <td><?= $row->kelompokDetNama; ?> (<?= $row->kelompokDetNim; ?>)</td>

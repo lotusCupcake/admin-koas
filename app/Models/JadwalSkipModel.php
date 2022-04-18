@@ -28,6 +28,7 @@ class JadwalSKipModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = jadwal_skip.skipNpm', 'LEFT');
+        $builder->groupBy('jadwal_skip.skipId');
         $builder->orderBy('jadwal_skip.skipId', 'DESC');
         return $builder;
     }
@@ -47,6 +48,8 @@ class JadwalSKipModel extends Model
         $builder->like('rumkit.rumahSakitNama', $keyword);
         $builder->like('stase.staseNama', $keyword);
         $builder->like('jadwal_skip.skipAlasan', $keyword);
+        $builder->groupBy('jadwal_skip.skipId');
+        $builder->orderBy('jadwal_skip.skipId', 'DESC');
         return $builder;
     }
 }
