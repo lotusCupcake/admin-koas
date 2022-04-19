@@ -22,6 +22,9 @@ class KegiatanMahasiswaModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
+        $builder->groupBy('logbook.logbookId');
         $builder->orderBy('logbook.logbookId', 'DESC');
         if ($where) {
             $builder->where($where);
@@ -40,6 +43,8 @@ class KegiatanMahasiswaModel extends Model
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
+        $builder->join('jadwal', 'jadwal.jadwalKelompokId = kelompok.kelompokId', 'LEFT');
+        $builder->join('jadwal_detail', 'jadwal_detail.jadwalDetailJadwalId = jadwal.jadwalId', 'LEFT');
         if ($where) {
             $builder->where($where)->like('kelompok_detail.kelompokDetNim', $keyword);
             $builder->orWhere($where)->like('kelompok_detail.kelompokDetNama', $keyword);
@@ -56,6 +61,7 @@ class KegiatanMahasiswaModel extends Model
             $builder->orLike('dosen_pembimbing.dopingNamaLengkap', $keyword);
             $builder->orLike('logbook.logbookTahunAkademik', $keyword);
         }
+        $builder->groupBy('logbook.logbookId');
         $builder->orderBy('logbook.logbookId', 'DESC');
         return $builder;
     }

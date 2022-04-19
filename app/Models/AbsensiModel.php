@@ -16,6 +16,7 @@ class AbsensiModel extends Model
         $builder = $this->table('absensi');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = absensi.absensiNim', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
+        $builder->groupBy('absensi.absensiId');
         $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
@@ -29,6 +30,7 @@ class AbsensiModel extends Model
         $builder->orLike('absensi.absensiTahunAkademik', $keyword);
         $builder->orLike('absensi.absensiNim', $keyword);
         $builder->orLike('absensi.absensiKeterangan', $keyword);
+        $builder->groupBy('absensi.absensiId');
         $builder->orderBy('absensi.absensiId', 'DESC');
         return $builder;
     }
