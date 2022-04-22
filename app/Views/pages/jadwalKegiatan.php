@@ -76,7 +76,7 @@
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row_jadwal->jadwalTahunAkademik; ?></td>
                       <td><a href="#!">
-                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId . $row_jadwal->staseId; ?>" class="text-primary"><?= date('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?> s/d <?= date('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->staseId) / 1000); ?>
+                          <span data-toggle="modal" data-target="#detailRumahSakit<?= $row_jadwal->kelompokId . $row_jadwal->staseId; ?>" class="text-primary"><?= date('d-m-Y', minDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->rumkitDetId) / 1000); ?> s/d <?= date('d-m-Y', maxDateKel($row_jadwal->jadwalKelompokId, $row_jadwal->rumkitDetId) / 1000); ?>
                           </span></a>
                       </td>
                       <td><?= $row_jadwal->jadwalJamMasuk . " - " . $row_jadwal->jadwalJamKeluar ?></td>

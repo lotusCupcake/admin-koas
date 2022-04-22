@@ -30,7 +30,7 @@ function week($nim, $stase, $now)
     } elseif ($skipawal && $skipakhir && !$skipaktifkembali) {
         //kondisi jika ada jadwal skip dan belum aktif kembali
         $listjadwal = [];
-        while (strtotime($dari) <= strtotime("-1 day", strtotime($skipawal))) {
+        while (strtotime($dari) <= strtotime("-1 day", strtotime($skipakhir))) {
             array_push($listjadwal, $dari);
             $dari = date("Y-m-d", strtotime("+1 day", strtotime($dari)));
         }
@@ -51,7 +51,7 @@ function week($nim, $stase, $now)
     } elseif ($skipawal && $skipakhir && $skipaktifkembali) {
         //kondisi jika ada jadwal skip dan sudah aktif
         $listjadwal = [];
-        while (strtotime($dari) <= strtotime("-1 day", strtotime($skipawal))) {
+        while (strtotime($dari) <= strtotime("-1 day", strtotime($skipakhir))) {
             array_push($listjadwal, $dari);
             $dari = date("Y-m-d", strtotime("+1 day", strtotime($dari)));
         }
@@ -77,70 +77,70 @@ function week($nim, $stase, $now)
             $jadwal = date("Y-m-d", strtotime("+1 day", strtotime($jadwal)));
         }
     }
-
+    // dd($listjadwal);
     return $minggu;
 }
 
 function skipAwal($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()[0]->skipTanggalAwal : null;
+    $result = (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()[0]->skipTanggalAwal : null;
     return $result;
 }
 
 function skipAkhir($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result =  (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()[0]->skipTanggalAkhir : null;
+    $result =  (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()[0]->skipTanggalAkhir : null;
     return $result;
 }
 
 function skipAktifKembali($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result =  (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'stase.staseId' => $stase])->getResult()[0]->skipTanggalAktifKembali : null;
+    $result =  (count($model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()) != 0) ? $model->getDetailSkip(['jadwal_skip.skipNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->getResult()[0]->skipTanggalAktifKembali : null;
     return $result;
 }
 
 function minDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    $result = $model->getMinMax('min', ['jadwal_detail.jadwalDetailNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
     return $result;
 }
 
 function maxDate($nim, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMax('max', ['jadwal_detail.jadwalDetailNpm' => $nim, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
+    $result = $model->getMinMax('max', ['jadwal_detail.jadwalDetailNpm' => $nim, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
     return $result;
 }
 
 function minDateKel($kel, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMaxKelompok('min', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
+    $result = $model->getMinMaxKelompok('min', ['jadwal.jadwalKelompokId' => $kel, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalTanggalMulai;
     return $result;
 }
 
 function maxDateKel($kel, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMaxKelompok('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
+    $result = $model->getMinMaxKelompok('max', ['jadwal.jadwalKelompokId' => $kel, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalTanggalSelesai;
     return $result;
 }
 
 function minDateKelByDetail($kel, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMaxKelompokByDetail('min', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
+    $result = $model->getMinMaxKelompokByDetail('min', ['jadwal.jadwalKelompokId' => $kel, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalMulai;
     return $result;
 }
 
 function maxDateKelByDetail($kel, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
-    $result = $model->getMinMaxKelompokByDetail('max', ['jadwal.jadwalKelompokId' => $kel, 'stase.staseId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
+    $result = $model->getMinMaxKelompokByDetail('max', ['jadwal.jadwalKelompokId' => $kel, 'rumkit_detail.rumkitDetId' => $stase])->get()->getResult()[0]->jadwalDetailTanggalSelesai;
     return $result;
 }
 

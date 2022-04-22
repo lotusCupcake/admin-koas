@@ -56,7 +56,7 @@
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
                   foreach ($kegiatan as $row) :
-                    $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->logbookTanggal / 1000));
+                    $mingguke = week($row->kelompokDetNim, $row->rumkitDetId, ($row->logbookTanggal / 1000));
                   ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>

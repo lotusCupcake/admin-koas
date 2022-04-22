@@ -54,7 +54,7 @@
                 <?php if (!empty($followUp)) : ?>
                   <?php
                   $no = 1 + ($numberPage * ($currentPage - 1));
-                  foreach ($followUp as $row) : $mingguke = week($row->kelompokDetNim, $row->staseId, ($row->followUpTglPeriksa / 1000)) ?>
+                  foreach ($followUp as $row) : $mingguke = week($row->kelompokDetNim, $row->rumkitDetId, ($row->followUpTglPeriksa / 1000)) ?>
                     <tr>
                       <td style="text-align:center" scope="row"><?= $no++; ?></td>
                       <td><?= $row->followUpTahunAkademik; ?></td>
