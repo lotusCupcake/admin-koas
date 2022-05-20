@@ -6,6 +6,7 @@ use App\Models\PenilaianModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataKelompokModel;
 use App\Models\StaseModel;
+use App\Models\StaseRumahSakitModel;
 use App\Models\DataRumahSakitModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -15,6 +16,7 @@ class RekapNilai extends BaseController
     protected $jadwalKegiatanModel;
     protected $dataKelompokModel;
     protected $staseModel;
+    protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
     protected $penilaianModel;
     protected $spreadsheet;
@@ -24,6 +26,7 @@ class RekapNilai extends BaseController
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->dataKelompokModel = new DataKelompokModel();
         $this->staseModel = new StaseModel();
+        $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->penilaianModel = new PenilaianModel();
         $this->spreadsheet = new Spreadsheet();
@@ -45,31 +48,25 @@ class RekapNilai extends BaseController
         return view('pages/rekapNilai', $data);
     }
 
-    public function rekapNilaiStase()
-    {
-        $rumahSakitId = $this->request->getPost('rumahSakitId');
-        $staseRumkit = $this->jadwalKegiatanModel->rekapNilaiStase($rumahSakitId);
-        $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitId])->getResult()[0]->rumahSakitShortname;
-        if ($staseRumkit == null) {
-            session()->setFlashdata('danger', 'Nilai Kelompok Di Rumah Sakit <strong>' . $rumahSakit . '</strong> Belum Ada ,Coba Lagi Nanti!');
-            return view('pages/rekapNilai');
-        } else {
-            $lists = "<option value=''>Pilih Stase</option>";
-            foreach ($staseRumkit->getResult() as $data) {
-                $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
-            }
-            $callback = array('list_stase_rumkit' => $lists);
-            echo json_encode($callback);
-        }
-    }
-
     public function proses()
     {
         if (!$this->validate([
+            'rumahSakitIdAbsen' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Rumah Sakit Harus Dipilih!',
+                ]
+            ],
             'staseIdAbsen' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Stase Harus Dipilih!',
+                ]
+            ],
+            'kelompokIdAbsen' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelompok Harus Dipilih!',
                 ]
             ],
         ])) {
@@ -77,11 +74,14 @@ class RekapNilai extends BaseController
         }
 
         $rumahSakitId = trim($this->request->getPost('rumahSakitIdAbsen'));
-        $staseId = trim($this->request->getPost('staseIdAbsen'));
+        $rumkitDetailId = trim($this->request->getPost('staseIdAbsen'));
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
+        $rumkitDetail = $this->staseRumahSakitModel->getWhere(['rumkitDetId' => $rumkitDetailId])->getResult();
+        foreach ($rumkitDetail as $rumkitStaseId) {
+            $staseId = $rumkitStaseId->rumkitDetStaseId;
+        }
 
         $dataMhs = $this->penilaianModel->getFilterNilai(['kelompok.kelompokId' => $kelompokId, 'stase.staseId' => $staseId])->getResult();
-
         $data = [
             'title' => "Rekap Nilai",
             'appName' => "Dokter Muda",

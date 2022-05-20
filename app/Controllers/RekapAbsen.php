@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\JadwalKegiatanModel;
 use App\Models\DataKelompokModel;
 use App\Models\StaseModel;
+use App\Models\StaseRumahSakitModel;
 use App\Models\DataRumahSakitModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -14,6 +15,7 @@ class RekapAbsen extends BaseController
     protected $jadwalKegiatanModel;
     protected $dataKelompokModel;
     protected $staseModel;
+    protected $staseRumahSakitModel;
     protected $dataRumahSakitModel;
     protected $spreadsheet;
 
@@ -22,6 +24,7 @@ class RekapAbsen extends BaseController
         $this->jadwalKegiatanModel = new JadwalKegiatanModel();
         $this->dataKelompokModel = new DataKelompokModel();
         $this->staseModel = new StaseModel();
+        $this->staseRumahSakitModel = new StaseRumahSakitModel();
         $this->dataRumahSakitModel = new DataRumahSakitModel();
         $this->spreadsheet = new Spreadsheet();
     }
@@ -48,7 +51,7 @@ class RekapAbsen extends BaseController
         $staseRumkit = $this->jadwalKegiatanModel->rekapAbsenStase($rumahSakitId);
         $lists = "<option value=''>Pilih Stase</option>";
         foreach ($staseRumkit->getResult() as $data) {
-            $lists .= "<option value='" . $data->rumkitDetStaseId . "'>" . $data->staseNama . "</option>";
+            $lists .= "<option value='" . $data->rumkitDetId . "'>" . $data->staseNama . "</option>";
         }
         $callback = array('list_stase_rumkit' => $lists);
         echo json_encode($callback);
@@ -57,9 +60,9 @@ class RekapAbsen extends BaseController
     public function rekapAbsenKelompok()
     {
         $kelompokId = [];
-        $staseId = trim($this->request->getPost('staseId'));
+        $rumkitDetailId = trim($this->request->getPost('staseId'));
 
-        $jadwalKelompok = $this->jadwalKegiatanModel->rekapAbsenKelompok($staseId);
+        $jadwalKelompok = $this->jadwalKegiatanModel->rekapAbsenKelompok($rumkitDetailId);
         // dd($jadwalKelompok);
         foreach ($jadwalKelompok->getResult() as $kelompok_jadwal) {
             array_push($kelompokId, $kelompok_jadwal->jadwalKelompokId);
@@ -80,7 +83,6 @@ class RekapAbsen extends BaseController
 
     public function proses()
     {
-        // dd($_POST);
         if (!$this->validate([
             'rumahSakitIdAbsen' => [
                 'rules' => 'required',
@@ -105,8 +107,13 @@ class RekapAbsen extends BaseController
         }
 
         $rumahSakitId = trim($this->request->getPost('rumahSakitIdAbsen'));
-        $staseId = trim($this->request->getPost('staseIdAbsen'));
+        $rumkitDetailId = trim($this->request->getPost('staseIdAbsen'));
         $kelompokId = trim($this->request->getPost('kelompokIdAbsen'));
+
+        $rumkitDetail = $this->staseRumahSakitModel->getWhere(['rumkitDetId' => $rumkitDetailId])->getResult();
+        foreach ($rumkitDetail as $rumkitStaseId) {
+            $staseId = $rumkitStaseId->rumkitDetStaseId;
+        }
 
         $rekapAbsen = $this->jadwalKegiatanModel->getFilterAbsen($staseId, $kelompokId)->getResult();
         $mahasiswa = $this->jadwalKegiatanModel->getMahasiswa(['kelompok.kelompokId' => $kelompokId])->getResult();
@@ -120,10 +127,11 @@ class RekapAbsen extends BaseController
             'dataRumahSakit' => $this->jadwalKegiatanModel->getRumkit()->getResult(),
             'dataResult' => $rekapAbsen,
             'mahasiswa' => $mahasiswa,
-            'dataFilter' => [$staseId, $kelompokId],
-            'minDate' => date("Y-m-d", minDateKelByDetail($kelompokId, $staseId) / 1000),
-            'maxDate' => date("Y-m-d", maxDateKelByDetail($kelompokId, $staseId) / 1000),
+            'dataFilter' => [$rumkitDetailId, $kelompokId],
+            'minDate' => date("Y-m-d", minDateKelByDetail($kelompokId, $rumkitDetailId) / 1000),
+            'maxDate' => date("Y-m-d", maxDateKelByDetail($kelompokId, $rumkitDetailId) / 1000),
         ];
+
 
         $stase = $this->staseModel->getWhere(['staseId' => $staseId])->getResult()[0]->staseNama;
         $rumahSakit = $this->dataRumahSakitModel->getWhere(['rumahSakitId' => $rumahSakitId])->getResult()[0]->rumahSakitShortname;
@@ -133,7 +141,7 @@ class RekapAbsen extends BaseController
         if ($rekapAbsen == null) {
             session()->setFlashdata('danger', 'Absensi <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Belum Ada ,Coba Lagi Nanti!');
         } else {
-            session()->setFlashdata('success', 'Absensi <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong>' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
+            session()->setFlashdata('success', 'Absensi <strong> ' . $kelompok . '- TA.' . $tahunAkademik . '</strong>, Stase <strong> ' . $stase . '</strong> Di <strong>' . $rumahSakit . '</strong> Sudah Ditemukan ,Klik Export Untuk Download!');
         }
 
         return view('pages/rekapAbsen', $data);
