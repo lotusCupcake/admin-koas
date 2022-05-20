@@ -198,7 +198,7 @@ class JadwalKegiatanModel extends Model
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where('stase.staseId', $staseId);
+        $builder->where('rumkit_detail.rumkitDetId', $staseId);
         $builder->groupBy('stase.staseId,  jadwal.jadwalKelompokId');
         $kelompok = $builder->get();
         return $kelompok;
@@ -231,22 +231,6 @@ class JadwalKegiatanModel extends Model
         $builder->where($where);
         $result = $builder->get();
         return $result;
-    }
-
-    public function rekapNilaiStase($rumahSakitId)
-    {
-        $builder = $this->db->table('jadwal');
-        $builder->join('rumkit_detail ', 'rumkit_detail.rumkitDetId = jadwal.jadwalRumkitDetId', 'LEFT');
-        $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
-        $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where(
-            [
-                'rumkit_detail.rumkitDetRumkitId' => $rumahSakitId,
-                'rumkit_detail.rumkitDetStatus' => 1
-            ]
-        );
-        $staseRumkit = $builder->get();
-        return $staseRumkit;
     }
 
     public function getRumkitOneline($where)
