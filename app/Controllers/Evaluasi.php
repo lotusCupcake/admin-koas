@@ -123,7 +123,8 @@ class Evaluasi extends BaseController
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
         $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
 
-        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($rumahSakitEvaluasi, $staseEvaluasi, $dopingEvaluasi)->getResult();
+        // dd($dataEvaluasi);
         $data = [
             'title' => "Evaluasi",
             'appName' => "Dokter Muda",
@@ -150,9 +151,10 @@ class Evaluasi extends BaseController
 
     public function exportEvaluasi()
     {
+        $rumahSakitEvaluasi = trim($this->request->getPost('rumahSakitEvaluasi'));
         $staseEvaluasi = trim($this->request->getPost('staseEvaluasi'));
         $dopingEvaluasi = trim($this->request->getPost('dopingEvaluasi'));
-        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($staseEvaluasi, $dopingEvaluasi)->getResult();
+        $dataEvaluasi = $this->evaluasiModel->getFilterEvaluasi($rumahSakitEvaluasi, $staseEvaluasi, $dopingEvaluasi)->getResult();
         // dd($dataEvaluasi);
         $rumahSakit = $dataEvaluasi[0]->rumahSakitShortname;
         $stase = $dataEvaluasi[0]->staseNama;
