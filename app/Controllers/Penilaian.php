@@ -15,6 +15,7 @@ class Penilaian extends BaseController
     protected $gradeModel;
     protected $gradeGrModel;
     protected $usersModel;
+
     public function __construct()
     {
         $this->penilaianModel = new PenilaianModel();
@@ -25,116 +26,56 @@ class Penilaian extends BaseController
     }
     public function index()
     {
+
+
+        $penilaianId = $this->request->getVar('penilaian');
+        // dd($penilaianId);
+        $currentPage = $this->request->getVar('page_penilaian') ? $this->request->getVar('page_penilaian') : 1;
         $data = [
+            'menu' => $this->fetchMenu(),
             'title' => "Penilaian",
             'appName' => "Dokter Muda",
             'breadcrumb' => ['Mahasiswa', 'Penilaian'],
-            'penilaian' => $this->penilaianModel->findAll(),
+            'currentPage' => $currentPage,
+            'numberPage' => $this->numberPagePenilaian,
+            'isKoordik' => $this->isKoordik,
+            'isDosen' => $this->isDosen,
+            'emailUser' => $this->emailUser,
             'validation' => \Config\Services::validation(),
         ];
-        if (in_groups('Dosen')) {
-            $init = $this->initDataDosen();
-            $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => user()->email])->findAll();
-        } elseif (in_groups('Koordik')) {
+        if ($this->isDosen) {
+            $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'logbook.logbookDopingEmail' => $this->emailUser])->findAll();
+            $idpenilaian = ($penilaianId == null) ? $data['menuNilai'][0]->penilaianId : $penilaianId;
+            $init = $this->initDataDosen($idpenilaian);
+        } elseif ($this->isKoordik) {
             $rs = getUser(user()->id)->dopingRumkitId;
-            $init = $this->initDataKoordik($rs);
             $data['menuNilai'] = $this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->findAll();
+            $idpenilaian = ($penilaianId == null) ? $data['menuNilai'][0]->penilaianId : $penilaianId;
+            $init = $this->initDataKoordik($rs, $idpenilaian);
         }
+        $data['penilaianId'] = $idpenilaian;
         $data = array_merge($init, $data);
         return view('pages/penilaian', $data);
-
-        dd($this->penilaianModel->getMenuNilai(['penilaianActive' => 1, 'rumkit_detail.rumkitDetRumkitId' => $rs])->findAll());
     }
 
-    function initDataKoordik($rs)
+    function initDataKoordik($rs, $idpenilaian)
     {
+        $mhs = $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => $idpenilaian]);
         $data = [
-            // mahasiswa dalam setiap penilaian berbeda sesuai nilai exists
-            'mhsLapKasus' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 1])->findAll(),
-            'mhsP2KM' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 2])->findAll(),
-            'mhsJurnalReading' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 3])->findAll(),
-            'mhsTinjauanPustaka' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 4])->findAll(),
-            'mhsP2K' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 5])->findAll(),
-            'mhsFollowUp' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 6])->findAll(),
-            'mhsResponsiLap' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 7])->findAll(),
-            'mhsDOPS' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 8])->findAll(),
-            'mhsTKlinikI' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 9])->findAll(),
-            'mhsMiniCex' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 10])->findAll(),
-            'mhsIPC' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 11])->findAll(),
-            'mhsKondite' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 12])->findAll(),
-            'mhsPretest' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 13])->findAll(),
-            'mhsPostest' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 14])->findAll(),
-            'mhsTKlinikII' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 15])->findAll(),
-            'mhsIPE' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 16])->findAll(),
-            'mhsKDinasKesehatan' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 17])->findAll(),
-            'mhsKPuskesmas' => $this->kegiatanModel->getMahasiswaNilai(['rumkit_detail.rumkitDetRumkitId' => $rs, 'penilaian.penilaianId' => 18])->findAll(),
-            // nilai dalam setiap penilaian berbeda sesuai nilai exists
-            'nilaiLapKasus' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 1])->findAll(),
-            'nilaiP2KM' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 2])->findAll(),
-            'nilaiJurnalReading' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 3])->findAll(),
-            'nilaiTinjauanPustaka' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 4])->findAll(),
-            'nilaiP2K' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 5])->findAll(),
-            'nilaiFollowUp' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 6])->findAll(),
-            'nilaiResponsiLap' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 7])->findAll(),
-            'nilaiDOPS' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 8])->findAll(),
-            'nilaiTKlinikI' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 9])->findAll(),
-            'nilaiMiniCex' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 10])->findAll(),
-            'nilaiIPC' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 11])->findAll(),
-            'nilaiKondite' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 12])->findAll(),
-            'nilaiPretest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 13])->findAll(),
-            'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
-            'nilaiTKlinikII' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 15])->findAll(),
-            'nilaiIPE' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 16])->findAll(),
-            'nilaiKDinasKesehatan' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 17])->findAll(),
-            'nilaiKPuskesmas' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 18])->findAll(),
-            'menu' => $this->fetchMenu()
+            'mahasiswa' => $mhs->paginate($this->numberPagePenilaian, 'penilaian'),
+            'pager' => $this->kegiatanModel->pager,
+            'nilaiMahasiswa' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => $idpenilaian])->findAll(),
         ];
-
         return $data;
     }
 
-    function initDataDosen()
+    function initDataDosen($idpenilaian)
     {
+        $mhs = $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => $this->emailUser, 'penilaian.penilaianId' => $idpenilaian]);
         $data = [
-            // mahasiswa dalam setiap penilaian berbeda sesuai nilai exists
-            'mhsLapKasus' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 1])->findAll(),
-            'mhsP2KM' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 2])->findAll(),
-            'mhsJurnalReading' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 3])->findAll(),
-            'mhsTinjauanPustaka' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 4])->findAll(),
-            'mhsP2K' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 5])->findAll(),
-            'mhsFollowUp' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 6])->findAll(),
-            'mhsResponsiLap' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 7])->findAll(),
-            'mhsDOPS' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 8])->findAll(),
-            'mhsTKlinikI' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 9])->findAll(),
-            'mhsMiniCex' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 10])->findAll(),
-            'mhsIPC' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 11])->findAll(),
-            'mhsKondite' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 12])->findAll(),
-            'mhsPretest' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 13])->findAll(),
-            'mhsPostest' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 14])->findAll(),
-            'mhsTKlinikII' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 15])->findAll(),
-            'mhsIPE' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 16])->findAll(),
-            'mhsKDinasKesehatan' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 17])->findAll(),
-            'mhsKPuskesmas' => $this->kegiatanModel->getMahasiswaNilai(['dosen_pembimbing.dopingEmail' => user()->email, 'penilaian.penilaianId' => 18])->findAll(),
-            // nilai dalam setiap penilaian berbeda sesuai nilai exists
-            'nilaiLapKasus' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 1])->findAll(),
-            'nilaiP2KM' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 2])->findAll(),
-            'nilaiJurnalReading' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 3])->findAll(),
-            'nilaiTinjauanPustaka' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 4])->findAll(),
-            'nilaiP2K' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 5])->findAll(),
-            'nilaiFollowUp' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 6])->findAll(),
-            'nilaiResponsiLap' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 7])->findAll(),
-            'nilaiDOPS' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 8])->findAll(),
-            'nilaiTKlinikI' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 9])->findAll(),
-            'nilaiMiniCex' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 10])->findAll(),
-            'nilaiIPC' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 11])->findAll(),
-            'nilaiKondite' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 12])->findAll(),
-            'nilaiPretest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 13])->findAll(),
-            'nilaiPostest' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 14])->findAll(),
-            'nilaiTKlinikII' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 15])->findAll(),
-            'nilaiIPE' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 16])->findAll(),
-            'nilaiKDinasKesehatan' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 17])->findAll(),
-            'nilaiKPuskesmas' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => 18])->findAll(),
-            'menu' => $this->fetchMenu()
+            'mahasiswa' => $mhs->paginate($this->numberPagePenilaian, 'penilaian'),
+            'pager' => $this->kegiatanModel->pager,
+            'nilaiMahasiswa' => $this->penilaianModel->getFormNilai(['penilaian.penilaianId' => $idpenilaian])->findAll(),
         ];
         return $data;
     }
@@ -174,7 +115,7 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => user()->email,
+                'gradeCreatedBy' => $this->emailUser,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -186,7 +127,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => user()->email,
+                    'grCreatedBy' => $this->emailUser,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
 
@@ -201,7 +142,7 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => user()->email,
+                'gradeCreatedBy' => $this->emailUser,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -213,7 +154,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => user()->email,
+                    'grCreatedBy' => $this->emailUser,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );

@@ -69,15 +69,18 @@ class KegiatanMahasiswaModel extends Model
     public function getMahasiswaNilai($where)
     {
         $builder = $this->table('logbook');
+        $builder->select('kelompokDetNim,kelompokDetNama,dopingNamaLengkap,gradeApproveStatus,gradeNilai,dopingEmail,staseId,gradeId,oneSignalPlayerId,kelompokNama,rumahSakitNama,staseNama,grResult');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = logbook.logbookDopingEmail', 'LEFT');
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = logbook.logbookNim', 'LEFT');
-        $builder->join('one_signal', 'one_signal.oneSignalNpm = kelompok_detail.kelompokDetNim', 'LEFT');
+        $builder->join('one_signal', 'one_signal.oneSignalNpm = logbook.logbookNim', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = rumkit_detail.rumkitDetRumkitId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
         $builder->join('penilaian', 'penilaian.penilaianId = kegiatan.kegiatanPenilaianId', 'LEFT');
+        $builder->join('penilaian_grade', 'penilaian_grade.gradePenilaianId = penilaian.penilaianId AND penilaian_grade.gradeStaseId=stase.staseId AND penilaian_grade.gradeNpm=logbook.logbookNim', 'LEFT');
+        $builder->join('penilaian_gr', 'penilaian_gr.grPenilaianId = penilaian.penilaianId AND penilaian_gr.grStaseId = stase.staseId AND penilaian_gr.grNpm = logbook.logbookNim', 'LEFT');
         $builder->where($where);
         $builder->groupBy(['kelompok_detail.kelompokDetNim', 'stase.staseId']);
         return $builder;

@@ -116,7 +116,7 @@
                         <?php $no = 1;
                         foreach (json_decode($evaluasi) as $eval) : ?>
                           <tr>
-                            <td style="text-align:center"><?= $no++ ?></td>
+                            <td style="text-align:center"><?= $no++ ?> </td>
                             <td><?= getAspekEvaluasi(['evaluasiId' => $eval->aspek])[0]->evaluasiAspek ?></td>
                             <?php $nilai = 1;
                             foreach ($keterangan as $ket) : ?>

@@ -34,6 +34,9 @@ class BaseController extends Controller
     protected $request;
     protected $usersModel;
 
+    protected $isKoordik;
+    protected $emailUser;
+
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -52,6 +55,9 @@ class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+
+
+
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
@@ -60,11 +66,13 @@ class BaseController extends Controller
     public function fetchMenu()
     {
         $this->usersModel = new UsersModel();
-        $id_loggedin = user()->id;
+        $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0];
+        $this->emailUser = $usr->email;
+        $this->isKoordik = in_groups('Koordik');
+        $this->isDosen = in_groups('Dosen');
 
-        $usr = $this->usersModel->getSpecificUser(['users.id' => $id_loggedin])->getResult()[0]->name;
         // dd($usr);
-        $data = file_get_contents(ROOTPATH . $this->getFile($usr));
+        $data = file_get_contents(ROOTPATH . $this->getFile($usr->name));
 
         $data = json_decode($data, false);
 
@@ -149,4 +157,5 @@ class BaseController extends Controller
     }
 
     protected $numberPage = 20;
+    protected $numberPagePenilaian = 10;
 }
