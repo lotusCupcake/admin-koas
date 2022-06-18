@@ -70,7 +70,6 @@ class BaseController extends Controller
         $this->emailUser = $usr->email;
         $this->isKoordik = in_groups('Koordik');
         $this->isDosen = in_groups('Dosen');
-        $this->isKoordik = in_groups('Koordik');
 
         // dd($usr);
         $data = file_get_contents(ROOTPATH . $this->getFile($usr->name));
