@@ -1,4 +1,5 @@
 <?php
+
 function getRumkit($kel, $stase)
 {
     $model = new \App\Models\JadwalKegiatanModel;
@@ -69,14 +70,14 @@ function getKomponenNilaiMax($where)
     return $result;
 }
 
-function getGradeExists($where)
-{
+// function getGradeExists($where)
+// {
 
-    $where = ['gradeNpm' => $where[0], 'gradePenilaianId' => $where[1], 'gradeStaseId' => $where[2]];
-    $model = new \App\Models\GradeModel;
-    $result = $model->getWhere($where)->getResult();
-    return $result;
-}
+//     $where = ['gradeNpm' => $where[0], 'gradePenilaianId' => $where[1], 'gradeStaseId' => $where[2]];
+//     $model = new \App\Models\GradeModel;
+//     $result = $model->getWhere($where)->getResult();
+//     return $result;
+// }
 
 function getNilaiGr($idPenilaian, $npm, $stase)
 {
@@ -88,11 +89,10 @@ function getNilaiGr($idPenilaian, $npm, $stase)
     return $result;
 }
 
-function getNilaiExist($idPenilaian, $npm, $stase, $kompId)
+function getNilaiExist($gradeNilai, $kompId)
 {
-    $where = ['penilaian_grade.gradePenilaianId' => $idPenilaian, 'penilaian_grade.gradeNpm' => $npm, 'penilaian_grade.gradeStaseId' => $stase];
-    $grade = new \App\Models\GradeModel;
-    $grades = ($grade->where($where)->get()->getResult() != null) ? json_decode($grade->where($where)->get()->getResult()[0]->gradeNilai) : [];
+
+    $grades = ($gradeNilai != null) ? json_decode($gradeNilai) : [];
     $nilai = null;
     foreach ($grades as $grade) {
         if ($grade->penilaian == $kompId) {
@@ -105,6 +105,7 @@ function getNilaiExist($idPenilaian, $npm, $stase, $kompId)
 
 function getNilai($idPenilaian, $npm, $stase)
 {
+
     $tk2 = false;
     $bobot = 0;
     $model = new \App\Models\GradeModel;
@@ -125,9 +126,11 @@ function getNilai($idPenilaian, $npm, $stase)
 
 
     $result = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', $penilaian)->get()->getResult();
+    // dd(count($result) > 1 && in_array(15, $penilaian));
     if (count($result) > 1 && in_array(9, $penilaian) || count($result) > 1 && in_array(15, $penilaian)) {
         $tk2 = true;
     }
+    // d($tk2);
 
 
     if (count($result) > 0) {
@@ -180,6 +183,7 @@ function getNilai($idPenilaian, $npm, $stase)
                 //jika tutorial klinik ada 2
                 $tutsklinik1 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [9])->get()->getResult();
                 $tutsklinik2 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [15])->get()->getResult();
+                dd($tutsklinik1, $tutsklinik2);
 
                 $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
                 $hasil = $tutsklinik1[0]->gradeNilai;
