@@ -48,7 +48,11 @@
             <div class="tab-content tab-bordered" id="myTab3Content">
               <!-- alert -->
               <div class="tab-pane fade show active">
-                <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Perhatian ! </strong> Klik tombol Berikan Nilai untuk memberi penilaian <strong>" . "Coba" . "</strong>"]]); ?>
+                <?php foreach ($menuNilai as $menu) : ?>
+                  <?php if ($menu->penilaianId == $panelaktif) : ?>
+                    <?= view('layout/templateAlert', ['msg' => ['warning', "<strong>Perhatian ! </strong> Klik tombol Berikan Nilai untuk memberi penilaian <strong>" . $menu->penilaianNama . "</strong>"]]); ?>
+                  <?php endif ?>
+                <?php endforeach ?>
                 <div class="table table-responsive">
                   <table class="table table-bordered">
                     <thead>
