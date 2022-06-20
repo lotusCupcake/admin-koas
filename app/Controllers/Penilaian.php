@@ -113,10 +113,11 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => user()->email,
+                'gradeCreatedBy' => $this->emailUser,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
+
             if (count($cek) < 1) {
                 $this->gradeModel->insert($dataInsert);
                 session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
@@ -127,7 +128,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => user()->email,
+                    'grCreatedBy' => $this->emailUser,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );
@@ -142,7 +143,7 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => user()->email,
+                'gradeCreatedBy' => $this->emailUser,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -154,7 +155,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => user()->email,
+                    'grCreatedBy' => $this->emailUser,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );
