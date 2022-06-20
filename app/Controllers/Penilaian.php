@@ -7,6 +7,7 @@ use App\Models\KegiatanMahasiswaModel;
 use App\Models\GradeModel;
 use App\Models\GradeGrModel;
 use App\Models\UsersModel;
+use Mpdf\Tag\Dd;
 
 class Penilaian extends BaseController
 {
@@ -26,10 +27,7 @@ class Penilaian extends BaseController
     }
     public function index()
     {
-
-
         $penilaianId = $this->request->getVar('penilaian');
-        // dd($penilaianId);
         $currentPage = $this->request->getVar('page_penilaian') ? $this->request->getVar('page_penilaian') : 1;
         $data = [
             'menu' => $this->fetchMenu(),
@@ -115,34 +113,36 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => $this->emailUser,
+                'gradeCreatedBy' => user()->email,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
-            $this->gradeModel->insert($dataInsert);
-
+            if (count($cek) < 1) {
+                $this->gradeModel->insert($dataInsert);
+                session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
+            }
             if (count(json_decode($nilaiGr)) > 0) {
                 $dataInsertGr = array(
                     'grStaseId' => $_POST['staseId'],
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => $this->emailUser,
+                    'grCreatedBy' => user()->email,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
-
                 );
-
-                $this->gradeGrModel->insert($dataInsertGr);
+                if (count($cekGr) < 1) {
+                    $this->gradeGrModel->insert($dataInsertGr);
+                    session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
+                }
             }
-            session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Disimpan!');
         } else {
             $dataInsert = array(
                 'gradeStaseId' => $_POST['staseId'],
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => $this->emailUser,
+                'gradeCreatedBy' => user()->email,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -154,7 +154,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => $this->emailUser,
+                    'grCreatedBy' => user()->email,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );
@@ -163,9 +163,6 @@ class Penilaian extends BaseController
             }
             session()->setFlashdata('success', 'Nilai Mahasiswa Berhasil Diupdate!');
         }
-
-
-
         return redirect()->to('penilaian');
     }
 

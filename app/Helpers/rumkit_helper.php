@@ -183,7 +183,6 @@ function getNilai($idPenilaian, $npm, $stase)
                 //jika tutorial klinik ada 2
                 $tutsklinik1 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [9])->get()->getResult();
                 $tutsklinik2 = $model->where(['gradeNpm' => $npm, 'gradeStaseId' => $stase])->whereIn('gradePenilaianId', [15])->get()->getResult();
-                dd($tutsklinik1, $tutsklinik2);
 
                 $komposisi = getStatus(['settingBobotStaseId' => $stase])[0]->settingBobotKomposisiNilai;
                 $hasil = $tutsklinik1[0]->gradeNilai;
