@@ -107,13 +107,14 @@ class Penilaian extends BaseController
         $cekGr = $this->gradeGrModel->getWhere(['grNpm' => $_POST['npm'], 'grPenilaianId' => $_POST['penilaianId'], 'grStaseId' => $_POST['staseId']])->getResult();
         $id = ($cek == null) ? 0 : $cek[0]->gradeId;
         $idGr = ($cekGr == null) ? 0 : $cekGr[0]->grId;
+        $userLogin = user()->email;
         if ($cek == null) {
             $dataInsert = array(
                 'gradeStaseId' => $_POST['staseId'],
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => $this->emailUser,
+                'gradeCreatedBy' => $userLogin,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -128,7 +129,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => $this->emailUser,
+                    'grCreatedBy' => $userLogin,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );
@@ -143,7 +144,7 @@ class Penilaian extends BaseController
                 'gradePenilaianId' => $_POST['penilaianId'],
                 'gradeNpm' => $_POST['npm'],
                 'gradeNilai' => $nilai,
-                'gradeCreatedBy' => $this->emailUser,
+                'gradeCreatedBy' => $userLogin,
                 'gradeCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                 'gradeTahunAkademik' => getTahunAkademik()
             );
@@ -155,7 +156,7 @@ class Penilaian extends BaseController
                     'grPenilaianId' => $_POST['penilaianId'],
                     'grNpm' => $_POST['npm'],
                     'grResult' => $nilaiGr,
-                    'grCreatedBy' => $this->emailUser,
+                    'grCreatedBy' => $userLogin,
                     'grCreatedAt' => strtotime(date('Y-m-d H:i:s')) * 1000,
                     'grTahunAkademik' => getTahunAkademik()
                 );
