@@ -36,7 +36,6 @@ class BaseController extends Controller
 
     protected $isKoordik;
     protected $emailUser;
-    protected $usr;
 
 
 
@@ -56,11 +55,6 @@ class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-        $this->usersModel = new UsersModel();
-        $this->usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0];
-        $this->emailUser = $this->usr->email;
-        $this->isKoordik = in_groups('Koordik');
-        $this->isDosen = in_groups('Dosen');
 
 
 
@@ -72,9 +66,14 @@ class BaseController extends Controller
 
     public function fetchMenu()
     {
+        $this->usersModel = new UsersModel();
+        $usr = $this->usersModel->getSpecificUser(['users.id' => user()->id])->getResult()[0];
+        $this->emailUser = $usr->email;
+        $this->isKoordik = in_groups('Koordik');
+        $this->isDosen = in_groups('Dosen');
 
         // dd($usr);
-        $data = file_get_contents(ROOTPATH . $this->getFile($this->usr->name));
+        $data = file_get_contents(ROOTPATH . $this->getFile($usr->name));
 
         $data = json_decode($data, false);
 
