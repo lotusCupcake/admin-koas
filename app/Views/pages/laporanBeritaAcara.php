@@ -45,7 +45,7 @@
                     <font color="black">Minggu KKS</font>
                 </b></td>
             <td>:</td>
-            <td>&nbsp; Minggu Ke - <?= week($dataInit[0]->kelompokDetNim, $dataInit[0]->staseId, ($dataInit[0]->logbookTanggal / 1000)); ?></td>
+            <td>&nbsp; Minggu Ke - ....</td>
         </tr>
         <tr>
             <td><strong>
