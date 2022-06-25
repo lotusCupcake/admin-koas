@@ -1,37 +1,39 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var jml = 0;
     var myUrl = window.location.href;
     var base_url = myUrl.split('?')[0];
 
-    $('.icon-left.btn-success').click(function () {
+    $('.icon-left.btn-success').click(function() {
         jml = 0;
         var getClass = this.className;
         getClass = getClass.split(' ');
         komp = getClass[4];
         komp = komp.split('-');
-        jml = $('.' + komp[1]).length;
-        console.log(jml);
-        console.log(komp[1]);
-        createEvent(komp[1]);
+        komjum = getClass[5];
+        komjum = komjum.split('-');
+        jml = $('.' + komjum[1]).length;
+
+        createEvent(komjum[1]);
 
     });
 
-    $('.icon-left.btn-info').click(function () {
+    $('.icon-left.btn-info').click(function() {
         jml = 0;
         var getClass = this.className;
         getClass = getClass.split(' ');
         komp = getClass[4];
         komp = komp.split('-');
-        jml = $('.' + komp[1]).length;
-        console.log(jml);
-        console.log(komp[1]);
-        createEvent(komp[1]);
+        komjum = getClass[5];
+        komjum = komjum.split('-');
+        jml = $('.' + komjum[1]).length;
+
+        createEvent(komjum[1]);
         if ($(this).data('keterangan') == 'edit') {
-            loadNilai(komp[1])
+            loadNilai(komjum[1])
         }
     });
 
-    $('.tabPenilaian').click(function () {
+    $('.tabPenilaian').click(function() {
         console.log($(this).data('id'));
         addQSParm('penilaian', $(this).data('id'));
         window.location.replace(myUrl);
@@ -91,7 +93,7 @@ $(document).ready(function () {
     }
 
     function loadNilai(komp) {
-        if (komp == 'Pretest' || komp == 'Postest' || komp == 'KDinasKesehatan') {
+        if (komp.split('_')[0] == 'Pretest' || komp.split('_')[0] == 'Postest' || komp.split('_')[0] == 'KDinasKesehatan') {
             nilaiTextBoxt(komp);
         } else {
             nilaiRadio(komp);
@@ -99,9 +101,10 @@ $(document).ready(function () {
     }
 
     function nilaiTextBoxt(komp) {
+        console.log(komp);
         var total = 0;
-        $skor = parseInt($('.r-' + komp).val());
-        if ($skor > 100 || $skor < 0) {
+        skor = parseInt($('.r-' + komp).val());
+        if (skor > 100 || skor < 0) {
             alert('Nilai yang anda input diluar range 0-100');
             $(this).val('');
             return;
@@ -112,46 +115,47 @@ $(document).ready(function () {
             var bobot = parseInt($('.val-' + komp + i).data('kompbobot'));
             var skorMax = parseInt($('.val-' + komp + i).data('skormax'));
 
-            (isNaN(nilai)) ? nilai = 0 : nilai = (nilai * bobot) / skorMax;
+            (isNaN(nilai)) ? nilai = 0: nilai = (nilai * bobot) / skorMax;
             total = total + nilai;
         }
-
+        // console.log(nilai, bobot, skorMax);
         callGrade(total);
     }
 
     function nilaiRadio(komp) {
+
         var total = 0;
 
         for (let i = 1; i <= jml; i++) {
-            var nilai = parseInt($('.val-' + komp + i + ':checked').val());
-            var bobot = parseInt($('.val-' + komp + i + ':checked').data('kompbobot'));
-            var skorMax = parseInt($('.val-' + komp + i + ':checked').data('skormax'));
+            var nilai = parseInt($('.val-' + komp + i + ':checked').val()); //3
+            var bobot = parseInt($('.val-' + komp + i + ':checked').data('kompbobot')); // 10
+            var skorMax = parseInt($('.val-' + komp + i + ':checked').data('skormax')); // 3
 
-            if (komp != 'MiniCex') {
-                (isNaN(nilai)) ? nilai = 0 : nilai = (nilai * bobot) / skorMax;
+            if (komp.split('_')[0] != 'MiniCex') {
+                (isNaN(nilai)) ? nilai = 0: nilai = (nilai * bobot) / skorMax;
                 total = total + nilai;
             } else {
-                (isNaN(nilai)) ? nilai = 0 : nilai = nilai;
+                (isNaN(nilai)) ? nilai = 0: nilai = nilai;
                 total = total + nilai;
-
             }
 
-
+            // console.log(nilai, bobot, skorMax);
         }
-        if (komp == 'MiniCex') {
+        if (komp.split('_')[0] == 'MiniCex') {
             total = (total * 10) / 6.3;
         }
-        // alert(total);
+        // console.log(nilai);
         callGrade(total);
     }
 
     function createEvent(komp) {
-        if (komp == 'Pretest' || komp == 'Postest' || komp == 'KDinasKesehatan') {
-            $("input[type=number].r-" + komp).keyup(function () {
+        // console.log(komp);
+        if (komp.split('_')[0] == 'Pretest' || komp.split('_')[0] == 'Postest' || komp.split('_')[0] == 'KDinasKesehatan') {
+            $("input[type=number].r-" + komp).keyup(function() {
                 nilaiTextBoxt(komp);
             });
         } else {
-            $('input[type=radio].r-' + komp).change(function () {
+            $('input[type=radio].r-' + komp).change(function() {
                 nilaiRadio(komp);
             });
         }
@@ -165,8 +169,8 @@ $(document).ready(function () {
             data: {
                 nilai: total
             },
-            success: function (response) {
-                console.log(response);
+            success: function(response) {
+                // console.log(response);
                 $('.grade').html('Nilai Huruf : ' + response);
             }
         });
