@@ -33,7 +33,9 @@ class DosenPembimbingModel extends Model
     public function getSpecificDosen($where)
     {
         $builder = $this->table('dosen_pembimbing');
-        $builder->where($where);
+        if ($where) {
+            $builder->where($where);
+        }
         $query = $builder;
         return $query;
     }

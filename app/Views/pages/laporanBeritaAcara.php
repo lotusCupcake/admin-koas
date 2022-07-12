@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berita Acara</title>
+    <title>Berita Acara <?= $dataInit[0]->kegiatanNama; ?></title>
     <style>
         table.mhs th {
             border: 1px solid black;

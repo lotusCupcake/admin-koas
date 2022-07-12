@@ -65,21 +65,21 @@
                 <div class="row">
                   <div class="form-group col-md-6 col-12">
                     <label>Email</label>
-                    <input type="text" class="form-control" value="<?= getUser(user()->id)->dopingEmail; ?>">
+                    <input type="text" class="form-control" value="<?= getUser(user()->id)->dopingEmail; ?>" readonly>
                   </div>
                   <div class="form-group col-md-6 col-12">
                     <label>Username</label>
-                    <input type="text" class="form-control" value="<?= getUser(user()->id)->username; ?>">
+                    <input type="text" class="form-control" value="<?= getUser(user()->id)->username; ?>" readonly>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-7 col-12">
                     <label>Alamat</label>
-                    <input type="email" class="form-control" value="<?= getUser(user()->id)->dopingAlamat; ?>">
+                    <input type="email" class="form-control" value="<?= getUser(user()->id)->dopingAlamat; ?>" readonly>
                   </div>
                   <div class="form-group col-md-5 col-12">
                     <label>Phone</label>
-                    <input type="tel" class="form-control" value="<?= getUser(user()->id)->dopingNoHandphone; ?>">
+                    <input type="tel" class="form-control" value="<?= getUser(user()->id)->dopingNoHandphone; ?>" readonly>
                   </div>
                 </div>
                 <div class="row">

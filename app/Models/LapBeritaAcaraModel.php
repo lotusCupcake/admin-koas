@@ -10,16 +10,19 @@ class LapBeritaAcaraModel extends Model
     protected $table = 'logbook';
     protected $stase = '';
 
-    public function getStase()
+    public function getStase($dosen)
     {
         $builder = $this->table('logbook');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = logbook.logbookDopingEmail', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = dosen_pembimbing.dopingRumkitId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where(['logbook.logbookDopingEmail' => user()->email, 'logbook.logbookIsVerify' => 1]);
+        if ($dosen) {
+            $builder->where(['logbook.logbookDopingEmail' => $dosen, 'logbook.logbookIsVerify' => 1]);
+        }
         $builder->groupBy(['stase.staseId']);
-        return $builder;
+        $staseBeritaAcara = $builder->get();
+        return $staseBeritaAcara;
     }
 
     public function getKegiatanMhs($staseBeritaAcara, $email)
@@ -75,6 +78,7 @@ class LapBeritaAcaraModel extends Model
                 return $subBuilder;
             }
         );
+        $builder->where($paramsCetak);
         $builder->groupBy(['stase.staseId']);
         $kelompokBerita = $builder->get();
         return $kelompokBerita;
