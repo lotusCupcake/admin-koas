@@ -10,16 +10,19 @@ class LapBeritaAcaraModel extends Model
     protected $table = 'logbook';
     protected $stase = '';
 
-    public function getStase()
+    public function getStase($dosen)
     {
         $builder = $this->table('logbook');
         $builder->join('dosen_pembimbing', 'dosen_pembimbing.dopingEmail = logbook.logbookDopingEmail', 'LEFT');
         $builder->join('rumkit', 'rumkit.rumahSakitId = dosen_pembimbing.dopingRumkitId', 'LEFT');
         $builder->join('rumkit_detail', 'rumkit_detail.rumkitDetId = logbook.logbookRumkitDetId', 'LEFT');
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
-        $builder->where(['logbook.logbookDopingEmail' => user()->email, 'logbook.logbookIsVerify' => 1]);
+        if ($dosen) {
+            $builder->where(['logbook.logbookDopingEmail' => $dosen, 'logbook.logbookIsVerify' => 1]);
+        }
         $builder->groupBy(['stase.staseId']);
-        return $builder;
+        $staseBeritaAcara = $builder->get();
+        return $staseBeritaAcara;
     }
 
     public function getKegiatanMhs($staseBeritaAcara, $email)
@@ -31,7 +34,7 @@ class LapBeritaAcaraModel extends Model
         $builder->join('stase', 'stase.staseId = rumkit_detail.rumkitDetStaseId', 'LEFT');
         $builder->join('kegiatan', 'kegiatan.kegiatanId = logbook.logbookKegiatanId', 'LEFT');
         $builder->where(['logbook.logbookDopingEmail' => $email, 'kegiatan.kegiatanBeritaAcara' => 1, 'logbook.logbookIsVerify' => 1, 'logbook.logbookRumkitDetId' => $staseBeritaAcara]);
-        $builder->groupBy('stase.staseId');
+        $builder->groupBy(['stase.staseId', 'logbook.logbookKegiatanId']);
         $kegiatanBerita = $builder->get();
         return $kegiatanBerita;
     }
@@ -47,7 +50,7 @@ class LapBeritaAcaraModel extends Model
         $builder->join('kelompok_detail', 'kelompok_detail.kelompokDetNim = logbook.logbookNim', 'LEFT');
         $builder->join('kelompok', 'kelompok.kelompokId = kelompok_detail.kelompokDetKelompokId', 'LEFT');
         $builder->where(['logbook.logbookDopingEmail' => $email, 'logbook.logbookIsVerify' => 1, 'logbook.logbookRumkitDetId' => $stase, 'logbook.logbookKegiatanId' => $kegiatan]);
-        $builder->groupBy(['stase.staseId']);
+        $builder->groupBy(['stase.staseId', 'kelompok.kelompokId', 'logbook.logbookKegiatanId']);
         $kelompokBerita = $builder->get();
         return $kelompokBerita;
     }
@@ -75,6 +78,7 @@ class LapBeritaAcaraModel extends Model
                 return $subBuilder;
             }
         );
+        $builder->where($paramsCetak);
         $builder->groupBy(['stase.staseId']);
         $kelompokBerita = $builder->get();
         return $kelompokBerita;

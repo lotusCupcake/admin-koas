@@ -157,14 +157,15 @@ $routes->post('/rekapAbsen/cetak', 'RekapAbsen::exportRekapAbsen');
 
 // Berita Acara
 $routes->get('/lapBeritaAcara/', 'LapBeritaAcara::index');
+$routes->get('/lapBeritaAcara/load', 'LapBeritaAcara::loadData');
+$routes->post('/lapBeritaAcara/stase', 'LapBeritaAcara::stase');
 $routes->post('/lapBeritaAcara/kegiatan', 'LapBeritaAcara::kegiatan');
 $routes->post('/lapBeritaAcara/kelompok', 'LapBeritaAcara::kelompok');
 $routes->post('/lapBeritaAcara/cetak', 'LapBeritaAcara::cetak');
 
 // Berita Skip Kegiatan
 $routes->get('/lapBeritaSkipKegiatan/', 'LapBeritaSkipKegiatan::index');
-$routes->post('/lapBeritaSkipKegiatan/kegiatan', 'LapBeritaSkipKegiatan::kegiatan');
-$routes->post('/lapBeritaSkipKegiatan/kelompok', 'LapBeritaSkipKegiatan::kelompok');
+$routes->get('/lapBeritaSkipKegiatan/load', 'LapBeritaSkipKegiatan::loadData');
 $routes->post('/lapBeritaSkipKegiatan/cetak', 'LapBeritaSkipKegiatan::cetak');
 
 

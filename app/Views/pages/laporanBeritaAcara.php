@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berita Acara</title>
+    <title>Berita Acara <?= $dataInit[0]->kegiatanNama; ?></title>
     <style>
         table.mhs th {
             border: 1px solid black;
@@ -45,7 +45,7 @@
                     <font color="black">Minggu KKS</font>
                 </b></td>
             <td>:</td>
-            <td>&nbsp; Minggu Ke - <?= week($dataInit[0]->kelompokDetNim, $dataInit[0]->staseId, ($dataInit[0]->logbookTanggal / 1000)); ?></td>
+            <td>&nbsp; Minggu Ke - ....</td>
         </tr>
         <tr>
             <td><strong>

@@ -81,9 +81,9 @@
                               <?php endif ?>
                               <td style="text-align:center">
                                 <?php if ($mhs->gradeApproveStatus == 0 && $mhs->gradeNilai != null) : ?>
-                                  <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?>" <?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "disabled" : "" ?> data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="edit"><i class="fas fa-edit"></i><?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "Edit Nilai Dikunci" : "Edit Nilai" ?></button>
+                                  <button class="btn btn-icon icon-left btn-info btn-<?= $menu->penilaianTarget ?> jml-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?>" <?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "disabled" : "" ?> data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="edit"><i class="fas fa-edit"></i><?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "Edit Nilai Dikunci" : "Edit Nilai" ?></button>
                                 <?php elseif ($mhs->gradeApproveStatus == 0 && $mhs->gradeNilai == null) : ?>
-                                  <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?>" <?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "disabled" : "" ?> data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="add"><i class="fas fa-marker"></i><?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "Nilai Dikunci" : "Berikan Nilai" ?></button>
+                                  <button class="btn btn-icon icon-left btn-success btn-<?= $menu->penilaianTarget ?> jml-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?>" <?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "disabled" : "" ?> data-toggle="modal" data-target="#<?= ($menu->penilaianTarget) ?><?= $mhs->kelompokDetNim . $mhs->staseId; ?>" data-keterangan="add"><i class="fas fa-marker"></i><?= ($isKoordik && $mhs->dopingEmail != $emailUser) ? "Nilai Dikunci" : "Berikan Nilai" ?></button>
                                 <?php else : ?>
                                   <button class="btn btn-icon icon-left btn-success" disabled data-toggle="modal">Sudah Dinilai</button>
                                 <?php endif; ?>
@@ -239,7 +239,7 @@ foreach ($menuNilai as $menu) : ?>
                         <?php $no = 1;
                         foreach ($nilaiMahasiswa as $komp) : ?>
                           <?php $nilai = getNilaiExist($mhs->gradeNilai, $komp->komponenId); ?>
-                          <tr class="<?= $menu->penilaianTarget ?>">
+                          <tr class="<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?>">
                             <td style="text-align:center"><?= $no++ ?></td>
                             <td><?= $komp->komponenNama ?></td>
                             <?php for ($i = $nilaiMahasiswa[0]->komponenSkorMin; $i <= $nilaiMahasiswa[0]->komponenSkorMax; $i++) : ?>
@@ -247,7 +247,7 @@ foreach ($menuNilai as $menu) : ?>
                                 <div class="selectgroup selectgroup-pills">
                                   <label for="<?= $komp->komponenNama . $i; ?>"></label>
                                   <label class="selectgroup-item">
-                                    <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required <?= ($nilai == $i) ? "checked" : "" ?>>
+                                    <input type="radio" name="<?= $komp->komponenId ?>" id="<?= $komp->komponenNama . $i; ?>" value="<?= $i ?>" class="selectgroup-input form-control r-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?> val-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" required <?= ($nilai == $i) ? "checked" : "" ?>>
                                     <span class="selectgroup-button selectgroup-button-icon"><?= $i ?></span>
                                   </label>
                                 </div>
@@ -304,7 +304,7 @@ foreach ($menuNilai as $menu) : ?>
                         <?php $no = 1;
                         foreach ($nilaiMahasiswa as $komp) : ?>
                           <?php $nilai = getNilaiExist($mhs->gradeNilai, $komp->komponenId); ?>
-                          <tr class="<?= $menu->penilaianTarget ?>">
+                          <tr class="<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?>">
                             <td style="text-align:center"><?= $no++ ?></td>
                             <td><?= $komp->komponenNama ?></td>
                             <?php if (!$komp->komponenIsNumber) : ?>
@@ -313,7 +313,7 @@ foreach ($menuNilai as $menu) : ?>
                               </td>
                             <?php else : ?>
                               <td style="padding: 10px;">
-                                <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget ?> val-<?= $menu->penilaianTarget . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" value="<?= $nilai ?>">
+                                <input type="number" min="<?= $komp->komponenSkorMin ?>" max="<?= $komp->komponenSkorMax ?>" placeholder="<?= $komp->komponenSkorMin . "-" . $komp->komponenSkorMax ?>" name="<?= $komp->komponenId ?>" id="" class="form-control r-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim ?> val-<?= $menu->penilaianTarget . '_' . $mhs->kelompokDetNim . ($no - 1) ?>" data-kompbobot="<?= $komp->komponenBobot ?>" data-skormax="<?= $komp->komponenSkorMax ?>" value="<?= $nilai ?>">
                               </td>
                             <?php endif ?>
                           </tr>
