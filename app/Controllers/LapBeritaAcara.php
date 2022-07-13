@@ -155,6 +155,7 @@ class LapBeritaAcara extends BaseController
         $kegiatanId = $this->request->getVar('kegiatanId');
         $kelompokBeritaAcara = $this->request->getVar('kelompokBeritaAcara');
         $dosenBeritaAcara = $this->request->getVar('dosenBeritaAcara');
+        $kegiatan = $this->dataKegiatanModel->getWhere(['kegiatanId' => $kegiatanId])->getResult()[0]->kegiatanNama;
         if (in_groups('Koordik')) {
             $paramsCetak = array(
                 'logbookRumkitDetId' => $staseBeritaAcara,
@@ -183,6 +184,6 @@ class LapBeritaAcara extends BaseController
         );
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
         $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
-        return redirect()->to($mpdf->Output('laporan_Berita_Acara.pdf', 'I'));
+        return redirect()->to($mpdf->Output('Berita Acara ' . $kegiatan . '.pdf', 'I'));
     }
 }

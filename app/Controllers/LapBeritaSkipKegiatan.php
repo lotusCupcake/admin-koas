@@ -103,35 +103,39 @@ class LapBeritaSkipKegiatan extends BaseController
     public function cetak()
     {
         $nim = [];
-        $staseBeritaAcara = $this->request->getPost('staseBeritaAcara');
-        $kegiatanId = $this->request->getPost('kegiatanId');
-        $kelompokBeritaAcara = $this->request->getPost('kelompokBeritaAcara');
+        $staseBeritaAcara = $this->request->getVar('staseBeritaAcara');
+        $kegiatanId = $this->request->getVar('kegiatanId');
+        $kelompokBeritaAcara = $this->request->getVar('kelompokBeritaAcara');
+        $dosenBeritaAcara = $this->request->getVar('dosenBeritaAcara');
         $kegiatan = $this->dataKegiatanModel->getWhere(['kegiatanId' => $kegiatanId])->getResult()[0]->kegiatanNama;
-        $kelompok = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokBeritaAcara])->getResult()[0]->kelompokNama;
-        $tahunAkademik = $this->dataKelompokModel->getWhere(['kelompokId' => $kelompokBeritaAcara])->getResult()[0]->kelompokTahunAkademik;
-        $paramsCetak = array(
-            'logbookRumkitDetId' => $staseBeritaAcara,
-            'logbookDopingEmail' => user()->email,
-            'logbookKegiatanId' => $kegiatanId,
-            'kelompokId' => $kelompokBeritaAcara,
-            'logbookIsVerify' => 1
-        );
+        if (in_groups('Koordik')) {
+            $paramsCetak = array(
+                'logbookRumkitDetId' => $staseBeritaAcara,
+                'logbookDopingEmail' => $dosenBeritaAcara,
+                'logbookKegiatanId' => $kegiatanId,
+                'kelompokId' => $kelompokBeritaAcara,
+                'logbookIsVerify' => 1
+            );
+        } else {
+            $paramsCetak = array(
+                'logbookRumkitDetId' => $staseBeritaAcara,
+                'logbookDopingEmail' => user()->email,
+                'logbookKegiatanId' => $kegiatanId,
+                'kelompokId' => $kelompokBeritaAcara,
+                'logbookIsVerify' => 1
+            );
+        }
 
         $cetakBeritaAcara = $this->lapBeritaAcaraModel->getCetakBerita_JadwalSkip($paramsCetak, $staseBeritaAcara)->getResult();
         foreach ($cetakBeritaAcara as $row_berita_acara) {
             array_push($nim, $row_berita_acara->logbookNim);
         }
-        if (count($nim) > 0) {
-            $dataCetak = array(
-                'dataInit' => $cetakBeritaAcara,
-                'dataMahasiswa' => $this->kelompokModel->dataKelompok(['kelompokDetKelompokId' => $kelompokBeritaAcara])->getResult(),
-            );
-            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
-            $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
-            return redirect()->to($mpdf->Output('laporan_Berita_Skip_Kegiatan.pdf', 'I'));
-        } else {
-            session()->setFlashdata('danger', 'Berita Acara <strong>' . $kelompok . ' - TA.' . $tahunAkademik . '</strong> Untuk Kegiatan <strong>' . $kegiatan . '</strong> Masih Kosong!');
-            return redirect()->to('lapBeritaSkipKegiatan');
-        }
+        $dataCetak = array(
+            'dataInit' => $cetakBeritaAcara,
+            'dataMahasiswa' => $this->kelompokModel->dataKelompok(['kelompokDetKelompokId' => $kelompokBeritaAcara])->getResult(),
+        );
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL']);
+        $mpdf->WriteHTML(view('pages/laporanBeritaAcara', $dataCetak));
+        return redirect()->to($mpdf->Output('Berita Acara ' . $kegiatan . '.pdf', 'I'));
     }
 }
